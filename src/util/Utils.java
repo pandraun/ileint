@@ -36,12 +36,12 @@ public class Utils {
     }
 
     public static enum Pion {
-        ROUGE("Rouge", new Color(255, 0, 0)),
-        VERT("Vert", new Color(0, 195, 0)),
-        BLEU("Bleu", new Color(55,194,198)),
-        ORANGE("Orange", new Color(255, 148, 0)),
-        VIOLET("Violet", new Color(204, 94, 255)),
-        JAUNE("Jaune", new Color(255, 255, 0)) ;    
+        ROUGE("Rouge", new Color(255, 0, 0)),       // INGENIEUR
+        VERT("Vert", new Color(0, 195, 0)),         // EXPLORATEUR
+        BLEU("Bleu", new Color(55,194,198)),        // PILOTE
+        ORANGE("Orange", new Color(255, 148, 0)),   // MESSAGER
+        VIOLET("Violet", new Color(204, 94, 255)),  // PLONGEUR
+        JAUNE("Jaune", new Color(255, 255, 0)) ;    // NAVIGATEUR
 
         private final String libelle ;
         private final Color couleur ;
