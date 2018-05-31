@@ -2,6 +2,7 @@ package ileint.Controleur;
 
 import ileint.Carte.CarteInnondation;
 import ileint.Carte.CarteOrange;
+import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Controleur {
     private ArrayList<CarteOrange> piocheOrange; //0..28
     private ArrayList<CarteOrange> defausseOrange; //0..28
     private ArrayList<Joueur> joueurs; //2..4
+    private Grille grille;
     
     public void Controleur() {
         
