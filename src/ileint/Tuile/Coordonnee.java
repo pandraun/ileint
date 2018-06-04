@@ -4,9 +4,14 @@ package ileint.Tuile;
  *
  * @author fodorg
  */
-class Coordonnee {
+public class Coordonnee {
     private int x;
     private int y;
+    
+    public Coordonnee(int x, int y) {
+        setX(x);
+        setY(y);
+    }
 
     /**
      * @return the x
