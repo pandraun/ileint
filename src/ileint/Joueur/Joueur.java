@@ -76,9 +76,49 @@ public class Joueur {
         return mainJoueur.size();
     }
    
-    
+    //ajouter carte dans main joueur
     public void addCarteMainJoueur(CarteOrange carte){
-        
+        mainJoueur.add(carte);
+    }
+    
+    
+    //supprimer carte dans main joueur
+    public void removeCarteMainJoueur(CarteOrange carte){
+        mainJoueur.remove(carte);
     }
 
+    public void demandeDeplacement (){
+        //role.seDeplacer(emplacementJoueur)
+    }
+    
+    public void demandeAssechement (CarteOrange carte){
+        //role.assecherCase(emplacementJoueur);
+    }
+    
+    /*public boolean deplacementPossible() {
+        
+    }
+    
+    public boolean assechementPossible() {
+        
+    }
+    
+    public boolean donnerCartePossible() {
+        
+    }
+    
+    public boolean recupererTresorPossible(){
+        
+    int nb = 0;
+    if (emplacementJoueur.caseTresor != null){
+        for (i = 0; i<mainJoueur.size(); i++ ){
+            if (emplacementJoueur.caseTresor = mainJoueur[i].typeTresor){
+                nb = nb +1;
+            }
+         }    
+    }
+    
+    return nb>4;
+    
+    }*/
 }
