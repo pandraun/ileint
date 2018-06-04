@@ -5,23 +5,27 @@ package ileint.Carte;
  * @author fodorg
  */
 public abstract class CarteOrange {
-    private boolean pileOrange;
+    private boolean piocheOrange;
     
-    public CarteOrange(boolean pileOrange){
-        this.setPile(pileOrange);
+    public CarteOrange(){
+        this.setPioche(true);
+    }
+    
+    public CarteOrange(boolean piocheOrange){
+        this.setPioche(piocheOrange);
     }
 
     /**
      * @return the pile
      */
-    public boolean isPile() {
-        return pileOrange;
+    public boolean isPioche() {
+        return piocheOrange;
     }
 
     /**
-     * @param pile the pile to set
+     * @param piocheOrange the pile to set
      */
-    public void setPile(boolean pileOrange) {
-        this.pileOrange = pileOrange;
+    public void setPioche(boolean piocheOrange) {
+        this.piocheOrange = piocheOrange;
     }
 }
