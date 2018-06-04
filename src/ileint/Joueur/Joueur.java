@@ -98,17 +98,29 @@ public class Joueur {
     }
     
     public boolean deplacementPossible() {
-        
+        if (toutesCasesCoulees){
+            for (int i =0; i<mainJoueur.size(); i++ ){
+                if (mainJoueur.get(i).){
+                    return true;
+                }
+            }
+             return false;
+        }
+        return true;
     }
     
-    /*
-    public boolean assechementPossible() {
-        
+    
+    /*public boolean assechementPossible() {
+        if (auMoins1CaseInnondee){
+            return true;
+        }
+        return false;
     }
     
     public boolean donnerCartePossible() {
-        
-    }*/
+        for (int i=0; i<getCasesCroix(); i++{
+            if 
+    }
     
     public boolean recupererTresorPossible(){
         
@@ -123,5 +135,5 @@ public class Joueur {
     
     return nb>4;
     
-    }
+    }*/
 }
