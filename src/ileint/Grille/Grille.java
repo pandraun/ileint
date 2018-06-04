@@ -15,9 +15,9 @@ public class Grille {
 
     private HashMap<Coordonnee,Tuile> tuiles;
 
-    public Grille(ArrayList<Tuile> tuiles, NomTuile libelle) {
+    public Grille(ArrayList<Tuile> tuiles) {
         this.tuiles = new HashMap<>();
-        setLibelle(libelle);
+
     }
 //    
 
