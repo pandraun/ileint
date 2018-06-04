@@ -16,4 +16,9 @@ public class MontéeEau extends CarteOrange {
     public TypeTresor getTypeTresor(){
         return null;
     }
+    
+    @Override
+    public String getTypeClasse(){
+        return "MontéeEau";
+    }
 }

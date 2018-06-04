@@ -11,10 +11,16 @@ public class Tresor extends CarteOrange {
 
     
     @Override
+    public String getTypeClasse(){
+        return "Tresor";
+    }
+    
+    @Override
     public TypeTresor getTypeTresor(){ //Recupere le type du tresor
         return type;
     }
-        
+    
+    
 
     /**
      * @return the type

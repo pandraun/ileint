@@ -12,8 +12,12 @@ public class Speciale extends CarteOrange {
         super(emplacement);
     }
     
+    public abstract String getTypeClasse();
+    
     @Override
     public TypeTresor getTypeTresor(){
         return null;
     }
+    
+    
 }

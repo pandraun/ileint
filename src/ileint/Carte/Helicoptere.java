@@ -6,4 +6,9 @@ package ileint.Carte;
  */
 public class Helicoptere extends Speciale {
     
+    
+    @Override
+    public String getTypeClasse(){
+        return "Helicoptere";
+    }
 }
