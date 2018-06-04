@@ -5,6 +5,7 @@ import ileint.Tuile.Tuile;
 import java.util.ArrayList;
 import util.Utils.EtatTuile;
 import ileint.Tuile.Coordonnee;
+import java.util.HashMap;
 
 /**
  *
@@ -12,18 +13,17 @@ import ileint.Tuile.Coordonnee;
  */
 public class Grille {
 
-    private ArrayList<Tuile> tuiles;
-    private NomTuile libelle;
+    private HashMap<Coordonnee,Tuile> tuiles;
 
     public Grille(ArrayList<Tuile> tuiles, NomTuile libelle) {
-        this.tuiles = new ArrayList<>();
+        this.tuiles = new HashMap<>();
         setLibelle(libelle);
     }
 //    
 
     public ArrayList<Tuile> getTuilesAssechees() { // retourne toutes les cases sèches du plateau
         ArrayList<Tuile> tuilesAssechees = new ArrayList<>();
-        for (Tuile uneTuile : tuiles) {
+        for (Tuile uneTuile : getTuiles().values()) {
             if (uneTuile.getEtat() == EtatTuile.ASSECHEE) {
                 tuilesAssechees.add(uneTuile);
             }
@@ -33,7 +33,7 @@ public class Grille {
 
     public ArrayList<Tuile> getTuilesCoulees() { // retourne toutes les cases coulées du plateau
         ArrayList<Tuile> tuilesCoulees = new ArrayList<>();
-        for (Tuile uneTuile : tuiles) {
+        for (Tuile uneTuile : getTuiles().values()) {
             if (uneTuile.getEtat() == EtatTuile.COULEE) {
                 tuilesCoulees.add(uneTuile);
             }
@@ -43,7 +43,7 @@ public class Grille {
 
     public ArrayList<Tuile> getTuilesInondees() { // retourne toutes les cases inondées du plateau
         ArrayList<Tuile> tuilesInondees = new ArrayList<>();
-        for (Tuile uneTuile : tuiles) {
+        for (Tuile uneTuile : getTuiles().values()) {
             if (uneTuile.getEtat() == EtatTuile.INONDEE) {
                 tuilesInondees.add(uneTuile);
             }
@@ -51,46 +51,40 @@ public class Grille {
         return tuilesInondees;
     }
 
-    public ArrayList<Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe)
-        ArrayList<Tuile> casesCarreExclude = new ArrayList<>();
-        int x,y;
-        
-        for (Tuile uneTuile : tuiles) {
-            Coordonnee sauv = new Coordonnee(pos.getCoordonnee().getX()+(-1),pos.getCoordonnee().getY()-1);
-            if (uneTuile.getCoordonnee() == sauv) {
-                casesCarreExclude.add(uneTuile);
+    public HashMap<Coordonnee,Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe)
+        HashMap<Coordonnee,Tuile> casesCarreExclude = new HashMap<>();
+        Coordonnee sauv;
+            
+        for (int i = -1; i<2; i++) {                                            // ligne
+            for (int j = -1; j<2; i++) {                                        // colonne
+                if (i != 0 && j != 0) {                                         // ne prendra pas la case sur lequel l'aventurier se trouve
+                    sauv = new Coordonnee(pos.getCoordonnee().getX()+i,pos.getCoordonnee().getY()+j);
+                    if (getTuiles().get(sauv) != null ) {                       //si c'est pas un bord ou jsp
+                        casesCarreExclude.put(sauv,getTuiles().get(sauv));
+                    }
+                }
+                
             }
-
         }
         return casesCarreExclude;
     }
 
     //-------------------------------- GETTERS SETTERS --------------------------------------------
+
     /**
      * @return the tuiles
      */
-    public ArrayList<Tuile> getTuiles() {
+    public HashMap<Coordonnee,Tuile> getTuiles() {
         return tuiles;
     }
 
     /**
      * @param tuiles the tuiles to set
      */
-    public void setTuiles(ArrayList<Tuile> tuiles) {
+    public void setTuiles(HashMap<Coordonnee,Tuile> tuiles) {
         this.tuiles = tuiles;
     }
 
-    /**
-     * @return the libelle
-     */
-    public NomTuile getLibelle() {
-        return libelle;
-    }
 
-    /**
-     * @param libelle the libelle to set
-     */
-    public void setLibelle(NomTuile libelle) {
-        this.libelle = libelle;
-    }
+    
 }

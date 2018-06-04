@@ -50,9 +50,9 @@ public class Tuile {
         }
     }
     
-    public Tuile getTuileAtPosition(Coordonnee coord) {
-        return  
-    } 
+//    public Tuile getTuileAtPosition(Coordonnee coord) {
+//        return  
+//    } 
     
     
     //-------------------------------- GETTERS SETTERS --------------------------------------------
