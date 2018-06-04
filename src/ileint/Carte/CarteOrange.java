@@ -26,7 +26,7 @@ public abstract class CarteOrange {
      * @param emplacement the emplacement to set
      */
     public void setEmplacement(int emplacement) {
-        if emplacement
+        
     }
 
 
