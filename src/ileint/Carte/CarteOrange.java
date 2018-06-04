@@ -13,8 +13,9 @@ public abstract class CarteOrange {
         this.setEmplacement(emplacement);
     }
 
+    public abstract String getTypeClasse();
     public abstract TypeTresor getTypeTresor(); //permet de recuperer le type de tresor de la carte
-    
+
     /**
      * @return the emplacement
      */
