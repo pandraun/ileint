@@ -3,6 +3,7 @@ package ileint.Tuile;
 import ileint.Joueur.Joueur;
 import java.util.HashSet;
 import util.TypeTresor;
+import util.Utils.EtatTuile;
 
 /**
  *
