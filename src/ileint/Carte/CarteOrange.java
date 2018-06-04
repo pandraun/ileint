@@ -1,31 +1,33 @@
 package ileint.Carte;
 
+import util.TypeTresor;
+
 /**
  *
  * @author fodorg
  */
 public abstract class CarteOrange {
-    private boolean piocheOrange;
+    private int emplacement;
     
-    public CarteOrange(){
-        this.setPioche(true);
+    public CarteOrange(int emplacement){
+        this.setEmplacement(emplacement);
     }
+
+    public abstract TypeTresor getTypeTresor(); //permet de recuperer le type de tresor de la carte
     
-    public CarteOrange(boolean piocheOrange){
-        this.setPioche(piocheOrange);
+    /**
+     * @return the emplacement
+     */
+    public int getEmplacement() {
+        return emplacement;
     }
 
     /**
-     * @return the pile
+     * @param emplacement the emplacement to set
      */
-    public boolean isPioche() {
-        return piocheOrange;
+    public void setEmplacement(int emplacement) {
+        if emplacement
     }
 
-    /**
-     * @param piocheOrange the pile to set
-     */
-    public void setPioche(boolean piocheOrange) {
-        this.piocheOrange = piocheOrange;
-    }
+
 }
