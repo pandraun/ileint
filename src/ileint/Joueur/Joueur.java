@@ -122,6 +122,7 @@ public class Joueur {
             if 
     }
     
+    
     public boolean recupererTresorPossible(){
         
     int nb = 0;
@@ -136,5 +137,5 @@ public class Joueur {
     return nb>4;
     
     }
-*/
+ */
 }
