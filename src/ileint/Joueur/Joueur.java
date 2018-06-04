@@ -61,6 +61,8 @@ public class Joueur {
 
     public void setEmplacementJoueur(Tuile emplacementJoueur) {
         this.emplacementJoueur = emplacementJoueur;
+        
+        
     }
 
     public void setControleur(Controleur controleur) {
@@ -95,24 +97,25 @@ public class Joueur {
         //role.assecherCase(emplacementJoueur);
     }
     
-    /*public boolean deplacementPossible() {
+    public boolean deplacementPossible() {
         
     }
     
+    /*
     public boolean assechementPossible() {
         
     }
     
     public boolean donnerCartePossible() {
         
-    }
+    }*/
     
     public boolean recupererTresorPossible(){
         
     int nb = 0;
-    if (emplacementJoueur.caseTresor != null){
-        for (i = 0; i<mainJoueur.size(); i++ ){
-            if (emplacementJoueur.caseTresor = mainJoueur[i].typeTresor){
+    if (emplacementJoueur.getCaseTresor() != null){
+        for (int i = 0; i<mainJoueur.size(); i++ ){
+            if (emplacementJoueur.getCaseTresor() = mainJoueur.get(i). ){
                 nb = nb +1;
             }
          }    
@@ -120,5 +123,5 @@ public class Joueur {
     
     return nb>4;
     
-    }*/
+    }
 }
