@@ -142,7 +142,7 @@ public class Joueur {
          }    
     }
     
-    return nb>4;
+    return nb>3;
         
     }
 
