@@ -18,7 +18,9 @@ public class Grille {
         setLibelle(libelle);
     }
 //    
-//    public boolean 
+    public boolean isCaseNull() {
+        
+    }
     
     
     //-------------------------------- GETTERS SETTERS --------------------------------------------
