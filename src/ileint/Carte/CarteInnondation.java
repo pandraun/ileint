@@ -7,19 +7,12 @@ import ileint.Tuile.Tuile;
  * @author fodorg
  */
 public class CarteInnondation {
-
-    /**
-     * @return the nom
-     */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
+    private Tuile tuile;
+    private boolean pile; //permet de déterminer si la carte est dans la pile ou dans la defausse
+    
+    public CarteInnondation(Tuile tuile, boolean pile){
+        this.setTuile(tuile);
+        this.setPile(pile);
     }
 
     /**
@@ -35,7 +28,21 @@ public class CarteInnondation {
     public void setTuile(Tuile tuile) {
         this.tuile = tuile;
     }
-    private String nom;
-    private Tuile tuile;
+
+    /**
+     * @return the pile
+     */
+    public boolean isPile() {
+        return pile;
+    }
+
+    /**
+     * @param pile the pile to set
+     */
+    public void setPile(boolean pile) {
+        this.pile = pile;
+    }
     
+
+  
 }
