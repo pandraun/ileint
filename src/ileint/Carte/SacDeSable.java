@@ -6,4 +6,8 @@ package ileint.Carte;
  */
 public class SacDeSable extends Speciale {
     
+    @Override
+    public String getTypeClasse(){
+        return "SacDeSable";
+    }
 }
