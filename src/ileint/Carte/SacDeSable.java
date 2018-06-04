@@ -1,12 +1,14 @@
 package ileint.Carte;
 
+import util.EmplacementCarte;
+
 /**
  *
  * @author fodorg
  */
 public class SacDeSable extends Speciale {
 
-    public SacDeSable(int emplacement) {
+    public SacDeSable(EmplacementCarte emplacement) {
         super(emplacement);
     }
     
