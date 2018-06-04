@@ -1,13 +1,19 @@
 package ileint.Carte;
 
+import util.TypeTresor;
+
 /**
  *
  * @author fodorg
  */
 public class MontéeEau extends CarteOrange {
     
-    public MontéeEau(boolean pileOrange) {
-        super(pileOrange);
+    public MontéeEau(int emplacement) {
+        super(emplacement);
     }
     
+    @Override
+    public TypeTresor getTypeTresor(){
+        return null;
+    }
 }

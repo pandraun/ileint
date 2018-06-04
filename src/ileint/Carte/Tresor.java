@@ -7,7 +7,14 @@ import util.TypeTresor;
  * @author fodorg
  */
 public class Tresor extends CarteOrange {
-    private TypeTresor type;
+    protected TypeTresor type;
+
+    
+    @Override
+    public TypeTresor getTypeTresor(){ //Recupere le type du tresor
+        return type;
+    }
+        
 
     /**
      * @return the type
