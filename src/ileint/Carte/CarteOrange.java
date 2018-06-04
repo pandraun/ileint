@@ -1,5 +1,6 @@
 package ileint.Carte;
 
+import util.EmplacementCarte;
 import util.TypeTresor;
 
 /**
@@ -7,10 +8,10 @@ import util.TypeTresor;
  * @author fodorg
  */
 public abstract class CarteOrange {
-    private int emplacement;
+    private EmplacementCarte emplacement;
     
-    public CarteOrange(int emplacement){
-        this.setEmplacement(emplacement);
+    public CarteOrange(EmplacementCarte emplacement){
+        this.setEmplacementCarte(emplacement);
     }
 
     public abstract String getTypeClasse();
@@ -19,15 +20,15 @@ public abstract class CarteOrange {
     /**
      * @return the emplacement
      */
-    public int getEmplacement() {
+    public EmplacementCarte getEmplacementCarte() {
         return emplacement;
     }
 
     /**
      * @param emplacement the emplacement to set
      */
-    public void setEmplacement(int emplacement) {
-        
+    public void setEmplacementCarte(EmplacementCarte emplacement) {
+        this.emplacement = emplacement;
     }
 
 

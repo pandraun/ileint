@@ -1,5 +1,6 @@
 package ileint.Carte;
 
+import util.EmplacementCarte;
 import util.TypeTresor;
 
 /**
@@ -8,7 +9,7 @@ import util.TypeTresor;
  */
 public abstract class Speciale extends CarteOrange {
 
-    public Speciale(int emplacement) {
+    public Speciale(EmplacementCarte emplacement) {
         super(emplacement);
     }
     
