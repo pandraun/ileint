@@ -96,7 +96,7 @@ public class Joueur {
     public void demandeAssechement (CarteOrange carte){
         //role.assecherCase(emplacementJoueur);
     }
-    
+    /*
     public boolean deplacementPossible() {
         if (toutesCasesCoulees){
             for (int i =0; i<mainJoueur.size(); i++ ){
@@ -110,7 +110,7 @@ public class Joueur {
     }
     
     
-    /*public boolean assechementPossible() {
+    public boolean assechementPossible() {
         if (auMoins1CaseInnondee){
             return true;
         }
@@ -127,7 +127,7 @@ public class Joueur {
     int nb = 0;
     if (emplacementJoueur.getCaseTresor() != null){
         for (int i = 0; i<mainJoueur.size(); i++ ){
-            if (emplacementJoueur.getCaseTresor() = mainJoueur.get(i). ){
+            if (emplacementJoueur.getCaseTresor() = mainJoueur.get(i).getTypeTresor()){
                 nb = nb +1;
             }
          }    
@@ -135,5 +135,6 @@ public class Joueur {
     
     return nb>4;
     
-    }*/
+    }
+*/
 }
