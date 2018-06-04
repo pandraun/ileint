@@ -9,7 +9,7 @@ package util;
  *
  * @author pandraun
  */
-public enum Emplacement {
+public enum EmplacementCarte {
     PIOCHE,
     DEFAUSSE,
     MAINJOUEUR;

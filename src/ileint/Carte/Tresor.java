@@ -1,5 +1,6 @@
 package ileint.Carte;
 
+import util.EmplacementCarte;
 import util.TypeTresor;
 
 /**
@@ -8,6 +9,10 @@ import util.TypeTresor;
  */
 public class Tresor extends CarteOrange {
     protected TypeTresor type;
+
+    public Tresor(EmplacementCarte emplacement) {
+        super(emplacement);
+    }
 
     
     @Override

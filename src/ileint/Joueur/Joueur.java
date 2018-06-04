@@ -96,11 +96,13 @@ public class Joueur {
     public void demandeAssechement (CarteOrange carte){
         //role.assecherCase(emplacementJoueur);
     }
+    
+    
     /*
     public boolean deplacementPossible() {
         if (toutesCasesCoulees){
             for (int i =0; i<mainJoueur.size(); i++ ){
-                if (mainJoueur.get(i).){
+                if (mainJoueur.get(i).getTypeClasse() == "Helicoptere"){
                     return true;
                 }
             }
@@ -116,25 +118,32 @@ public class Joueur {
         }
         return false;
     }
+     
+
     
-    public boolean donnerCartePossible() {
+    public boolean donnerCartePossible(Joueur joueur) {
         for (int i=0; i<getCasesCroix(); i++{
-            if 
+            if (joueur.getEmplacementJoueur() == getCasesCroix[i]){
+                return true;
+            }
+        }
+        return false;
     }
-    
+   */
+     
     public boolean recupererTresorPossible(){
         
     int nb = 0;
     if (emplacementJoueur.getCaseTresor() != null){
         for (int i = 0; i<mainJoueur.size(); i++ ){
-            if (emplacementJoueur.getCaseTresor() = mainJoueur.get(i).getTypeTresor()){
+            if(emplacementJoueur.getCaseTresor() == mainJoueur.get(i).getTypeTresor()) {
                 nb = nb +1;
             }
          }    
     }
     
-    return nb>4;
-    
+    return nb>3;
+        
     }
-*/
+
 }

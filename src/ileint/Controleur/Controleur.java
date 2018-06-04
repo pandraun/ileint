@@ -19,7 +19,7 @@ public class Controleur {
     private ArrayList<Joueur> joueurs; //2..4
     private Grille grille;
     
-    public void Controleur() {
+    public Controleur(){
         
     }
 
