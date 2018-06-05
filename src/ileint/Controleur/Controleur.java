@@ -99,4 +99,36 @@ public class Controleur {
         }
     }
 
+    
+    //getters
+    public ArrayList<CarteInnondation> getPiocheInnondation() {
+        return piocheInnondation;
+    }
+
+    public ArrayList<CarteInnondation> getDefausseInnondation() {
+        return defausseInnondation;
+    }
+
+    public ArrayList<CarteOrange> getPiocheOrange() {
+        return piocheOrange;
+    }
+
+    public ArrayList<CarteOrange> getDefausseOrange() {
+        return defausseOrange;
+    }
+
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    public ArrayList<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+
+    public Grille getGrille() {
+        return grille;
+    }
+    
+    
+
 }
