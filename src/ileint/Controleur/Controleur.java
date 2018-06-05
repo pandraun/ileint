@@ -1,7 +1,7 @@
 package ileint.Controleur;
 
 import ileint.Aventurier.Aventurier;
-import ileint.Carte.CarteInnondation;
+import ileint.Carte.CarteInondation;
 import ileint.Carte.CarteOrange;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
@@ -21,8 +21,8 @@ import util.Utils;
 public class Controleur {
 
     private int niveauEau;
-    private ArrayList<CarteInnondation> piocheInnondation; // 0..24
-    private ArrayList<CarteInnondation> defausseInnondation; // 0..24
+    private ArrayList<CarteInondation> piocheInondation; // 0..24
+    private ArrayList<CarteInondation> defausseInondation; // 0..24
     private ArrayList<CarteOrange> piocheOrange; //0..28
     private ArrayList<CarteOrange> defausseOrange; //0..28
     private ArrayList<Joueur> joueurs; //2..4
@@ -38,7 +38,7 @@ public class Controleur {
             aventuriers.remove(aventuriers.get(1));
         }
 
-        Collections.shuffle(piocheInnondation);
+        Collections.shuffle(piocheInondation);
         Collections.shuffle(piocheOrange);
 
         //Initialisation des tuiles à la main
@@ -101,12 +101,12 @@ public class Controleur {
 
     
     //getters
-    public ArrayList<CarteInnondation> getPiocheInnondation() {
-        return piocheInnondation;
+    public ArrayList<CarteInondation> getPiocheInondation() {
+        return piocheInondation;
     }
 
-    public ArrayList<CarteInnondation> getDefausseInnondation() {
-        return defausseInnondation;
+    public ArrayList<CarteInondation> getDefausseInondation() {
+        return defausseInondation;
     }
 
     public ArrayList<CarteOrange> getPiocheOrange() {

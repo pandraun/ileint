@@ -21,41 +21,23 @@ public class Grille {
     }
 //    
 
-    public ArrayList<Tuile> getTuilesAssechees() { // retourne toutes les cases sèches du plateau
-        ArrayList<Tuile> tuilesAssechees = new ArrayList<>();
-        for (Tuile uneTuile : getTuiles().values()) {
-            if (uneTuile.getEtat() == EtatTuile.ASSECHEE) {
-                tuilesAssechees.add(uneTuile);
-            }
-        }
-        return tuilesAssechees;
+    public HashMap<Coordonnee,Tuile> getTuilesAssechees() { // retourne toutes les cases sèches du plateau
+        return filtreCasesSeches(tuiles);
     }
 
-    public ArrayList<Tuile> getTuilesCoulees() { // retourne toutes les cases coulées du plateau
-        ArrayList<Tuile> tuilesCoulees = new ArrayList<>();
-        for (Tuile uneTuile : getTuiles().values()) {
-            if (uneTuile.getEtat() == EtatTuile.COULEE) {
-                tuilesCoulees.add(uneTuile);
-            }
-        }
-        return tuilesCoulees;
+    public HashMap<Coordonnee,Tuile> getTuilesCoulees() { // retourne toutes les cases coulées du plateau
+        return filtreCasesCoulees(tuiles);
     }
 
-    public ArrayList<Tuile> getTuilesInondees() { // retourne toutes les cases inondées du plateau
-        ArrayList<Tuile> tuilesInondees = new ArrayList<>();
-        for (Tuile uneTuile : getTuiles().values()) {
-            if (uneTuile.getEtat() == EtatTuile.INONDEE) {
-                tuilesInondees.add(uneTuile);
-            }
-        }
-        return tuilesInondees;
+    public HashMap<Coordonnee,Tuile> getTuilesInondees() { // retourne toutes les cases inondées du plateau
+        return filtreCasesInondees(tuiles);
     }
 
-    public ArrayList<Tuile> getTuilesAccessibles() { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
-        ArrayList<Tuile> tuilesAccessibles = new ArrayList<>();
-        tuilesAccessibles.addAll(getTuilesAssechees());
-        tuilesAccessibles.addAll(getTuilesInondees());
-        return tuilesAccessibles;
+    public HashMap<Coordonnee,Tuile> getTuilesAccessibles() { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
+        HashMap<Coordonnee,Tuile> tuilesAccessibles = new HashMap<>();
+        tuilesAccessibles.putAll(getTuilesAssechees());
+        tuilesAccessibles.putAll(getTuilesInondees());
+        return tuilesAccessibles;    // utile pilote et peut etre plongeur
     }
     
     public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(HashMap<Coordonnee,Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
@@ -151,6 +133,15 @@ public class Grille {
     public HashMap<Coordonnee,Tuile> filtreCasesInondees(HashMap<Coordonnee,Tuile> casesAlentours){ // retourne liste en gardant seulement les cases inondées (byebye null et autres)
             for (Tuile uneTuile : casesAlentours.values()) {
                 if (uneTuile.getEtat() != EtatTuile.INONDEE) {
+                    casesAlentours.remove(uneTuile);
+                }
+            }
+        return casesAlentours;
+    }
+    
+    public HashMap<Coordonnee,Tuile> filtreCasesCoulees(HashMap<Coordonnee,Tuile> casesAlentours){ // retourne liste en gardant seulement les cases inondées (byebye null et autres)
+            for (Tuile uneTuile : casesAlentours.values()) {
+                if (uneTuile.getEtat() != EtatTuile.COULEE) {
                     casesAlentours.remove(uneTuile);
                 }
             }
