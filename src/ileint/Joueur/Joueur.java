@@ -17,16 +17,15 @@ public class Joueur {
     private Tuile emplacementJoueur;
     private Controleur controleur;
     private ArrayList<CarteOrange> mainJoueur;
-    
-    
+
     //Constructeur   
-    public Joueur(int numeroJoueur, Controleur controleur, Aventurier role){
+    public Joueur(int numeroJoueur, Controleur controleur, Aventurier role) {
         this.numeroJoueur = numeroJoueur;
         this.controleur = controleur;
         this.role = role;
-        
+
         emplacementJoueur = role.getTuileDepart();
-        
+
     }
 
     //Getters
@@ -61,8 +60,7 @@ public class Joueur {
 
     public void setEmplacementJoueur(Tuile emplacementJoueur) {
         this.emplacementJoueur = emplacementJoueur;
-        
-        
+
     }
 
     public void setControleur(Controleur controleur) {
@@ -72,78 +70,70 @@ public class Joueur {
     public void setMainJoueur(ArrayList<CarteOrange> mainJoueur) {
         this.mainJoueur = mainJoueur;
     }
-    
+
     // nombre de cartes dans la main du joueur
-    public int nbCartesJoueur(){
+    public int nbCartesJoueur() {
         return mainJoueur.size();
     }
-   
+
     //ajouter carte dans main joueur
-    public void addCarteMainJoueur(CarteOrange carte){
+    public void addCarteMainJoueur(CarteOrange carte) {
         mainJoueur.add(carte);
     }
-    
-    
+
     //supprimer carte dans main joueur
-    public void removeCarteMainJoueur(CarteOrange carte){
+    public void removeCarteMainJoueur(CarteOrange carte) {
         mainJoueur.remove(carte);
     }
 
-    public void demandeDeplacement (){
+    public void demandeDeplacement() {
         //role.seDeplacer(emplacementJoueur)
     }
-    
-    public void demandeAssechement (CarteOrange carte){
+
+    public void demandeAssechement(CarteOrange carte) {
         //role.assecherCase(emplacementJoueur);
     }
-    
-    
-    /*
-    public boolean deplacementPossible() {
-        if (toutesCasesCoulees){
-            for (int i =0; i<mainJoueur.size(); i++ ){
-                if (mainJoueur.get(i).getTypeClasse() == "Helicoptere"){
-                    return true;
-                }
-            }
-             return false;
-        }
-        return true;
-    }
-    
-    
-    public boolean assechementPossible() {
-        if (auMoins1CaseInnondee){
-            return true;
-        }
-        return false;
-    }
-     
 
-    
-    public boolean donnerCartePossible(Joueur joueur) {
-        for (int i=0; i<getCasesCroix(); i++{
-            if (joueur.getEmplacementJoueur() == getCasesCroix[i]){
+    public boolean isDeplacementPossible() {
+        for (int i = 0; i < 4; i++) {
+            if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesCroix(getEmplacementJoueur()))
+                    != null) {
                 return true;
             }
         }
+
         return false;
     }
-   */
-     
-    public boolean recupererTresorPossible(){
-        
-    int nb = 0;
-    if (emplacementJoueur.getCaseTresor() != null){
-        for (int i = 0; i<mainJoueur.size(); i++ ){
-            if(emplacementJoueur.getCaseTresor() == mainJoueur.get(i).getTypeTresor()) {
-                nb = nb +1;
+
+    public boolean isAssechementPossible() {
+
+        for (int i = 0; i < 5; i++) {
+            if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesCroix(getEmplacementJoueur()))
+                    != null) {
+                return true;
             }
-         }    
+        }
+
+        return false;
     }
-    
-    return nb>3;
-        
+
+    public boolean isDonnerCartePossible(Joueur joueurCible) {
+        return joueurCible.getEmplacementJoueur() == getEmplacementJoueur();
+    }
+
+    public boolean isRecupererTresorPossible() {
+
+        int nb = 0;
+        if (emplacementJoueur.getCaseTresor() != null) {
+            for (int i = 0; i < mainJoueur.size(); i++) {
+                if (emplacementJoueur.getCaseTresor() == mainJoueur.get(i).getTypeTresor()) {
+                    nb = nb + 1;
+                }
+            }
+        }
+
+        return nb > 3;
+
     }
 
 }

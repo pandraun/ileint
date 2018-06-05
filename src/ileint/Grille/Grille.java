@@ -57,6 +57,13 @@ public class Grille {
         tuilesAccessibles.addAll(getTuilesInondees());
         return tuilesAccessibles;
     }
+    
+    public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(HashMap<Coordonnee,Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
+            HashMap<Coordonnee,Tuile> tuilesAccessibles = new HashMap<>();
+            tuilesAccessibles.putAll(filtreCasesInondees(listeCasesAlentours));
+            tuilesAccessibles.putAll(filtreCasesSeches(listeCasesAlentours));
+        return tuilesAccessibles;
+    }
 
     public HashMap<Coordonnee, Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe) + null traité
         HashMap<Coordonnee, Tuile> casesCarreExclude = new HashMap<>();
@@ -130,6 +137,24 @@ public class Grille {
             }
         }
         return casesCroix;
+    }
+    
+    public HashMap<Coordonnee,Tuile> filtreCasesSeches(HashMap<Coordonnee,Tuile> casesAlentours){ // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
+            for (Tuile uneTuile : casesAlentours.values()) {
+                if (uneTuile.getEtat() != EtatTuile.ASSECHEE) {
+                    casesAlentours.remove(uneTuile);
+                }
+            }
+        return casesAlentours;
+    }
+    
+    public HashMap<Coordonnee,Tuile> filtreCasesInondees(HashMap<Coordonnee,Tuile> casesAlentours){ // retourne liste en gardant seulement les cases inondées (byebye null et autres)
+            for (Tuile uneTuile : casesAlentours.values()) {
+                if (uneTuile.getEtat() != EtatTuile.INONDEE) {
+                    casesAlentours.remove(uneTuile);
+                }
+            }
+        return casesAlentours;
     }
 
     //-------------------------------- GETTERS SETTERS --------------------------------------------
