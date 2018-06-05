@@ -16,14 +16,14 @@ public class Tuile {
     private TypeTresor caseTresor; 
     private HashSet<Joueur> joueursTuile;
     
-    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat,HashSet<Joueur> joueursTuile) {
+    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat) {
         setNom(nom);
         setCoordonnee(coordonnee);
         setEtat(etat);
         this.joueursTuile = new HashSet<>();
         setCaseTresor(null);
     }
-    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat,HashSet<Joueur> joueursTuile, TypeTresor caseTresor) {
+    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat, TypeTresor caseTresor) {
         setNom(nom);
         setCoordonnee(coordonnee);
         setEtat(etat);
