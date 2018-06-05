@@ -33,7 +33,7 @@ public class Grille {
         return filtreCasesInondees(tuiles);
     }
 
-    public HashMap<Coordonnee,Tuile> getTuilesAccessibles() { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
+    public HashMap<Coordonnee,Tuile> getTuilesAccessiblesPilote() { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
         HashMap<Coordonnee,Tuile> tuilesAccessibles = new HashMap<>();
         tuilesAccessibles.putAll(getTuilesAssechees());
         tuilesAccessibles.putAll(getTuilesInondees());
@@ -47,7 +47,17 @@ public class Grille {
         return tuilesAccessibles;
     }
 
-    public HashMap<Coordonnee, Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe) + null traité
+    //__________________________________________
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //            | X +   + X |
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //     getCasesContourDeplacement(Tuile pos) => cases cochées récupérées
+    
+    public HashMap<Coordonnee, Tuile> getCasesContourDeplacement(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe) sans l'inclure + null traité
         HashMap<Coordonnee, Tuile> casesCarreExclude = new HashMap<>();
         Coordonnee sauv;
 
@@ -64,7 +74,17 @@ public class Grille {
         return casesCarreExclude;
     }
 
-    public HashMap<Coordonnee, Tuile> getCasesCroixExclude(Tuile pos) { // retourne les 4 cases qui entourent la tuile (où le joueur se situe) + null traité
+    //__________________________________________
+    //            +---+---+---+
+    //            |   + X +   |
+    //            +---+---+---+
+    //            | X +   + X |
+    //            +---+---+---+
+    //            |   + X +   |
+    //            +---+---+---+
+    //     getCasesLateralesDeplacement(Tuile pos) => cases cochées récupérées
+    
+    public HashMap<Coordonnee, Tuile> getCasesLateralesDeplacement(Tuile pos) { // retourne les 4 cases qui entourent la tuile (où le joueur se situe) sans l'inclure + null traité
         HashMap<Coordonnee, Tuile> casesCroixExclude = new HashMap<>();
         Coordonnee sauv;
 
@@ -85,8 +105,17 @@ public class Grille {
         }
         return casesCroixExclude;
     }
-
-    public HashMap<Coordonnee, Tuile> getCasesCarre(Tuile pos) { // retourne les 9 cases qui entourent la tuile (où le joueur se situe) incluse + null traité
+    
+    //__________________________________________
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //     getCasesContourAssechement(Tuile pos) => cases cochées récupérées
+    public HashMap<Coordonnee, Tuile> getCasesContourAssechement(Tuile pos) { // retourne les 9 cases qui entourent la tuile (où le joueur se situe) incluse + null traité
         HashMap<Coordonnee, Tuile> casesCarre = new HashMap<>();
         Coordonnee sauv;
 
@@ -101,7 +130,16 @@ public class Grille {
         return casesCarre;
     }
 
-    public HashMap<Coordonnee, Tuile> getCasesCroix(Tuile pos) { // retourne les 4 cases qui entourent la tuile (où le joueur se situe) incluse + null traité
+    //__________________________________________
+    //            +---+---+---+
+    //            |   + X +   |
+    //            +---+---+---+
+    //            | X + X + X |
+    //            +---+---+---+
+    //            |   + X +   |
+    //            +---+---+---+
+    //     getCasesLateralesAssechement(Tuile pos) => cases cochées récupérées
+    public HashMap<Coordonnee, Tuile> getCasesLateralesAssechement(Tuile pos) { // retourne les 4 cases qui entourent la tuile (où le joueur se situe) incluse + null traité
         HashMap<Coordonnee, Tuile> casesCroix = new HashMap<>();
         Coordonnee sauv;
 
