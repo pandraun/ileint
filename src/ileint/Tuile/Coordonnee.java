@@ -15,15 +15,15 @@ public class Coordonnee {
         setY(y);
     }
 
-    public ArrayList<Coordonnee> getCases(Coordonnee pos) {
-        ArrayList<Coordonnee> cases = new ArrayList<>();
-        Coordonnee sauv;
-        for (int i = 0; i!= 4 && i<9; i++) {
-            sauv = new Coordonnee(pos.getX()-1,pos.getY()-1);
-            cases.add(sauv);
-        }            
-        return cases;
-    }
+//    public ArrayList<Coordonnee> getCases(Coordonnee pos) {
+//        ArrayList<Coordonnee> cases = new ArrayList<>();
+//        Coordonnee sauv;
+//        for (int i = 0; i!= 4 && i<9; i++) {
+//            sauv = new Coordonnee(pos.getX()-1,pos.getY()-1);
+//            cases.add(sauv);
+//        }            
+//        return cases;
+//    }
     
     
         //-------------------------------- GETTERS SETTERS --------------------------------------------
