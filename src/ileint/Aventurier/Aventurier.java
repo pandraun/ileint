@@ -47,7 +47,7 @@ public abstract class Aventurier {
         this.couleur = couleur;
     }
 
-    public void setTuileDepart(Tuile tuileDepart) {
+   public void setTuileDepart (Tuile tuileDepart) {
         this.tuileDepart = tuileDepart;
     }
 
