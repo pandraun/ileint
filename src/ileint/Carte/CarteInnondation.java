@@ -8,15 +8,15 @@ import ileint.Tuile.Tuile;
  */
 public class CarteInnondation {
     private Tuile tuile;
-    private boolean piocheInnodation; //permet de déterminer si la carte est dans la pile ou dans la defausse
+    private boolean Innodationpioche; //permet de déterminer si la carte est dans la pile ou dans la defausse
     
     public CarteInnondation(){
         this.setPioche(true);
     }
     
-    public CarteInnondation(Tuile tuile, boolean piocheInnodation){
+    public CarteInnondation(Tuile tuile, boolean Innodationpioche){
         this.setTuile(tuile);
-        this.setPioche(piocheInnodation);
+        this.setPioche(Innodationpioche);
     }
 
     /**
@@ -37,14 +37,14 @@ public class CarteInnondation {
      * @return the pileInnodation
      */
     public boolean isPioche() {
-        return piocheInnodation;
+        return Innodationpioche;
     }
 
     /**
      * @param piocheInnodation the pile to set
      */
     public void setPioche(boolean piocheInnodation) {
-        this.piocheInnodation = piocheInnodation;
+        this.Innodationpioche = piocheInnodation;
     }
     
 
