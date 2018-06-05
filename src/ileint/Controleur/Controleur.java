@@ -1,7 +1,7 @@
 package ileint.Controleur;
 
 import ileint.Aventurier.Aventurier;
-import ileint.Carte.CarteInnondation;
+import ileint.Carte.CarteInondation;
 import ileint.Carte.CarteOrange;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
