@@ -6,17 +6,17 @@ import ileint.Tuile.Tuile;
  *
  * @author fodorg
  */
-public class CarteInnondation {
+public class CarteInondation {
     private Tuile tuile;
-    private boolean piocheInnodation; //permet de déterminer si la carte est dans la pile ou dans la defausse
+    private boolean Inondationpioche; //permet de déterminer si la carte est dans la pile ou dans la defausse
     
-    public CarteInnondation(){
+    public CarteInondation(){
         this.setPioche(true);
     }
     
-    public CarteInnondation(Tuile tuile, boolean piocheInnodation){
+    public CarteInondation(Tuile tuile, boolean Inondationpioche){
         this.setTuile(tuile);
-        this.setPioche(piocheInnodation);
+        this.setPioche(Inondationpioche);
     }
 
     /**
@@ -37,14 +37,14 @@ public class CarteInnondation {
      * @return the pileInnodation
      */
     public boolean isPioche() {
-        return piocheInnodation;
+        return Inondationpioche;
     }
 
     /**
-     * @param piocheInnodation the pile to set
+     * @param Inondationpioche the pile to set
      */
-    public void setPioche(boolean piocheInnodation) {
-        this.piocheInnodation = piocheInnodation;
+    public void setPioche(boolean Inondationpioche) {
+        this.Inondationpioche = Inondationpioche;
     }
     
 
