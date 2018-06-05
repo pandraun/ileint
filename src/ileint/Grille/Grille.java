@@ -58,9 +58,11 @@ public class Grille {
         return tuilesAccessibles;
     }
     
-    public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(Tuile pos,HashMap<Coordonnee,Tuile> listeCasesAlentours) { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
-//            listeCasesAlentours.
-        return listeCasesAlentours;
+    public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(HashMap<Coordonnee,Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
+            HashMap<Coordonnee,Tuile> tuilesAccessibles = new HashMap<>();
+            tuilesAccessibles.putAll(filtreCasesInondees(listeCasesAlentours));
+            tuilesAccessibles.putAll(filtreCasesSeches(listeCasesAlentours));
+        return tuilesAccessibles;
     }
 
     public HashMap<Coordonnee, Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe) + null traité
