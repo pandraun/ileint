@@ -57,6 +57,11 @@ public class Grille {
         tuilesAccessibles.addAll(getTuilesInondees());
         return tuilesAccessibles;
     }
+    
+    public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(Tuile pos,HashMap<Coordonnee,Tuile> listeCasesAlentours) { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
+//            listeCasesAlentours.
+        return listeCasesAlentours;
+    }
 
     public HashMap<Coordonnee, Tuile> getCasesCarreExclude(Tuile pos) { // retourne les 8 cases qui entourent la tuile (où le joueur se situe) + null traité
         HashMap<Coordonnee, Tuile> casesCarreExclude = new HashMap<>();
@@ -130,6 +135,24 @@ public class Grille {
             }
         }
         return casesCroix;
+    }
+    
+    public HashMap<Coordonnee,Tuile> filtreCasesSeches(HashMap<Coordonnee,Tuile> casesAlentours){ // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
+            for (Tuile uneTuile : casesAlentours.values()) {
+                if (uneTuile.getEtat() != EtatTuile.ASSECHEE) {
+                    casesAlentours.remove(uneTuile);
+                }
+            }
+        return casesAlentours;
+    }
+    
+    public HashMap<Coordonnee,Tuile> filtreCasesInondees(HashMap<Coordonnee,Tuile> casesAlentours){ // retourne liste en gardant seulement les cases inondées (byebye null et autres)
+            for (Tuile uneTuile : casesAlentours.values()) {
+                if (uneTuile.getEtat() != EtatTuile.INONDEE) {
+                    casesAlentours.remove(uneTuile);
+                }
+            }
+        return casesAlentours;
     }
 
     //-------------------------------- GETTERS SETTERS --------------------------------------------
