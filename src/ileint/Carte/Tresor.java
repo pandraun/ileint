@@ -10,8 +10,9 @@ import util.TypeTresor;
 public class Tresor extends CarteOrange {
     protected TypeTresor type;
 
-    public Tresor(EmplacementCarte emplacement) {
+    public Tresor(EmplacementCarte emplacement, TypeTresor type) {
         super(emplacement);
+        this.type = type;
     }
 
     
