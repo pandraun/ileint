@@ -16,4 +16,6 @@ public class SacDeSable extends Speciale {
     public String getTypeClasse(){
         return "SacDeSable";
     }
+    
+
 }
