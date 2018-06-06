@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.SwingConstants;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
+import static view.FenetreDebut.nbJ;
 
  
 public class VueAventurier  {
@@ -33,9 +35,29 @@ public class VueAventurier  {
     
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur){
         
+        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int)dimension.getHeight();
+        int width  = (int)dimension.getWidth();
+        
         this.window = new JFrame();
         window.setSize(300, 300);
-        window.setLocationRelativeTo(window);
+        switch (nbJ) {
+            case 0:
+                window.setLocation(0, 0);
+                break;
+            case 1:
+                window.setLocation(width-(int)(window.getAlignmentX()/2), height-(int)(window.getAlignmentY()/2));
+                break;
+            case 2:
+                window.setLocation(0, height-(int)(window.getAlignmentY()/2));
+                break;
+            case 3:
+                window.setLocation(width-(int)(window.getAlignmentX()/2), 0);
+                break;
+            default:
+                window.setLocationRelativeTo(window);
+                break;
+        }
         //le titre = nom du joueur 
         window.setTitle(nomJoueur);
         mainPanel = new JPanel(new BorderLayout());

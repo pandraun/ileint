@@ -39,7 +39,7 @@ public class FenetreDebut  extends JFrame {
     private final JButton plus;
     private JTextField nbJoueurs;
     private final JButton demarrer;
-    public int nbJ;
+    public static int nbJ = 0;
     
     public FenetreDebut() throws MalformedURLException {
         fenetre = new JFrame("Choix du nombre de joueurs");
@@ -109,11 +109,14 @@ public class FenetreDebut  extends JFrame {
                 
                 if (Integer.parseInt(nbJoueurs.getText())>=2){
                     VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
+                    nbJ+=1;
                     VueAventurier V2 = new VueAventurier("Gergely", "Navigateur",Utils.Pion.JAUNE.getCouleur());
                     if (Integer.parseInt(nbJoueurs.getText())>=3){
+                        nbJ+=1;
                         VueAventurier V3 = new VueAventurier("Camille", "Pilote",Utils.Pion.BLEU.getCouleur());
                         if (Integer.parseInt(nbJoueurs.getText())==4){
-                    VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
+                            nbJ+=1;
+                            VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
                 }}}
             }    
         });
