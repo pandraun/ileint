@@ -96,7 +96,7 @@ public class Joueur {
 
     public boolean isDeplacementPossible() {
         for (int i = 0; i < 4; i++) {
-            if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesCroix(getEmplacementJoueur()))
+            if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                     != null) {
                 return true;
             }
@@ -108,7 +108,7 @@ public class Joueur {
     public boolean isAssechementPossible() {
 
         for (int i = 0; i < 5; i++) {
-            if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesCroix(getEmplacementJoueur()))
+            if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                     != null) {
                 return true;
             }
