@@ -62,9 +62,44 @@ public class Explorateur extends Aventurier {
                 sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
                 joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
                 saisieCorrecte = true;
-                System.out.println("Déplacement effectué de "+tuileDepart.getNom()+" vers "+sauv.getNom()+".");
+                System.out.println("Déplacement du "+joueur+" effectué "+tuileDepart.getNom()+" vers "+sauv.getNom()+".");
             } else {
                 System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
+            }
+        }
+    }
+    
+    // assecherTuile() propre à l'explorateur
+    @Override
+    public void assecherTuile() {
+        Scanner sc = new Scanner(System.in);
+        Tuile sauv = null; // aura forcément une valeur après
+        boolean saisieCorrecte;
+
+        System.out.println("==== Instructions pour assécher une tuile ====");
+        System.out.println("Cases où l'assèchement est possible :");
+
+        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesContourAssechement(joueur.getEmplacementJoueur()).values()) { //affiche les cases assèchables
+            System.out.println(uneTuile.getNom());
+        }
+
+        System.out.println("Saisir le nom (exact) de la case à assécher");
+        String entree = sc.nextLine();
+
+        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesContourAssechement(joueur.getEmplacementJoueur()).values()) { //cherche la correspondance entre l'entrée scanner et la tuile
+            if (entree == uneTuile.getNom().toString()) {
+                sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
+            }
+
+            saisieCorrecte = false;
+            while (saisieCorrecte == false) {
+                if (joueur.getControleur().getGrille().getCasesContourAssechement(joueur.getEmplacementJoueur()).containsValue(sauv)) {
+                    sauv.setEtat(Utils.EtatTuile.ASSECHEE);
+                    saisieCorrecte = true;
+                    System.out.println("Assèchement du " + joueur + " effectué sur la tuile " + sauv.getNom() + ".");
+                } else {
+                    System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
+                }
             }
         }
     }
