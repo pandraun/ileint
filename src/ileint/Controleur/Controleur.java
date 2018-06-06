@@ -178,6 +178,8 @@ public class Controleur {
             piocheInondation.add(new CarteInondation(uneTuile, true));
         }
 
+        Collections.shuffle(piocheInondation);
+
         for (int i = 0; i < 5; i++) {
             piocheOrange.add(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
             piocheOrange.add(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CRISTAL));
@@ -202,13 +204,7 @@ public class Controleur {
 
         for (int i = 0; i < 6; i++) {
 
-            for (Tuile uneTuile : grille.getTuiles().values()) {
-                if (piocheInondation.get(1).getTuile() == uneTuile) {
-                    uneTuile.arroserTuile();
-                    piocheInondation.get(1).setPioche(false);
-                    piocheInondation.remove(piocheInondation.get(1));
-                }
-            }
+            piocherInnondation();
 
         }
 
@@ -315,8 +311,8 @@ public class Controleur {
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
-    
-    public void piocherCarte(){
+
+    public void piocherCarte() {
         joueurCourant.addCarteMainJoueur(piocheOrange.get(1));
         piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
         piocheOrange.remove(piocheOrange.get(1));
@@ -339,6 +335,18 @@ public class Controleur {
             }
         }
         return false;
+    }
+
+    public void piocherInnondation() {
+
+        for (Tuile uneTuile : grille.getTuiles().values()) {
+            if (piocheInondation.get(1).getTuile() == uneTuile) {
+                uneTuile.arroserTuile();
+                piocheInondation.get(1).setPioche(false);
+                piocheInondation.remove(piocheInondation.get(1));
+            }
+        }
+
     }
 
     public void defausserCarte() {
@@ -472,7 +480,7 @@ public class Controleur {
 
             if (entree.equals("Oui")) {
                 utiliserCarteSpe();
-            }else{
+            } else {
                 sortir = true;
             }
         }
@@ -513,21 +521,26 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
+
             piocherCarte();
-            
+
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
+
             piocherCarte();
-            
+
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
-            
-            
+
+            for (int i = 0; i < eauAPiocher(); i++) {
+                piocherInnondation();
+                //verifFinInnondation(tuileCourante)
+                propositionCarteSpe();
+
+            }
+
         }
     }
 }
