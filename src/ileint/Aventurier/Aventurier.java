@@ -14,8 +14,8 @@ public abstract class Aventurier {
 
     private String nom;
     private Pion couleur;
-    private Tuile tuileDepart;
-    private Joueur joueur;
+    protected Tuile tuileDepart;
+    protected Joueur joueur;
 
     //Contructeur
     public Aventurier(String nom, Joueur joueur) {
@@ -29,8 +29,7 @@ public abstract class Aventurier {
         Scanner sc = new Scanner(System.in);
         Tuile sauv = null; // aura forcément une valeur après
         boolean saisieCorrecte;
-        
-        
+          
         System.out.println("==== Instructions pour amorcer un déplacement ====");
         System.out.println("Cases où le déplacement est possible :");
 
@@ -50,16 +49,14 @@ public abstract class Aventurier {
         saisieCorrecte = false;
         while (saisieCorrecte == false) {
             if (joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).containsValue(sauv)) {
-                
+                tuileDepart.getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
+                sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
+                joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
+                saisieCorrecte = true;
+                System.out.println("Déplacement effectué de "+tuileDepart.getNom()+" vers "+sauv.getNom()+".");
+            } else {
+                System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
             }
-//            if (joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).containsValue(entree)) {
-//                Tuile tuileChoisie = new Tuile(joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).);
-//                        
-//                joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.setEmplacementJoueur(entree));
-//                saisieCorrecte = true;
-//            } else {
-//                System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
-//            }
         }
     }
 
