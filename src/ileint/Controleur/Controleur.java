@@ -200,12 +200,20 @@ public class Controleur {
             for (Tuile uneTuile : grille.getTuiles().values()) {
                 if (piocheInondation.get(1).getTuile() == uneTuile) {
                     uneTuile.arroserTuile();
+                    piocheInondation.get(1).setPioche(false);
+                    piocheInondation.remove(piocheInondation.get(1));
                 }
             }
 
         }
-        
-        Collections.shuffle(piocheInondation);
+
+        for (Joueur unJoueur : joueurs) {
+            for (int i = 0; i < 2; i++) {
+                unJoueur.addCarteMainJoueur(piocheOrange.get(1));
+                piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+                piocheOrange.remove(piocheOrange.get(1));
+            }
+        }
 
     }
 
