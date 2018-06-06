@@ -21,5 +21,10 @@ public class Pilote extends Aventurier {
             }
         }
     }
+
+    @Override
+    public String getRoleAventurier() {
+        return "Pilote";
+    }
     
 }
