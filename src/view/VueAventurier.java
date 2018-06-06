@@ -34,7 +34,8 @@ public class VueAventurier  {
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur){
 
         this.window = new JFrame();
-        window.setSize(350, 200);
+        window.setSize(1200, 700);
+        window.setLocationRelativeTo(window);
         //le titre = nom du joueur 
         window.setTitle(nomJoueur);
         mainPanel = new JPanel(new BorderLayout());
@@ -109,7 +110,7 @@ public class VueAventurier  {
  
      public static void main(String [] args) {
         // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier("Manon", "Explorateur",Pion.ROUGE.getCouleur() );
+        VueAventurier vueAventurier = new VueAventurier("Audrey", "Explorateur",Pion.ROUGE.getCouleur() );
     }
 }
 
