@@ -172,7 +172,6 @@ public class Controleur {
         for (Tuile uneTuile : grille.getTuiles().values()) {
             piocheInondation.add(new CarteInondation(uneTuile, true));
         }
-        Collections.shuffle(piocheInondation);
 
         for (int i = 0; i < 5; i++) {
             piocheOrange.add(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
@@ -200,12 +199,13 @@ public class Controleur {
 
             for (Tuile uneTuile : grille.getTuiles().values()) {
                 if (piocheInondation.get(1).getTuile() == uneTuile) {
-                    piocheInondation.get(1).getTuile().setEtat(Utils.EtatTuile.COULEE);
-                    piocheInondation.get(1).setPioche(false);
+                    uneTuile.arroserTuile();
                 }
             }
 
         }
+        
+        Collections.shuffle(piocheInondation);
 
     }
 
