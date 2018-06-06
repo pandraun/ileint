@@ -10,30 +10,31 @@ import util.Utils.EtatTuile;
  * @author fodorg
  */
 public class Tuile {
+
     private NomTuile nom;
     private Coordonnee coordonnee;
     private EtatTuile etat;
-    private TypeTresor caseTresor; 
+    private TypeTresor caseTresor;
     private HashSet<Joueur> joueursTuile;
-    
-    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat) {
+
+    public Tuile(NomTuile nom, Coordonnee coordonnee, EtatTuile etat) {
         setNom(nom);
         setCoordonnee(coordonnee);
         setEtat(etat);
         this.joueursTuile = new HashSet<>();
         setCaseTresor(null);
     }
-    public Tuile(NomTuile nom, Coordonnee coordonnee,EtatTuile etat, TypeTresor caseTresor) {
+
+    public Tuile(NomTuile nom, Coordonnee coordonnee, EtatTuile etat, TypeTresor caseTresor) {
         setNom(nom);
         setCoordonnee(coordonnee);
         setEtat(etat);
         this.joueursTuile = new HashSet<>();
         setCaseTresor(caseTresor);
     }
-    
+
     //      Faire un constructeur avec la pos de départ de l'aventurier ???
     //      Non comme ça on crée les tuiles avant les aventuriers
-
     public boolean isTuileTresor() {       // retourne vrai si la carte possède un trésor
         if (this.caseTresor != null) {
             return true;
@@ -41,7 +42,7 @@ public class Tuile {
             return false;
         }
     }
-    
+
     public boolean isCaseOccupee() {
         if (joueursTuile.isEmpty()) {
             return false;
@@ -49,14 +50,11 @@ public class Tuile {
             return true;
         }
     }
-    
+
 //    public Tuile getTuileAtPosition(Coordonnee coord) {
 //        return  
 //    } 
-    
-    
     //-------------------------------- GETTERS SETTERS --------------------------------------------
-    
     /**
      * @return the nom
      */
@@ -127,6 +125,13 @@ public class Tuile {
         this.joueursTuile = joueursTuile;
     }
 
+    public void arroserTuile() {
+        if (getEtat() == EtatTuile.ASSECHEE) {
+            setEtat(EtatTuile.INONDEE);
+        } else {
+            setEtat(EtatTuile.COULEE);
+
+        }
+    }
 
 }
-

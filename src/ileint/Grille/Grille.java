@@ -1,8 +1,6 @@
 package ileint.Grille;
 
-import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
-import java.util.ArrayList;
 import util.Utils.EtatTuile;
 import ileint.Tuile.Coordonnee;
 import java.util.HashMap;
