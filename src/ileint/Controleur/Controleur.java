@@ -12,6 +12,7 @@ import ileint.Carte.CarteOrange;
 import ileint.Carte.Helicoptere;
 import ileint.Carte.MontéeEau;
 import ileint.Carte.SacDeSable;
+import ileint.Carte.Speciale;
 import ileint.Carte.Tresor;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
@@ -42,6 +43,7 @@ public class Controleur {
     private Grille grille;
     private boolean partieTermine;
     private Joueur joueurCourant;
+    private int nombreAction;
 
     public Controleur() {
 
@@ -311,16 +313,28 @@ public class Controleur {
     }
 
     public boolean isTropDeCartes() {
-        if (joueurCourant.getMainJoueur().size() > 5) {
-            return true;
-        } else {
-            return false;
+        return joueurCourant.getMainJoueur().size() > 5;
+    }
+    
+    public void piocherCarte(){
+        joueurCourant.addCarteMainJoueur(piocheOrange.get(1));
+        piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+        piocheOrange.remove(piocheOrange.get(1));
+    }
+
+    public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
+        ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if ("Helicoptere".equals(carteMain.getTypeClasse()) || "SacDeSable".equals(carteMain.getTypeClasse())) {
+                carteSpeJoueurCourant.add(carteMain);
+            }
         }
+        return carteSpeJoueurCourant;
     }
 
     public boolean isACarteSpe() {
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-            if (carteMain.getTypeClasse() == "Helicoptere" || carteMain.getTypeClasse() == "SacDeSable") {
+            if ("Helicoptere".equals(carteMain.getTypeClasse()) || "SacDeSable".equals(carteMain.getTypeClasse())) {
                 return true;
             }
         }
@@ -368,8 +382,8 @@ public class Controleur {
         i = 1;
 
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-            if (i + "" == entree) {
-                if (carteMain.getTypeClasse() == "Helicoptere") {
+            if (entree.equals(i)) {
+                if ("Helicoptere".equals(carteMain.getTypeClasse())) {
                     //A COMPLETER
                 } else {
                     //donc sacDeSable 
@@ -381,10 +395,95 @@ public class Controleur {
         }
     }
 
+    public void faireAction() {
+        boolean donner = false;
+
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+
+        System.out.println("Choisir votre action:");
+
+        if (joueurCourant.isDeplacementPossible()) {
+            System.out.println("Deplacer/ Se déplacer sur l'île");
+        } else {
+            partieTermine = true;
+            //quitter le jeu
+        }
+
+        if (joueurCourant.isAssechementPossible()) {
+            System.out.println("Assecher/ Assècher une case");
+        }
+
+        for (Joueur joueur : joueurs) {
+            if (joueurCourant.isDonnerCartePossible(joueur)) {
+                donner = true;
+            }
+        }
+
+        if (donner == true) {
+            System.out.println("Donner/ Donner une carte à un joueur");
+        }
+        if (joueurCourant.isRecupererTresorPossible()) {
+            System.out.println("Recuperer/ Récupérer un trésor");
+        }
+
+        if (isACarteSpe()) {
+            System.out.println("Speciale/ Utiliser une carte spéciale");
+        }
+
+        System.out.println("Passer/ Passer son tour");
+
+        switch (entree) {
+            case "Deplacer":
+                joueurCourant.getRole().seDeplacer();
+                break;
+            case "Assecher":
+                joueurCourant.getRole().assecherTuile();
+                break;
+            case "Donner":
+                //A faire
+                break;
+            case "Recuperer":
+                //A faire
+                break;
+            case "Speciale":
+                //A faire
+                break;
+            case "Passer":
+                nombreAction = 0;
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void propositionCarteSpe() {
+
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+        boolean sortir = false;
+        int i = 0;
+
+        while (sortir = false && i < getCarteSpeJoueurCourant().size()) {
+            System.out.println("Voulez-vous utiliser une carte spéciale avant d'en piocher ?");
+            System.out.println("Oui");
+            System.out.println("Non");
+
+            if (entree.equals("Oui")) {
+                utiliserCarteSpe();
+            }else{
+                sortir = true;
+            }
+        }
+
+    }
+
     //TOUR DE JEU (ahah.)
+    //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
     public void tourDeJeu() {
         while (partieTermine = false) {
-            if (isTropDeCartes()) {
+            while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
                 System.out.println("1/ Défausser une carte");
@@ -405,6 +504,30 @@ public class Controleur {
                 }
 
             }
+            nombreAction = 3;
+            while (nombreAction > 0) {
+                faireAction();
+                nombreAction = nombreAction - 1;
+            }
+
+            if (isACarteSpe()) {
+                propositionCarteSpe();
+            }
+            
+            piocherCarte();
+            
+            if (isACarteSpe()) {
+                propositionCarteSpe();
+            }
+            
+            piocherCarte();
+            
+            if (isACarteSpe()) {
+                propositionCarteSpe();
+            }
+            
+            
+            
         }
     }
 }
