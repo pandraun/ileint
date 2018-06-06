@@ -107,13 +107,21 @@ public class Joueur {
 
     public boolean isAssechementPossible() {
 
-        for (int i = 0; i < 5; i++) {
-            if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
-                    != null) {
-                return true;
+        if (this.getRole().getRoleAventurier() == "Explorateur") {
+            for (int i = 0; i < 9; i++) {
+                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
+                        != null) {
+                    return true;
+                }
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
+                        != null) {
+                    return true;
+                }
             }
         }
-
         return false;
     }
 

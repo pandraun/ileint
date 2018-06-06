@@ -21,6 +21,11 @@ public abstract class Aventurier {
         this.joueur = joueur;
     }
 
+    
+    public abstract String getRoleAventurier();
+    
+    
+    
     //Getters
     public String getNom() {
         return nom;

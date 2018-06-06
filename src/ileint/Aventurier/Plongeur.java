@@ -21,5 +21,10 @@ public class Plongeur extends Aventurier {
             }
         }
     }
+
+    @Override
+    public String getRoleAventurier() {
+        return "Plongeur";
+    }
     
 }
