@@ -178,6 +178,8 @@ public class Controleur {
             piocheInondation.add(new CarteInondation(uneTuile, true));
         }
 
+        Collections.shuffle(piocheInondation);
+
         for (int i = 0; i < 5; i++) {
             piocheOrange.add(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
             piocheOrange.add(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CRISTAL));
@@ -202,13 +204,7 @@ public class Controleur {
 
         for (int i = 0; i < 6; i++) {
 
-            for (Tuile uneTuile : grille.getTuiles().values()) {
-                if (piocheInondation.get(1).getTuile() == uneTuile) {
-                    uneTuile.arroserTuile();
-                    piocheInondation.get(1).setPioche(false);
-                    piocheInondation.remove(piocheInondation.get(1));
-                }
-            }
+            piocherInnondation();
 
         }
 
@@ -315,8 +311,8 @@ public class Controleur {
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
-    
-    public void piocherCarte(){
+
+    public void piocherCarte() {
         joueurCourant.addCarteMainJoueur(piocheOrange.get(1));
         piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
         piocheOrange.remove(piocheOrange.get(1));
@@ -341,9 +337,20 @@ public class Controleur {
         return false;
     }
 
+    public void piocherInnondation() {
+
+        for (Tuile uneTuile : grille.getTuiles().values()) {
+            if (piocheInondation.get(1).getTuile() == uneTuile) {
+                uneTuile.arroserTuile();
+                piocheInondation.get(1).setPioche(false);
+                piocheInondation.remove(piocheInondation.get(1));
+            }
+        }
+
+    }
+
     public void defausserCarte() {
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         System.out.println("Sélectionner la carte à défausser");
         int i = 1;
 
@@ -352,7 +359,7 @@ public class Controleur {
             System.out.println(carteMain.getTypeClasse());
             i = i + 1;
         }
-        entree = sc.nextLine();
+        String entree = sc.nextLine();
 
         i = 1;
 
@@ -365,19 +372,18 @@ public class Controleur {
         }
     }
 
-    public void utiliserCarteSpe() {
+    public void utiliserCarteSpe() { //A CHANGER : a faire avec le vecteur get carte spé
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         System.out.println("Sélectionner la carte spéciale à utiliser");
         int i = 1;
 
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) { //LA
             System.out.print(i + "/ ");
             System.out.println(carteMain.getTypeClasse());
             i = i + 1;
         }
 
-        entree = sc.nextLine();
+        String entree = sc.nextLine();
 
         i = 1;
 
@@ -399,14 +405,13 @@ public class Controleur {
         boolean donner = false;
 
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
 
         System.out.println("Choisir votre action:");
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
         } else {
-            partieTermine = true;
+            partieTermine = true; //PAS BON
             //quitter le jeu
         }
 
@@ -415,7 +420,7 @@ public class Controleur {
         }
 
         for (Joueur joueur : joueurs) {
-            if (joueurCourant.isDonnerCartePossible(joueur)) {
+            if (joueurCourant.isDonnerCartePossible(joueur)) { //il peut echanger avec soi meme
                 donner = true;
             }
         }
@@ -433,6 +438,7 @@ public class Controleur {
 
         System.out.println("Passer/ Passer son tour");
 
+        String entree = sc.nextLine();
         switch (entree) {
             case "Deplacer":
                 joueurCourant.getRole().seDeplacer();
@@ -454,7 +460,9 @@ public class Controleur {
                 break;
             default:
                 break;
-        }
+        } 
+        
+        nombreAction--;
 
     }
 
@@ -472,7 +480,7 @@ public class Controleur {
 
             if (entree.equals("Oui")) {
                 utiliserCarteSpe();
-            }else{
+            } else {
                 sortir = true;
             }
         }
@@ -513,21 +521,26 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
+
             piocherCarte();
-            
+
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
+
             piocherCarte();
-            
+
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
-            
-            
+
+            for (int i = 0; i < eauAPiocher(); i++) {
+                piocherInnondation();
+                //verifFinInnondation(tuileCourante)
+                propositionCarteSpe();
+
+            }
+
         }
     }
 }
