@@ -32,9 +32,9 @@ public class VueAventurier  {
    
     
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur){
-
+        
         this.window = new JFrame();
-        window.setSize(1200, 700);
+        window.setSize(300, 300);
         window.setLocationRelativeTo(window);
         //le titre = nom du joueur 
         window.setTitle(nomJoueur);
@@ -72,7 +72,7 @@ public class VueAventurier  {
         mainPanel.add(this.panelBoutons, BorderLayout.SOUTH);
 
         this.btnBouger = new JButton("Bouger") ;
-        this.btnAssecher = new JButton( "Assecher");
+        this.btnAssecher = new JButton("Assecher");
         this.btnAutreAction = new JButton("AutreAction") ;
         this.btnTerminerTour = new JButton("Terminer Tour") ;
         
@@ -108,10 +108,10 @@ public class VueAventurier  {
         return btnTerminerTour;
     }
  
-     public static void main(String [] args) {
+    /*public static void main(String [] args) {
         // Instanciation de la fenêtre 
         VueAventurier vueAventurier = new VueAventurier("Audrey", "Explorateur",Pion.ROUGE.getCouleur() );
-    }
+    }*/
 }
 
  
