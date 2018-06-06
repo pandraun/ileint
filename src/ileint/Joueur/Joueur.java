@@ -91,14 +91,6 @@ public class Joueur {
         mainJoueur.remove(carte);
     }
 
-    public void demandeDeplacement() {
-        //role.seDeplacer(emplacementJoueur)
-    }
-
-    public void demandeAssechement(CarteOrange carte) {
-        //role.assecherCase(emplacementJoueur);
-    }
-
     public boolean isDeplacementPossible() {
         for (int i = 0; i < 4; i++) {
             if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
