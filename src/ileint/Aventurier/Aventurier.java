@@ -2,6 +2,7 @@ package ileint.Aventurier;
 
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Tuile;
+import java.util.Scanner;
 import util.Utils.Pion;
 
 /**
@@ -24,6 +25,18 @@ public abstract class Aventurier {
     
     public abstract String getRoleAventurier();
     
+    public void seDeplacer() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("==== Instructions pour amorcer un déplacement ====");
+        System.out.println("Cases où le déplacement est possible :");
+        
+        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).values()) {
+            System.out.println(uneTuile.getNom());
+        }
+        
+        System.out.println("Saisir le nom (exact) de la case où se déplacer");
+
+    }
     
     
     //Getters
