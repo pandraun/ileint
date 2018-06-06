@@ -38,7 +38,7 @@ public class Grille {
         return tuilesAccessibles;    // utile pilote et peut etre plongeur
     }
 
-    public HashMap<Coordonnee, Tuile> getTuilesAccessiblesPlongeur(Tuile pos) {
+    public HashMap<Coordonnee, Tuile> getTuilesAccessiblesPlongeur(Tuile pos) { //si ça marche appelez moi Jesus
         HashMap<Coordonnee, Tuile> tuilesAVisiter = new HashMap<>();
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         HashMap<Coordonnee, Tuile> tuilesEau = new HashMap<>();
@@ -51,7 +51,7 @@ public class Grille {
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
                 } else if (tuilesAVisiter.containsValue(uneTuile.getEtat() == EtatTuile.ASSECHEE)) {
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
-                } else {
+                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat() == EtatTuile.COULEE)){
                     tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
                 }
                 
