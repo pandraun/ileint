@@ -27,6 +27,11 @@ public class Joueur {
         emplacementJoueur = role.getTuileDepart();
 
     }
+    
+    public Joueur(int numeroJoueur, Controleur controleur){
+        this.numeroJoueur = numeroJoueur;
+        this.controleur = controleur;
+    }
 
     //Getters
     public int getNumeroJoueur() {
