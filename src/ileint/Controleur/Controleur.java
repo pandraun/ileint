@@ -327,6 +327,60 @@ public class Controleur {
         return false;
     }
 
+    public void defausserCarte() {
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+        System.out.println("Sélectionner la carte à défausser");
+        int i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            System.out.print(i + "/ ");
+            System.out.println(carteMain.getTypeClasse());
+            i = i + 1;
+        }
+        entree = sc.nextLine();
+
+        i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if (entree.equals(i)) {
+                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
+                joueurCourant.removeCarteMainJoueur(carteMain);
+            }
+            i = i + 1;
+        }
+    }
+
+    public void utiliserCarteSpe() {
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+        System.out.println("Sélectionner la carte spéciale à utiliser");
+        int i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            System.out.print(i + "/ ");
+            System.out.println(carteMain.getTypeClasse());
+            i = i + 1;
+        }
+
+        entree = sc.nextLine();
+
+        i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if (i + "" == entree) {
+                if (carteMain.getTypeClasse() == "Helicoptere") {
+                    //A COMPLETER
+                } else {
+                    //donc sacDeSable 
+                }
+                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
+                joueurCourant.removeCarteMainJoueur(carteMain);
+            }
+            i = i + 1;
+        }
+    }
+
     //TOUR DE JEU (ahah.)
     public void tourDeJeu() {
         while (partieTermine = false) {
@@ -340,36 +394,17 @@ public class Controleur {
                 }
                 String entree = sc.nextLine();
 
-                if (entree == "1") {
-                    System.out.println("Sélectionner la carte à défausser");
-                    int i = 1;
+                //Si selectionne defausser carte
+                if (entree.equals("1")) {
+                    defausserCarte();
 
-                    for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-                        System.out.print(i + "/ ");
-                        System.out.println(carteMain.getTypeClasse());
-                        i = i + 1;
-                    }
-
-                    System.out.println((joueurCourant.getMainJoueur().size() + 1) + "/ Retour aux choix");
-                    entree = sc.nextLine();
-
-                    if (entree != (joueurCourant.getMainJoueur().size() + 1) + "") {
-                        i = 1;
-
-                        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-                            if (i + "" == entree) {
-                                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
-                                joueurCourant.removeCarteMainJoueur(carteMain);
-                            }
-                            i = i + 1;
-                        }
-                    } else if (isACarteSpe() && entree == 2 + "") {
-
-                    }
+                    //Si selectionne utiliser carte speciale
+                } else if (isACarteSpe() && entree.equals("2")) {
+                    utiliserCarteSpe();
 
                 }
-            }
 
+            }
         }
     }
 }
