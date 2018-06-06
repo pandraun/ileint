@@ -351,7 +351,6 @@ public class Controleur {
 
     public void defausserCarte() {
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         System.out.println("Sélectionner la carte à défausser");
         int i = 1;
 
@@ -360,7 +359,7 @@ public class Controleur {
             System.out.println(carteMain.getTypeClasse());
             i = i + 1;
         }
-        entree = sc.nextLine();
+        String entree = sc.nextLine();
 
         i = 1;
 
@@ -373,19 +372,18 @@ public class Controleur {
         }
     }
 
-    public void utiliserCarteSpe() {
+    public void utiliserCarteSpe() { //A CHANGER : a faire avec le vecteur get carte spé
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         System.out.println("Sélectionner la carte spéciale à utiliser");
         int i = 1;
 
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) { //LA
             System.out.print(i + "/ ");
             System.out.println(carteMain.getTypeClasse());
             i = i + 1;
         }
 
-        entree = sc.nextLine();
+        String entree = sc.nextLine();
 
         i = 1;
 
@@ -407,14 +405,13 @@ public class Controleur {
         boolean donner = false;
 
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
 
         System.out.println("Choisir votre action:");
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
         } else {
-            partieTermine = true;
+            partieTermine = true; //PAS BON
             //quitter le jeu
         }
 
@@ -423,7 +420,7 @@ public class Controleur {
         }
 
         for (Joueur joueur : joueurs) {
-            if (joueurCourant.isDonnerCartePossible(joueur)) {
+            if (joueurCourant.isDonnerCartePossible(joueur)) { //il peut echanger avec soi meme
                 donner = true;
             }
         }
@@ -441,6 +438,7 @@ public class Controleur {
 
         System.out.println("Passer/ Passer son tour");
 
+        String entree = sc.nextLine();
         switch (entree) {
             case "Deplacer":
                 joueurCourant.getRole().seDeplacer();
@@ -462,7 +460,9 @@ public class Controleur {
                 break;
             default:
                 break;
-        }
+        } 
+        
+        nombreAction--;
 
     }
 
