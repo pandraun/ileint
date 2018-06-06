@@ -93,6 +93,8 @@ public abstract class Aventurier {
             }
         }
     }
+    
+    
 
     //Getters
     public String getNom() {
