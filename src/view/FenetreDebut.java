@@ -38,6 +38,7 @@ public class FenetreDebut  extends JFrame {
     private final JButton plus;
     private JTextField nbJoueurs;
     private final JButton demarrer;
+    public int nbJ;
     
     public FenetreDebut() throws MalformedURLException {
         fenetre = new JFrame("Choix du nombre de joueurs");
