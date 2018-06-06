@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import util.Utils;
 
 /**
  *
@@ -103,9 +104,16 @@ public class FenetreDebut  extends JFrame {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                fenetre.setVisible(false);
                 
-              
-                
+                if (Integer.parseInt(nbJoueurs.getText())>=2){
+                    VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
+                    VueAventurier V2 = new VueAventurier("Gergely", "Navigateur",Utils.Pion.JAUNE.getCouleur());
+                    if (Integer.parseInt(nbJoueurs.getText())>=3){
+                        VueAventurier V3 = new VueAventurier("Camille", "Pilote",Utils.Pion.BLEU.getCouleur());
+                        if (Integer.parseInt(nbJoueurs.getText())==4){
+                    VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
+                }}}
             }    
         });
             
