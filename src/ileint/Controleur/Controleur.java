@@ -20,6 +20,7 @@ import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import util.EmplacementCarte;
 import util.TypeTresor;
 import util.Utils;
@@ -39,6 +40,8 @@ public class Controleur {
     private ArrayList<String> toutNomAventurier;
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
     private Grille grille;
+    private boolean partieTermine;
+    private Joueur joueurCourant;
 
     public Controleur() {
 
@@ -262,4 +265,146 @@ public class Controleur {
         return grille;
     }
 
+    public boolean isPartieTermine() {
+        return partieTermine;
+    }
+
+    //setters
+    public void setNiveauEau(int niveauEau) {
+        this.niveauEau = niveauEau;
+    }
+
+    public void setPiocheInondation(ArrayList<CarteInondation> piocheInondation) {
+        this.piocheInondation = piocheInondation;
+    }
+
+    public void setDefausseInondation(ArrayList<CarteInondation> defausseInondation) {
+        this.defausseInondation = defausseInondation;
+    }
+
+    public void setPiocheOrange(ArrayList<CarteOrange> piocheOrange) {
+        this.piocheOrange = piocheOrange;
+    }
+
+    public void setDefausseOrange(ArrayList<CarteOrange> defausseOrange) {
+        this.defausseOrange = defausseOrange;
+    }
+
+    public void setJoueurs(ArrayList<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+
+    public void setToutNomAventurier(ArrayList<String> toutNomAventurier) {
+        this.toutNomAventurier = toutNomAventurier;
+    }
+
+    public void setAventuriers(ArrayList<Aventurier> aventuriers) {
+        this.aventuriers = aventuriers;
+    }
+
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
+
+    public void setPartieTermine(boolean partieTermine) {
+        this.partieTermine = partieTermine;
+    }
+
+    public boolean isTropDeCartes() {
+        if (joueurCourant.getMainJoueur().size() > 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isACarteSpe() {
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if (carteMain.getTypeClasse() == "Helicoptere" || carteMain.getTypeClasse() == "SacDeSable") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void defausserCarte() {
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+        System.out.println("Sélectionner la carte à défausser");
+        int i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            System.out.print(i + "/ ");
+            System.out.println(carteMain.getTypeClasse());
+            i = i + 1;
+        }
+        entree = sc.nextLine();
+
+        i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if (entree.equals(i)) {
+                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
+                joueurCourant.removeCarteMainJoueur(carteMain);
+            }
+            i = i + 1;
+        }
+    }
+
+    public void utiliserCarteSpe() {
+        Scanner sc = new Scanner(System.in);
+        String entree = sc.nextLine();
+        System.out.println("Sélectionner la carte spéciale à utiliser");
+        int i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            System.out.print(i + "/ ");
+            System.out.println(carteMain.getTypeClasse());
+            i = i + 1;
+        }
+
+        entree = sc.nextLine();
+
+        i = 1;
+
+        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
+            if (i + "" == entree) {
+                if (carteMain.getTypeClasse() == "Helicoptere") {
+                    //A COMPLETER
+                } else {
+                    //donc sacDeSable 
+                }
+                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
+                joueurCourant.removeCarteMainJoueur(carteMain);
+            }
+            i = i + 1;
+        }
+    }
+
+    //TOUR DE JEU (ahah.)
+    public void tourDeJeu() {
+        while (partieTermine = false) {
+            if (isTropDeCartes()) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Vous avez trop de cartes: ");
+                System.out.println("1/ Défausser une carte");
+
+                if (isACarteSpe()) {
+                    System.out.println("2/ Utiliser une carte spéciale");
+                }
+                String entree = sc.nextLine();
+
+                //Si selectionne defausser carte
+                if (entree.equals("1")) {
+                    defausserCarte();
+
+                    //Si selectionne utiliser carte speciale
+                } else if (isACarteSpe() && entree.equals("2")) {
+                    utiliserCarteSpe();
+
+                }
+
+            }
+        }
+    }
 }
