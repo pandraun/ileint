@@ -29,10 +29,10 @@ public class Tresor extends CarteOrange {
 
     /**
      * @return the type
-     */
+  
     public TypeTresor getType() {
         return type;
-    }
+    }*/
 
     /**
      * @param type the type to set

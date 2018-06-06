@@ -1,6 +1,10 @@
 package ileint.Controleur;
 
 import ileint.Aventurier.Aventurier;
+import ileint.Aventurier.Explorateur;
+import ileint.Aventurier.Ingenieur;
+import ileint.Aventurier.Messager;
+import ileint.Aventurier.Navigateur;
 import ileint.Carte.CarteInondation;
 import ileint.Carte.CarteOrange;
 import ileint.Grille.Grille;
@@ -10,7 +14,6 @@ import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import util.TypeTresor;
 import util.Utils;
 
@@ -26,16 +29,45 @@ public class Controleur {
     private ArrayList<CarteOrange> piocheOrange; //0..28
     private ArrayList<CarteOrange> defausseOrange; //0..28
     private ArrayList<Joueur> joueurs; //2..4
+    private ArrayList<String> toutNomAventurier; 
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
     private Grille grille;
 
     public Controleur() {
 
-        for (Joueur unjoueur : joueurs) {
+        toutNomAventurier.add("Explorateur");
+        toutNomAventurier.add("Ingenieur");
+        toutNomAventurier.add("Messager");
+        toutNomAventurier.add("Navigateur");
+        toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Plongeur");
 
-            Collections.shuffle(aventuriers);
-            unjoueur.setRole(aventuriers.get(1));
-            aventuriers.remove(aventuriers.get(1));
+        
+        for (Joueur unJoueur : joueurs) {
+            
+            Collections.shuffle(toutNomAventurier);
+            
+            //unjoueur.setRole(aventuriers.get(1));
+            switch(toutNomAventurier.get(1)) {
+                case "Explorateur":
+                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(explorateur);
+                    
+                case "Ingenieur":
+                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(1),unJoueur);
+                    
+                case "Messager":
+                    Messager messager = new Messager(toutNomAventurier.get(1),unJoueur);
+                    
+                case "Navigateur":
+                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(1),unJoueur);
+                    
+                case "Messager":
+                    Messager messager = new Messager(toutNomAventurier.get(1),unJoueur);
+            }
+            
+            toutNomAventurier.remove(toutNomAventurier.get(1));
+            
         }
 
         Collections.shuffle(piocheInondation);
