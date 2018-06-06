@@ -5,6 +5,8 @@ import ileint.Aventurier.Explorateur;
 import ileint.Aventurier.Ingenieur;
 import ileint.Aventurier.Messager;
 import ileint.Aventurier.Navigateur;
+import ileint.Aventurier.Pilote;
+import ileint.Aventurier.Plongeur;
 import ileint.Carte.CarteInondation;
 import ileint.Carte.CarteOrange;
 import ileint.Grille.Grille;
@@ -47,7 +49,6 @@ public class Controleur {
             
             Collections.shuffle(toutNomAventurier);
             
-            //unjoueur.setRole(aventuriers.get(1));
             switch(toutNomAventurier.get(1)) {
                 case "Explorateur":
                     Explorateur explorateur = new Explorateur(toutNomAventurier.get(1),unJoueur);
@@ -55,15 +56,23 @@ public class Controleur {
                     
                 case "Ingenieur":
                     Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(ingenieur);
                     
                 case "Messager":
                     Messager messager = new Messager(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(messager);
                     
                 case "Navigateur":
                     Navigateur navigateur = new Navigateur(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(navigateur);
                     
-                case "Messager":
-                    Messager messager = new Messager(toutNomAventurier.get(1),unJoueur);
+                case "Pilote":
+                    Pilote pilote = new Pilote(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(pilote);
+                    
+                case "Plongeur":
+                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(1),unJoueur);
+                    aventuriers.add(plongeur);
             }
             
             toutNomAventurier.remove(toutNomAventurier.get(1));
