@@ -21,5 +21,10 @@ public class Messager extends Aventurier {
             }
         }
     }
+
+    @Override
+    public String getRoleAventurier() {
+        return "Messager";
+    }
     
 }

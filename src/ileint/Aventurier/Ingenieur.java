@@ -21,5 +21,10 @@ public class Ingenieur extends Aventurier {
             }
         }
     }
+
+    @Override
+    public String getRoleAventurier() {
+        return "Ingénieur";
+    }
     
 }

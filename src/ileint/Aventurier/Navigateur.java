@@ -21,5 +21,10 @@ public class Navigateur extends Aventurier {
             }
         }
     }
+
+    @Override
+    public String getRoleAventurier() {
+        return "Navigateur";
+    }
     
 }

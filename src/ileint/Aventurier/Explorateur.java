@@ -24,4 +24,9 @@ public class Explorateur extends Aventurier {
 
     }
 
+    @Override
+    public String getRoleAventurier() {
+        return "Explorateur";
+    }
+
 }
