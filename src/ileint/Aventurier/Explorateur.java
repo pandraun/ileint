@@ -100,7 +100,7 @@ public class Explorateur extends Aventurier {
         String entree = sc.nextLine();
 
         for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
-            if (entree == uneTuile.getNom().toString()) {
+            if (entree.equals(uneTuile.getNom().toString())) {
                 sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
             }
 
