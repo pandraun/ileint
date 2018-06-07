@@ -29,7 +29,7 @@ public class FenetreJeu {
         
         this.window = new JFrame();
         window.setSize(width, height);
-        window.setLayout(new GridLayout(6,8,20,10));
+        window.setLayout(new GridLayout(6,8,30,10));
         for(int i = 0; i < 48; i++){
             switch (i){
                 case 1:
@@ -44,9 +44,6 @@ public class FenetreJeu {
                 case 42:
                 case 45:
                 case 46:
-                    JButton EauSombree = new JButton(new ImageIcon(new URL( "https://raw.githubusercontent.com/Arxwel/Ile-Interdite/master/src/ImagesTuiles/EauSombree.png")));
-                    window.add(EauSombree);
-                    break;
                 case 0:
                 case 7:
                 case 8:
@@ -69,7 +66,6 @@ public class FenetreJeu {
                 }
             
         }
-        
         window.setVisible(true);
     }
 }
