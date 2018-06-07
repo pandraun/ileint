@@ -148,9 +148,9 @@ public class Controleur {
         tuiles.put(new Coordonnee(5, 4), t54);
         Tuile t55 = new Tuile(null, new Coordonnee(5, 5), null);
         tuiles.put(new Coordonnee(5, 5), t55);
-
+       
         grille = new Grille(tuiles);
-
+        
         for (Joueur unJoueur : joueurs) {
 
             Collections.shuffle(toutNomAventurier);

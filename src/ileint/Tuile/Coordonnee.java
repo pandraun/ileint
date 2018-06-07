@@ -56,5 +56,9 @@ public class Coordonnee {
         this.y = y;
     }
     
+    public boolean isPareil(Coordonnee c) {
+        return c.getX() == x && c.getY() == y;
+    }
+    
     
 }

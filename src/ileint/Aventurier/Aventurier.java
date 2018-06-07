@@ -42,7 +42,7 @@ public abstract class Aventurier {
         casesTraitées = joueur.getControleur().getGrille().getTuilesDeplacementPossible(casesBruts);
         
         for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases accessibles
-            System.out.println(uneTuile.getNom());
+            System.out.println("/"+uneTuile.getNom());
         }
 
         System.out.println("Saisir le nom (exact) de la case où se déplacer");

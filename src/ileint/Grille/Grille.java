@@ -112,14 +112,22 @@ public class Grille {
 
         for (int i = -1; i < 2; i++) {                                            // ligne
             for (int j = -1; j < 2; j++) {                                        // colonne
-                if ((i != -1 && j != -1)
-                        || (i != 1 && j != 1)
-                        || (i != -1 && j != 1)
-                        || (i != 1 && j != -1)
-                        || (i != 0 && j != 0)) {                                       // ne prendra pas la case sur lequel l'aventurier se trouve
+                if ((i == -1 && j == -1)
+                        || (i == 1 && j == 1)
+                        || (i == -1 && j == 1)
+                        || (i == 1 && j == -1)
+                        || (i == 0 && j == 0)) {
+                    //prend les cas où c'est accessible
+                } else {// ne prendra pas la case sur lequel l'aventurier se trouve
                     sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
-                    if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
+                    /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp  
+                        System.out.println("debug");
                         casesCroixExclude.put(sauv, getTuiles().get(sauv));
+                    }*/
+                    for (Tuile tuile : getTuiles().values()) {
+                        if (tuile.getCoordonnee().isPareil(sauv) && tuile.getNom() != null) { //tuile.getCoordonnee().equals(sauv)
+                            casesCroixExclude.put(sauv, tuile);
+                        }
                     }
                 }
 
