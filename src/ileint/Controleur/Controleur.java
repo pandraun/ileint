@@ -54,49 +54,60 @@ public class Controleur {
         toutNomAventurier.add("Pilote");
         toutNomAventurier.add("Plongeur");
 
+        Joueur joueur1 = new Joueur(1, this);
+        Joueur joueur2 = new Joueur(2, this);
+        Joueur joueur3 = new Joueur(3, this);
+        Joueur joueur4 = new Joueur(4, this);
+        
+        
+            joueurs.add(joueur1);  // création des 4 joueurs à la main
+            joueurs.add(joueur2);
+            joueurs.add(joueur3);
+            joueurs.add(joueur4);
+        
         for (Joueur unJoueur : joueurs) {
 
             Collections.shuffle(toutNomAventurier);
 
-            switch (toutNomAventurier.get(1)) {
+            switch (toutNomAventurier.get(0)) { // attribution des rôles 
                 case "Explorateur":
-                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(1), unJoueur);
+                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(explorateur);
                     unJoueur.setRole(explorateur);
                     unJoueur.setEmplacementJoueur(explorateur.getTuileDepart());
 
                 case "Ingenieur":
-                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(1), unJoueur);
+                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(ingenieur);
                     unJoueur.setRole(ingenieur);
                     unJoueur.setEmplacementJoueur(ingenieur.getTuileDepart());
 
                 case "Messager":
-                    Messager messager = new Messager(toutNomAventurier.get(1), unJoueur);
+                    Messager messager = new Messager(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(messager);
                     unJoueur.setRole(messager);
                     unJoueur.setEmplacementJoueur(messager.getTuileDepart());
 
                 case "Navigateur":
-                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(1), unJoueur);
+                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(navigateur);
                     unJoueur.setRole(navigateur);
                     unJoueur.setEmplacementJoueur(navigateur.getTuileDepart());
 
                 case "Pilote":
-                    Pilote pilote = new Pilote(toutNomAventurier.get(1), unJoueur);
+                    Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(pilote);
                     unJoueur.setRole(pilote);
                     unJoueur.setEmplacementJoueur(pilote.getTuileDepart());
 
                 case "Plongeur":
-                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(1), unJoueur);
+                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(plongeur);
                     unJoueur.setRole(plongeur);
                     unJoueur.setEmplacementJoueur(plongeur.getTuileDepart());
             }
 
-            toutNomAventurier.remove(toutNomAventurier.get(1));
+            toutNomAventurier.remove(toutNomAventurier.get(0)); // retire des choix l'aventurier attribué
 
         }
 
@@ -210,9 +221,9 @@ public class Controleur {
 
         for (Joueur unJoueur : joueurs) {
             for (int i = 0; i < 2; i++) {
-                unJoueur.addCarteMainJoueur(piocheOrange.get(1));
-                piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
-                piocheOrange.remove(piocheOrange.get(1));
+                unJoueur.addCarteMainJoueur(piocheOrange.get(0));
+                piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+                piocheOrange.remove(piocheOrange.get(0));
             }
         }
 
@@ -315,9 +326,9 @@ public class Controleur {
     }
 
     public void piocherCarteOrange() {
-        joueurCourant.addCarteMainJoueur(piocheOrange.get(1));
-        piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
-        piocheOrange.remove(piocheOrange.get(1));
+        joueurCourant.addCarteMainJoueur(piocheOrange.get(0));
+        piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+        piocheOrange.remove(piocheOrange.get(0));
     }
 
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
@@ -342,10 +353,10 @@ public class Controleur {
     public void piocherInnondation() {
 
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (piocheInondation.get(1).getTuile() == uneTuile) {
+            if (piocheInondation.get(0).getTuile() == uneTuile) {
                 uneTuile.arroserTuile();
-                piocheInondation.get(1).setPioche(false);
-                piocheInondation.remove(piocheInondation.get(1));
+                piocheInondation.get(0).setPioche(false);
+                piocheInondation.remove(piocheInondation.get(0));
             }
         }
 
@@ -354,7 +365,7 @@ public class Controleur {
     public void defausserCarte() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Sélectionner la carte à défausser");
-        int i = 1;
+        int i = 1; // numéro de la carte à défausser
 
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
             System.out.print(i + "/ ");
