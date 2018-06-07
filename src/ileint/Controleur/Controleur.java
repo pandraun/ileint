@@ -231,11 +231,11 @@ public class Controleur {
 
         Collections.shuffle(piocheOrange);
 
-        for (int i = 0; i < 6; i++) {
+        /*for (int i = 0; i < 6; i++) {
 
             piocherInnondation();
 
-        }
+        }*/
 
         for (Joueur unJoueur : joueurs) {
 
@@ -438,7 +438,8 @@ public class Controleur {
         boolean donner = false;
 
         Scanner sc = new Scanner(System.in);
-
+        
+        System.out.println("==================================");
         System.out.println("Choisir votre action:");
 
         if (joueurCourant.isDeplacementPossible()) {
@@ -553,7 +554,6 @@ public class Controleur {
             nombreAction = 3;
             while (nombreAction > 0) {
                 faireAction();
-                nombreAction = nombreAction - 1;
             }
 
             if (isACarteSpe()) {
