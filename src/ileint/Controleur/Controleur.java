@@ -521,12 +521,21 @@ public class Controleur {
         }
 
     }
+    
+    public void joueurSuivant() {
+        int i = joueurs.indexOf(joueurCourant);
+        if (i == joueurs.size()-1) {
+            joueurCourant = joueurs.get(0);
+        } else {
+            joueurCourant = joueurs.get(i+1);
+        }
+    }
 
     //TOUR DE JEU (ahah.)
     //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
     public void tourDeJeu() {
 
-        while (partieTermine == false) {
+        while (partieTermine == false) {            
             System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
             System.out.println("role : " + joueurCourant.getRole().getNom());
             System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
@@ -572,7 +581,7 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            System.out.println("debug");
+            
             for (int i = 0; i < eauAPiocher(); i++) {
                 
                 piocherInnondation();
@@ -580,7 +589,8 @@ public class Controleur {
                 propositionCarteSpe();
 
             }
-            
+            joueurSuivant();
+            System.out.println("=-=-=-=-=-=-=-=-=-=-=-=");
         }
     }
 }
