@@ -12,6 +12,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -47,11 +48,18 @@ public class FenetreJeu {
                     window.add(EauSombree);
                     break;
                 case 0:
+                case 7:
                 case 8:
+                case 15:
                 case 16:
+                case 23:
                 case 24:
+                case 31:
                 case 32:
+                case 39:
                 case 40:
+                case 47:
+                    JLabel JL = new JLabel("");
                     break;
                 default:
                     JButton Eau = new JButton();
