@@ -43,7 +43,7 @@ public class Controleur {
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
     private HashMap<Coordonnee, Tuile> tuiles;
     private Grille grille;
-    private boolean partieTermine;
+    private boolean partieTermine = false;
     private Joueur joueurCourant;
     private int nombreAction;
 
@@ -521,7 +521,8 @@ public class Controleur {
     //TOUR DE JEU (ahah.)
     //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
     public void tourDeJeu() {
-        while (partieTermine = false) {
+
+        while (partieTermine == false) {
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
