@@ -150,7 +150,6 @@ public class Controleur {
         tuiles.put(new Coordonnee(5, 5), t55);
 
         grille = new Grille(tuiles);
-        System.out.println(grille.getTuiles().isEmpty());
 
         for (Joueur unJoueur : joueurs) {
 
@@ -526,6 +525,7 @@ public class Controleur {
     public void tourDeJeu() {
 
         while (partieTermine == false) {
+            System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");

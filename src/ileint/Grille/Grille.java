@@ -85,7 +85,7 @@ public class Grille {
         Coordonnee sauv;
 
         for (int i = -1; i < 2; i++) {                                            // ligne
-            for (int j = -1; j < 2; i++) {                                        // colonne
+            for (int j = -1; j < 2; j++) {                                        // colonne
                 if (i != 0 && j != 0) {                                         // ne prendra pas la case sur lequel l'aventurier se trouve
                     sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
                     if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
@@ -111,7 +111,7 @@ public class Grille {
         Coordonnee sauv;
 
         for (int i = -1; i < 2; i++) {                                            // ligne
-            for (int j = -1; j < 2; i++) {                                        // colonne
+            for (int j = -1; j < 2; j++) {                                        // colonne
                 if ((i != -1 && j != -1)
                         || (i != 1 && j != 1)
                         || (i != -1 && j != 1)
@@ -142,7 +142,7 @@ public class Grille {
         Coordonnee sauv;
 
         for (int i = -1; i < 2; i++) {                                            // ligne
-            for (int j = -1; j < 2; i++) {                                        // colonne                
+            for (int j = -1; j < 2; j++) {                                        // colonne
                 sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
                 if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
                     casesCarre.put(sauv, getTuiles().get(sauv));
@@ -166,7 +166,7 @@ public class Grille {
         Coordonnee sauv;
 
         for (int i = -1; i < 2; i++) {                                            // ligne
-            for (int j = -1; j < 2; i++) {                                        // colonne
+            for (int j = -1; j < 2; j++) {                                        // colonne
                 if ((i != -1 && j != -1)
                         || (i != 1 && j != 1)
                         || (i != -1 && j != 1)
