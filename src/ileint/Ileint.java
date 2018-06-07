@@ -5,6 +5,8 @@
  */
 package ileint;
 
+import ileint.Controleur.Controleur;
+
 /**
  *
  * @author pandraun
@@ -15,7 +17,7 @@ public class Ileint {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //truc
+       Controleur controleur = new Controleur();
     }
     
 }
