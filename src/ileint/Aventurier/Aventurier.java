@@ -34,7 +34,7 @@ public abstract class Aventurier {
         boolean saisieCorrecte;
         HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
         HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
-
+        
         System.out.println("==== Instructions pour amorcer un déplacement ====");
         System.out.println("Cases où le déplacement est possible :");
 

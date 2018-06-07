@@ -526,6 +526,9 @@ public class Controleur {
 
         while (partieTermine == false) {
             System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
+            System.out.println("role : " + joueurCourant.getRole().getNom());
+            System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
+            System.out.println("");
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
