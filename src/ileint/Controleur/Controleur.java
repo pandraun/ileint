@@ -362,6 +362,7 @@ public class Controleur {
     }
 
     public boolean isACarteSpe() {
+
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
             if ("Helicoptere".equals(carteMain.getTypeClasse()) || "SacDeSable".equals(carteMain.getTypeClasse())) {
                 return true;
@@ -559,7 +560,7 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-
+            
             piocherCarteOrange();
 
             if (isACarteSpe()) {
@@ -571,14 +572,15 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-
+            System.out.println("debug");
             for (int i = 0; i < eauAPiocher(); i++) {
+                
                 piocherInnondation();
                 //verifFinInnondation(tuileCourante)
                 propositionCarteSpe();
 
             }
-
+            
         }
     }
 }
