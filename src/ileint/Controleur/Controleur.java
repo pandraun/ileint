@@ -504,12 +504,12 @@ public class Controleur {
     public void propositionCarteSpe() {
 
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         boolean sortir = false;
         int i = 0;
 
         while (sortir = false && i < getCarteSpeJoueurCourant().size()) {
             System.out.println("Voulez-vous utiliser une carte spéciale avant d'en piocher ?");
+            String entree = sc.nextLine();
             System.out.println("Oui");
             System.out.println("Non");
 
