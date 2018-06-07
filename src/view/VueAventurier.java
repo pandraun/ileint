@@ -40,10 +40,10 @@ public class VueAventurier  {
         int width  = (int)dimension.getWidth();
         
         this.window = new JFrame();
-        window.setSize(width/6, height/3);
+        window.setSize(width/8, height/3-30);
         switch (nbJ) {
             case 0:
-                window.setLocation(0, 0);
+                window.setLocation(0, 30);
                 break;
             case 1:
                 window.setLocation(width-(int)(window.getAlignmentX()/2), height-(int)(window.getAlignmentY()/2));
@@ -52,7 +52,7 @@ public class VueAventurier  {
                 window.setLocation(0, height-(int)(window.getAlignmentY()/2));
                 break;
             case 3:
-                window.setLocation(width-(int)(window.getAlignmentX()/2), 0);
+                window.setLocation(width-(int)(window.getAlignmentX()/2), 30);
                 break;
             default:
                 window.setLocationRelativeTo(window);

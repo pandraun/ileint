@@ -60,6 +60,7 @@ public class FenetreJeu {
                 case 40:
                 case 47:
                     JLabel JL = new JLabel("");
+                    window.add(JL);
                     break;
                 default:
                     JButton Eau = new JButton();
