@@ -216,6 +216,8 @@ public class Controleur {
             }
         }
 
+        tourDeJeu();
+        
     }
 
     public int getNiveauEau() {
