@@ -107,6 +107,12 @@ public class FenetreDebut  extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 fenetre.setVisible(false);
                 
+                try {
+                    FenetreJeu FJ = new FenetreJeu();
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(FenetreDebut.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 if (Integer.parseInt(nbJoueurs.getText())>=2){
                     VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
                     nbJ+=1;
