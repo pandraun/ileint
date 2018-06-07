@@ -263,10 +263,6 @@ public class Controleur {
         return grille;
     }
 
-    public boolean isPartieTermine() {
-        return partieTermine;
-    }
-
     //setters
     public void setNiveauEau(int niveauEau) {
         this.niveauEau = niveauEau;
@@ -308,11 +304,15 @@ public class Controleur {
         this.partieTermine = partieTermine;
     }
 
+    public boolean isPartieTermine() {
+        return partieTermine;
+    }
+
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
 
-    public void piocherCarte() {
+    public void piocherCarteOrange() {
         joueurCourant.addCarteMainJoueur(piocheOrange.get(1));
         piocheOrange.get(1).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
         piocheOrange.remove(piocheOrange.get(1));
@@ -372,14 +372,14 @@ public class Controleur {
         }
     }
 
-    public void utiliserCarteSpe() { //A CHANGER : a faire avec le vecteur get carte spé
+    public void utiliserCarteSpe() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Sélectionner la carte spéciale à utiliser");
         int i = 1;
 
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) { //LA
+        for (CarteOrange carteMainSpe : getCarteSpeJoueurCourant()) {
             System.out.print(i + "/ ");
-            System.out.println(carteMain.getTypeClasse());
+            System.out.println(carteMainSpe.getTypeClasse());
             i = i + 1;
         }
 
@@ -410,59 +410,59 @@ public class Controleur {
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
-        } else {
-            partieTermine = true; //PAS BON
-            //quitter le jeu
-        }
 
-        if (joueurCourant.isAssechementPossible()) {
-            System.out.println("Assecher/ Assècher une case");
-        }
-
-        for (Joueur joueur : joueurs) {
-            if (joueurCourant.isDonnerCartePossible(joueur)) { //il peut echanger avec soi meme
-                donner = true;
+            if (joueurCourant.isAssechementPossible()) {
+                System.out.println("Assecher/ Assècher une case");
             }
-        }
 
-        if (donner == true) {
-            System.out.println("Donner/ Donner une carte à un joueur");
-        }
-        if (joueurCourant.isRecupererTresorPossible()) {
-            System.out.println("Recuperer/ Récupérer un trésor");
-        }
+            for (Joueur joueur : joueurs) {
+                if (joueurCourant.isDonnerCartePossible(joueur) && joueur !=joueurCourant) { 
+                    donner = true;
+                }
+            }
 
-        if (isACarteSpe()) {
-            System.out.println("Speciale/ Utiliser une carte spéciale");
+            if (donner == true) {
+                System.out.println("Donner/ Donner une carte à un joueur");
+            }
+            if (joueurCourant.isRecupererTresorPossible()) {
+                System.out.println("Recuperer/ Récupérer un trésor");
+            }
+
+            if (isACarteSpe()) {
+                System.out.println("Speciale/ Utiliser une carte spéciale");
+            }
+
+            System.out.println("Passer/ Passer son tour");
+
+            String entree = sc.nextLine();
+            switch (entree) {
+                case "Deplacer":
+                    joueurCourant.getRole().seDeplacer();
+                    break;
+                case "Assecher":
+                    joueurCourant.getRole().assecherTuile();
+                    break;
+                case "Donner":
+                    //A faire
+                    break;
+                case "Recuperer":
+                    //A faire
+                    break;
+                case "Speciale":
+                    utiliserCarteSpe();
+                    break;
+                case "Passer":
+                    nombreAction = 0;
+                    break;
+                default:
+                    break;
+            }
+
+            nombreAction--;
+
+        } else {
+            partieTermine = true; 
         }
-
-        System.out.println("Passer/ Passer son tour");
-
-        String entree = sc.nextLine();
-        switch (entree) {
-            case "Deplacer":
-                joueurCourant.getRole().seDeplacer();
-                break;
-            case "Assecher":
-                joueurCourant.getRole().assecherTuile();
-                break;
-            case "Donner":
-                //A faire
-                break;
-            case "Recuperer":
-                //A faire
-                break;
-            case "Speciale":
-                //A faire
-                break;
-            case "Passer":
-                nombreAction = 0;
-                break;
-            default:
-                break;
-        } 
-        
-        nombreAction--;
 
     }
 
@@ -522,13 +522,13 @@ public class Controleur {
                 propositionCarteSpe();
             }
 
-            piocherCarte();
+            piocherCarteOrange();
 
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
 
-            piocherCarte();
+            piocherCarteOrange();
 
             if (isACarteSpe()) {
                 propositionCarteSpe();

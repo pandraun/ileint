@@ -104,7 +104,7 @@ public class Joueur {
 
     public boolean isAssechementPossible() {
 
-        if (this.getRole().getRoleAventurier() == "Explorateur") {
+        if ("Explorateur".equals(this.getRole().getRoleAventurier())) {
             for (int i = 0; i < 9; i++) {
                 if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                         != null) {
