@@ -14,7 +14,7 @@ public class Navigateur extends Aventurier {
     public Navigateur(String nom, Joueur joueur) {
         super(nom, joueur);
         super.setCouleur(Utils.Pion.JAUNE);
-        
+
         for (Tuile tuile : joueur.getControleur().getGrille().getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_d_Or) {
                 setTuileDepart(tuile);

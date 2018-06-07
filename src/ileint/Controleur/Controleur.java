@@ -49,14 +49,14 @@ public class Controleur {
 
     public Controleur() {
 
-        ArrayList<CarteInondation> piocheInondation = new ArrayList<>();
-        ArrayList<CarteInondation> defausseInondation = new ArrayList<>();
-        ArrayList<CarteOrange> piocheOrange = new ArrayList<>();
-        ArrayList<CarteOrange> defausseOrange = new ArrayList<>();
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        ArrayList<String> toutNomAventurier = new ArrayList<>();
-        ArrayList<Aventurier> aventuriers = new ArrayList<>();
-        HashMap<Coordonnee, Tuile> tuiles = new HashMap<>();
+        piocheInondation = new ArrayList<>();
+        defausseInondation = new ArrayList<>();
+        piocheOrange = new ArrayList<>();
+        defausseOrange = new ArrayList<>();
+        joueurs = new ArrayList<>();
+        toutNomAventurier = new ArrayList<>();
+        aventuriers = new ArrayList<>();
+        tuiles = new HashMap<>();
 
         toutNomAventurier.add("Explorateur");
         toutNomAventurier.add("Ingenieur");
@@ -74,11 +74,6 @@ public class Controleur {
         joueurs.add(joueur2);
         joueurs.add(joueur3);
         joueurs.add(joueur4);
-
-        ArrayList<CarteOrange> mainJoueur1 = new ArrayList<>();
-        ArrayList<CarteOrange> mainJoueur2 = new ArrayList<>();
-        ArrayList<CarteOrange> mainJoueur3 = new ArrayList<>();
-        ArrayList<CarteOrange> mainJoueur4 = new ArrayList<>();
 
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
@@ -153,49 +148,55 @@ public class Controleur {
         tuiles.put(new Coordonnee(5, 4), t54);
         Tuile t55 = new Tuile(null, new Coordonnee(5, 5), null);
         tuiles.put(new Coordonnee(5, 5), t55);
-
+       
         grille = new Grille(tuiles);
-
+        
         for (Joueur unJoueur : joueurs) {
 
             Collections.shuffle(toutNomAventurier);
 
-            switch (toutNomAventurier.get(0)) { // attribution des rôles 
+            switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
                     Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(explorateur);
                     unJoueur.setRole(explorateur);
                     unJoueur.setEmplacementJoueur(explorateur.getTuileDepart());
+                    break;
 
                 case "Ingenieur":
                     Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(ingenieur);
                     unJoueur.setRole(ingenieur);
                     unJoueur.setEmplacementJoueur(ingenieur.getTuileDepart());
+                    break;
 
                 case "Messager":
                     Messager messager = new Messager(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(messager);
                     unJoueur.setRole(messager);
                     unJoueur.setEmplacementJoueur(messager.getTuileDepart());
+                    break;
 
                 case "Navigateur":
                     Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(navigateur);
                     unJoueur.setRole(navigateur);
                     unJoueur.setEmplacementJoueur(navigateur.getTuileDepart());
+                    break;
 
                 case "Pilote":
                     Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(pilote);
                     unJoueur.setRole(pilote);
                     unJoueur.setEmplacementJoueur(pilote.getTuileDepart());
+                    break;
 
                 case "Plongeur":
                     Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur);
                     aventuriers.add(plongeur);
                     unJoueur.setRole(plongeur);
                     unJoueur.setEmplacementJoueur(plongeur.getTuileDepart());
+                    break;
             }
 
             toutNomAventurier.remove(toutNomAventurier.get(0)); // retire des choix l'aventurier attribué
@@ -244,7 +245,8 @@ public class Controleur {
                 piocheOrange.remove(piocheOrange.get(0));
             }
         }
-
+        
+        joueurCourant = joueurs.get(0);
         tourDeJeu();
 
     }
@@ -523,6 +525,10 @@ public class Controleur {
     public void tourDeJeu() {
 
         while (partieTermine == false) {
+            System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
+            System.out.println("role : " + joueurCourant.getRole().getNom());
+            System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
+            System.out.println("");
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
