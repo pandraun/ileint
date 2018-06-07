@@ -18,19 +18,20 @@ import javax.swing.JFrame;
  * @author pandraun
  */
 public class FenetreJeu {
+
     private JFrame window;
-    
-    public FenetreJeu() throws MalformedURLException{
-        
+
+    public FenetreJeu() throws MalformedURLException {
+
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight();
-        int width  = (int)dimension.getWidth();
-        
+        int height = (int) dimension.getHeight();
+        int width = (int) dimension.getWidth();
+
         this.window = new JFrame();
         window.setSize(width, height);
-        window.setLayout(new GridLayout(6,6,15,10));
-        for(int i = 0; i < 36; i++){
-            switch (i){
+        window.setLayout(new GridLayout(6, 6, 15, 10));
+        for (int i = 0; i < 36; i++) {
+            switch (i) {
                 case 0:
                 case 1:
                 case 4:
@@ -42,17 +43,18 @@ public class FenetreJeu {
                 case 30:
                 case 31:
                 case 34:
-                case 35
-                    JButton EauSombree = new JButton(new ImageIcon(new URL( "http://s.scifi-universe.com/critiques/images-old/ileinterdite_bf_01.jpg")));
+                case 35:
+                    JButton EauSombree = new JButton(new ImageIcon(new URL("http://s.scifi-universe.com/critiques/images-old/ileinterdite_bf_01.jpg")));
                     window.add(EauSombree);
                     break;
                 default:
                     JButton Eau = new JButton();
                     window.add(Eau);
                     break;
-                }
-            
+            }
+
         }
-        
+
         window.setVisible(true);
+    }
 }
