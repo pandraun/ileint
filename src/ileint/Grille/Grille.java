@@ -86,10 +86,17 @@ public class Grille {
 
         for (int i = -1; i < 2; i++) {                                            // ligne
             for (int j = -1; j < 2; j++) {                                        // colonne
-                if (i != 0 && j != 0) {                                         // ne prendra pas la case sur lequel l'aventurier se trouve
+                if (i == 0 && j == 0) {                                         // ne prendra pas la case sur lequel l'aventurier se trouve
+                    //rien
+                } else {
                     sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
-                    if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
+                    /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
                         casesCarreExclude.put(sauv, getTuiles().get(sauv));
+                    }*/
+                    for (Tuile tuile : getTuiles().values()) {
+                        if (tuile.getCoordonnee().isPareil(sauv) && tuile.getNom() != null) { //tuile.getCoordonnee().equals(sauv)
+                            casesCarreExclude.put(sauv, tuile);
+                        }
                     }
                 }
             }
@@ -117,7 +124,7 @@ public class Grille {
                         || (i == -1 && j == 1)
                         || (i == 1 && j == -1)
                         || (i == 0 && j == 0)) {
-                    //prend les cas où c'est accessible
+                    //prend les cas où c'est pas accessible
                 } else {// ne prendra pas la case sur lequel l'aventurier se trouve
                     sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
                     /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp  
@@ -152,9 +159,15 @@ public class Grille {
         for (int i = -1; i < 2; i++) {                                            // ligne
             for (int j = -1; j < 2; j++) {                                        // colonne
                 sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
-                if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
+                /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
                     casesCarre.put(sauv, getTuiles().get(sauv));
-                }
+                }*/
+                
+                for (Tuile tuile : getTuiles().values()) {
+                        if (tuile.getCoordonnee().isPareil(sauv) && tuile.getNom() != null) { //tuile.getCoordonnee().equals(sauv)
+                            casesCarre.put(sauv, tuile);
+                        }
+                    }
             }
         }
         return casesCarre;
@@ -175,13 +188,20 @@ public class Grille {
 
         for (int i = -1; i < 2; i++) {                                            // ligne
             for (int j = -1; j < 2; j++) {                                        // colonne
-                if ((i != -1 && j != -1)
-                        || (i != 1 && j != 1)
-                        || (i != -1 && j != 1)
-                        || (i != 1 && j != -1)) {
+                if ((i == -1 && j == -1)
+                        || (i == 1 && j == 1)
+                        || (i == -1 && j == 1)
+                        || (i == 1 && j == -1)) {
+                    // rien ne se passe
+                } else {
                     sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
-                    if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
+                    /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
                         casesCroix.put(sauv, getTuiles().get(sauv));
+                    }*/
+                    for (Tuile tuile : getTuiles().values()) {
+                        if (tuile.getCoordonnee().isPareil(sauv) && tuile.getNom() != null) { //tuile.getCoordonnee().equals(sauv)
+                            casesCroix.put(sauv, tuile);
+                        }
                     }
                 }
             }
@@ -189,31 +209,34 @@ public class Grille {
         return casesCroix;
     }
 
-    public HashMap<Coordonnee, Tuile> filtreCasesSeches(HashMap<Coordonnee, Tuile> casesAlentours) { // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
-        for (Tuile uneTuile : casesAlentours.values()) {
-            if (uneTuile.getEtat() != EtatTuile.ASSECHEE) {
-                casesAlentours.remove(uneTuile);
+    public HashMap<Coordonnee, Tuile> filtreCasesSeches(HashMap<Coordonnee, Tuile> casesBruts) { // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
+        HashMap<Coordonnee, Tuile> casesTraitee = new HashMap<>();
+        for (Tuile uneTuile : casesBruts.values()) {
+            if (uneTuile.getEtat() == EtatTuile.ASSECHEE) {
+                casesTraitee.put(uneTuile.getCoordonnee(),uneTuile);
             }
         }
-        return casesAlentours;
+        return casesTraitee;
     }
 
-    public HashMap<Coordonnee, Tuile> filtreCasesInondees(HashMap<Coordonnee, Tuile> casesAlentours) { // retourne liste en gardant seulement les cases inondées (byebye null et autres)
-        for (Tuile uneTuile : casesAlentours.values()) {
-            if (uneTuile.getEtat() != EtatTuile.INONDEE) {
-                casesAlentours.remove(uneTuile);
+    public HashMap<Coordonnee, Tuile> filtreCasesInondees(HashMap<Coordonnee, Tuile> casesBruts) { // retourne liste en gardant seulement les cases inondées (byebye null et autres)
+        HashMap<Coordonnee, Tuile> casesTraitee = new HashMap<>();
+        for (Tuile uneTuile : casesBruts.values()) {
+            if (uneTuile.getEtat() == EtatTuile.INONDEE) {
+                casesTraitee.put(uneTuile.getCoordonnee(),uneTuile);
             }
         }
-        return casesAlentours;
+        return casesTraitee;
     }
 
-    public HashMap<Coordonnee, Tuile> filtreCasesCoulees(HashMap<Coordonnee, Tuile> casesAlentours) { // retourne liste en gardant seulement les cases inondées (byebye null et autres)
-        for (Tuile uneTuile : casesAlentours.values()) {
-            if (uneTuile.getEtat() != EtatTuile.COULEE) {
-                casesAlentours.remove(uneTuile);
+    public HashMap<Coordonnee, Tuile> filtreCasesCoulees(HashMap<Coordonnee, Tuile> casesBruts) { // retourne liste en gardant seulement les cases inondées (byebye null et autres)
+        HashMap<Coordonnee, Tuile> casesTraitee = new HashMap<>();
+        for (Tuile uneTuile : casesBruts.values()) {
+            if (uneTuile.getEtat() == EtatTuile.COULEE) {
+                casesTraitee.put(uneTuile.getCoordonnee(),uneTuile);
             }
         }
-        return casesAlentours;
+        return casesTraitee;
     }
 
     //-------------------------------- GETTERS SETTERS --------------------------------------------

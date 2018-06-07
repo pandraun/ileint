@@ -49,19 +49,19 @@ public abstract class Aventurier {
         String entree = sc.nextLine();
 
         for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
-            if (entree == uneTuile.getNom().toString()) {
+            if (entree.equals(uneTuile.getNom().toString())) {
                 sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
             }
         }
 
         saisieCorrecte = false;
-        while (saisieCorrecte == false) {
+        while (!saisieCorrecte) {
             if (casesTraitées.containsValue(sauv)) {
-                tuileDepart.getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
+                joueur.getEmplacementJoueur().getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
                 sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
                 joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
                 saisieCorrecte = true;
-                System.out.println("Déplacement du " + joueur + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
+                System.out.println("Déplacement du " + getNom() + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
             } else {
                 System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
                 entree = sc.nextLine();
