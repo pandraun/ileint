@@ -15,7 +15,7 @@ public class Grille {
 
     public Grille(HashMap<Coordonnee, Tuile> tuiles) {
         this.tuiles = new HashMap<>();
-
+        this.tuiles = tuiles;
     }
 //    
 
@@ -142,7 +142,7 @@ public class Grille {
         Coordonnee sauv;
 
         for (int i = -1; i < 2; i++) {                                            // ligne
-            for (int j = -1; j < 2; i++) {                                        // colonne
+            for (int j = -1; j < 2; i++) {                                        // colonne                
                 sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
                 if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
                     casesCarre.put(sauv, getTuiles().get(sauv));

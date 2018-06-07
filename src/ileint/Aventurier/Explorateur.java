@@ -19,7 +19,7 @@ public class Explorateur extends Aventurier {
         super(nom, joueur);
         setCouleur(Utils.Pion.VERT);
 
-        for (Tuile tuile : joueur.getControleur().getGrille().getTuiles().values()) {
+        for (Tuile tuile : joueur.getControleur().getGrille().getTuiles().values()) {                            
             if (tuile.getNom() == NomTuile.La_Porte_de_Cuivre) {
                 setTuileDepart(tuile);
             }

@@ -101,12 +101,11 @@ public class Joueur {
     }
 
     public boolean isDeplacementPossible() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)    
             if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                     != null) {
                 return true;
-            }
-        }
+            }        
 
         return false;
     }

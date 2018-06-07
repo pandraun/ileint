@@ -14,7 +14,7 @@ public class Pilote extends Aventurier {
     public Pilote(String nom, Joueur joueur) {
         super(nom, joueur);
         setCouleur(Utils.Pion.BLEU);
-        
+
         for (Tuile tuile : joueur.getControleur().getGrille().getTuiles().values()) {
             if (tuile.getNom() == NomTuile.Heliport) {
                 setTuileDepart(tuile);
