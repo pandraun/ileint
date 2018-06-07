@@ -40,7 +40,7 @@ public class VueAventurier  {
         int width  = (int)dimension.getWidth();
         
         this.window = new JFrame();
-        window.setSize(300, 300);
+        window.setSize(width/6, height/3);
         switch (nbJ) {
             case 0:
                 window.setLocation(0, 0);
