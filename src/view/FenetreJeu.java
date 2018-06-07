@@ -28,21 +28,21 @@ public class FenetreJeu {
         
         this.window = new JFrame();
         window.setSize(width, height);
-        window.setLayout(new GridLayout(6,6,15,10));
-        for(int i = 0; i < 36; i++){
+        window.setLayout(new GridLayout(6,8,10,10));
+        for(int i = 0; i < 48; i++){
             switch (i){
-                case 0:
                 case 1:
-                case 4:
+                case 2:
                 case 5:
                 case 6:
-                case 11:
-                case 24:
-                case 29:
-                case 30:
-                case 31:
-                case 34:
-                case 35
+                case 9:
+                case 14:
+                case 33:
+                case 38:
+                case 41:
+                case 42:
+                case 45:
+                case 46:
                     JButton EauSombree = new JButton(new ImageIcon(new URL( "http://s.scifi-universe.com/critiques/images-old/ileinterdite_bf_01.jpg")));
                     window.add(EauSombree);
                     break;
@@ -55,4 +55,5 @@ public class FenetreJeu {
         }
         
         window.setVisible(true);
+    }
 }
