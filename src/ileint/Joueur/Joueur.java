@@ -17,6 +17,8 @@ public class Joueur {
     private Tuile emplacementJoueur;
     private Controleur controleur;
     private ArrayList<CarteOrange> mainJoueur;
+    
+   
 
     //Constructeur   
     public Joueur(int numeroJoueur, Controleur controleur, Aventurier role) {
@@ -25,12 +27,16 @@ public class Joueur {
         this.role = role;
 
         emplacementJoueur = role.getTuileDepart();
+        
+        mainJoueur = new ArrayList<>();
 
     }
     
     public Joueur(int numeroJoueur, Controleur controleur){
         this.numeroJoueur = numeroJoueur;
         this.controleur = controleur;
+        
+        mainJoueur = new ArrayList<>();
     }
 
     //Getters
@@ -83,6 +89,9 @@ public class Joueur {
 
     //ajouter carte dans main joueur
     public void addCarteMainJoueur(CarteOrange carte) {
+        
+        
+       
         mainJoueur.add(carte);
     }
 

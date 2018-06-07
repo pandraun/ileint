@@ -1,8 +1,10 @@
 package ileint.Aventurier;
 
 import ileint.Joueur.Joueur;
+import ileint.Tuile.Coordonnee;
 import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
+import java.util.HashMap;
 import java.util.Scanner;
 import util.Utils;
 import util.Utils.Pion;
@@ -30,18 +32,23 @@ public abstract class Aventurier {
         Scanner sc = new Scanner(System.in);
         Tuile sauv = null; // aura forcément une valeur après
         boolean saisieCorrecte;
+        HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
+        HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
 
         System.out.println("==== Instructions pour amorcer un déplacement ====");
         System.out.println("Cases où le déplacement est possible :");
 
-        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).values()) { //affiche les cases accessibles
+        casesBruts = joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
+        casesTraitées = joueur.getControleur().getGrille().getTuilesDeplacementPossible(casesBruts);
+        
+        for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases accessibles
             System.out.println(uneTuile.getNom());
         }
 
         System.out.println("Saisir le nom (exact) de la case où se déplacer");
         String entree = sc.nextLine();
 
-        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).values()) { //cherche la correspondance entre l'entrée scanner et la tuile
+        for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
             if (entree == uneTuile.getNom().toString()) {
                 sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
             }
@@ -49,7 +56,7 @@ public abstract class Aventurier {
 
         saisieCorrecte = false;
         while (saisieCorrecte == false) {
-            if (joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur()).containsValue(sauv)) {
+            if (casesTraitées.containsValue(sauv)) {
                 tuileDepart.getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
                 sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
                 joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
@@ -57,6 +64,7 @@ public abstract class Aventurier {
                 System.out.println("Déplacement du " + joueur + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
             } else {
                 System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
+                entree = sc.nextLine();
             }
         }
     }
@@ -65,30 +73,36 @@ public abstract class Aventurier {
         Scanner sc = new Scanner(System.in);
         Tuile sauv = null; // aura forcément une valeur après
         boolean saisieCorrecte;
+        HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
+        HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
 
         System.out.println("==== Instructions pour assécher une tuile ====");
         System.out.println("Cases où l'assèchement est possible :");
+        
+        casesBruts = joueur.getControleur().getGrille().getCasesLateralesAssechement(joueur.getEmplacementJoueur());
+        casesTraitées = joueur.getControleur().getGrille().filtreCasesInondees(casesBruts);
 
-        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesLateralesAssechement(joueur.getEmplacementJoueur()).values()) { //affiche les cases assèchables
-            System.out.println(uneTuile.getNom());
+        for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases assèchables
+            System.out.println(uneTuile.getNom().toString());
         }
 
         System.out.println("Saisir le nom (exact) de la case à assécher");
         String entree = sc.nextLine();
 
-        for (Tuile uneTuile : joueur.getControleur().getGrille().getCasesLateralesAssechement(joueur.getEmplacementJoueur()).values()) { //cherche la correspondance entre l'entrée scanner et la tuile
+        for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
             if (entree == uneTuile.getNom().toString()) {
                 sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
             }
 
             saisieCorrecte = false;
             while (saisieCorrecte == false) {
-                if (joueur.getControleur().getGrille().getCasesLateralesAssechement(joueur.getEmplacementJoueur()).containsValue(sauv)) {
+                if (casesTraitées.containsValue(sauv)) {
                     sauv.setEtat(Utils.EtatTuile.ASSECHEE);
                     saisieCorrecte = true;
-                    System.out.println("Assèchement du " + joueur + " effectué sur la tuile " + sauv.getNom() + ".");
+                    System.out.println("Assèchement du " + joueur.getRole().getNom() + " effectué sur la tuile " + sauv.getNom().toString() + ".");
                 } else {
                     System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
+                    entree = sc.nextLine();
                 }
             }
         }
