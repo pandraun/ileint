@@ -77,7 +77,7 @@ public class Controleur {
         joueurs.add(joueur4);
         
         //Seulement avec plongeur
-        /*toutNomAventurier.add("Plongeur");
+        /*toutNomAventurier.add("Ingenieur");
         Joueur joueur1 = new Joueur(1, this);
         joueurs.add(joueur1);*/
 
@@ -159,7 +159,7 @@ public class Controleur {
         
         for (Joueur unJoueur : joueurs) {
 
-            //Collections.shuffle(toutNomAventurier); 
+            Collections.shuffle(toutNomAventurier); 
 
             switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
