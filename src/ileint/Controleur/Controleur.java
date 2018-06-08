@@ -76,8 +76,8 @@ public class Controleur {
         joueurs.add(joueur3);
         joueurs.add(joueur4);
         
-        //Seulement avec eplorateur
-        /*toutNomAventurier.add("Explorateur");
+        //Seulement avec plongeur
+        /*toutNomAventurier.add("Plongeur");
         Joueur joueur1 = new Joueur(1, this);
         joueurs.add(joueur1);*/
 
