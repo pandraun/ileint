@@ -27,4 +27,8 @@ public class Messager extends Aventurier {
         return "Messager";
     }
     
+    @Override
+    public void seDeplacerSpe() {
+        System.out.println("Et là, c'est le bug");
+    }
 }

@@ -46,6 +46,7 @@ public class Controleur {
     private boolean partieTermine = false;
     private Joueur joueurCourant;
     private int nombreAction;
+    private boolean piloteSpe;
 
     public Controleur() {
 
@@ -58,11 +59,11 @@ public class Controleur {
         aventuriers = new ArrayList<>();
         tuiles = new HashMap<>();
 
-        toutNomAventurier.add("Explorateur");
-        toutNomAventurier.add("Ingenieur");
         toutNomAventurier.add("Messager");
-        toutNomAventurier.add("Navigateur");
+        toutNomAventurier.add("Ingenieur");
+        toutNomAventurier.add("Explorateur");
         toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
         Joueur joueur1 = new Joueur(1, this);
@@ -158,7 +159,7 @@ public class Controleur {
         
         for (Joueur unJoueur : joueurs) {
 
-            Collections.shuffle(toutNomAventurier);
+            //Collections.shuffle(toutNomAventurier); 
 
             switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
@@ -450,6 +451,10 @@ public class Controleur {
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
+            
+            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote") && piloteSpe) {
+                System.out.println("Helico/Deplacement Helico");
+            }
 
             if (joueurCourant.isAssechementPossible()) {
                 System.out.println("Assecher/ Assècher une case");
@@ -479,6 +484,10 @@ public class Controleur {
                 case "Deplacer":
                     joueurCourant.getRole().seDeplacer();
                     break;
+                case "Helico":
+                    joueurCourant.getRole().seDeplacerSpe();
+                    piloteSpe = false;
+                    break;
                 case "Assecher":
                     joueurCourant.getRole().assecherTuile();
                     break;
@@ -492,7 +501,7 @@ public class Controleur {
                     utiliserCarteSpe();
                     break;
                 case "Passer":
-                    nombreAction = 0;
+                    nombreAction = 1;
                     break;
                 default:
                     break;
@@ -545,6 +554,7 @@ public class Controleur {
             System.out.println("role : " + joueurCourant.getRole().getNom());
             System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
             System.out.println("");
+            
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
@@ -567,6 +577,9 @@ public class Controleur {
 
             }
             nombreAction = 3;
+            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote")) {
+                    piloteSpe = true;
+                }
             while (nombreAction > 0) {
                 faireAction();
             }
@@ -587,13 +600,13 @@ public class Controleur {
                 propositionCarteSpe();
             }
             
-            for (int i = 0; i < eauAPiocher(); i++) {
+            /*for (int i = 0; i < eauAPiocher(); i++) {
                 
                 piocherInnondation();
                 //verifFinInnondation(tuileCourante)
-                propositionCarteSpe();
+                propositionCarteSpe();       
 
-            }
+            }*/
             joueurSuivant();
             System.out.println("=-=-=-=-=-=-=-=-=-=-=-=");
         }

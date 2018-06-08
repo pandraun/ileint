@@ -3,6 +3,7 @@ package ileint.Aventurier;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
+import java.util.Scanner;
 import util.Utils;
 
 /**
@@ -27,4 +28,25 @@ public class Ingenieur extends Aventurier {
         return "Ingénieur";
     }
     
+    @Override
+    public void assecherTuile() {
+        super.assecherTuile();
+        
+        Scanner sc = new Scanner(System.in);
+        boolean choix;
+        System.out.println("Voulez-vous vous assecher une deuxième fois ?");
+        System.out.println("/Oui");
+        System.out.println("/Non");
+        String entree = sc.nextLine();
+        if (entree.equals("Oui")) {
+            super.assecherTuile();
+        }
+    }
+    
+    @Override
+    public void seDeplacerSpe() {
+        System.out.println("Et là, c'est le bug");
+    }
 }
+
+    

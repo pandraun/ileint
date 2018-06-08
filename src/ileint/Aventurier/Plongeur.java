@@ -63,4 +63,9 @@ public class Plongeur extends Aventurier {
             }
         }
     }
+    
+    @Override
+    public void seDeplacerSpe() {
+        System.out.println("Et là, c'est le bug");
+    }
 }

@@ -108,6 +108,8 @@ public abstract class Aventurier {
         }
     }
     
+    public abstract void seDeplacerSpe();
+    
     
 
     //Getters
