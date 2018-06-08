@@ -112,22 +112,25 @@ public class Joueur {
 
     public boolean isAssechementPossible() {
 
-        if ("Explorateur".equals(this.getRole().getRoleAventurier())) {
-            for (int i = 0; i < 9; i++) {
+        if ("Explorateur".equals(getRole().getRoleAventurier())) {
+            /*for (int i = 0; i < 9; i++) {
                 if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                         != null) {
                     return true;
                 }
-            }
+            }*/
+            return !controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(emplacementJoueur)).isEmpty();
         } else {
-            for (int i = 0; i < 5; i++) {
+            /*for (int i = 0; i < 5; i++) {
                 if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
                         != null) {
                     return true;
                 }
-            }
+            }*/
+            
+            return !controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesLateralesAssechement(emplacementJoueur)).isEmpty();
         }
-        return false;
+        
     }
 
     public boolean isDonnerCartePossible(Joueur joueurCible) {

@@ -83,7 +83,7 @@ public abstract class Aventurier {
         casesTraitées = joueur.getControleur().getGrille().filtreCasesInondees(casesBruts);
         
         for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases assèchables
-            System.out.println("/"+uneTuile.getNom().toString() + "      " + uneTuile.getEtat().toString());
+            System.out.println("/"+uneTuile.getNom().toString());
         }
 
         System.out.println("Saisir le nom (exact) de la case à assécher");

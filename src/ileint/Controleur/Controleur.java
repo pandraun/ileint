@@ -74,6 +74,11 @@ public class Controleur {
         joueurs.add(joueur2);
         joueurs.add(joueur3);
         joueurs.add(joueur4);
+        
+        //Seulement avec eplorateur
+        /*toutNomAventurier.add("Explorateur");
+        Joueur joueur1 = new Joueur(1, this);
+        joueurs.add(joueur1);*/
 
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
