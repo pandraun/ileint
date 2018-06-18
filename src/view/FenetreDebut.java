@@ -32,6 +32,7 @@ import util.Utils;
 public class FenetreDebut  extends JFrame {
     private final JFrame fenetre; 
     private final JPanel mainPanel;
+    private final JPanel niveauEau;
     private final JPanel nbJoueurBTF;
     
     private JLabel LabelJoueur;
@@ -65,8 +66,12 @@ public class FenetreDebut  extends JFrame {
         demarrer.setFont(new Font("Arial", Font.BOLD, 30));
         
         /* Placement des composants */
-        fenetre.setLayout(new GridLayout(2,1));
+        fenetre.setLayout(new GridLayout(3,1));
         fenetre.getContentPane().add( ileInterdite );
+        
+        niveauEau = new JPanel(new GridLayout(2,1));
+        fenetre.add(niveauEau);
+        
 
         nbJoueurBTF.setLayout(new GridLayout(1,3));
         fenetre.add(mainPanel);

@@ -43,7 +43,7 @@ public class FenetreJeu {
             switch (i){
                 case 0:
                     JButton role = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
-                    role.setPreferredSize(new Dimension(height/100,width/100));
+                    role.setPreferredSize(new Dimension(0,0));
                     c.fill = GridBagConstraints.BOTH;
                     c.gridheight = 2;
                     c.weightx = 0.5;
