@@ -16,8 +16,9 @@ import ileint.Tuile.Tuile;
 public class Message {
     
     public TypesMessages type;
+    public int nbJoueur;
     public Joueur joueurVise;
     public CarteOrange carteSelectionne;
-    public Tuile tuileSelectionne;
+    public Tuile tuileSelectionne;    
     
 }

@@ -35,6 +35,8 @@ import util.Utils;
  */
 public class Controleur {
 
+    private boolean hasard = false;
+
     private int niveauEau;
     private ArrayList<CarteInondation> piocheInondation; // 0..24
     private ArrayList<CarteInondation> defausseInondation; // 0..24
@@ -50,10 +52,13 @@ public class Controleur {
     private Joueur joueurCourant;
     private int nombreAction;
     private boolean piloteSpe;
-    private Message messageSauv = null; // c'est nul
+    private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
 
     public Controleur() {
 
+    }
+
+    public void initGrille(int nbJoueur) {
         piocheInondation = new ArrayList<>();
         defausseInondation = new ArrayList<>();
         piocheOrange = new ArrayList<>();
@@ -77,16 +82,11 @@ public class Controleur {
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
-        Joueur joueur1 = new Joueur(1);
-        Joueur joueur2 = new Joueur(2);
-        Joueur joueur3 = new Joueur(3);
-        Joueur joueur4 = new Joueur(4);
+        for (int i = 0; i < nbJoueur; i++) {
+            Joueur joueur = new Joueur(i);
+            joueurs.add(joueur);
+        }
 
-        joueurs.add(joueur1);  // création des 4 joueurs à la main
-        joueurs.add(joueur2);
-        joueurs.add(joueur3);
-        joueurs.add(joueur4);
-        
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
         tuiles.put(new Coordonnee(0, 0), t00);
@@ -165,9 +165,11 @@ public class Controleur {
 
         for (Joueur unJoueur : joueurs) {
 
-            Collections.shuffle(toutNomAventurier);
+            if (hasard) {
+                Collections.shuffle(toutNomAventurier);
+            }
 
-            switch (toutNomAventurier.get(0)) {                
+            switch (toutNomAventurier.get(0)) {
                 case "Explorateur":
                     Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(explorateur);
@@ -229,7 +231,7 @@ public class Controleur {
 
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             piocheOrange.add(new MontéeEau(EmplacementCarte.PIOCHE));
         }
 
@@ -243,22 +245,20 @@ public class Controleur {
 
         Collections.shuffle(piocheOrange);
 
-        /*for (int i = 0; i < 6; i++) {
+        if (hasard) {
+            for (int i = 0; i < 6; i++) {
+                piocherInnondation();
+            }
+        }
 
-            piocherInnondation();
-
-        }*/
         for (Joueur unJoueur : joueurs) {
-
             for (int i = 0; i < 2; i++) {
                 unJoueur.addCarteMainJoueur(piocheOrange.get(0));
                 piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
                 piocheOrange.remove(piocheOrange.get(0));
             }
         }
-
         joueurCourant = joueurs.get(0);
-
     }
 
     public boolean isDeplacementPossible() {
@@ -272,13 +272,11 @@ public class Controleur {
     }
 
     public boolean isAssechementPossible() {
-
         if ("Explorateur".equals(joueurCourant.getRole().getRoleAventurier())) {
             return !getGrille().filtreCasesInondees(getGrille().getCasesContourAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
         } else {
             return !getGrille().filtreCasesInondees(getGrille().getCasesLateralesAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
         }
-
     }
 
     public boolean isDonnerCartePossible(Joueur joueurCible) {
@@ -286,7 +284,6 @@ public class Controleur {
     }
 
     public boolean isRecupererTresorPossible() {
-
         int nb = 0;
         if (joueurCourant.getEmplacementJoueur().getCaseTresor() != null) {
             for (int i = 0; i < joueurCourant.getMainJoueur().size(); i++) {
@@ -295,9 +292,7 @@ public class Controleur {
                 }
             }
         }
-
         return nb > 3;
-
     }
 
     public int getNiveauEau() {
@@ -390,6 +385,7 @@ public class Controleur {
         return partieTermine;
     }
 
+    
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
@@ -426,6 +422,7 @@ public class Controleur {
             if (piocheInondation.get(0).getTuile() == uneTuile) {
                 uneTuile.arroserTuile();
                 piocheInondation.get(0).setPioche(false);
+                defausseInondation.add(piocheInondation.get(0));
                 piocheInondation.remove(piocheInondation.get(0));
             }
         }
@@ -483,6 +480,8 @@ public class Controleur {
                 break;
 
             case DEMARRER:
+                initGrille(m.nbJoueur);
+                //vue
                 break;
 
             case ANNULER:
