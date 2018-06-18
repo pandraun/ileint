@@ -171,42 +171,42 @@ public class Controleur {
 
             switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
-                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur);
+                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(explorateur);
                     unJoueur.setRole(explorateur);
                     unJoueur.setEmplacementJoueur(explorateur.getTuileDepart());
                     break;
 
                 case "Ingenieur":
-                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur);
+                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(ingenieur);
                     unJoueur.setRole(ingenieur);
                     unJoueur.setEmplacementJoueur(ingenieur.getTuileDepart());
                     break;
 
                 case "Messager":
-                    Messager messager = new Messager(toutNomAventurier.get(0), unJoueur);
+                    Messager messager = new Messager(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(messager);
                     unJoueur.setRole(messager);
                     unJoueur.setEmplacementJoueur(messager.getTuileDepart());
                     break;
 
                 case "Navigateur":
-                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur);
+                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(navigateur);
                     unJoueur.setRole(navigateur);
                     unJoueur.setEmplacementJoueur(navigateur.getTuileDepart());
                     break;
 
                 case "Pilote":
-                    Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur);
+                    Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(pilote);
                     unJoueur.setRole(pilote);
                     unJoueur.setEmplacementJoueur(pilote.getTuileDepart());
                     break;
 
                 case "Plongeur":
-                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur);
+                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(plongeur);
                     unJoueur.setRole(plongeur);
                     unJoueur.setEmplacementJoueur(plongeur.getTuileDepart());
@@ -541,14 +541,14 @@ public class Controleur {
             String entree = sc.nextLine();
             switch (entree) {
                 case "Deplacer":
-                    joueurCourant.getRole().seDeplacer();
+                    joueurCourant.getRole().getTuilesDeplacementPossible(grille);
                     break;
                 case "Helico":
-                    joueurCourant.getRole().seDeplacerSpe();
+                    joueurCourant.getRole().getTuilesDeplacementSpe(grille);
                     piloteSpe = false;
                     break;
                 case "Assecher":
-                    joueurCourant.getRole().assecherTuile();
+                    joueurCourant.getRole().getTuilesAssechables(grille);
                     break;
                 case "Donner":
                     //A faire

@@ -3,11 +3,8 @@ package ileint.Aventurier;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
-import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
 import java.util.HashMap;
-import java.util.Scanner;
-import util.Utils;
 import util.Utils.Pion;
 
 /**

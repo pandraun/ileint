@@ -30,6 +30,7 @@ public class Pilote extends Aventurier {
         return "Pilote";
     }
 
+    @Override
     public HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g) {
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         
