@@ -64,7 +64,7 @@ public class Grille {
         return tuilesAccessibles;
     }
 
-    public HashMap<Coordonnee, Tuile> getTuilesDeplacementPossible(HashMap<Coordonnee, Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
+    public HashMap<Coordonnee, Tuile> getTuilesAccessiblesFiltree(HashMap<Coordonnee, Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         tuilesAccessibles.putAll(filtreCasesInondees(listeCasesAlentours));
         tuilesAccessibles.putAll(filtreCasesSeches(listeCasesAlentours));
