@@ -20,5 +20,6 @@ public enum TypesMessages {
     PASSER_TOUR,
     CHOIX_TUILE,
     PARAMETRE_DONNER_CARTE,
-    CHOIX_CARTE;
+    CHOIX_CARTE,
+    PIOCHER_CARTE_ORANGE;
 }

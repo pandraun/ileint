@@ -30,6 +30,12 @@ public class Grille {
     public HashMap<Coordonnee, Tuile> getTuilesInondees() { // retourne toutes les cases inondées du plateau
         return filtreCasesInondees(tuiles);
     }
+    
+    /*public HashMap<Coordonnee, Tuile> getTuileAccessibleHelico() {
+        HashMap<Coordonnee, Tuile> tuilesAccesibles = new HashMap<>();
+        tuilesAccesibles = tuiles;
+        return filtreTuilesAccessibles(tuilesAccesibles);
+    }*/
 
     public HashMap<Coordonnee, Tuile> filtreTuilesAccessibles(HashMap<Coordonnee, Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
