@@ -5,10 +5,13 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.BoxLayout;
@@ -17,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import util.Message;
+import util.TypesMessages;
 import util.Utils;
 
 /**
@@ -24,6 +29,7 @@ import util.Utils;
  * @author pandraun
  */
 public class FenetreJeu {
+
     private JFrame window;
     private JPanel grille;
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
@@ -41,9 +47,9 @@ public class FenetreJeu {
     public FenetreJeu() throws MalformedURLException{
         
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight();
-        int width  = (int)dimension.getWidth();
-        
+        int height = (int) dimension.getHeight();
+        int width = (int) dimension.getWidth();
+
         this.window = new JFrame();
         window.setSize(width, height);
         
@@ -301,8 +307,8 @@ public class FenetreJeu {
                     JPanel caseVide = new JPanel();
                     grille.add(caseVide);
                     break;
-                }
-            
+            }
+
         }
         window.pack();
         window.setVisible(true);
