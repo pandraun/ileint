@@ -41,6 +41,7 @@ public class Controleur {
     private ArrayList<Joueur> joueurs; //2..4
     private ArrayList<String> toutNomAventurier;
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
+    private ArrayList<TypeTresor> tresorsRecuperables;
     private HashMap<Coordonnee, Tuile> tuiles;
     private Grille grille;
     private boolean partieTermine = false;
@@ -58,6 +59,13 @@ public class Controleur {
         toutNomAventurier = new ArrayList<>();
         aventuriers = new ArrayList<>();
         tuiles = new HashMap<>();
+        tresorsRecuperables = new ArrayList<>(); 
+        
+        /* Initialisation de la collection de trésors à récupérer */
+        tresorsRecuperables.add(TypeTresor.CALICE);
+        tresorsRecuperables.add(TypeTresor.STATUE);
+        tresorsRecuperables.add(TypeTresor.CRISTAL);
+        tresorsRecuperables.add(TypeTresor.PIERRE);
 
         toutNomAventurier.add("Messager");
         toutNomAventurier.add("Ingenieur");
@@ -66,21 +74,20 @@ public class Controleur {
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
-        Joueur joueur1 = new Joueur(1, this);
-        Joueur joueur2 = new Joueur(2, this);
-        Joueur joueur3 = new Joueur(3, this);
-        Joueur joueur4 = new Joueur(4, this);
+        Joueur joueur1 = new Joueur(1);
+        Joueur joueur2 = new Joueur(2);
+        Joueur joueur3 = new Joueur(3);
+        Joueur joueur4 = new Joueur(4);
 
         joueurs.add(joueur1);  // création des 4 joueurs à la main
         joueurs.add(joueur2);
         joueurs.add(joueur3);
         joueurs.add(joueur4);
-        
+
         //Seulement avec plongeur
         /*toutNomAventurier.add("Ingenieur");
         Joueur joueur1 = new Joueur(1, this);
         joueurs.add(joueur1);*/
-
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
         tuiles.put(new Coordonnee(0, 0), t00);
@@ -154,12 +161,12 @@ public class Controleur {
         tuiles.put(new Coordonnee(5, 4), t54);
         Tuile t55 = new Tuile(null, new Coordonnee(5, 5), null);
         tuiles.put(new Coordonnee(5, 5), t55);
-       
+
         grille = new Grille(tuiles);
-        
+
         for (Joueur unJoueur : joueurs) {
 
-            Collections.shuffle(toutNomAventurier); 
+            Collections.shuffle(toutNomAventurier);
 
             switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
@@ -242,7 +249,6 @@ public class Controleur {
             piocherInnondation();
 
         }*/
-
         for (Joueur unJoueur : joueurs) {
 
             for (int i = 0; i < 2; i++) {
@@ -251,9 +257,61 @@ public class Controleur {
                 piocheOrange.remove(piocheOrange.get(0));
             }
         }
-        
+
         joueurCourant = joueurs.get(0);
         tourDeJeu();
+
+    }
+
+    public boolean isDeplacementPossible() {
+        for (int i = 0; i < 4; i++) {
+            if (getGrille().filtreCasesSeches(getGrille().getCasesContourAssechement(joueurCourant.getEmplacementJoueur()))
+                    != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAssechementPossible() {
+
+        if ("Explorateur".equals(joueurCourant.getRole().getRoleAventurier())) {
+            /*for (int i = 0; i < 9; i++) {
+                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
+                        != null) {
+                    return true;
+                }
+            }*/
+            return !getGrille().filtreCasesInondees(getGrille().getCasesContourAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
+        } else {
+            /*for (int i = 0; i < 5; i++) {
+                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
+                        != null) {
+                    return true;
+                }
+            }*/
+
+            return !getGrille().filtreCasesInondees(getGrille().getCasesLateralesAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
+        }
+
+    }
+
+    public boolean isDonnerCartePossible(Joueur joueurCible) {
+        return joueurCible.getEmplacementJoueur() == joueurCourant.getEmplacementJoueur();
+    }
+
+    public boolean isRecupererTresorPossible() {
+
+        int nb = 0;
+        if (joueurCourant.getEmplacementJoueur().getCaseTresor() != null) {
+            for (int i = 0; i < joueurCourant.getMainJoueur().size(); i++) {
+                if (joueurCourant.getEmplacementJoueur().getCaseTresor() == joueurCourant.getMainJoueur().get(i).getTypeTresor()) {
+                    nb = nb + 1;
+                }
+            }
+        }
+
+        return nb > 3;
 
     }
 
@@ -445,13 +503,13 @@ public class Controleur {
         boolean donner = false;
 
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("==================================");
         System.out.println("Choisir votre action:");
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
-            
+
             if (joueurCourant.getRole().getRoleAventurier().equals("Pilote") && piloteSpe) {
                 System.out.println("Helico/Deplacement Helico");
             }
@@ -535,13 +593,13 @@ public class Controleur {
         }
 
     }
-    
+
     public void joueurSuivant() {
         int i = joueurs.indexOf(joueurCourant);
-        if (i == joueurs.size()-1) {
+        if (i == joueurs.size() - 1) {
             joueurCourant = joueurs.get(0);
         } else {
-            joueurCourant = joueurs.get(i+1);
+            joueurCourant = joueurs.get(i + 1);
         }
     }
 
@@ -549,12 +607,12 @@ public class Controleur {
     //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
     public void tourDeJeu() {
 
-        while (partieTermine == false) {            
+        while (partieTermine == false) {
             System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
             System.out.println("role : " + joueurCourant.getRole().getNom());
             System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
             System.out.println("");
-            
+
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
@@ -578,8 +636,8 @@ public class Controleur {
             }
             nombreAction = 3;
             if (joueurCourant.getRole().getRoleAventurier().equals("Pilote")) {
-                    piloteSpe = true;
-                }
+                piloteSpe = true;
+            }
             while (nombreAction > 0) {
                 faireAction();
             }
@@ -587,19 +645,19 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
-            piocherCarteOrange();
-
-            if (isACarteSpe()) {
-                propositionCarteSpe();
-            }
 
             piocherCarteOrange();
 
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-            
+
+            piocherCarteOrange();
+
+            if (isACarteSpe()) {
+                propositionCarteSpe();
+            }
+
             /*for (int i = 0; i < eauAPiocher(); i++) {
                 
                 piocherInnondation();
@@ -610,5 +668,33 @@ public class Controleur {
             joueurSuivant();
             System.out.println("=-=-=-=-=-=-=-=-=-=-=-=");
         }
+    }
+    
+    public void effectuerDeplacement(Joueur joueur, Tuile tuile) { // déplace effectivement le joueur (ne vérifie rien)
+        joueur.getEmplacementJoueur().getJoueursTuile().remove(joueur);
+        joueur.setEmplacementJoueur(tuile);
+        joueur.getEmplacementJoueur().getJoueursTuile().add(joueur);
+    }
+    
+    public void effectuerAssechement(Tuile tuile) { // assèche effectivemment une tuile (ne vérifie rien)
+        tuile.setEtat(Utils.EtatTuile.ASSECHEE);
+    }
+    
+    public void effectuerDonCarte(Joueur donneur, Joueur receveur, CarteOrange carte) { // transfère effectivemment une carte (ne vérifie rien)
+        donneur.getMainJoueur().remove(carte);
+        receveur.getMainJoueur().add(carte);
+    }
+    
+    public void effectuerRecuperationTresor(Tuile tuile, Joueur joueur) { // récupère effectivemment le trésor et retire les cartes correspondantes dans la main du joueur (ne vérifie pas si le joueur a bien les 4 cartes)
+        TypeTresor tresorRecuperableCase = joueur.getEmplacementJoueur().getCaseTresor();
+        int compteur = 0;
+        
+        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes
+            if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
+                joueur.getMainJoueur().remove(uneCarteOrange);
+                compteur++;
+            }
+        }     
+        tresorsRecuperables.remove(tresorRecuperableCase);
     }
 }
