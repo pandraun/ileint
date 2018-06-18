@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,6 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import util.Utils;
 
 /**
  *
@@ -29,9 +33,36 @@ public class FenetreJeu {
         
         this.window = new JFrame();
         window.setSize(width, height);
-        window.setLayout(new GridLayout(6,8,30,10));
+        window.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        int j = 0;
         for(int i = 0; i < 48; i++){
+            if (i%8==0){
+                j+=1;
+            }
             switch (i){
+                case 0:
+                    JButton role = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
+                    role.setPreferredSize(new Dimension(height/100,width/100));
+                    c.fill = GridBagConstraints.BOTH;
+                    c.gridheight = 2;
+                    c.weightx = 0.5;
+                    c.weighty = 0.5;
+                    c.gridx = i%8;
+                    c.gridy = j;
+                    window.add(role, c);
+                    break;
+                case 7:
+                case 32:
+                case 39:
+                    JButton joueur = new JButton();
+                    c.fill = GridBagConstraints.BOTH;
+                    c.gridheight = 2;
+                    c.weightx = 0.5;
+                    c.weighty = 0.5;
+                    c.gridx = i%8;
+                    c.gridy = j;
+                    window.add(joueur, c);
                 case 1:
                 case 2:
                 case 5:
@@ -44,24 +75,25 @@ public class FenetreJeu {
                 case 42:
                 case 45:
                 case 46:
-                case 0:
-                case 7:
                 case 8:
                 case 15:
                 case 16:
                 case 23:
                 case 24:
                 case 31:
-                case 32:
-                case 39:
                 case 40:
                 case 47:
-                    JLabel JL = new JLabel("");
-                    window.add(JL);
+
                     break;
                 default:
-                    JButton Eau = new JButton();
-                    window.add(Eau);
+                    JButton eau = new JButton();
+                    c.fill = GridBagConstraints.BOTH;
+                    c.gridheight = 1;
+                    c.weightx = 0.5;
+                    c.weighty = 0.5;
+                    c.gridx = i%8;
+                    c.gridy = j;
+                    window.add(eau, c);
                     break;
                 }
             
