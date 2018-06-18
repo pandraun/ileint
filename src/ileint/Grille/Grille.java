@@ -31,19 +31,13 @@ public class Grille {
         return filtreCasesInondees(tuiles);
     }
 
-    public HashMap<Coordonnee, Tuile> getTuilesAccessiblesPilote() { // retourne toutes les cases accessibles du plateau (inondées + sèches) + en principe y'a pas de null dedans
-        HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
-        tuilesAccessibles.putAll(getTuilesAssechees());
-        tuilesAccessibles.putAll(getTuilesInondees());
-        return tuilesAccessibles;    // utile pilote et peut etre plongeur
-    }
 
     public HashMap<Coordonnee, Tuile> getTuilesAccessiblesPlongeur(Tuile pos) { //si ça marche appelez moi Jesus
         HashMap<Coordonnee, Tuile> tuilesAVisiter = new HashMap<>();
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         HashMap<Coordonnee, Tuile> tuilesEau = new HashMap<>();
 
-        tuilesAVisiter = getTuilesDeplacementPossible(getCasesLateralesDeplacement(pos));
+        tuilesAVisiter = filtreTuilesAccessibles(getCasesLateralesDeplacement(pos));
         while (tuilesAVisiter.size() > 0) {
             for (Tuile uneTuile : tuilesAVisiter.values()) {
                 if (tuilesAVisiter.containsValue(uneTuile.getEtat() == EtatTuile.INONDEE)) {   // si tuile inondée trouvée -> on l'ajoute
@@ -58,13 +52,13 @@ public class Grille {
                 tuilesAVisiter = tuilesEau;
             }
             for (Tuile uneTuile : tuilesAVisiter.values()) {
-                tuilesAVisiter.putAll(getTuilesDeplacementPossible(getCasesLateralesDeplacement(uneTuile)));
+                tuilesAVisiter.putAll(filtreTuilesAccessibles(getCasesLateralesDeplacement(uneTuile)));
             }
         }
         return tuilesAccessibles;
     }
 
-    public HashMap<Coordonnee, Tuile> getTuilesAccessiblesFiltree(HashMap<Coordonnee, Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
+    public HashMap<Coordonnee, Tuile> filtreTuilesAccessibles(HashMap<Coordonnee, Tuile> listeCasesAlentours) { // retourne une liste en ne gardant que celles où on peut se déplacer (pas coulées ni null)
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         tuilesAccessibles.putAll(filtreCasesInondees(listeCasesAlentours));
         tuilesAccessibles.putAll(filtreCasesSeches(listeCasesAlentours));
