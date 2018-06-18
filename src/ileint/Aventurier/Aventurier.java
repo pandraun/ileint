@@ -1,5 +1,6 @@
 package ileint.Aventurier;
 
+import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.NomTuile;
@@ -28,45 +29,16 @@ public abstract class Aventurier {
 
     public abstract String getRoleAventurier();
 
-    public void seDeplacer() {    // !! à faire :rendre la vision des cases accessibles avant de lancer se déplacer ou permettre annulation du déplacement si cases coviennent pas
-        Scanner sc = new Scanner(System.in);
-        Tuile sauv = null; // aura forcément une valeur après
-        boolean saisieCorrecte;
+    public Tuile getTuilesDeplacementPossible(Grille g) {    // !! à faire :rendre la vision des cases accessibles avant de lancer se déplacer ou permettre annulation du déplacement si cases coviennent pas
         HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
         HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
         
-        System.out.println("==== Instructions pour amorcer un déplacement ====");
-        System.out.println("Cases où le déplacement est possible :");
-
-        casesBruts = joueur.getControleur().getGrille().getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
-        casesTraitées = joueur.getControleur().getGrille().getTuilesDeplacementPossible(casesBruts);
+        casesBruts = g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
+        casesTraitées = g.getTuilesDeplacementPossible(casesBruts);
         
         for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases accessibles
             System.out.println("/"+uneTuile.getNom());
-        }
-
-        System.out.println("Saisir le nom (exact) de la case où se déplacer");
-        String entree = sc.nextLine();
-
-        for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
-            if (entree.equals(uneTuile.getNom().toString())) {
-                sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
-            }
-        }
-
-        saisieCorrecte = false;
-        while (!saisieCorrecte) {
-            if (casesTraitées.containsValue(sauv)) {
-                joueur.getEmplacementJoueur().getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
-                sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
-                joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
-                saisieCorrecte = true;
-                System.out.println("Déplacement du " + getNom() + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
-            } else {
-                System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
-                entree = sc.nextLine();
-            }
-        }
+        } 
     }
 
     public void assecherTuile() {

@@ -2,7 +2,6 @@ package ileint.Joueur;
 
 import ileint.Aventurier.Aventurier;
 import ileint.Carte.CarteOrange;
-import ileint.Controleur.Controleur;
 import ileint.Tuile.Tuile;
 import java.util.ArrayList;
 
@@ -15,15 +14,13 @@ public class Joueur {
     private int numeroJoueur;
     private Aventurier role;
     private Tuile emplacementJoueur;
-    private Controleur controleur;
     private ArrayList<CarteOrange> mainJoueur;
     
    
 
     //Constructeur   
-    public Joueur(int numeroJoueur, Controleur controleur, Aventurier role) {
+    public Joueur(int numeroJoueur, Aventurier role) {
         this.numeroJoueur = numeroJoueur;
-        this.controleur = controleur;
         this.role = role;
 
         emplacementJoueur = role.getTuileDepart();
@@ -32,9 +29,8 @@ public class Joueur {
 
     }
     
-    public Joueur(int numeroJoueur, Controleur controleur){
+    public Joueur(int numeroJoueur){
         this.numeroJoueur = numeroJoueur;
-        this.controleur = controleur;
         
         mainJoueur = new ArrayList<>();
     }
@@ -50,10 +46,6 @@ public class Joueur {
 
     public Tuile getEmplacementJoueur() {
         return emplacementJoueur;
-    }
-
-    public Controleur getControleur() {
-        return controleur;
     }
 
     public ArrayList<CarteOrange> getMainJoueur() {
@@ -74,10 +66,6 @@ public class Joueur {
 
     }
 
-    public void setControleur(Controleur controleur) {
-        this.controleur = controleur;
-    }
-
     public void setMainJoueur(ArrayList<CarteOrange> mainJoueur) {
         this.mainJoueur = mainJoueur;
     }
@@ -89,67 +77,13 @@ public class Joueur {
 
     //ajouter carte dans main joueur
     public void addCarteMainJoueur(CarteOrange carte) {
-        
-        
-       
+
         mainJoueur.add(carte);
     }
 
     //supprimer carte dans main joueur
     public void removeCarteMainJoueur(CarteOrange carte) {
         mainJoueur.remove(carte);
-    }
-
-    public boolean isDeplacementPossible() {
-        for (int i = 0; i < 4; i++){
-            if (controleur.getGrille().filtreCasesSeches(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
-                    != null) {
-                return true;
-            }        
-        }
-        return false;
-    }
-
-    public boolean isAssechementPossible() {
-
-        if ("Explorateur".equals(getRole().getRoleAventurier())) {
-            /*for (int i = 0; i < 9; i++) {
-                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
-                        != null) {
-                    return true;
-                }
-            }*/
-            return !controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(emplacementJoueur)).isEmpty();
-        } else {
-            /*for (int i = 0; i < 5; i++) {
-                if (controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesContourAssechement(getEmplacementJoueur()))
-                        != null) {
-                    return true;
-                }
-            }*/
-            
-            return !controleur.getGrille().filtreCasesInondees(controleur.getGrille().getCasesLateralesAssechement(emplacementJoueur)).isEmpty();
-        }
-        
-    }
-
-    public boolean isDonnerCartePossible(Joueur joueurCible) {
-        return joueurCible.getEmplacementJoueur() == getEmplacementJoueur();
-    }
-
-    public boolean isRecupererTresorPossible() {
-
-        int nb = 0;
-        if (emplacementJoueur.getCaseTresor() != null) {
-            for (int i = 0; i < mainJoueur.size(); i++) {
-                if (emplacementJoueur.getCaseTresor() == mainJoueur.get(i).getTypeTresor()) {
-                    nb = nb + 1;
-                }
-            }
-        }
-
-        return nb > 3;
-
     }
 
 }
