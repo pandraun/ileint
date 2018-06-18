@@ -36,9 +36,7 @@ public abstract class Aventurier {
         casesBruts = g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
         casesTraitées = g.getTuilesDeplacementPossible(casesBruts);
         
-        for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases accessibles
-            System.out.println("/"+uneTuile.getNom());
-        } 
+        return
     }
 
     public void assecherTuile() {

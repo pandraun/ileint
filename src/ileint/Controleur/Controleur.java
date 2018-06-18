@@ -88,6 +88,7 @@ public class Controleur {
         /*toutNomAventurier.add("Ingenieur");
         Joueur joueur1 = new Joueur(1, this);
         joueurs.add(joueur1);*/
+        
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
         tuiles.put(new Coordonnee(0, 0), t00);
