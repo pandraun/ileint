@@ -1,8 +1,11 @@
 package ileint.Aventurier;
 
+import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
+import ileint.Tuile.Coordonnee;
 import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
+import java.util.HashMap;
 import util.Utils;
 
 /**
@@ -11,11 +14,11 @@ import util.Utils;
  */
 public class Messager extends Aventurier {
     
-    public Messager(String nom, Joueur joueur) {
+    public Messager(String nom, Joueur joueur, Grille grille) {
         super(nom, joueur);
         super.setCouleur(Utils.Pion.ORANGE);
 
-        for (Tuile tuile : joueur.getControleur().getGrille().getTuiles().values()) {
+        for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_d_Argent) {
                 setTuileDepart(tuile);
             }
@@ -28,7 +31,9 @@ public class Messager extends Aventurier {
     }
     
     @Override
-    public void seDeplacerSpe() {
-        System.out.println("Et là, c'est le bug");
+    public HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g) {
+        System.out.println("Rien n'est renvoyé");
+        return null;
+        
     }
 }
