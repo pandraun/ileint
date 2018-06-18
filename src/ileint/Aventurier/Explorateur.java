@@ -42,7 +42,7 @@ public class Explorateur extends Aventurier {
         boolean saisieCorrecte;
         HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
         HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
-
+        
         System.out.println("==== Instructions pour amorcer un déplacement ====");
         System.out.println("Cases où le déplacement est possible :");
 
@@ -50,7 +50,7 @@ public class Explorateur extends Aventurier {
         casesTraitées = joueur.getControleur().getGrille().getTuilesDeplacementPossible(casesBruts);
         
         for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases accessibles
-            System.out.println(uneTuile.getNom());
+            System.out.println("/"+uneTuile.getNom());
         }
 
         System.out.println("Saisir le nom (exact) de la case où se déplacer");
@@ -63,13 +63,13 @@ public class Explorateur extends Aventurier {
         }
 
         saisieCorrecte = false;
-        while (saisieCorrecte == false) {
+        while (!saisieCorrecte) {
             if (casesTraitées.containsValue(sauv)) {
-                tuileDepart.getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
+                joueur.getEmplacementJoueur().getJoueursTuile().remove(joueur);       // retire le joueur dans la liste des joueurs de la tuile d'arrivée
                 sauv.getJoueursTuile().add(joueur);     // ajoute le joueur dans la liste des joueurs de la tuile d'arrivée
                 joueur.setEmplacementJoueur(sauv);   //affecte l'emplacement du joueur à la nouvelle tuile où il se trouve
                 saisieCorrecte = true;
-                System.out.println("Déplacement du " + joueur + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
+                System.out.println("Déplacement du " + getNom() + " effectué " + tuileDepart.getNom() + " vers " + sauv.getNom() + ".");
             } else {
                 System.out.println("Saisie incorrecte, veuillez recommencer la saisie");
                 entree = sc.nextLine();
@@ -116,6 +116,11 @@ public class Explorateur extends Aventurier {
                 }
             }
         }
+    }
+    
+    @Override
+    public void seDeplacerSpe() {
+        System.out.println("Et là, c'est le bug");
     }
 
 }

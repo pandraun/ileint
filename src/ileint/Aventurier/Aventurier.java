@@ -81,16 +81,16 @@ public abstract class Aventurier {
         
         casesBruts = joueur.getControleur().getGrille().getCasesLateralesAssechement(joueur.getEmplacementJoueur());
         casesTraitées = joueur.getControleur().getGrille().filtreCasesInondees(casesBruts);
-
+        
         for (Tuile uneTuile : casesTraitées.values()) { //affiche les cases assèchables
-            System.out.println(uneTuile.getNom().toString());
+            System.out.println("/"+uneTuile.getNom().toString());
         }
 
         System.out.println("Saisir le nom (exact) de la case à assécher");
         String entree = sc.nextLine();
 
         for (Tuile uneTuile : casesTraitées.values()) { //cherche la correspondance entre l'entrée scanner et la tuile
-            if (entree == uneTuile.getNom().toString()) {
+            if (entree.equals(uneTuile.getNom().toString())) {
                 sauv = uneTuile; // le code pense qu'il n'a pas tjrs une valeur mais il en aura tjrs une;
             }
 
@@ -107,6 +107,8 @@ public abstract class Aventurier {
             }
         }
     }
+    
+    public abstract void seDeplacerSpe();
     
     
 

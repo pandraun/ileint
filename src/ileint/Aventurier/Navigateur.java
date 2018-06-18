@@ -27,4 +27,8 @@ public class Navigateur extends Aventurier {
         return "Navigateur";
     }
     
+    @Override
+    public void seDeplacerSpe() {
+        System.out.println("Et là, c'est le bug");
+    }
 }

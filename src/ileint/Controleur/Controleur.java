@@ -46,6 +46,7 @@ public class Controleur {
     private boolean partieTermine = false;
     private Joueur joueurCourant;
     private int nombreAction;
+    private boolean piloteSpe;
 
     public Controleur() {
 
@@ -58,11 +59,11 @@ public class Controleur {
         aventuriers = new ArrayList<>();
         tuiles = new HashMap<>();
 
-        toutNomAventurier.add("Explorateur");
-        toutNomAventurier.add("Ingenieur");
         toutNomAventurier.add("Messager");
-        toutNomAventurier.add("Navigateur");
+        toutNomAventurier.add("Ingenieur");
+        toutNomAventurier.add("Explorateur");
         toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
         Joueur joueur1 = new Joueur(1, this);
@@ -74,6 +75,11 @@ public class Controleur {
         joueurs.add(joueur2);
         joueurs.add(joueur3);
         joueurs.add(joueur4);
+        
+        //Seulement avec plongeur
+        /*toutNomAventurier.add("Ingenieur");
+        Joueur joueur1 = new Joueur(1, this);
+        joueurs.add(joueur1);*/
 
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
@@ -153,7 +159,7 @@ public class Controleur {
         
         for (Joueur unJoueur : joueurs) {
 
-            Collections.shuffle(toutNomAventurier);
+            Collections.shuffle(toutNomAventurier); 
 
             switch (toutNomAventurier.get(0)) { // attribution des rôles =                
                 case "Explorateur":
@@ -231,11 +237,11 @@ public class Controleur {
 
         Collections.shuffle(piocheOrange);
 
-        for (int i = 0; i < 6; i++) {
+        /*for (int i = 0; i < 6; i++) {
 
             piocherInnondation();
 
-        }
+        }*/
 
         for (Joueur unJoueur : joueurs) {
 
@@ -362,6 +368,7 @@ public class Controleur {
     }
 
     public boolean isACarteSpe() {
+
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
             if ("Helicoptere".equals(carteMain.getTypeClasse()) || "SacDeSable".equals(carteMain.getTypeClasse())) {
                 return true;
@@ -438,11 +445,16 @@ public class Controleur {
         boolean donner = false;
 
         Scanner sc = new Scanner(System.in);
-
+        
+        System.out.println("==================================");
         System.out.println("Choisir votre action:");
 
         if (joueurCourant.isDeplacementPossible()) {
             System.out.println("Deplacer/ Se déplacer sur l'île");
+            
+            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote") && piloteSpe) {
+                System.out.println("Helico/Deplacement Helico");
+            }
 
             if (joueurCourant.isAssechementPossible()) {
                 System.out.println("Assecher/ Assècher une case");
@@ -472,6 +484,10 @@ public class Controleur {
                 case "Deplacer":
                     joueurCourant.getRole().seDeplacer();
                     break;
+                case "Helico":
+                    joueurCourant.getRole().seDeplacerSpe();
+                    piloteSpe = false;
+                    break;
                 case "Assecher":
                     joueurCourant.getRole().assecherTuile();
                     break;
@@ -485,7 +501,7 @@ public class Controleur {
                     utiliserCarteSpe();
                     break;
                 case "Passer":
-                    nombreAction = 0;
+                    nombreAction = 1;
                     break;
                 default:
                     break;
@@ -502,12 +518,12 @@ public class Controleur {
     public void propositionCarteSpe() {
 
         Scanner sc = new Scanner(System.in);
-        String entree = sc.nextLine();
         boolean sortir = false;
         int i = 0;
 
         while (sortir = false && i < getCarteSpeJoueurCourant().size()) {
             System.out.println("Voulez-vous utiliser une carte spéciale avant d'en piocher ?");
+            String entree = sc.nextLine();
             System.out.println("Oui");
             System.out.println("Non");
 
@@ -519,16 +535,26 @@ public class Controleur {
         }
 
     }
+    
+    public void joueurSuivant() {
+        int i = joueurs.indexOf(joueurCourant);
+        if (i == joueurs.size()-1) {
+            joueurCourant = joueurs.get(0);
+        } else {
+            joueurCourant = joueurs.get(i+1);
+        }
+    }
 
     //TOUR DE JEU (ahah.)
     //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
     public void tourDeJeu() {
 
-        while (partieTermine == false) {
+        while (partieTermine == false) {            
             System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
             System.out.println("role : " + joueurCourant.getRole().getNom());
             System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
             System.out.println("");
+            
             while (isTropDeCartes()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Vous avez trop de cartes: ");
@@ -551,15 +577,17 @@ public class Controleur {
 
             }
             nombreAction = 3;
+            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote")) {
+                    piloteSpe = true;
+                }
             while (nombreAction > 0) {
                 faireAction();
-                nombreAction = nombreAction - 1;
             }
 
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-
+            
             piocherCarteOrange();
 
             if (isACarteSpe()) {
@@ -571,14 +599,16 @@ public class Controleur {
             if (isACarteSpe()) {
                 propositionCarteSpe();
             }
-
-            for (int i = 0; i < eauAPiocher(); i++) {
+            
+            /*for (int i = 0; i < eauAPiocher(); i++) {
+                
                 piocherInnondation();
                 //verifFinInnondation(tuileCourante)
-                propositionCarteSpe();
+                propositionCarteSpe();       
 
-            }
-
+            }*/
+            joueurSuivant();
+            System.out.println("=-=-=-=-=-=-=-=-=-=-=-=");
         }
     }
 }
