@@ -21,5 +21,4 @@ public enum TypesMessages {
     CHOIX_TUILE,
     PARAMETRE_DONNER_CARTE,
     CHOIX_CARTE;
-    
 }
