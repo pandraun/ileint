@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -43,26 +44,40 @@ public class FenetreJeu {
             switch (i){
                 case 0:
                     JButton role = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
-                    role.setPreferredSize(new Dimension(0,0));
-                    c.fill = GridBagConstraints.BOTH;
+                    role.setPreferredSize(new Dimension(150,210));                    
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
                     c.gridheight = 2;
-                    c.weightx = 0.5;
-                    c.weighty = 0.5;
                     c.gridx = i%8;
                     c.gridy = j;
                     window.add(role, c);
                     break;
                 case 7:
-                case 32:
-                case 39:
-                    JButton joueur = new JButton();
-                    c.fill = GridBagConstraints.BOTH;
+                    JButton role2 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
+                    role2.setPreferredSize(new Dimension(150,210));                    
+                    c.anchor = GridBagConstraints.FIRST_LINE_END;
                     c.gridheight = 2;
-                    c.weightx = 0.5;
-                    c.weighty = 0.5;
                     c.gridx = i%8;
                     c.gridy = j;
-                    window.add(joueur, c);
+                    window.add(role2, c);
+                    break;
+                case 32:
+                    JButton role3 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
+                    role3.setPreferredSize(new Dimension(150,210));                    
+                    c.anchor = GridBagConstraints.LAST_LINE_START;
+                    c.gridheight = 2;
+                    c.gridx = i%8;
+                    c.gridy = j;
+                    window.add(role3, c);
+                    break;
+                case 39:
+                    JButton role4 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
+                    role4.setPreferredSize(new Dimension(150,210));                    
+                    c.anchor = GridBagConstraints.LAST_LINE_END;
+                    c.gridheight = 2;
+                    c.gridx = i%8;
+                    c.gridy = j;
+                    window.add(role4, c);
+                    break;
                 case 1:
                 case 2:
                 case 5:
@@ -86,7 +101,8 @@ public class FenetreJeu {
 
                     break;
                 default:
-                    JButton eau = new JButton();
+                    JButton eau = new JButton(/*new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/tuiles/Heliport.png"))*/);
+                    eau.setPreferredSize(new Dimension(10,10));
                     c.fill = GridBagConstraints.BOTH;
                     c.gridheight = 1;
                     c.weightx = 0.5;
