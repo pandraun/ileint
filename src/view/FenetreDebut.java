@@ -141,6 +141,7 @@ public class FenetreDebut  extends Observe {
                 fenetre.setVisible(false);
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER;
+                m.nbJoueur = nbJoueurs.getText();
                 notifierObservateur(m);
                 
                 

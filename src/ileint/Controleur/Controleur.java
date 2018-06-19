@@ -491,8 +491,16 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
-                initGrille(m.nbJoueur);
-
+                int nbJ;
+                if (m.nbJoueur.equals("2")) {
+                    nbJ = 2;
+                } else if (m.nbJoueur.equals("3")) {
+                    nbJ = 3;
+                } else {
+                    nbJ = 4;
+                }
+                initGrille(nbJ);
+                
                 try {
                     fenetreJeu = new FenetreJeu();
                     fenetreJeu.addObservateur(this);
