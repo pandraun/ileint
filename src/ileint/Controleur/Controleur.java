@@ -32,6 +32,7 @@ import util.TypeTresor;
 import util.TypesMessages;
 import util.Utils;
 import view.FenetreDebut;
+import view.FenetreInfo;
 import view.FenetreJeu;
 import view.Observateur;
 
@@ -62,6 +63,7 @@ public class Controleur implements Observateur {
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
+    private FenetreInfo fenetreInfo;
 
     public Controleur() {
         try {
@@ -98,7 +100,6 @@ public class Controleur implements Observateur {
         toutNomAventurier.add("Plongeur");
 
         for (int i = 0; i < nbJoueur; i++) {
-            System.out.println("debug");
             Joueur joueur = new Joueur(i);
             joueurs.add(joueur);
         }
@@ -469,7 +470,7 @@ public class Controleur implements Observateur {
         TypeTresor tresorRecuperableCase = joueur.getEmplacementJoueur().getCaseTresor();
         int compteur = 0;
 
-        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes
+        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes            
             if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
                 joueur.getMainJoueur().remove(uneCarteOrange);
                 compteur++;
@@ -484,11 +485,13 @@ public class Controleur implements Observateur {
             case SE_DEPLACER: //le joueur clique sur se deplacer
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
+                System.out.println("depkacemet");
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
+                System.out.println("assechement");
                 break;
 
             case DEMARRER: //le joueur demarre la partie
@@ -509,6 +512,13 @@ public class Controleur implements Observateur {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                try {
+                    fenetreInfo = new FenetreInfo();
+                    fenetreInfo.addObservateur(this);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break;
 
             case ANNULER:
@@ -525,12 +535,13 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
                 }
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -542,26 +553,29 @@ public class Controleur implements Observateur {
                     //mettre en surbrillance les joueurs qui sont sur la même case
                 }
                 messageSauv = m;
+                System.out.println("donner");
                 break;
 
             case PARAMETRE_DONNER_CARTE:
                 effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                System.out.println("passage");
                 break;
 
             case RECUPERER_TRESOR:
                 effectuerRecuperationTresor(m.tuileSelectionne, joueurCourant);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
+                System.out.println("recupe");
                 break;
 
             case UTILISER_CARTE:
@@ -578,6 +592,7 @@ public class Controleur implements Observateur {
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
                 }
+                System.out.println("utilisagement");
                 break;
 
             //Piochage de cartes oranges à la fin du tour
@@ -592,7 +607,7 @@ public class Controleur implements Observateur {
         if (tuileCourante.getEtat().equals(Utils.EtatTuile.COULEE)) {
             if (tuileCourante.getNom().equals(NomTuile.Heliport)) { //si l'héliport sombre
                 //fin partie car l'héliport a sombré//
-            } else if (tuileCourante.isTuileTresor()) { // si c'est une tuile trésor
+            } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
                     for (Tuile tuile : tuiles.values()) {
                         if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
@@ -603,15 +618,41 @@ public class Controleur implements Observateur {
             } else if (tuileCourante.isCaseOccupee()) { //si il y a quelqu'un sur le tuile
                 for (Joueur joueur : tuileCourante.getJoueursTuile()) { //chaque joueur doit etre traité separrément
                     Aventurier role = joueur.getRole();
-                    if (role.getRoleAventurier().equals("Pilote")) {
+                    if (role.getRoleAventurier().equals("Pilote")) {// si c'est le pilote alors il peut utilisé l'hélico
                         ArrayList<Tuile> sauve = null;
                         sauve.addAll(grille.getTuilesAssechees().values());
                         sauve.addAll(grille.getTuilesInondees().values());
-                        
+                        Collections.shuffle(sauve);
+                        effectuerDeplacement(joueur, sauve.get(0));
+                    } else {                        // si c'est pas un pilote alors on tente un déplacement normale
+                        ArrayList<Tuile> sauve = null;
+                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
+                        if (sauve.isEmpty()) {      //si il n'a nulle part où aller
+                            boolean aCarteHelico = false;
+                            for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
+                                if (carte.getTypeClasse().equals("Helicopter")) { //verif si il a une carte helico
+                                    aCarteHelico = true;
+                                }
+                            }
+                            if (aCarteHelico) { //si il a une carte hélico
+                                sauve.addAll(grille.getTuilesAssechees().values());
+                                sauve.addAll(grille.getTuilesInondees().values());
+                                Collections.shuffle(sauve);
+                                effectuerDeplacement(joueur, sauve.get(0));
+                            } else { //si il n'y a pas de carte hélico
+                                //fin partie car un des joueur coule
+                            }
+                        } else {                    //si il peut fuir
+                            Collections.shuffle(sauve);
+                            effectuerDeplacement(joueur, sauve.get(0));
+                        }
                     }
-
                 }
             }
         }
+    }
+    
+    public void commencerPiocheOrange() {
+        
     }
 }
