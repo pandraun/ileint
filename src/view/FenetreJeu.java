@@ -42,7 +42,7 @@ public class FenetreJeu extends Observe{
     private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
     private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
     
-    
+    private JButton piocheOrange;
     
     
     public FenetreJeu() throws MalformedURLException{
@@ -72,88 +72,6 @@ public class FenetreJeu extends Observe{
         c.gridx = 0;
         c.gridy = 0;
         window.add(role1,c);
-
-        //--------------------------//
-        
-       /* JPanel panelBoutonRole1 = new JPanel(new GridLayout(3, 2));
-
-                    //mettre en surbrillance quand besoin est
-                        JButton btnDeplacer = new JButton();
-                        panelBoutonRole1.add(btnDeplacer);
-                        btnDeplacer.setPreferredSize(new Dimension(40,20));
-                        btnDeplacer.setText("Se deplacer");
-                        btnDeplacer.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.SE_DEPLACER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                            
-                        JButton btnAssecher = new JButton();
-                        panelBoutonRole1.add(btnAssecher);
-                        btnAssecher.setPreferredSize(new Dimension(40,20));
-                        btnAssecher.setText("Assecher");
-                        btnAssecher.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.ASSECHER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                           
-                        JButton btnDonner = new JButton();
-                        panelBoutonRole1.add(btnDonner);
-                        btnDonner.setPreferredSize(new Dimension(40,20));
-                        btnDonner.setText("Donner carte");
-                        btnDonner.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.DONNER_CARTE;
-                                //notifierObservateur(m);
-                            }
-                        });
-                           
-                        JButton btnTresor = new JButton();
-                        panelBoutonRole1.add(btnTresor);
-                        btnTresor.setPreferredSize(new Dimension(40,20));
-                        btnTresor.setText("Recuperer tresor");
-                        btnTresor.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.RECUPERER_TRESOR;
-                                //notifierObservateur(m);
-                            }
-                        });
-                              
-                        JButton btnUtiliserCarte = new JButton();
-                        panelBoutonRole1.add(btnUtiliserCarte);
-                        btnUtiliserCarte.setPreferredSize(new Dimension(40,20));
-                        btnUtiliserCarte.setText("Utiliser carte");
-                        btnUtiliserCarte.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.SE_DEPLACER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                            
-                        JButton btnAutre = new JButton();
-                        panelBoutonRole1.add(btnAutre);
-                        btnAutre.setPreferredSize(new Dimension(40,20));
-                        btnAutre.setText("Autre");
-
-                        JLabel nbActionRole1 = new JLabel("Action restante");
-                        
-                    role1.add(panelBoutonRole1);
-                    role1.add(nbActionRole1);*/           
-                    
-
 
         //======================================//
 
@@ -185,12 +103,22 @@ public class FenetreJeu extends Observe{
         int hauteur = 80;
         int largeur = 110;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
-        JButton piocheOrange = new JButton(new ImageIcon(im));
+        piocheOrange = new JButton(new ImageIcon(im));
         //piocheOrange.setSize(new Dimension(100,70));
         JButton defausseOrange = new JButton(new ImageIcon(im));
         //defausseOrange.setSize(new Dimension(100,70));
         panelOrange.add(piocheOrange);
         panelOrange.add(defausseOrange);
+        
+        //Action de pioche Orange
+        piocheOrange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
+                notifierObservateur(m);
+            }
+        });
         
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
@@ -441,5 +369,9 @@ public class FenetreJeu extends Observe{
         window.pack();
         window.setSize(1090, 869);
         window.setVisible(true);
+    }
+    
+    public void piocheCliquable(Boolean boo){
+        piocheOrange.setEnabled(boo);
     }
 }

@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.management.relation.Role;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,7 +34,6 @@ public class FenetreInfo extends Observe {
 
     private JFrame window;
     private JPanel mainPanel;
-
     private JPanel infoPanel;
 
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
@@ -51,6 +51,7 @@ public class FenetreInfo extends Observe {
     private JButton btnTresor;
     private JButton btnUtiliserCarte;
     private JButton btnPasser;
+    private JLabel labelRole;
     
     public FenetreInfo() throws MalformedURLException {
 
@@ -59,6 +60,8 @@ public class FenetreInfo extends Observe {
         mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
 
+        
+        
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 869;
         int width = (int) dimension.getWidth() - 1090;
@@ -86,7 +89,7 @@ public class FenetreInfo extends Observe {
 
         //Info role
         JPanel panelRole = new JPanel();
-        JLabel labelRole = new JLabel("Ingenieur");
+        labelRole = new JLabel("Ingenieur");
 
         panelRole.add(labelRole);
         infoPanel.add(panelRole, BorderLayout.SOUTH);
@@ -260,5 +263,9 @@ public class FenetreInfo extends Observe {
     
     public void cliquableTresor(boolean boo){
         btnTresor.setEnabled(boo);
+    }
+    
+    public void modifierLabelJoueur(Role role){
+        labelRole.setText(role.getRoleName());
     }
 }
