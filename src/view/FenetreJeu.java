@@ -74,7 +74,7 @@ public class FenetreJeu {
 
         //--------------------------//
         
-        /*JPanel panelBoutonRole1 = new JPanel(new GridLayout(3, 2));
+       /* JPanel panelBoutonRole1 = new JPanel(new GridLayout(3, 2));
 
                     //mettre en surbrillance quand besoin est
                         JButton btnDeplacer = new JButton();
@@ -150,7 +150,7 @@ public class FenetreJeu {
                         JLabel nbActionRole1 = new JLabel("Action restante");
                         
                     role1.add(panelBoutonRole1);
-                    role1.add(nbActionRole1);*/            
+                    role1.add(nbActionRole1);*/           
                     
 
 

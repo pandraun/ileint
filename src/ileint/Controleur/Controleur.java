@@ -407,7 +407,6 @@ public class Controleur {
     }
 
     public boolean isACarteSpe() {
-
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
             if ("Helicoptere".equals(carteMain.getTypeClasse()) || "SacDeSable".equals(carteMain.getTypeClasse())) {
                 return true;
@@ -417,16 +416,14 @@ public class Controleur {
     }
 
     public void piocherInnondation() {
-
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (piocheInondation.get(0).getTuile() == uneTuile) {
+            if (piocheInondation.get(0).getTuile().equals(uneTuile)) {
                 uneTuile.arroserTuile();
                 piocheInondation.get(0).setPioche(false);
                 defausseInondation.add(piocheInondation.get(0));
                 piocheInondation.remove(piocheInondation.get(0));
             }
         }
-
     }
 
     public void joueurSuivant() {
@@ -469,17 +466,17 @@ public class Controleur {
     public void traiterMessage(Message m) {
 
         switch (m.type) {
-            case SE_DEPLACER:
+            case SE_DEPLACER: //le joueur clique sur se deplacer
                 ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
                 break;
 
-            case ASSECHER:
+            case ASSECHER: //le joueur clique sur assecher
                 ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
                 break;
 
-            case DEMARRER:
+            case DEMARRER: //le joueur demarre la partie
                 initGrille(m.nbJoueur);
                 //vue
                 break;
