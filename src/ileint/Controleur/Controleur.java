@@ -524,6 +524,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+                        
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
@@ -612,9 +613,10 @@ public class Controleur implements Observateur {
                         ArrayList<Tuile> sauve = null;
                         sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
-                            //fin de la partie car l'un des joueur a coulée
-                        } else {                    //si il peut fuir
                             
+                        } else {                    //si il peut fuir
+                            Collections.shuffle(sauve);
+                            effectuerDeplacement(joueur, sauve.get(0));
                         }
                     } 
                 }

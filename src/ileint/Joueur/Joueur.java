@@ -4,6 +4,7 @@ import ileint.Aventurier.Aventurier;
 import ileint.Carte.CarteOrange;
 import ileint.Tuile.Tuile;
 import java.util.ArrayList;
+import util.EmplacementCarte;
 
 /**
  *
@@ -77,13 +78,14 @@ public class Joueur {
 
     //ajouter carte dans main joueur
     public void addCarteMainJoueur(CarteOrange carte) {
-
         mainJoueur.add(carte);
+        carte.setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
     }
 
     //supprimer carte dans main joueur
     public void removeCarteMainJoueur(CarteOrange carte) {
         mainJoueur.remove(carte);
+        carte.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
     }
 
 }
