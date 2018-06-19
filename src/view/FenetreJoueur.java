@@ -24,6 +24,7 @@ import util.TypesMessages;
 public class FenetreJoueur extends Observe{
     private JFrame fenetre;
     private final JButton demarrer;
+    private JPanel mainPanel;
     
     public FenetreJoueur(int nbJoueurs){
         if (nbJoueurs == 2){
@@ -31,8 +32,8 @@ public class FenetreJoueur extends Observe{
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 
-            JPanel mainPanel = new JPanel(new GridLayout(9,1));
-            for(int i=2; i<5; i++){
+            mainPanel = new JPanel(new GridLayout(5,1));
+            for(int i=2; i<6; i++){
                 switch(i){
                     case 2:
                     case 4:
@@ -48,15 +49,15 @@ public class FenetreJoueur extends Observe{
                         mainPanel.add(nomJoueur2);
                         break;
                 }
-            } 
-            fenetre.add(mainPanel);
+            }
+            
         } else if(nbJoueurs==3){
             fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
        
-        JPanel mainPanel = new JPanel(new GridLayout(9,1));
-        for(int i=2; i<10; i++){
+        mainPanel = new JPanel(new GridLayout(7,1));
+        for(int i=2; i<8; i++){
             switch(i){
                 case 2:
                 case 4:
@@ -78,13 +79,13 @@ public class FenetreJoueur extends Observe{
                     break;
                 }
             }
-            fenetre.add(mainPanel);
+            
         } else{
         fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
        
-        JPanel mainPanel = new JPanel(new GridLayout(9,1));
+        mainPanel = new JPanel(new GridLayout(9,1));
         for(int i=2; i<10; i++){
             switch(i){
                 case 2:
@@ -113,13 +114,13 @@ public class FenetreJoueur extends Observe{
                     
                 }
             } 
-            fenetre.add(mainPanel);
+            
         }
-        
+        fenetre.add(mainPanel);
         
         demarrer = new JButton("Démarrer la partie");
         demarrer.setFont(new Font("Arial", Font.BOLD, 30));
-        fenetre.add(demarrer);
+        mainPanel.add(demarrer);
         
         demarrer.addActionListener(new ActionListener() {
             @Override
