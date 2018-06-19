@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import util.Message;
 import util.TypesMessages;
 
@@ -67,9 +68,11 @@ public class FenetreInfo extends Observe {
 
         //Info jeu
         JPanel panelInfoJeu = new JPanel();
-        JLabel labelInfoJeu = new JLabel("ryhujklmjoifyfyfyfyfyfyfyfyfyfyfyfyjknnkjnk");
+        JTextField textInfoJeu = new JTextField("ryhujklmjoifyfyfyfyfyfyfyfyfyfyfyfyjknnkjnk");
+        textInfoJeu.setEditable(false);
+        textInfoJeu.setPreferredSize(new Dimension(200, 200));
 
-        panelInfoJeu.add(labelInfoJeu);
+        panelInfoJeu.add(textInfoJeu);
         infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
 
         //Info role
