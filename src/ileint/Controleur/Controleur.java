@@ -32,6 +32,7 @@ import util.TypeTresor;
 import util.TypesMessages;
 import util.Utils;
 import view.FenetreDebut;
+import view.FenetreInfo;
 import view.FenetreJeu;
 import view.Observateur;
 
@@ -62,6 +63,7 @@ public class Controleur implements Observateur {
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
+    private FenetreInfo fenetreInfo;
 
     public Controleur() {
         try {
@@ -468,8 +470,8 @@ public class Controleur implements Observateur {
         TypeTresor tresorRecuperableCase = joueur.getEmplacementJoueur().getCaseTresor();
         int compteur = 0;
 
-        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes
-            if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
+        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes            
+             if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
                 joueur.getMainJoueur().remove(uneCarteOrange);
                 compteur++;
             }
@@ -483,11 +485,13 @@ public class Controleur implements Observateur {
             case SE_DEPLACER: //le joueur clique sur se deplacer
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
+                System.out.println("depkacemet");
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
+                System.out.println("assechement");
                 break;
 
             case DEMARRER: //le joueur demarre la partie
@@ -508,6 +512,13 @@ public class Controleur implements Observateur {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                try {
+                    fenetreInfo = new FenetreInfo();
+                    fenetreInfo.addObservateur(this);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break;
 
             case ANNULER:
@@ -524,7 +535,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
-                        
+
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
@@ -542,6 +553,7 @@ public class Controleur implements Observateur {
                     //mettre en surbrillance les joueurs qui sont sur la même case
                 }
                 messageSauv = m;
+                System.out.println("donner");
                 break;
 
             case PARAMETRE_DONNER_CARTE:
@@ -554,6 +566,7 @@ public class Controleur implements Observateur {
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                System.out.println("passage");
                 break;
 
             case RECUPERER_TRESOR:
@@ -562,6 +575,7 @@ public class Controleur implements Observateur {
                 if (nombreAction == 0) {
                     //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
+                System.out.println("recupe");
                 break;
 
             case UTILISER_CARTE:
@@ -578,6 +592,7 @@ public class Controleur implements Observateur {
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
                 }
+                System.out.println("utilisagement");
                 break;
 
             //Piochage de cartes oranges à la fin du tour
@@ -613,12 +628,12 @@ public class Controleur implements Observateur {
                         ArrayList<Tuile> sauve = null;
                         sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
-                            
+
                         } else {                    //si il peut fuir
                             Collections.shuffle(sauve);
                             effectuerDeplacement(joueur, sauve.get(0));
                         }
-                    } 
+                    }
                 }
             }
         }
