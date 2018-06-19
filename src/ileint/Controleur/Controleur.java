@@ -34,6 +34,7 @@ import util.Utils;
 import view.FenetreDebut;
 import view.FenetreInfo;
 import view.FenetreJeu;
+import view.FenetreJoueur;
 import view.Observateur;
 
 /**
@@ -64,6 +65,7 @@ public class Controleur implements Observateur {
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
     private FenetreInfo fenetreInfo;
+    private FenetreJoueur fenetreJoueur;
 
     public Controleur() {
         try {
@@ -494,7 +496,7 @@ public class Controleur implements Observateur {
                 System.out.println("assechement");
                 break;
 
-            case DEMARRER: //le joueur demarre la partie
+            case CONTINUER:
                 int nbJ;
                 if (m.nbJoueur.equals("2")) {
                     nbJ = 2;
@@ -504,6 +506,11 @@ public class Controleur implements Observateur {
                     nbJ = 4;
                 }
                 initGrille(nbJ);
+                fenetreJoueur = new FenetreJoueur(nbJ);
+                fenetreJoueur.addObservateur(this);
+                break;
+
+            case DEMARRER: //le joueur demarre la partie
 
                 try {
                     fenetreJeu = new FenetreJeu();
@@ -651,7 +658,7 @@ public class Controleur implements Observateur {
             }
         }
     }
-    
+
     public void commencerPiocheOrange() {
         fenetreJeu.piocheCliquable(true);
     }

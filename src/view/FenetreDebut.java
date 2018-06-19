@@ -43,7 +43,7 @@ public class FenetreDebut  extends Observe {
     private final JButton moins;
     private final JButton plus;
     private JTextField nbJoueurs;
-    private final JButton demarrer;
+    private final JButton continuer;
     public static int nbJ = 0;
     
     public FenetreDebut() throws MalformedURLException {
@@ -66,8 +66,8 @@ public class FenetreDebut  extends Observe {
         nbJoueurs.setEditable(false);
         plus = new JButton(">");
         plus.setFont(new Font("Arial", Font.BOLD, 45));
-        demarrer = new JButton("Démarrer la partie");
-        demarrer.setFont(new Font("Arial", Font.BOLD, 30));
+        continuer = new JButton("Continuer");
+        continuer.setFont(new Font("Arial", Font.BOLD, 30));
         
         /* Placement des composants */
         fenetre.setLayout(new GridLayout(3,1));
@@ -109,7 +109,7 @@ public class FenetreDebut  extends Observe {
         nbJoueurBTF.add(nbJoueurs);
         nbJoueurBTF.add(plus);
         
-        mainPanel.add(demarrer);
+        mainPanel.add(continuer);
         
         moins.addActionListener(new ActionListener() {
             @Override
@@ -135,12 +135,12 @@ public class FenetreDebut  extends Observe {
             
         });
         
-        demarrer.addActionListener(new ActionListener() {
+        continuer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.setVisible(false);
                 Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
+                m.type = TypesMessages.CONTINUER;
                 m.nbJoueur = nbJoueurs.getText();
                 notifierObservateur(m);
                 
