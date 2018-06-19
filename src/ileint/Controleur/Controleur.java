@@ -653,6 +653,6 @@ public class Controleur implements Observateur {
     }
     
     public void commencerPiocheOrange() {
-        
+        fenetreJeu.piocheCliquable(true);
     }
 }
