@@ -47,7 +47,7 @@ public class FenetreDebut  extends Observe {
     public static int nbJ = 0;
     
     public FenetreDebut() throws MalformedURLException {
-        fenetre = new JFrame("Choix du nombre de joueurs");
+        fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
         

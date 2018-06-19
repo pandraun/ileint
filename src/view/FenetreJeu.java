@@ -51,7 +51,7 @@ public class FenetreJeu extends Observe{
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
 
-        this.window = new JFrame();
+        this.window = new JFrame("Fenetre Jeu");
         
         
         window.setLayout(new GridBagLayout());
@@ -303,12 +303,18 @@ public class FenetreJeu extends Observe{
         c.gridy = 1;
         window.add(grille,c);
         
+        ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
+        im = calice.getImage();
+        hauteur = 64;
+        largeur = 35;
+        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        
         for(int i = 0; i < 36; i++){
             switch (i){
                 case 0:
                     JPanel Cartej11 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej11.add(new JButton());
+                        Cartej11.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej11);
                     break;
@@ -319,7 +325,7 @@ public class FenetreJeu extends Observe{
                             case 0:
                             case 1:
                             case 3:
-                                Cartej12.add(new JButton());
+                                Cartej12.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej12.add(new JLabel());
@@ -335,7 +341,7 @@ public class FenetreJeu extends Observe{
                             case 1:
                             case 2:
                             case 5:
-                                Cartej21.add(new JButton());
+                                Cartej21.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej21.add(new JLabel());
@@ -347,14 +353,14 @@ public class FenetreJeu extends Observe{
                 case 5:
                     JPanel Cartej22 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej22.add(new JButton());
+                        Cartej22.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej22);
                     break;
                 case 30:
                     JPanel Cartej31 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej31.add(new JButton());
+                        Cartej31.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej31);
                     break;
@@ -365,7 +371,7 @@ public class FenetreJeu extends Observe{
                             case 0:
                             case 3:
                             case 4:
-                                Cartej32.add(new JButton());
+                                Cartej32.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej32.add(new JLabel());
@@ -381,7 +387,7 @@ public class FenetreJeu extends Observe{
                             case 2:
                             case 4:
                             case 5:
-                                Cartej41.add(new JButton());
+                                Cartej41.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej41.add(new JLabel());
@@ -393,7 +399,7 @@ public class FenetreJeu extends Observe{
                 case 35:
                     JPanel Cartej42 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej42.add(new JButton());
+                        Cartej42.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej42);
                     break;
