@@ -27,7 +27,7 @@ public class FenetreJoueur extends Observe{
     
     public FenetreJoueur(int nbJoueurs){
         if (nbJoueurs == 2){
-           fenetre = new JFrame("Fenetre Debut");
+            fenetre = new JFrame("Fenetre Debut");
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 
@@ -37,18 +37,19 @@ public class FenetreJoueur extends Observe{
                     case 2:
                     case 4:
                         JLabel joueur = new JLabel("Joueur"+i/2);
-                        fenetre.add(joueur);
+                        mainPanel.add(joueur);
                         break;
                     case 3:
                         JTextField nomJoueur1 = new JTextField();
-                        fenetre.add(nomJoueur1);
+                        mainPanel.add(nomJoueur1);
                         break;
                     case 5:
                         JTextField nomJoueur2 = new JTextField();
-                        fenetre.add(nomJoueur2);
+                        mainPanel.add(nomJoueur2);
                         break;
                 }
             } 
+            fenetre.add(mainPanel);
         } else if(nbJoueurs==3){
             fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
@@ -61,24 +62,25 @@ public class FenetreJoueur extends Observe{
                 case 4:
                 case 6:
                     JLabel joueur = new JLabel("Joueur"+i/2);
-                    fenetre.add(joueur);
+                    mainPanel.add(joueur);
                     break;
                 case 3:
                     JTextField nomJoueur1 = new JTextField();
-                    fenetre.add(nomJoueur1);
+                    mainPanel.add(nomJoueur1);
                     break;
                 case 5:
                     JTextField nomJoueur2 = new JTextField();
-                    fenetre.add(nomJoueur2);
+                    mainPanel.add(nomJoueur2);
                     break;
                 case 7:
                     JTextField nomJoueur3 = new JTextField();
-                    fenetre.add(nomJoueur3);
+                    mainPanel.add(nomJoueur3);
                     break;
+                }
             }
-        }
+            fenetre.add(mainPanel);
         } else{
-           fenetre = new JFrame("Fenetre Debut");
+        fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
        
@@ -90,27 +92,28 @@ public class FenetreJoueur extends Observe{
                 case 6:
                 case 8:
                     JLabel joueur = new JLabel("Joueur"+i/2);
-                    fenetre.add(joueur);
+                    mainPanel.add(joueur);
                     break;
                 case 3:
                     JTextField nomJoueur1 = new JTextField();
-                    fenetre.add(nomJoueur1);
+                    mainPanel.add(nomJoueur1);
                     break;
                 case 5:
                     JTextField nomJoueur2 = new JTextField();
-                    fenetre.add(nomJoueur2);
+                    mainPanel.add(nomJoueur2);
                     break;
                 case 7:
                     JTextField nomJoueur3 = new JTextField();
-                    fenetre.add(nomJoueur3);
+                    mainPanel.add(nomJoueur3);
                     break;
                 case 9:
                     JTextField nomJoueur4 = new JTextField();
-                    fenetre.add(nomJoueur4);
+                    mainPanel.add(nomJoueur4);
                     break;
                     
-            }
-        } 
+                }
+            } 
+            fenetre.add(mainPanel);
         }
         
         
