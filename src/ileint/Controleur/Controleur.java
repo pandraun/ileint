@@ -24,7 +24,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import util.EmplacementCarte;
+import util.Message;
 import util.TypeTresor;
+import util.TypesMessages;
 import util.Utils;
 
 /**
@@ -32,6 +34,8 @@ import util.Utils;
  * @author fodorg
  */
 public class Controleur {
+
+    private boolean hasard = false;
 
     private int niveauEau;
     private ArrayList<CarteInondation> piocheInondation; // 0..24
@@ -41,15 +45,20 @@ public class Controleur {
     private ArrayList<Joueur> joueurs; //2..4
     private ArrayList<String> toutNomAventurier;
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
+    private ArrayList<TypeTresor> tresorsRecuperables;
     private HashMap<Coordonnee, Tuile> tuiles;
     private Grille grille;
     private boolean partieTermine = false;
     private Joueur joueurCourant;
     private int nombreAction;
     private boolean piloteSpe;
+    private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
 
     public Controleur() {
 
+    }
+
+    public void initGrille(int nbJoueur) {
         piocheInondation = new ArrayList<>();
         defausseInondation = new ArrayList<>();
         piocheOrange = new ArrayList<>();
@@ -58,6 +67,13 @@ public class Controleur {
         toutNomAventurier = new ArrayList<>();
         aventuriers = new ArrayList<>();
         tuiles = new HashMap<>();
+        tresorsRecuperables = new ArrayList<>();
+
+        /* Initialisation de la collection de trésors à récupérer */
+        tresorsRecuperables.add(TypeTresor.CALICE);
+        tresorsRecuperables.add(TypeTresor.STATUE);
+        tresorsRecuperables.add(TypeTresor.CRISTAL);
+        tresorsRecuperables.add(TypeTresor.PIERRE);
 
         toutNomAventurier.add("Messager");
         toutNomAventurier.add("Ingenieur");
@@ -66,20 +82,10 @@ public class Controleur {
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
-        Joueur joueur1 = new Joueur(1, this);
-        Joueur joueur2 = new Joueur(2, this);
-        Joueur joueur3 = new Joueur(3, this);
-        Joueur joueur4 = new Joueur(4, this);
-
-        joueurs.add(joueur1);  // création des 4 joueurs à la main
-        joueurs.add(joueur2);
-        joueurs.add(joueur3);
-        joueurs.add(joueur4);
-        
-        //Seulement avec plongeur
-        /*toutNomAventurier.add("Ingenieur");
-        Joueur joueur1 = new Joueur(1, this);
-        joueurs.add(joueur1);*/
+        for (int i = 0; i < nbJoueur; i++) {
+            Joueur joueur = new Joueur(i);
+            joueurs.add(joueur);
+        }
 
         //Initialisation des tuiles à la main
         Tuile t00 = new Tuile(null, new Coordonnee(0, 0), null);
@@ -154,51 +160,53 @@ public class Controleur {
         tuiles.put(new Coordonnee(5, 4), t54);
         Tuile t55 = new Tuile(null, new Coordonnee(5, 5), null);
         tuiles.put(new Coordonnee(5, 5), t55);
-       
+
         grille = new Grille(tuiles);
-        
+
         for (Joueur unJoueur : joueurs) {
 
-            Collections.shuffle(toutNomAventurier); 
+            if (hasard) {
+                Collections.shuffle(toutNomAventurier);
+            }
 
-            switch (toutNomAventurier.get(0)) { // attribution des rôles =                
+            switch (toutNomAventurier.get(0)) {
                 case "Explorateur":
-                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur);
+                    Explorateur explorateur = new Explorateur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(explorateur);
                     unJoueur.setRole(explorateur);
                     unJoueur.setEmplacementJoueur(explorateur.getTuileDepart());
                     break;
 
                 case "Ingenieur":
-                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur);
+                    Ingenieur ingenieur = new Ingenieur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(ingenieur);
                     unJoueur.setRole(ingenieur);
                     unJoueur.setEmplacementJoueur(ingenieur.getTuileDepart());
                     break;
 
                 case "Messager":
-                    Messager messager = new Messager(toutNomAventurier.get(0), unJoueur);
+                    Messager messager = new Messager(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(messager);
                     unJoueur.setRole(messager);
                     unJoueur.setEmplacementJoueur(messager.getTuileDepart());
                     break;
 
                 case "Navigateur":
-                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur);
+                    Navigateur navigateur = new Navigateur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(navigateur);
                     unJoueur.setRole(navigateur);
                     unJoueur.setEmplacementJoueur(navigateur.getTuileDepart());
                     break;
 
                 case "Pilote":
-                    Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur);
+                    Pilote pilote = new Pilote(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(pilote);
                     unJoueur.setRole(pilote);
                     unJoueur.setEmplacementJoueur(pilote.getTuileDepart());
                     break;
 
                 case "Plongeur":
-                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur);
+                    Plongeur plongeur = new Plongeur(toutNomAventurier.get(0), unJoueur, grille);
                     aventuriers.add(plongeur);
                     unJoueur.setRole(plongeur);
                     unJoueur.setEmplacementJoueur(plongeur.getTuileDepart());
@@ -223,7 +231,7 @@ public class Controleur {
 
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             piocheOrange.add(new MontéeEau(EmplacementCarte.PIOCHE));
         }
 
@@ -237,24 +245,54 @@ public class Controleur {
 
         Collections.shuffle(piocheOrange);
 
-        /*for (int i = 0; i < 6; i++) {
-
-            piocherInnondation();
-
-        }*/
+        if (hasard) {
+            for (int i = 0; i < 6; i++) {
+                piocherInnondation();
+            }
+        }
 
         for (Joueur unJoueur : joueurs) {
-
             for (int i = 0; i < 2; i++) {
                 unJoueur.addCarteMainJoueur(piocheOrange.get(0));
                 piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
                 piocheOrange.remove(piocheOrange.get(0));
             }
         }
-        
         joueurCourant = joueurs.get(0);
-        tourDeJeu();
+    }
 
+    public boolean isDeplacementPossible() {
+        for (int i = 0; i < 4; i++) {
+            if (getGrille().filtreCasesSeches(getGrille().getCasesContourAssechement(joueurCourant.getEmplacementJoueur()))
+                    != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAssechementPossible() {
+        if ("Explorateur".equals(joueurCourant.getRole().getRoleAventurier())) {
+            return !getGrille().filtreCasesInondees(getGrille().getCasesContourAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
+        } else {
+            return !getGrille().filtreCasesInondees(getGrille().getCasesLateralesAssechement(joueurCourant.getEmplacementJoueur())).isEmpty();
+        }
+    }
+
+    public boolean isDonnerCartePossible(Joueur joueurCible) {
+        return joueurCible.getEmplacementJoueur() == joueurCourant.getEmplacementJoueur();
+    }
+
+    public boolean isRecupererTresorPossible() {
+        int nb = 0;
+        if (joueurCourant.getEmplacementJoueur().getCaseTresor() != null) {
+            for (int i = 0; i < joueurCourant.getMainJoueur().size(); i++) {
+                if (joueurCourant.getEmplacementJoueur().getCaseTresor() == joueurCourant.getMainJoueur().get(i).getTypeTresor()) {
+                    nb = nb + 1;
+                }
+            }
+        }
+        return nb > 3;
     }
 
     public int getNiveauEau() {
@@ -347,6 +385,7 @@ public class Controleur {
         return partieTermine;
     }
 
+    
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
@@ -383,232 +422,142 @@ public class Controleur {
             if (piocheInondation.get(0).getTuile() == uneTuile) {
                 uneTuile.arroserTuile();
                 piocheInondation.get(0).setPioche(false);
+                defausseInondation.add(piocheInondation.get(0));
                 piocheInondation.remove(piocheInondation.get(0));
             }
         }
 
     }
 
-    public void defausserCarte() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Sélectionner la carte à défausser");
-        int i = 1; // numéro de la carte à défausser
-
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-            System.out.print(i + "/ ");
-            System.out.println(carteMain.getTypeClasse());
-            i = i + 1;
-        }
-        String entree = sc.nextLine();
-
-        i = 1;
-
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-            if (entree.equals(i)) {
-                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
-                joueurCourant.removeCarteMainJoueur(carteMain);
-            }
-            i = i + 1;
-        }
-    }
-
-    public void utiliserCarteSpe() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Sélectionner la carte spéciale à utiliser");
-        int i = 1;
-
-        for (CarteOrange carteMainSpe : getCarteSpeJoueurCourant()) {
-            System.out.print(i + "/ ");
-            System.out.println(carteMainSpe.getTypeClasse());
-            i = i + 1;
-        }
-
-        String entree = sc.nextLine();
-
-        i = 1;
-
-        for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
-            if (entree.equals(i)) {
-                if ("Helicoptere".equals(carteMain.getTypeClasse())) {
-                    //A COMPLETER
-                } else {
-                    //donc sacDeSable 
-                }
-                carteMain.setEmplacementCarte(EmplacementCarte.DEFAUSSE);
-                joueurCourant.removeCarteMainJoueur(carteMain);
-            }
-            i = i + 1;
-        }
-    }
-
-    public void faireAction() {
-        boolean donner = false;
-
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.println("==================================");
-        System.out.println("Choisir votre action:");
-
-        if (joueurCourant.isDeplacementPossible()) {
-            System.out.println("Deplacer/ Se déplacer sur l'île");
-            
-            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote") && piloteSpe) {
-                System.out.println("Helico/Deplacement Helico");
-            }
-
-            if (joueurCourant.isAssechementPossible()) {
-                System.out.println("Assecher/ Assècher une case");
-            }
-
-            for (Joueur joueur : joueurs) {
-                if (joueurCourant.isDonnerCartePossible(joueur) && joueur != joueurCourant) {
-                    donner = true;
-                }
-            }
-
-            if (donner == true) {
-                System.out.println("Donner/ Donner une carte à un joueur");
-            }
-            if (joueurCourant.isRecupererTresorPossible()) {
-                System.out.println("Recuperer/ Récupérer un trésor");
-            }
-
-            if (isACarteSpe()) {
-                System.out.println("Speciale/ Utiliser une carte spéciale");
-            }
-
-            System.out.println("Passer/ Passer son tour");
-
-            String entree = sc.nextLine();
-            switch (entree) {
-                case "Deplacer":
-                    joueurCourant.getRole().seDeplacer();
-                    break;
-                case "Helico":
-                    joueurCourant.getRole().seDeplacerSpe();
-                    piloteSpe = false;
-                    break;
-                case "Assecher":
-                    joueurCourant.getRole().assecherTuile();
-                    break;
-                case "Donner":
-                    //A faire
-                    break;
-                case "Recuperer":
-                    //A faire
-                    break;
-                case "Speciale":
-                    utiliserCarteSpe();
-                    break;
-                case "Passer":
-                    nombreAction = 1;
-                    break;
-                default:
-                    break;
-            }
-
-            nombreAction--;
-
-        } else {
-            partieTermine = true;
-        }
-
-    }
-
-    public void propositionCarteSpe() {
-
-        Scanner sc = new Scanner(System.in);
-        boolean sortir = false;
-        int i = 0;
-
-        while (sortir = false && i < getCarteSpeJoueurCourant().size()) {
-            System.out.println("Voulez-vous utiliser une carte spéciale avant d'en piocher ?");
-            String entree = sc.nextLine();
-            System.out.println("Oui");
-            System.out.println("Non");
-
-            if (entree.equals("Oui")) {
-                utiliserCarteSpe();
-            } else {
-                sortir = true;
-            }
-        }
-
-    }
-    
     public void joueurSuivant() {
         int i = joueurs.indexOf(joueurCourant);
-        if (i == joueurs.size()-1) {
+        if (i == joueurs.size() - 1) {
             joueurCourant = joueurs.get(0);
         } else {
-            joueurCourant = joueurs.get(i+1);
+            joueurCourant = joueurs.get(i + 1);
         }
     }
 
-    //TOUR DE JEU (ahah.)
-    //ATTENTION PENSER AU CAS OU UTILISATEUR NE RENTRE AUCUNE COMMANDE PREVU    
-    public void tourDeJeu() {
+    public void effectuerDeplacement(Joueur joueur, Tuile tuile) { // déplace effectivement le joueur (ne vérifie rien)
+        joueur.getEmplacementJoueur().getJoueursTuile().remove(joueur);
+        joueur.setEmplacementJoueur(tuile);
+        joueur.getEmplacementJoueur().getJoueursTuile().add(joueur);
+    }
 
-        while (partieTermine == false) {            
-            System.out.println("Joueur courant : " + joueurCourant.getNumeroJoueur());
-            System.out.println("role : " + joueurCourant.getRole().getNom());
-            System.out.println("Emplacement : " + joueurCourant.getEmplacementJoueur().getNom().toString());
-            System.out.println("");
-            
-            while (isTropDeCartes()) {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Vous avez trop de cartes: ");
-                System.out.println("1/ Défausser une carte");
+    public void effectuerAssechement(Tuile tuile) { // assèche effectivemment une tuile (ne vérifie rien)
+        tuile.setEtat(Utils.EtatTuile.ASSECHEE);
+    }
 
-                if (isACarteSpe()) {
-                    System.out.println("2/ Utiliser une carte spéciale");
-                }
-                String entree = sc.nextLine();
+    public void effectuerDonCarte(Joueur donneur, Joueur receveur, CarteOrange carte) { // transfère effectivemment une carte (ne vérifie rien)
+        donneur.getMainJoueur().remove(carte);
+        receveur.getMainJoueur().add(carte);
+    }
 
-                //Si selectionne defausser carte
-                if (entree.equals("1")) {
-                    defausserCarte();
+    public void effectuerRecuperationTresor(Tuile tuile, Joueur joueur) { // récupère effectivemment le trésor et retire les cartes correspondantes dans la main du joueur (ne vérifie pas si le joueur a bien les 4 cartes)
+        TypeTresor tresorRecuperableCase = joueur.getEmplacementJoueur().getCaseTresor();
+        int compteur = 0;
 
-                    //Si selectionne utiliser carte speciale
-                } else if (isACarteSpe() && entree.equals("2")) {
-                    utiliserCarteSpe();
-
-                }
-
+        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes
+            if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
+                joueur.getMainJoueur().remove(uneCarteOrange);
+                compteur++;
             }
-            nombreAction = 3;
-            if (joueurCourant.getRole().getRoleAventurier().equals("Pilote")) {
-                    piloteSpe = true;
-                }
-            while (nombreAction > 0) {
-                faireAction();
-            }
-
-            if (isACarteSpe()) {
-                propositionCarteSpe();
-            }
-            
-            piocherCarteOrange();
-
-            if (isACarteSpe()) {
-                propositionCarteSpe();
-            }
-
-            piocherCarteOrange();
-
-            if (isACarteSpe()) {
-                propositionCarteSpe();
-            }
-            
-            /*for (int i = 0; i < eauAPiocher(); i++) {
-                
-                piocherInnondation();
-                //verifFinInnondation(tuileCourante)
-                propositionCarteSpe();       
-
-            }*/
-            joueurSuivant();
-            System.out.println("=-=-=-=-=-=-=-=-=-=-=-=");
         }
+        tresorsRecuperables.remove(tresorRecuperableCase);
+    }
+
+    public void traiterMessage(Message m) {
+
+        switch (m.type) {
+            case SE_DEPLACER:
+                ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
+                messageSauv = m;
+                break;
+
+            case ASSECHER:
+                ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                messageSauv = m;
+                break;
+
+            case DEMARRER:
+                initGrille(m.nbJoueur);
+                //vue
+                break;
+
+            case ANNULER:
+                ihm.setSurbrillanceDefaut();
+                break;
+
+            case CHOIX_TUILE:
+                if (messageSauv.type == TypesMessages.SE_DEPLACER) {
+                    effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+                    nombreAction--;
+                } else if (messageSauv.type == TypesMessages.ASSECHER) {
+                    effectuerAssechement(m.tuileSelectionne);
+                    nombreAction--;
+                } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
+                    if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
+                        effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+                    } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
+                        effectuerAssechement(m.tuileSelectionne);
+                    }
+                }
+                if (nombreAction == 0) {
+                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                }
+                break;
+
+            case DONNER_CARTE:
+                //mettre en su-Brie-ence la main du joueur
+                if (joueurCourant.getRole().getRoleAventurier() == "Messager") {
+                    //mettre en Sue-bry-ance tout les joueurs
+                } else {
+                    //mettre en surbrillance les joueurs qui sont sur la même case
+                }
+                messageSauv = m;
+                break;
+
+            case PARAMETRE_DONNER_CARTE:
+                effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
+                nombreAction--;
+                if (nombreAction == 0) {
+                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                }
+                break;
+
+            case PASSER_TOUR:
+                ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                break;
+
+            case RECUPERER_TRESOR:
+                effectuerRecuperationTresor(m.tuileSelectionne, joueurCourant);
+                nombreAction--;
+                if (nombreAction == 0) {
+                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                }
+                break;
+
+            case UTILISER_CARTE:
+                messageSauv = m;
+                //mise en surbrillance des cartes spé                
+                break;
+            case CHOIX_CARTE:
+                if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
+                    ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                    messageSauv = m;
+                    messageSauv.type = TypesMessages.UTILISER_CARTE;
+                } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
+                    ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                    messageSauv = m;
+                    messageSauv.type = TypesMessages.UTILISER_CARTE;
+                }
+                break;
+
+            //Piochage de cartes oranges à la fin du tour
+            case PIOCHER_CARTE_ORANGE:
+                piocherCarteOrange();
+                break;
+        }
+
     }
 }

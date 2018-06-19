@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import util.Utils;
 
@@ -32,6 +34,7 @@ import util.Utils;
 public class FenetreDebut  extends JFrame {
     private final JFrame fenetre; 
     private final JPanel mainPanel;
+    private final JPanel niveauEau;
     private final JPanel nbJoueurBTF;
     
     private JLabel LabelJoueur;
@@ -65,8 +68,36 @@ public class FenetreDebut  extends JFrame {
         demarrer.setFont(new Font("Arial", Font.BOLD, 30));
         
         /* Placement des composants */
-        fenetre.setLayout(new GridLayout(2,1));
+        fenetre.setLayout(new GridLayout(3,1));
         fenetre.getContentPane().add( ileInterdite );
+        
+        niveauEau = new JPanel(new GridLayout(3,1));
+        fenetre.add(niveauEau);
+        JLabel choixNiveau = new JLabel("Niveau d'eau :");
+        choixNiveau.setFont(new Font("Arial", Font.BOLD, 30));
+        choixNiveau.setHorizontalAlignment(0);
+        niveauEau.add(choixNiveau);
+        JSlider niveau = new JSlider(JSlider.HORIZONTAL,2, 10, 2);
+        niveau.setMinorTickSpacing(1);
+        niveau.setMajorTickSpacing(2);
+        niveau.setPaintLabels(true);
+        niveau.setPaintTicks(true);
+        niveauEau.add(niveau);
+        
+        Hashtable labelTable = new Hashtable();
+        labelTable.put( 2, new JLabel("2") );
+        labelTable.put( 4, new JLabel("3") );
+        labelTable.put( 6, new JLabel("4") );
+        labelTable.put( 8, new JLabel("5") );
+        labelTable.put( 10, new JLabel("6") );
+        niveau.setLabelTable( labelTable );
+        niveau.setPaintLabels(true);
+        
+        JLabel choixNbJoueur = new JLabel("Nombre de Joueur :");
+        choixNbJoueur.setFont(new Font("Arial", Font.BOLD, 30));
+        choixNbJoueur.setHorizontalAlignment(0);
+        niveauEau.add(choixNbJoueur);
+        
 
         nbJoueurBTF.setLayout(new GridLayout(1,3));
         fenetre.add(mainPanel);
@@ -113,7 +144,7 @@ public class FenetreDebut  extends JFrame {
                     Logger.getLogger(FenetreDebut.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                if (Integer.parseInt(nbJoueurs.getText())>=2){
+                /*if (Integer.parseInt(nbJoueurs.getText())>=2){
                     VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
                     nbJ+=1;
                     VueAventurier V2 = new VueAventurier("Gergely", "Navigateur",Utils.Pion.JAUNE.getCouleur());
@@ -123,7 +154,7 @@ public class FenetreDebut  extends JFrame {
                         if (Integer.parseInt(nbJoueurs.getText())==4){
                             nbJ+=1;
                             VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
-                }}}
+                }}}*/
             }    
         });
             
