@@ -45,6 +45,13 @@ public class FenetreInfo extends Observe {
     private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
     private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
+    private JButton btnDeplacer;
+    private JButton btnAssecher;
+    private JButton btnDonner;
+    private JButton btnTresor;
+    private JButton btnUtiliserCarte;
+    private JButton btnPasser;
+    
     public FenetreInfo() throws MalformedURLException {
 
         //Fenetre principale
@@ -63,6 +70,8 @@ public class FenetreInfo extends Observe {
         JPanel reglesPanel = new JPanel(new BorderLayout());
         JButton btnRegles = new JButton("Lire Règle");
 
+        
+        
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
 
@@ -70,7 +79,7 @@ public class FenetreInfo extends Observe {
         JPanel panelInfoJeu = new JPanel();
         JTextField textInfoJeu = new JTextField("ryhujklmjoifyfyfyfyfyfyfyfyfyfyfyfyjknnkjnk");
         textInfoJeu.setEditable(false);
-        textInfoJeu.setPreferredSize(new Dimension(200, 200));
+        textInfoJeu.setPreferredSize(new Dimension(440,250));
 
         panelInfoJeu.add(textInfoJeu);
         infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
@@ -94,7 +103,7 @@ public class FenetreInfo extends Observe {
         gc.weighty = 5;
 
         //Bouton Deplacer
-        JButton btnDeplacer = new JButton();
+        btnDeplacer = new JButton();
         btnDeplacer.setText("Deplacer");
         btnDeplacer.addActionListener(new ActionListener() {
             @Override
@@ -111,7 +120,7 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnDeplacer, gc);
 
         //Bouton Assecher
-        JButton btnAssecher = new JButton();
+        btnAssecher = new JButton();
         btnAssecher.setText("Assecher");
         btnAssecher.addActionListener(new ActionListener() {
             @Override
@@ -126,7 +135,7 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnAssecher, gc);
 
         //Bouton Donner
-        JButton btnDonner = new JButton();
+        btnDonner = new JButton();
         btnDonner.setText("Donner");
         btnDonner.addActionListener(new ActionListener() {
             @Override
@@ -141,7 +150,7 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnDonner, gc);
 
         //Bouton trésor
-        JButton btnTresor = new JButton();
+        btnTresor = new JButton();
         btnTresor.setText("Recuperer");
         btnTresor.addActionListener(new ActionListener() {
             @Override
@@ -156,7 +165,7 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnTresor, gc);
 
         //Bouton utiliser carte
-        JButton btnUtiliserCarte = new JButton();
+        btnUtiliserCarte = new JButton();
         btnUtiliserCarte.setText("Utiliser");
         btnUtiliserCarte.addActionListener(new ActionListener() {
             @Override
@@ -178,7 +187,7 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnAutre, gc);
 
         //Bouton Passer
-        JButton btnPasser = new JButton();
+        btnPasser = new JButton();
         btnPasser.setText("Passer");
         btnPasser.addActionListener(new ActionListener() {
             @Override
@@ -229,4 +238,27 @@ public class FenetreInfo extends Observe {
         window.setVisible(true);
     }
 
+    public void cliquableDeplacer(boolean boo){
+        btnDeplacer.setEnabled(boo);
+    }
+    
+    public void cliquableAssechement(boolean boo){
+        btnAssecher.setEnabled(boo);
+    }
+    
+    public void cliquableDonner(boolean boo){
+        btnDonner.setEnabled(boo);
+    }
+    
+    public void cliquableUtiliser(boolean boo){
+        btnUtiliserCarte.setEnabled(boo);
+    }
+    
+    public void cliquablePasser(boolean boo){
+        btnPasser.setEnabled(boo);
+    }
+    
+    public void cliquableTresor(boolean boo){
+        btnTresor.setEnabled(boo);
+    }
 }
