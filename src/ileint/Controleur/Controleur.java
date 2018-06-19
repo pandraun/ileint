@@ -471,7 +471,7 @@ public class Controleur implements Observateur {
         int compteur = 0;
 
         for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes            
-             if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
+            if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur != 4) {
                 joueur.getMainJoueur().remove(uneCarteOrange);
                 compteur++;
             }
@@ -535,7 +535,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
-                        
+
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
@@ -607,7 +607,7 @@ public class Controleur implements Observateur {
         if (tuileCourante.getEtat().equals(Utils.EtatTuile.COULEE)) {
             if (tuileCourante.getNom().equals(NomTuile.Heliport)) { //si l'héliport sombre
                 //fin partie car l'héliport a sombré//
-            } else if (tuileCourante.isTuileTresor()) { // si c'est une tuile trésor
+            } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
                     for (Tuile tuile : tuiles.values()) {
                         if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
@@ -628,7 +628,20 @@ public class Controleur implements Observateur {
                         ArrayList<Tuile> sauve = null;
                         sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
-                            
+                            boolean aCarteHelico = false;
+                            for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
+                                if (carte.getTypeClasse().equals("Helicopter")) { //verif si il a une carte helico
+                                    aCarteHelico = true;
+                                }
+                            }
+                            if (aCarteHelico) { //si il a une carte hélico
+                                sauve.addAll(grille.getTuilesAssechees().values());
+                                sauve.addAll(grille.getTuilesInondees().values());
+                                Collections.shuffle(sauve);
+                                effectuerDeplacement(joueur, sauve.get(0));
+                            } else { //si il n'y a pas de carte hélico
+                                //fin partie car un des joueur coule
+                            }
                         } else {                    //si il peut fuir
                             Collections.shuffle(sauve);
                             effectuerDeplacement(joueur, sauve.get(0));
