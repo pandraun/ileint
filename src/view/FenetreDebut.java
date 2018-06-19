@@ -25,13 +25,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import util.Message;
+import util.TypesMessages;
 import util.Utils;
 
 /**
  *
  * @author pandraun
  */
-public class FenetreDebut  extends JFrame {
+public class FenetreDebut  extends Observe {
     private final JFrame fenetre; 
     private final JPanel mainPanel;
     private final JPanel niveauEau;
@@ -137,12 +139,16 @@ public class FenetreDebut  extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.setVisible(false);
+                Message m = new Message();
+                m.type = TypesMessages.DEMARRER;
+                notifierObservateur(m);
                 
-                try {
+                
+                /*try {
                     FenetreJeu FJ = new FenetreJeu();
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(FenetreDebut.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
                 
                 /*if (Integer.parseInt(nbJoueurs.getText())>=2){
                     VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());

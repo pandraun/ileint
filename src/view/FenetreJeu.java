@@ -28,7 +28,7 @@ import util.Utils;
  *
  * @author pandraun
  */
-public class FenetreJeu {
+public class FenetreJeu extends Observe{
 
     private JFrame window;
     private JPanel grille;

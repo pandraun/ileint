@@ -19,21 +19,27 @@ import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.EmplacementCarte;
 import util.Message;
 import util.TypeTresor;
 import util.TypesMessages;
 import util.Utils;
+import view.FenetreDebut;
+import view.FenetreJeu;
+import view.Observateur;
 
 /**
  *
  * @author fodorg
  */
-public class Controleur {
+public class Controleur implements Observateur {
 
     private boolean hasard = false;
 
@@ -54,7 +60,16 @@ public class Controleur {
     private boolean piloteSpe;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
 
+    private FenetreDebut fenetreDebut;
+    private FenetreJeu fenetreJeu;
+
     public Controleur() {
+        try {
+            fenetreDebut = new FenetreDebut();
+            fenetreDebut.addObservateur(this);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -385,7 +400,6 @@ public class Controleur {
         return partieTermine;
     }
 
-    
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
@@ -467,22 +481,29 @@ public class Controleur {
 
         switch (m.type) {
             case SE_DEPLACER: //le joueur clique sur se deplacer
-                ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
-                ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
                 break;
 
             case DEMARRER: //le joueur demarre la partie
                 initGrille(m.nbJoueur);
-                //vue
+
+                try {
+                    fenetreJeu = new FenetreJeu();
+                    fenetreJeu.addObservateur(this);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 break;
 
             case ANNULER:
-                ihm.setSurbrillanceDefaut();
+                //ihm.setSurbrillanceDefaut();
                 break;
 
             case CHOIX_TUILE:
@@ -500,7 +521,7 @@ public class Controleur {
                     }
                 }
                 if (nombreAction == 0) {
-                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -518,19 +539,19 @@ public class Controleur {
                 effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
             case PASSER_TOUR:
-                ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
                 break;
 
             case RECUPERER_TRESOR:
                 effectuerRecuperationTresor(m.tuileSelectionne, joueurCourant);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -540,11 +561,11 @@ public class Controleur {
                 break;
             case CHOIX_CARTE:
                 if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
-                    ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                    //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
                 } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
-                    ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                    //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
                 }
