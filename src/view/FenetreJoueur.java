@@ -21,12 +21,64 @@ import util.TypesMessages;
  *
  * @author pandraun
  */
-public class FenetreJoueur {
+public class FenetreJoueur extends Observe{
     private JFrame fenetre;
     private final JButton demarrer;
     
     public FenetreJoueur(int nbJoueurs){
-        fenetre = new JFrame("Fenetre Debut");
+        if (nbJoueurs == 2){
+           fenetre = new JFrame("Fenetre Debut");
+            fenetre.setSize(400, 400);
+            fenetre.setLocationRelativeTo(fenetre);
+
+            JPanel mainPanel = new JPanel(new GridLayout(9,1));
+            for(int i=2; i<5; i++){
+                switch(i){
+                    case 2:
+                    case 4:
+                        JLabel joueur = new JLabel("Joueur"+i/2);
+                        fenetre.add(joueur);
+                        break;
+                    case 3:
+                        JTextField nomJoueur1 = new JTextField();
+                        fenetre.add(nomJoueur1);
+                        break;
+                    case 5:
+                        JTextField nomJoueur2 = new JTextField();
+                        fenetre.add(nomJoueur2);
+                        break;
+                }
+            } 
+        } else if(nbJoueurs==3){
+            fenetre = new JFrame("Fenetre Debut");
+        fenetre.setSize(400, 400);
+        fenetre.setLocationRelativeTo(fenetre);
+       
+        JPanel mainPanel = new JPanel(new GridLayout(9,1));
+        for(int i=2; i<10; i++){
+            switch(i){
+                case 2:
+                case 4:
+                case 6:
+                    JLabel joueur = new JLabel("Joueur"+i/2);
+                    fenetre.add(joueur);
+                    break;
+                case 3:
+                    JTextField nomJoueur1 = new JTextField();
+                    fenetre.add(nomJoueur1);
+                    break;
+                case 5:
+                    JTextField nomJoueur2 = new JTextField();
+                    fenetre.add(nomJoueur2);
+                    break;
+                case 7:
+                    JTextField nomJoueur3 = new JTextField();
+                    fenetre.add(nomJoueur3);
+                    break;
+            }
+        }
+        } else{
+           fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
        
@@ -58,7 +110,9 @@ public class FenetreJoueur {
                     break;
                     
             }
+        } 
         }
+        
         
         demarrer = new JButton("Démarrer la partie");
         demarrer.setFont(new Font("Arial", Font.BOLD, 30));
@@ -70,7 +124,6 @@ public class FenetreJoueur {
                 fenetre.setVisible(false);
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER;
-                m.nbJoueur = nbJoueurs.getText();
                 notifierObservateur(m);
                 
                 
