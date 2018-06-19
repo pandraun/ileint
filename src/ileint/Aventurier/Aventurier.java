@@ -55,6 +55,7 @@ public abstract class Aventurier {
     }
     
     public abstract HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g);
+    public abstract HashMap<Coordonnee, Tuile> getTuilesDeplacementCompagnon(Grille g, Tuile caseRef);
 
     //Getters
     public String getNom() {

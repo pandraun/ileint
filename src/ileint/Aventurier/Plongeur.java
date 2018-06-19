@@ -42,14 +42,14 @@ public class Plongeur extends Aventurier {
             
             for (Tuile uneTuile : tuilesAVisiter.values()) {
                 
-                if (tuilesAVisiter.containsValue(uneTuile.getEtat() == Utils.EtatTuile.INONDEE)) {   // si tuile inondée trouvée -> on l'ajoute
+                if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.INONDEE))) {   // si tuile inondée trouvée -> on l'ajoute
                     tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
                     
-                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat() == Utils.EtatTuile.ASSECHEE)) {
+                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.ASSECHEE))) {
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
                     
-                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat() == Utils.EtatTuile.COULEE)){
+                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.COULEE))){
                     tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
                 }
                 
@@ -65,6 +65,12 @@ public class Plongeur extends Aventurier {
     @Override
     public HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g) {
         System.out.println("Rien n'est renvoyé");
+        return null;
+    }
+    
+    @Override
+    public HashMap<Coordonnee, Tuile> getTuilesDeplacementCompagnon(Grille g, Tuile caseRef) {
+        System.out.println("T pa 1 navigo dsl");
         return null;
     }
 }

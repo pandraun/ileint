@@ -19,7 +19,7 @@ public class Explorateur extends Aventurier {
         super(nom, joueur);
         setCouleur(Utils.Pion.VERT);
 
-        for (Tuile tuile : grille.getTuiles().values()) {                            
+        for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_de_Cuivre) {
                 setTuileDepart(tuile);
             }
@@ -31,35 +31,40 @@ public class Explorateur extends Aventurier {
     public String getRoleAventurier() {
         return "Explorateur";
     }
-    
-    
+
     @Override
-   public HashMap<Coordonnee,Tuile> getTuilesDeplacementPossible(Grille g) {  
-        HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
-        HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
-        
+    public HashMap<Coordonnee, Tuile> getTuilesDeplacementPossible(Grille g) {
+        HashMap<Coordonnee, Tuile> casesBruts = new HashMap<>();
+        HashMap<Coordonnee, Tuile> casesTraitées = new HashMap<>();
+
         casesBruts = g.getCasesContourDeplacement(joueur.getEmplacementJoueur());
         casesTraitées = g.filtreTuilesAccessibles(casesBruts);
-        
+
         return casesTraitées;
     }
-   
+
     @Override
-   public HashMap<Coordonnee,Tuile> getTuilesAssechables(Grille g) {
-        HashMap<Coordonnee,Tuile> casesBruts = new HashMap<>();
-        HashMap<Coordonnee,Tuile> casesTraitées = new HashMap<>();
+    public HashMap<Coordonnee, Tuile> getTuilesAssechables(Grille g) {
+        HashMap<Coordonnee, Tuile> casesBruts = new HashMap<>();
+        HashMap<Coordonnee, Tuile> casesTraitées = new HashMap<>();
 
         casesBruts = g.getCasesContourDeplacement(joueur.getEmplacementJoueur());
         casesTraitées = g.filtreCasesInondees(casesBruts);
-        
+
         return casesTraitées;
     }
-    
+
     @Override
     public HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g) {
         System.out.println("Rien n'est renvoyé");
         return null;
-        
+
+    }
+
+    @Override
+    public HashMap<Coordonnee, Tuile> getTuilesDeplacementCompagnon(Grille g, Tuile caseRef) {
+        System.out.println("T pa 1 navigo dsl");
+        return null;
     }
 
 }

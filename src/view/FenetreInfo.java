@@ -7,52 +7,67 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import util.Message;
+import util.TypesMessages;
 
 /**
  *
  * @author pandraun
  */
-public class FenetreInfo {
+public class FenetreInfo extends Observe {
+
     private JFrame window;
     private JPanel mainPanel;
-    
+
     private JPanel infoPanel;
-    private JPanel boutonPanel;
-    private JPanel accessoirePanel;
-    
-    public FenetreInfo(){
-        
+
+    public FenetreInfo() {
+
         //Fenetre principale
         window = new JFrame();
         mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
-        
+
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight() - 869;
-        int width  = (int)dimension.getWidth() -1090;
-        window.setSize(width, height);
-        
-        //Lire règle + info jeu + role
+        int height = 869;
+        int width = (int) dimension.getWidth() - 1090;
+        System.out.println(height + "   " + width);
+        window.setSize(new Dimension(width, height));
+        window.setLocation(1090, 0);
+
+        //Lire règle
         infoPanel = new JPanel(new BorderLayout());
-        mainPanel.add(infoPanel, BorderLayout.NORTH);
-        
         JPanel reglesPanel = new JPanel(new BorderLayout());
-        infoPanel.add(reglesPanel, BorderLayout.NORTH);
-        
         JButton btnRegles = new JButton("Lire Règle");
+
         reglesPanel.add(btnRegles, BorderLayout.EAST);
-        
+        infoPanel.add(reglesPanel, BorderLayout.NORTH);
+
+        //Info jeu
         JPanel panelInfoJeu = new JPanel();
-        JLabel labelInfoJeu = new JLabel("ryhujklmj,oi");
-        
+        JLabel labelInfoJeu = new JLabel("ryhujklmjoifyfyfyfyfyfyfyfyfyfyfyfyjknnkjnk");
+
         panelInfoJeu.add(labelInfoJeu);
-        infoPanel.add(panelInfoJeu);
-        
+        infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
+
+        //Info role
+        JPanel panelRole = new JPanel();
+        JLabel labelRole = new JLabel("Ingenieur");
+
+        panelRole.add(labelRole);
+        infoPanel.add(panelRole, BorderLayout.SOUTH);
+
 //        private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
 //    private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
 //    private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
@@ -62,59 +77,135 @@ public class FenetreInfo {
 //    private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
 //    private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 //    
-//    xt("Donner carte");
-//                        btnDonner.addActionListener(new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//                                Message m = new Message();
-//                                m.type = TypesMessages.DONNER_CARTE;
-//                                //notifierObservateur(m);
-//                            }
-//                        });
-//                           
-//                        JButton btnTresor = new JButton();
-//                        panelBoutonRole1.add(btnTresor);
-//                        btnTresor.setPreferredSize(new Dimension(40,20));
-//                        btnTresor.setText("Recuperer tresor");
-//                        btnTresor.addActionListener(new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//                                Message m = new Message();
-//                                m.type = TypesMessages.RECUPERER_TRESOR;
-//                                //notifierObservateur(m);
-//                            }
-//                        });
-//                              
-//                        JButton btnUtiliserCarte = new JButton();
-//                        panelBoutonRole1.add(btnUtiliserCarte);
-//                        btnUtiliserCarte.setPreferredSize(new Dimension(40,20));
-//                        btnUtiliserCarte.setText("Utiliser carte");
-//                        btnUtiliserCarte.addActionListener(new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//                                Message m = new Message();
-//                                m.type = TypesMessages.SE_DEPLACER;
-//                                //notifierObservateur(m);
-//                            }
-//                        });
-//                            
-//                        JButton btnAutre = new JButton();
-//                        panelBoutonRole1.add(btnAutre);
-//                        btnAutre.setPreferredSize(new Dimension(40,20));
-//                        btnAutre.setText("Autre");
-//
-//                        JLabel nbActionRole1 = new JLabel("Action restante");
-//                        
-//                    role1.add(panelBoutonRole1);
-//                    role1.add(nbActionRole1);*/       
-//    }
+//   
+        //Panel actions
+        JPanel panelMilieu = new JPanel();
+        JPanel panelActions = new JPanel(new GridBagLayout());
+
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.fill = GridBagConstraints.BOTH;
+        gc.insets = new Insets(5, 5, 5, 5);
+        gc.ipady = gc.anchor = GridBagConstraints.CENTER;
+        gc.weightx = 3;
+        gc.weighty = 5;
+
+        //Bouton Deplacer
+        JButton btnDeplacer = new JButton();
+        btnDeplacer.setText("Deplacer");
+        btnDeplacer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.SE_DEPLACER;
+                notifierObservateur(m);
+            }
+
+        });
+        gc.gridx = 0;
+        gc.gridy = 0;
+        panelActions.add(btnDeplacer, gc);
+        
+
+        //Bouton Assecher
+        JButton btnAssecher = new JButton();
+        btnAssecher.setText("Assecher");
+        btnAssecher.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.ASSECHER;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 2;
+        gc.gridy = 0;
+        panelActions.add(btnAssecher, gc);
+        
+
+        //Bouton Donner
+        JButton btnDonner = new JButton();
+        btnDonner.setText("Donner");
+        btnDonner.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.DONNER_CARTE;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 0;
+        gc.gridy = 1;
+        panelActions.add(btnDonner, gc);
+        
+
+        //Bouton trésor
+        JButton btnTresor = new JButton();
+        btnTresor.setText("Recuperer");
+        btnTresor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.RECUPERER_TRESOR;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 2;
+        gc.gridy = 1;
+        panelActions.add(btnTresor, gc);
+        
+
+        //Bouton utiliser carte
+        JButton btnUtiliserCarte = new JButton();
+        btnUtiliserCarte.setText("Utiliser");
+        btnUtiliserCarte.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.SE_DEPLACER;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 0;
+        gc.gridy = 2;
+        panelActions.add(btnUtiliserCarte, gc);
+        
+        
+        //Bouton Autre A MODIFIER
+        JButton btnAutre = new JButton();
+        btnAutre.setText("Autre");
+        gc.gridx = 1;
+        gc.gridy = 3;
+        panelActions.add(btnAutre, gc);
+        
+        //Bouton Passer
+        JButton btnPasser = new JButton();
+        btnPasser.setText("Passer");
+        btnPasser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.PASSER_TOUR;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 2;
+        gc.gridy = 2;
+        panelActions.add(btnPasser, gc);
+        
+        //Ajout
+        panelMilieu.add(panelActions);
+
+       
+        //Rajout de la partie nord au main panel
+        mainPanel.add(infoPanel, BorderLayout.NORTH);
+        mainPanel.add(panelMilieu, BorderLayout.CENTER);
 
         window.setVisible(true);
     }
-    
-    public static void main(String [] args) throws MalformedURLException {
+
+    public static void main(String[] args) throws MalformedURLException {
         // Instanciation de la fenêtre 
         FenetreInfo f = new FenetreInfo();
-        
+
     }
 }
