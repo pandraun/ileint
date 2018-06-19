@@ -19,6 +19,11 @@ public class Message {
     public String nbJoueur;
     public Joueur joueurVise;
     public CarteOrange carteSelectionne;
-    public Tuile tuileSelectionne;    
+    public Tuile tuileSelectionne; 
+    
+    public String joueur1;
+    public String joueur2;
+    public String joueur3;
+    public String joueur4;
     
 }
