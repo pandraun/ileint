@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -50,7 +51,7 @@ public class FenetreJeu extends Observe{
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
 
-        this.window = new JFrame();
+        this.window = new JFrame("Fenetre Jeu");
         
         
         window.setLayout(new GridBagLayout());
@@ -178,8 +179,55 @@ public class FenetreJeu extends Observe{
         
         //======================================//
         
+        JPanel panelOrange = new JPanel(new GridLayout(2,1));
+        ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
+        Image im = carteRouge.getImage();
+        int hauteur = 80;
+        int largeur = 110;
+        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        JButton piocheOrange = new JButton(new ImageIcon(im));
+        //piocheOrange.setSize(new Dimension(100,70));
+        JButton defausseOrange = new JButton(new ImageIcon(im));
+        //defausseOrange.setSize(new Dimension(100,70));
+        panelOrange.add(piocheOrange);
+        panelOrange.add(defausseOrange);
         
-        JPanel tresor = new JPanel(new GridLayout(2,2));
+        c.weighty = 20;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        c.gridheight = 2;
+        c.gridx = 0;
+        c.gridy = 2;
+        window.add(panelOrange,c);
+        
+        ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
+        im = CarteBleu.getImage();
+        hauteur = 80;
+        largeur = 110;
+        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        JPanel panelInondation = new JPanel(new GridLayout(2,1));        
+        JButton piocheInondation = new JButton(new ImageIcon(im));
+        //piocheInondation.setSize(new Dimension(100,70));
+        JButton defausseInondation = new JButton(new ImageIcon(im));
+        //defausseInondation.setSize(new Dimension(100,70));
+        panelInondation.add(piocheInondation);
+        panelInondation.add(defausseInondation);
+        
+        c.weighty = 20;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        c.gridheight = 2;
+        c.gridx = 7;
+        c.gridy = 2;
+        window.add(panelInondation,c);
+        
+        
+        
+        
+        
+        
+        
+        /*JPanel tresor = new JPanel(new GridLayout(2,2));
         caliceAbsent.setPreferredSize(new Dimension(40,100));
         tresor.add(caliceAbsent);
         cristalAbsent.setPreferredSize(new Dimension(40,100));
@@ -192,7 +240,7 @@ public class FenetreJeu extends Observe{
         c.gridheight = 2;
         c.gridx = 0;
         c.gridy = 2;
-        window.add(tresor,c);
+        window.add(tresor,c);*/
         
         
         //======================================//
@@ -255,12 +303,18 @@ public class FenetreJeu extends Observe{
         c.gridy = 1;
         window.add(grille,c);
         
+        ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
+        im = calice.getImage();
+        hauteur = 64;
+        largeur = 35;
+        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        
         for(int i = 0; i < 36; i++){
             switch (i){
                 case 0:
                     JPanel Cartej11 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej11.add(new JButton());
+                        Cartej11.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej11);
                     break;
@@ -271,7 +325,7 @@ public class FenetreJeu extends Observe{
                             case 0:
                             case 1:
                             case 3:
-                                Cartej12.add(new JButton());
+                                Cartej12.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej12.add(new JLabel());
@@ -287,7 +341,7 @@ public class FenetreJeu extends Observe{
                             case 1:
                             case 2:
                             case 5:
-                                Cartej21.add(new JButton());
+                                Cartej21.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej21.add(new JLabel());
@@ -299,14 +353,14 @@ public class FenetreJeu extends Observe{
                 case 5:
                     JPanel Cartej22 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej22.add(new JButton());
+                        Cartej22.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej22);
                     break;
                 case 30:
                     JPanel Cartej31 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej31.add(new JButton());
+                        Cartej31.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej31);
                     break;
@@ -317,7 +371,7 @@ public class FenetreJeu extends Observe{
                             case 0:
                             case 3:
                             case 4:
-                                Cartej32.add(new JButton());
+                                Cartej32.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej32.add(new JLabel());
@@ -333,7 +387,7 @@ public class FenetreJeu extends Observe{
                             case 2:
                             case 4:
                             case 5:
-                                Cartej41.add(new JButton());
+                                Cartej41.add(new JButton(new ImageIcon(im)));
                                 break;
                             default:
                                 Cartej41.add(new JLabel());
@@ -345,7 +399,7 @@ public class FenetreJeu extends Observe{
                 case 35:
                     JPanel Cartej42 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
-                        Cartej42.add(new JButton());
+                        Cartej42.add(new JButton(new ImageIcon(im)));
                     }
                     grille.add(Cartej42);
                     break;
@@ -376,8 +430,6 @@ public class FenetreJeu extends Observe{
                     JButton tuile = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tuiles/Heliport.png")));
                     tuile.setPreferredSize(new Dimension(120,120));
                     grille.add(tuile);
-                    System.out.println(height/6);
-                    System.out.println(width/8);
                     break;
                 default:
                     JPanel caseVide = new JPanel();
