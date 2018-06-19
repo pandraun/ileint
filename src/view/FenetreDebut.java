@@ -170,10 +170,10 @@ public class FenetreDebut  extends Observe {
         
         
     }
-    
-    public static void main(String [] args) throws MalformedURLException {
+    // LE MAIN EST DESORMAIS DANS ILEINT
+    /*public static void main(String [] args) throws MalformedURLException {
         // Instanciation de la fenêtre 
         FenetreDebut f = new FenetreDebut();
-    }
+    }*/
     
 }
