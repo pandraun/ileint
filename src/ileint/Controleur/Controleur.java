@@ -98,7 +98,6 @@ public class Controleur implements Observateur {
         toutNomAventurier.add("Plongeur");
 
         for (int i = 0; i < nbJoueur; i++) {
-            System.out.println("debug");
             Joueur joueur = new Joueur(i);
             joueurs.add(joueur);
         }
@@ -603,13 +602,19 @@ public class Controleur implements Observateur {
             } else if (tuileCourante.isCaseOccupee()) { //si il y a quelqu'un sur le tuile
                 for (Joueur joueur : tuileCourante.getJoueursTuile()) { //chaque joueur doit etre traité separrément
                     Aventurier role = joueur.getRole();
-                    if (role.getRoleAventurier().equals("Pilote")) {
+                    if (role.getRoleAventurier().equals("Pilote")) {// si c'est le pilote alors il peut utilisé l'hélico
                         ArrayList<Tuile> sauve = null;
                         sauve.addAll(grille.getTuilesAssechees().values());
                         sauve.addAll(grille.getTuilesInondees().values());
-                        
-                    }
-
+                        Collections.shuffle(sauve);
+                        effectuerDeplacement(joueur, sauve.get(0));
+                    } else {                        // si c'est pas un pilote alors on tente un déplacement normale
+                        ArrayList<Tuile> sauve = null;
+                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
+                        if (sauve.isEmpty()) {      //si il n'a nulle part où aller
+                            
+                        }
+                    } 
                 }
             }
         }
