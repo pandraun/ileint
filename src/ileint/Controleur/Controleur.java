@@ -601,15 +601,15 @@ public class Controleur implements Observateur {
                     }
                 }
             } else if (tuileCourante.isCaseOccupee()) { //si il y a quelqu'un sur le tuile
-                if  (!toutNomAventurier.contains("Navigateur")) { //si il y a un Navigo en jeu
-                    Aventurier nav;
-                    for (Aventurier ave : aventuriers) { //on recupère le navigo
-                        if (ave.getRoleAventurier().equals("Navigateur")) {
-                            nav = ave;
-                        }
+                for (Joueur joueur : tuileCourante.getJoueursTuile()) { //chaque joueur doit etre traité separrément
+                    Aventurier role = joueur.getRole();
+                    if (role.getRoleAventurier().equals("Pilote")) {
+                        ArrayList<Tuile> sauve = null;
+                        sauve.addAll(grille.getTuilesAssechees().values());
+                        sauve.addAll(grille.getTuilesInondees().values());
+                        
                     }
-                    HashMap<Coordonnee, Tuile> sauveTuile;
-                    sauveTuile = nav.getTuileDeplacementCompagnon(grille, )
+
                 }
             }
         }

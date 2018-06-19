@@ -37,6 +37,7 @@ public class Navigateur extends Aventurier {
 
     }
 
+    @Override
     public HashMap<Coordonnee, Tuile> getTuilesDeplacementCompagnon(Grille g, Tuile caseRef) {
         HashMap<Coordonnee, Tuile> casesBruts = new HashMap<>();
         HashMap<Coordonnee, Tuile> casesTraitées = new HashMap<>();

@@ -40,4 +40,10 @@ public class Pilote extends Aventurier {
         
         return tuilesAccessibles;
     }
+    
+    @Override
+    public HashMap<Coordonnee, Tuile> getTuilesDeplacementCompagnon(Grille g, Tuile caseRef) {
+        System.out.println("T pa 1 navigo dsl");
+        return null;
+    }
 }
