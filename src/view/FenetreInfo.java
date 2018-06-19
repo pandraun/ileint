@@ -11,9 +11,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,8 +34,18 @@ public class FenetreInfo extends Observe {
     private JPanel mainPanel;
 
     private JPanel infoPanel;
+    
+    private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
+    private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
+    private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
+    private JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
+    private JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
+    private JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
+    private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
+    private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
-    public FenetreInfo() {
+
+    public FenetreInfo() throws MalformedURLException {
 
         //Fenetre principale
         window = new JFrame();
@@ -45,12 +58,15 @@ public class FenetreInfo extends Observe {
         System.out.println(height + "   " + width);
         window.setSize(new Dimension(width, height));
         window.setLocation(1090, 0);
+        System.out.println(window.getSize().width);
 
         //Lire règle
         infoPanel = new JPanel(new BorderLayout());
         JPanel reglesPanel = new JPanel(new BorderLayout());
         JButton btnRegles = new JButton("Lire Règle");
 
+     
+        
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
 
@@ -68,16 +84,8 @@ public class FenetreInfo extends Observe {
         panelRole.add(labelRole);
         infoPanel.add(panelRole, BorderLayout.SOUTH);
 
-//        private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
-//    private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
-//    private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
-//    private JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
-//    private JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
-//    private JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
-//    private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
-//    private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
-//    
-//   
+        
+    
         //Panel actions
         JPanel panelMilieu = new JPanel();
         JPanel panelActions = new JPanel(new GridBagLayout());
@@ -195,17 +203,49 @@ public class FenetreInfo extends Observe {
         //Ajout
         panelMilieu.add(panelActions);
 
+        
+        //Bas fenetre
+        JPanel panelBasFenetre = new JPanel();
+        JPanel panelBas = new JPanel(new GridLayout(2, 1));
+        
+        //panelBas.add(IMAGE JAUGE DEAU)
+        
+        GridLayout tresor = new GridLayout(1, 4);
+        
+        tresor.setHgap(15);
+        tresor.setVgap(10);
+        
+        JPanel panelTresor = new JPanel(tresor);
+        
+        caliceAbsent.setPreferredSize(new Dimension(100, 100));
+        cristalAbsent.setPreferredSize(new Dimension(100, 100));
+        pierreAbsent.setPreferredSize(new Dimension(100, 100));
+        statueAbsent.setPreferredSize(new Dimension(100, 100));
+                
+        
+        panelTresor.add(caliceAbsent);
+        panelTresor.add(cristalAbsent);
+        panelTresor.add(pierreAbsent);
+        panelTresor.add(statueAbsent);
+        
+        
+        
+        panelBasFenetre.add(panelTresor);
+        panelBasFenetre.add(panelBas);
        
         //Rajout de la partie nord au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
         mainPanel.add(panelMilieu, BorderLayout.CENTER);
+        mainPanel.add(panelBasFenetre, BorderLayout.SOUTH);
 
+        window.setResizable(false);
         window.setVisible(true);
     }
 
     public static void main(String[] args) throws MalformedURLException {
         // Instanciation de la fenêtre 
         FenetreInfo f = new FenetreInfo();
+        System.out.println("debug");
 
     }
 }
