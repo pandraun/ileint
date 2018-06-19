@@ -98,6 +98,7 @@ public class Controleur implements Observateur {
         toutNomAventurier.add("Plongeur");
 
         for (int i = 0; i < nbJoueur; i++) {
+            System.out.println("debug");
             Joueur joueur = new Joueur(i);
             joueurs.add(joueur);
         }
@@ -500,7 +501,7 @@ public class Controleur implements Observateur {
                     nbJ = 4;
                 }
                 initGrille(nbJ);
-                
+
                 try {
                     fenetreJeu = new FenetreJeu();
                     fenetreJeu.addObservateur(this);
@@ -585,5 +586,32 @@ public class Controleur implements Observateur {
                 break;
         }
 
+    }
+
+    public void verifFinInondation(Tuile tuileCourante) {
+        if (tuileCourante.getEtat().equals(Utils.EtatTuile.COULEE)) {
+            if (tuileCourante.getNom().equals(NomTuile.Heliport)) { //si l'héliport sombre
+                //fin partie car l'héliport a sombré//
+            } else if (tuileCourante.isTuileTresor()) { // si c'est une tuile trésor
+                if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
+                    for (Tuile tuile : tuiles.values()) {
+                        if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
+                            //fin partie car un trésor pas récupérable//
+                        }
+                    }
+                }
+            } else if (tuileCourante.isCaseOccupee()) { //si il y a quelqu'un sur le tuile
+                if  (!toutNomAventurier.contains("Navigateur")) { //si il y a un Navigo en jeu
+                    Aventurier nav;
+                    for (Aventurier ave : aventuriers) { //on recupère le navigo
+                        if (ave.getRoleAventurier().equals("Navigateur")) {
+                            nav = ave;
+                        }
+                    }
+                    HashMap<Coordonnee, Tuile> sauveTuile;
+                    sauveTuile = nav.getTuileDeplacementCompagnon(grille, )
+                }
+            }
+        }
     }
 }

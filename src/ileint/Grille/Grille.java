@@ -181,6 +181,7 @@ public class Grille {
         }
         return casesCroix;
     }
+    
 
     public HashMap<Coordonnee, Tuile> filtreCasesSeches(HashMap<Coordonnee, Tuile> casesBruts) { // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
         HashMap<Coordonnee, Tuile> casesTraitee = new HashMap<>();
