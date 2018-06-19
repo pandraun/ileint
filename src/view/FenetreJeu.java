@@ -192,6 +192,16 @@ public class FenetreJeu extends Observe{
         panelOrange.add(piocheOrange);
         panelOrange.add(defausseOrange);
         
+        //Action de pioche Orange
+        piocheOrange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
+                notifierObservateur(m);
+            }
+        });
+        
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
