@@ -541,7 +541,7 @@ public class Controleur implements Observateur {
                     }
                 }
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -560,7 +560,7 @@ public class Controleur implements Observateur {
                 effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -573,7 +573,7 @@ public class Controleur implements Observateur {
                 effectuerRecuperationTresor(m.tuileSelectionne, joueurCourant);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 System.out.println("recupe");
                 break;
@@ -650,5 +650,9 @@ public class Controleur implements Observateur {
                 }
             }
         }
+    }
+    
+    public void commencerPiocheOrange() {
+        
     }
 }
