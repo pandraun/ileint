@@ -25,7 +25,7 @@ public class FenetreJoueur {
     private JFrame fenetre;
     private final JButton demarrer;
     
-    public FenetreJoueur(){
+    public FenetreJoueur(int nbJoueurs){
         fenetre = new JFrame("Fenetre Debut");
         fenetre.setSize(400, 400);
         fenetre.setLocationRelativeTo(fenetre);
