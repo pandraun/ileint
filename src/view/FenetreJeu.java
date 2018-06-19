@@ -51,7 +51,7 @@ public class FenetreJeu extends Observe{
         int width = (int) dimension.getWidth();
 
         this.window = new JFrame();
-        window.setSize(width, height);
+        
         
         window.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -387,6 +387,7 @@ public class FenetreJeu extends Observe{
 
             }
         window.pack();
+        window.setSize(1090, 869);
         window.setVisible(true);
     }
 }
