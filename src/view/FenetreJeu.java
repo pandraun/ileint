@@ -45,7 +45,7 @@ public class FenetreJeu {
     
     
     public FenetreJeu() throws MalformedURLException{
-        
+
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
@@ -74,10 +74,86 @@ public class FenetreJeu {
 
         //--------------------------//
         
-        
-        
-        
-        
+        /*JPanel panelBoutonRole1 = new JPanel(new GridLayout(3, 2));
+
+                    //mettre en surbrillance quand besoin est
+                        JButton btnDeplacer = new JButton();
+                        panelBoutonRole1.add(btnDeplacer);
+                        btnDeplacer.setPreferredSize(new Dimension(40,20));
+                        btnDeplacer.setText("Se deplacer");
+                        btnDeplacer.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Message m = new Message();
+                                m.type = TypesMessages.SE_DEPLACER;
+                                //notifierObservateur(m);
+                            }
+                        });
+                            
+                        JButton btnAssecher = new JButton();
+                        panelBoutonRole1.add(btnAssecher);
+                        btnAssecher.setPreferredSize(new Dimension(40,20));
+                        btnAssecher.setText("Assecher");
+                        btnAssecher.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Message m = new Message();
+                                m.type = TypesMessages.ASSECHER;
+                                //notifierObservateur(m);
+                            }
+                        });
+                           
+                        JButton btnDonner = new JButton();
+                        panelBoutonRole1.add(btnDonner);
+                        btnDonner.setPreferredSize(new Dimension(40,20));
+                        btnDonner.setText("Donner carte");
+                        btnDonner.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Message m = new Message();
+                                m.type = TypesMessages.DONNER_CARTE;
+                                //notifierObservateur(m);
+                            }
+                        });
+                           
+                        JButton btnTresor = new JButton();
+                        panelBoutonRole1.add(btnTresor);
+                        btnTresor.setPreferredSize(new Dimension(40,20));
+                        btnTresor.setText("Recuperer tresor");
+                        btnTresor.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Message m = new Message();
+                                m.type = TypesMessages.RECUPERER_TRESOR;
+                                //notifierObservateur(m);
+                            }
+                        });
+                              
+                        JButton btnUtiliserCarte = new JButton();
+                        panelBoutonRole1.add(btnUtiliserCarte);
+                        btnUtiliserCarte.setPreferredSize(new Dimension(40,20));
+                        btnUtiliserCarte.setText("Utiliser carte");
+                        btnUtiliserCarte.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Message m = new Message();
+                                m.type = TypesMessages.SE_DEPLACER;
+                                //notifierObservateur(m);
+                            }
+                        });
+                            
+                        JButton btnAutre = new JButton();
+                        panelBoutonRole1.add(btnAutre);
+                        btnAutre.setPreferredSize(new Dimension(40,20));
+                        btnAutre.setText("Autre");
+
+                        JLabel nbActionRole1 = new JLabel("Action restante");
+                        
+                    role1.add(panelBoutonRole1);
+                    role1.add(nbActionRole1);*/            
+                    
+
+
         //======================================//
 
         JPanel role2 = new JPanel();
@@ -307,9 +383,9 @@ public class FenetreJeu {
                     JPanel caseVide = new JPanel();
                     grille.add(caseVide);
                     break;
-            }
+                }
 
-        }
+            }
         window.pack();
         window.setVisible(true);
     }
