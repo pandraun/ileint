@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package view;
+
+import util.Message;
 
 /**
  *
- * @author pandraun
+ * @author laurillau
  */
-public enum EmplacementCarte {
-    PIOCHE,
-    DEFAUSSE,
-    MAINJOUEUR;
-    
+public interface Observateur {
+
+    public void traiterMessage(Message msg);
 }

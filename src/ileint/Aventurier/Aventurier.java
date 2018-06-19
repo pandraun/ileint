@@ -46,6 +46,14 @@ public abstract class Aventurier {
         return casesTraitées;
     }
     
+    public HashMap<Coordonnee, Tuile> getTuileHelicoPossible(Grille g) {
+        HashMap<Coordonnee, Tuile> tuilesAccesibles = new HashMap<>();
+        tuilesAccesibles = g.getTuilesAssechees();
+        tuilesAccesibles.putAll(g.getTuilesInondees());
+        tuilesAccesibles.remove(joueur.getEmplacementJoueur().getCoordonnee());
+        return tuilesAccesibles;
+    }
+    
     public abstract HashMap<Coordonnee, Tuile> getTuilesDeplacementSpe(Grille g);
 
     //Getters
