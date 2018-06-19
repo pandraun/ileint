@@ -175,6 +175,33 @@ public class Grille {
         }
         return casesCroix;
     }
+    
+    public HashMap<Coordonnee, Tuile> getCasesNavigDeplacement(Tuile pos) { // retourne les 4 cases qui entourent la tuile (où le joueur se situe) incluse + null traité
+        HashMap<Coordonnee, Tuile> casesCroix = new HashMap<>();
+        Coordonnee sauv;
+
+        for (int i = -1; i < 2; i++) {                                            // ligne
+            for (int j = -1; j < 2; j++) {                                        // colonne
+                if ((i == -1 && j == -1)
+                        || (i == 1 && j == 1)
+                        || (i == -1 && j == 1)
+                        || (i == 1 && j == -1)) {
+                    // rien ne se passe
+                } else {
+                    sauv = new Coordonnee(pos.getCoordonnee().getX() + i, pos.getCoordonnee().getY() + j);
+                    /*if (getTuiles().get(sauv) != null) {                       //si c'est pas un bord ou jsp
+                        casesCroix.put(sauv, getTuiles().get(sauv));
+                    }*/
+                    for (Tuile tuile : getTuiles().values()) {
+                        if (tuile.getCoordonnee().isPareil(sauv) && tuile.getNom() != null) { //tuile.getCoordonnee().equals(sauv)
+                            casesCroix.put(sauv, tuile);
+                        }
+                    }
+                }
+            }
+        }
+        return casesCroix;
+    }
 
     public HashMap<Coordonnee, Tuile> filtreCasesSeches(HashMap<Coordonnee, Tuile> casesBruts) { // récupère une liste et la retourne en gardant seulement les cases sèches (byebye null et autres)
         HashMap<Coordonnee, Tuile> casesTraitee = new HashMap<>();
