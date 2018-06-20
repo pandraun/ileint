@@ -512,6 +512,7 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
+                nomJoueur = new ArrayList<>();
                 nomJoueur.add(m.joueur1);
                 nomJoueur.add(m.joueur2);
                 if (m.joueur3 != null) {

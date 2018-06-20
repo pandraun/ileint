@@ -33,7 +33,7 @@ public class FenetreJoueur extends Observe {
 
     public FenetreJoueur(int nbJoueurs) {
         if (nbJoueurs == 2) {
-            fenetre = new JFrame("Fenetre Debut");
+            fenetre = new JFrame("Fenetre Joueur");
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 
@@ -57,10 +57,10 @@ public class FenetreJoueur extends Observe {
             }
             
             demarrer = new JButton("Démarrer la partie");
-        demarrer.setFont(new Font("Arial", Font.BOLD, 30));
-        mainPanel.add(demarrer);
+            demarrer.setFont(new Font("Arial", Font.BOLD, 30));
+            mainPanel.add(demarrer);
 
-        demarrer.addActionListener(new ActionListener() {
+            demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.setVisible(false);
@@ -69,7 +69,6 @@ public class FenetreJoueur extends Observe {
                 m.joueur1 = nomJoueur1.getText();
                 m.joueur2 = nomJoueur2.getText();
                 notifierObservateur(m);
-
             }
         });
 
@@ -151,7 +150,6 @@ public class FenetreJoueur extends Observe {
                         nomJoueur4 = new JTextField();
                         mainPanel.add(nomJoueur4);
                         break;
-
                 }
             }
 
