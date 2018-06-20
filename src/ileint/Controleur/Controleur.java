@@ -607,7 +607,6 @@ public class Controleur implements Observateur {
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
-                System.out.println("passage");
                 break;
 
             case RECUPERER_TRESOR:
@@ -616,7 +615,6 @@ public class Controleur implements Observateur {
                 if (nombreAction == 0) {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
-                System.out.println("recupe");
                 break;
 
             case UTILISER_CARTE:
@@ -632,14 +630,13 @@ public class Controleur implements Observateur {
                     //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
-                }
-                System.out.println("utilisagement");
+                }                
                 break;
 
             //Piochage de cartes oranges à la fin du tour
             case PIOCHER_CARTE_ORANGE:
                 piocherCarteOrange();
-                break;
+                break;   
         }
 
     }
