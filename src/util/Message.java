@@ -16,11 +16,15 @@ import ileint.Tuile.Tuile;
 public class Message {
     
     public TypesMessages type;
-    public String nbJoueur;
-    public Joueur joueurVise;
-    public CarteOrange carteSelectionne;
-    public Tuile tuileSelectionne; 
+        
+    public String nbJoueur;  //utiliser en début de partie pour avoir le nombre de joueur
     
+    public Joueur joueurVise;             //utiliser pour donner des cartes    
+    public CarteOrange carteSelectionne;  //utiliser pour donner des cartes
+    
+    public Tuile tuileSelectionne;   //utiliser à tout moments lorsqu'une tuile est selectionée
+    
+    //nom des joueur
     public String joueur1;
     public String joueur2;
     public String joueur3;

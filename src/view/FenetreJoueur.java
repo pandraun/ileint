@@ -63,12 +63,13 @@ public class FenetreJoueur extends Observe {
             demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.setVisible(false);
-                Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
-                m.joueur1 = nomJoueur1.getText();
-                m.joueur2 = nomJoueur2.getText();
-                notifierObservateur(m);
+                if (nomJoueur1.getText() != null && nomJoueur2.getText() != null) {
+                    Message m = new Message();
+                    m.type = TypesMessages.DEMARRER;
+                    m.joueur1 = nomJoueur1.getText();
+                    m.joueur2 = nomJoueur2.getText();
+                    notifierObservateur(m);
+                }
             }
         });
 
@@ -108,14 +109,14 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.setVisible(false);
-                Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
-                m.joueur1 = nomJoueur1.getText();
-                m.joueur2 = nomJoueur2.getText();
-                m.joueur3 = nomJoueur3.getText();
-                notifierObservateur(m);
-
+                if (nomJoueur1.getText() != null && nomJoueur2.getText() != null && nomJoueur3 != null) {
+                    Message m = new Message();
+                    m.type = TypesMessages.DEMARRER;
+                    m.joueur1 = nomJoueur1.getText();
+                    m.joueur2 = nomJoueur2.getText();
+                    m.joueur3 = nomJoueur3.getText();
+                    notifierObservateur(m); 
+                }
             }
         });
 
@@ -160,16 +161,16 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.setVisible(false);
-                Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
-                m.joueur1 = nomJoueur1.getText();
-                m.joueur2 = nomJoueur2.getText();
-                m.joueur3 = nomJoueur3.getText();
-                m.joueur4 = nomJoueur4.getText();
-                System.out.println("debug");
-                notifierObservateur(m);
-
+                if (nomJoueur1.getText() != null && nomJoueur2.getText() != null && nomJoueur3 != null && nomJoueur4 != null) {
+                    Message m = new Message();
+                    m.type = TypesMessages.DEMARRER;
+                    m.joueur1 = nomJoueur1.getText();
+                    m.joueur2 = nomJoueur2.getText();
+                    m.joueur3 = nomJoueur3.getText();
+                    m.joueur4 = nomJoueur4.getText();
+                    System.out.println("debug");
+                    notifierObservateur(m);
+                }
             }
         });
         
@@ -181,5 +182,9 @@ public class FenetreJoueur extends Observe {
         fenetre.setResizable(false);
         fenetre.pack();
         fenetre.setVisible(true);
+    }
+    
+    public void visible(boolean bool) {
+        fenetre.setVisible(bool);
     }
 }
