@@ -551,7 +551,7 @@ public class Controleur implements Observateur {
                 fenetreJoueur.visible(false);
 
                 try {
-                    fenetreJeu = new FenetreJeu();
+                    fenetreJeu = new FenetreJeu(joueurs);
                     fenetreJeu.addObservateur(this);
                     fenetreJeu.PlacerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
