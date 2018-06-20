@@ -61,7 +61,7 @@ public class Joueur {
         this.numeroJoueur = numeroJoueur;
     }
 
-    public void setNomJoueur(String nomjoueur) {
+    public void setNomJoueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
     }
 

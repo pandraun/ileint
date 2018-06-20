@@ -327,8 +327,8 @@ public class FenetreInfo extends Observe {
         btnTresor.setEnabled(boo);
     }
 
-    public void modifierLabelJoueur(Aventurier role) {
-        labelRole.setText(role.getNom());
+    public void modifierLabelJoueur(Joueur joueur) {
+        labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
     }
 
     public void setJoueurCourant(Joueur joueurCourant) {

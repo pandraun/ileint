@@ -329,8 +329,6 @@ public class Controleur implements Observateur {
             return 5;
         }
     }
-    
-    
 
     ///////////////getters
     public Stack<CarteInondation> getPiocheInondation() {
@@ -361,7 +359,7 @@ public class Controleur implements Observateur {
         return grille;
     }
     /////////////
-    
+
     ///////////////////////setters
     public void setNiveauEau(int niveauEau) {
         this.niveauEau = niveauEau;
@@ -399,7 +397,7 @@ public class Controleur implements Observateur {
         this.grille = grille;
     }
     //////////////////
-    
+
     public void setPartieTermine(boolean partieTermine) {
         this.partieTermine = partieTermine;
     }
@@ -417,12 +415,12 @@ public class Controleur implements Observateur {
         piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
         piocheOrange.pop();
     }
-    
+
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
     }
-    
+
     public void empilerDefausseInondation() {
         Collections.shuffle(defausseInondation);
         for (CarteInondation uneCarte : defausseInondation) {
@@ -430,7 +428,7 @@ public class Controleur implements Observateur {
         }
         defausseInondation.clear();
     }
-    
+
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
         if (piocheOrange.isEmpty()) {
             Collections.shuffle(defausseOrange);
@@ -438,7 +436,6 @@ public class Controleur implements Observateur {
             defausseOrange.clear();
         }
     }
-
 
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
         ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
@@ -469,8 +466,6 @@ public class Controleur implements Observateur {
             }
         }
     }
-    
-    
 
     public void joueurSuivant() {
         int i = joueurs.indexOf(joueurCourant);
@@ -512,16 +507,6 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message m) {
 
         switch (m.type) {
-            case SE_DEPLACER: //le joueur clique sur se deplacer
-                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
-                messageSauv = m;
-                break;
-
-            case ASSECHER: //le joueur clique sur assecher
-                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
-                messageSauv = m;
-                break;
-
             case CONTINUER: //choix du niveau de dificulté et du nombre de perso
                 int nbJ;
                 if (m.nbJoueur.equals("2")) {
@@ -544,7 +529,7 @@ public class Controleur implements Observateur {
                     joueurs.get(2).setNomJoueur(m.joueur3);
                 }
                 if (m.joueur4 != null) {
-                    joueurs.get(2).setNomJoueur(m.joueur4);
+                    joueurs.get(3).setNomJoueur(m.joueur4);
                 }
                 fenetreJoueur.visible(false);
                 joueurCourant = joueurs.get(0);
@@ -560,7 +545,7 @@ public class Controleur implements Observateur {
                 try {
                     fenetreInfo = new FenetreInfo();
                     fenetreInfo.addObservateur(this);
-                    fenetreInfo.modifierLabelJoueur(joueurCourant.getRole());
+                    fenetreInfo.modifierLabelJoueur(joueurCourant);
                     fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
@@ -570,6 +555,16 @@ public class Controleur implements Observateur {
 
             case ANNULER:
                 //ihm.setSurbrillanceDefaut();
+                break;
+
+            case SE_DEPLACER: //le joueur clique sur se deplacer
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
+                messageSauv = m;
+                break;
+
+            case ASSECHER: //le joueur clique sur assecher
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                messageSauv = m;
                 break;
 
             case CHOIX_TUILE:
