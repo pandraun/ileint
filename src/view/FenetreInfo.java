@@ -5,8 +5,11 @@
  */
 package view;
 
+import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -22,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import util.Message;
 import util.TypesMessages;
@@ -53,6 +57,8 @@ public class FenetreInfo extends Observe {
     private JButton btnPasser;
     private JLabel labelRole;
     
+    private Joueur joueurCourant;
+
     public FenetreInfo() throws MalformedURLException {
 
         //Fenetre principale
@@ -60,8 +66,6 @@ public class FenetreInfo extends Observe {
         mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
 
-        
-        
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 869;
         int width = (int) dimension.getWidth() - 1090;
@@ -73,16 +77,17 @@ public class FenetreInfo extends Observe {
         JPanel reglesPanel = new JPanel(new BorderLayout());
         JButton btnRegles = new JButton("Lire Règle");
 
-        
-        
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
 
         //Info jeu
         JPanel panelInfoJeu = new JPanel();
-        JTextField textInfoJeu = new JTextField("ryhujklmjoifyfyfyfyfyfyfyfyfyfyfyfyjknnkjnk");
+        JTextArea textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action \n  parmis celle-ci dessous:");
+        Font f = new Font("Ile int",Font.PLAIN, 30);
+        textInfoJeu.setForeground(Color.GRAY);
+        textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
-        textInfoJeu.setPreferredSize(new Dimension(440,250));
+        textInfoJeu.setPreferredSize(new Dimension(440, 250));
 
         panelInfoJeu.add(textInfoJeu);
         infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
@@ -182,13 +187,6 @@ public class FenetreInfo extends Observe {
         gc.gridy = 2;
         panelActions.add(btnUtiliserCarte, gc);
 
-        //Bouton Autre A MODIFIER
-        JButton btnAutre = new JButton();
-        btnAutre.setText("Autre");
-        gc.gridx = 1;
-        gc.gridy = 3;
-        panelActions.add(btnAutre, gc);
-
         //Bouton Passer
         btnPasser = new JButton();
         btnPasser.setText("Passer");
@@ -204,6 +202,13 @@ public class FenetreInfo extends Observe {
         gc.gridy = 2;
         panelActions.add(btnPasser, gc);
 
+        //Boutons actions spécial
+        JButton btnAutre = new JButton();
+        btnAutre.setText("Autre");
+        gc.gridx = 1;
+        gc.gridy = 3;
+        panelActions.add(btnAutre, gc);
+        
         //Ajout
         panelMilieu.add(panelActions);
 
@@ -231,6 +236,8 @@ public class FenetreInfo extends Observe {
 
         panelBasFenetre.add(panelTresor);
         panelBasFenetre.add(panelBas);
+        
+        
 
         //Rajout de la partie nord au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
@@ -241,31 +248,37 @@ public class FenetreInfo extends Observe {
         window.setVisible(true);
     }
 
-    public void cliquableDeplacer(boolean boo){
+    public void cliquableDeplacer(boolean boo) {
         btnDeplacer.setEnabled(boo);
     }
-    
-    public void cliquableAssechement(boolean boo){
+
+    public void cliquableAssechement(boolean boo) {
         btnAssecher.setEnabled(boo);
     }
-    
-    public void cliquableDonner(boolean boo){
+
+    public void cliquableDonner(boolean boo) {
         btnDonner.setEnabled(boo);
     }
-    
-    public void cliquableUtiliser(boolean boo){
+
+    public void cliquableUtiliser(boolean boo) {
         btnUtiliserCarte.setEnabled(boo);
     }
-    
-    public void cliquablePasser(boolean boo){
+
+    public void cliquablePasser(boolean boo) {
         btnPasser.setEnabled(boo);
     }
-    
-    public void cliquableTresor(boolean boo){
+
+    public void cliquableTresor(boolean boo) {
         btnTresor.setEnabled(boo);
     }
-    
-    public void modifierLabelJoueur(Role role){
+
+    public void modifierLabelJoueur(Role role) {
         labelRole.setText(role.getRoleName());
     }
+
+    public void setJoueurCourant(Joueur joueurCourant) {
+        this.joueurCourant = joueurCourant;
+    }
+    
+    
 }
