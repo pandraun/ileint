@@ -24,7 +24,7 @@ public enum NomTuile {
     Le_Rocher_Fantome("Le Rocher Fantôme"),
     La_Caverne_du_Brasier("La Caverne du Brasier"),
     Le_Temple_du_Soleil("Le Temple du Soleil"),
-    Le_Temple_de_La_Lune("Le Tempple de la Lune"),
+    Le_Temple_de_La_Lune("Le Temple de la Lune"),
     Le_Palais_des_Marees("Le Palais des Marées"),
     Le_Val_du_Crepuscule("Le Val du Crépuscule"),
     La_Tour_du_Guet("La Tour de Guet"),

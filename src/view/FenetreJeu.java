@@ -480,6 +480,7 @@ public class FenetreJeu extends Observe{
             }*/
         window.pack();
         window.setSize(1150, 805);
+        System.out.println(1150-java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         window.setIconImage(im);
         window.setResizable(false);
         window.setVisible(true);
@@ -494,20 +495,27 @@ public class FenetreJeu extends Observe{
         //ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
         //Image im = calice.getImage();
         //im = im.getScaledInstance(35,64,Image.SCALE_DEFAULT);
-        
+        int i = 0;
         for(Tuile uneTuile : tuiles.values()){
+            if (uneTuile.getNom()!=null){
+                int x = uneTuile.getCoordonnee().getX();
+                int y = uneTuile.getCoordonnee().getY();
+                JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
+                System.out.println("nom tuile : "+uneTuile.getNom());
+                tuile.setPreferredSize(new Dimension(120,120));
+                c.fill = GridBagConstraints.BOTH;
+                c.weightx = 1;
+                c.weighty = 1;
+                c.gridx = x;
+                c.gridheight = 1;
+                c.gridwidth = 1;
+                i += 1;
+                System.out.println("tuile "+i+": x = "+x);
+                c.gridy = y;
+                System.out.println("tuile "+i+": y = "+y);
+                grille.add(tuile,c); 
+            }
             
-            int x = uneTuile.getCoordonnee().getX();
-            int y = uneTuile.getCoordonnee().getY();
-            JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
-            tuile.setPreferredSize(new Dimension(120,120));
-            tuile.setOpaque(false);
-            c.fill = GridBagConstraints.BOTH;
-            c.weightx = 0.5;
-            c.weighty = 0.5;
-            c.gridx = x;
-            c.gridy = y;
-            grille.add(tuile,c); 
             
         }
     }
