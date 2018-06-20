@@ -169,6 +169,7 @@ public class FenetreJoueur extends Observe {
                 m.joueur2 = nomJoueur2.getText();
                 m.joueur3 = nomJoueur3.getText();
                 m.joueur4 = nomJoueur4.getText();
+                System.out.println("debug");
                 notifierObservateur(m);
 
             }

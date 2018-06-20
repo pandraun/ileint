@@ -61,6 +61,7 @@ public class Controleur implements Observateur {
     private int nombreAction;
     private boolean piloteSpe;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
+    private ArrayList<String> nomJoueur;
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
@@ -511,6 +512,14 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
+                nomJoueur.add(m.joueur1);
+                nomJoueur.add(m.joueur2);
+                if (m.joueur3 != null) {
+                    nomJoueur.add(m.joueur3);
+                }
+                if (m.joueur4 != null) {
+                    nomJoueur.add(m.joueur4);
+                }
 
                 try {
                     fenetreJeu = new FenetreJeu();
