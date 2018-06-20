@@ -34,6 +34,7 @@ import util.Utils;
 import view.FenetreDebut;
 import view.FenetreInfo;
 import view.FenetreJeu;
+import view.FenetreJoueur;
 import view.Observateur;
 
 /**
@@ -60,10 +61,12 @@ public class Controleur implements Observateur {
     private int nombreAction;
     private boolean piloteSpe;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
+    private ArrayList<String> nomJoueur;
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
     private FenetreInfo fenetreInfo;
+    private FenetreJoueur fenetreJoueur;
 
     public Controleur() {
         try {
@@ -494,7 +497,7 @@ public class Controleur implements Observateur {
                 System.out.println("assechement");
                 break;
 
-            case DEMARRER: //le joueur demarre la partie
+            case CONTINUER:
                 int nbJ;
                 if (m.nbJoueur.equals("2")) {
                     nbJ = 2;
@@ -504,6 +507,20 @@ public class Controleur implements Observateur {
                     nbJ = 4;
                 }
                 initGrille(nbJ);
+                fenetreJoueur = new FenetreJoueur(nbJ);
+                fenetreJoueur.addObservateur(this);
+                break;
+
+            case DEMARRER: //le joueur demarre la partie
+                nomJoueur = new ArrayList<>();
+                nomJoueur.add(m.joueur1);
+                nomJoueur.add(m.joueur2);
+                if (m.joueur3 != null) {
+                    nomJoueur.add(m.joueur3);
+                }
+                if (m.joueur4 != null) {
+                    nomJoueur.add(m.joueur4);
+                }
 
                 try {
                     fenetreJeu = new FenetreJeu();
@@ -541,7 +558,7 @@ public class Controleur implements Observateur {
                     }
                 }
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -560,7 +577,7 @@ public class Controleur implements Observateur {
                 effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
 
@@ -573,7 +590,7 @@ public class Controleur implements Observateur {
                 effectuerRecuperationTresor(m.tuileSelectionne, joueurCourant);
                 nombreAction--;
                 if (nombreAction == 0) {
-                    //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 System.out.println("recupe");
                 break;
@@ -650,5 +667,9 @@ public class Controleur implements Observateur {
                 }
             }
         }
+    }
+
+    public void commencerPiocheOrange() {
+        fenetreJeu.piocheCliquable(true);
     }
 }
