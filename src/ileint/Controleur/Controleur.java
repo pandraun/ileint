@@ -579,7 +579,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.ASSECHER) {
                     effectuerAssechement(m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
+                } else if (messageSauv.type == TypesMessages.CHOIX_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
 
