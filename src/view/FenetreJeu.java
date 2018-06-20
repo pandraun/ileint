@@ -6,6 +6,7 @@
 package view;
 
 import ileint.Tuile.Coordonnee;
+import ileint.Tuile.Tuile;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,7 +48,7 @@ public class FenetreJeu extends Observe{
     
     private JButton piocheOrange;
     
-    
+    GridBagConstraints c = new GridBagConstraints();
     
     public FenetreJeu() throws MalformedURLException{
 
@@ -57,9 +59,7 @@ public class FenetreJeu extends Observe{
         this.window = new JFrame("Fenetre Jeu");
         
         
-        window.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        
+        window.setLayout(new GridBagLayout());        
         //======================================//
         
         JPanel role1 = new JPanel();
@@ -319,7 +319,7 @@ public class FenetreJeu extends Observe{
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         
-        grille = new JPanel(new GridBagLayout(6,6,10,10));
+        grille = new JPanel(new GridBagLayout());
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0.5;
         c.gridheight = 6;
@@ -495,172 +495,21 @@ public class FenetreJeu extends Observe{
         Image im = calice.getImage();
         im = im.getScaledInstance(35,64,Image.SCALE_DEFAULT);
         
-        for(int i = 0; i < 6; i++){
-            switch (i){
-                case 0:
-                    for(int j = 0; j< 6; j++){
-                        switch(j){
-                            case 2:
-                                JButton tuile = new JButton(new ImageIcon("DossierImage/TuilesV2/Heliport_120x120.png"));
-                                tuile.setPreferredSize(new Dimension(120,120));
-                                tuile.setOpaque(false);
-                                grille.add(tuile); 
-
-                        }
-                    }
-                    break;
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                default:
-                    System.out.println("problème de placement des tuiles");
-                    break;
-            }
-                    
-                case 0:
-                    JPanel Cartej11 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        Cartej11.add(new JButton(new ImageIcon(im)));
-                    }
-                    grille.add(Cartej11);
-                    break;
-                case 1:
-                    JPanel Cartej12 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        switch(j){
-                            case 0:
-                            case 1:
-                            case 3:
-                                Cartej12.add(new JButton(new ImageIcon(im)));
-                                break;
-                            default:
-                                Cartej12.add(new JLabel());
-                                break;
-                        }
-                        grille.add(Cartej12);
-                    }
-                    break;
-                case 4:
-                    JPanel Cartej21 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        switch(j){
-                            case 1:
-                            case 2:
-                            case 5:
-                                Cartej21.add(new JButton(new ImageIcon(im)));
-                                break;
-                            default:
-                                Cartej21.add(new JLabel());
-                                break;
-                        }
-                        grille.add(Cartej21);
-                    }
-                    break;
-                case 5:
-                    JPanel Cartej22 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        Cartej22.add(new JButton(new ImageIcon(im)));
-                    }
-                    grille.add(Cartej22);
-                    break;
-                case 30:
-                    JPanel Cartej31 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        Cartej31.add(new JButton(new ImageIcon(im)));
-                    }
-                    grille.add(Cartej31);
-                    break;
-                case 31:
-                    JPanel Cartej32 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        switch(j){
-                            case 0:
-                            case 3:
-                            case 4:
-                                Cartej32.add(new JButton(new ImageIcon(im)));
-                                break;
-                            default:
-                                Cartej32.add(new JLabel());
-                                break;
-                        }
-                        grille.add(Cartej32);
-                    }
-                    break;
-                case 34:
-                    JPanel Cartej41 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        switch(j){
-                            case 2:
-                            case 4:
-                            case 5:
-                                Cartej41.add(new JButton(new ImageIcon(im)));
-                                break;
-                            default:
-                                Cartej41.add(new JLabel());
-                                break;
-                        }
-                        grille.add(Cartej41);
-                    }
-                    break;
-                case 35:
-                    JPanel Cartej42 = new JPanel(new GridLayout(2,3,10,4));
-                    for(int j = 0; j < 6; j++){
-                        Cartej42.add(new JButton(new ImageIcon(im)));
-                    }
-                    grille.add(Cartej42);
-                    break;
-                case 2:
-                case 3:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                case 12:
-                case 13:
-                case 14:
-                case 15:
-                case 16:
-                case 17:
-                case 18:
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                case 23:
-                case 25:
-                case 26:
-                case 27:
-                case 28:
-                case 32:
-                case 33:
-                    /*ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
-                    im = calice.getImage();
-                    hauteur = 64;
-                    largeur = 35;
-                    im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);*/
-                    JButton tuile = new JButton(new ImageIcon("DossierImage/TuilesV2/Heliport_120x120.png"));
-                    tuile.setPreferredSize(new Dimension(120,120));
-                    tuile.setOpaque(false);
-                    grille.add(tuile);
-                    
-                    tuile.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                System.out.println(tuile.getWidth());
-                                System.out.println(tuile.getHeight());
-                            }
-                        });
-                    
-                    break;
-                default:
-                    JPanel caseVide = new JPanel();
-                    grille.add(caseVide);
-                    break;
-                }
-
-            }
+        for(Tuile uneTuile : tuiles.values()){
+            
+            int x = uneTuile.getCoordonnee().getX();
+            int y = uneTuile.getCoordonnee().getY();
+            JButton tuile = new JButton(new ImageIcon("DossierImage/TuilesV2/"+uneTuile.getNom()+".png"));
+            tuile.setPreferredSize(new Dimension(120,120));
+            tuile.setOpaque(false);
+            c.fill = GridBagConstraints.BOTH;
+            c.weightx = 0.5;
+            c.weighty = 0.5;
+            c.gridx = x;
+            c.gridy = y;
+            grille.add(tuile,c); 
+            
+        }
     }
     
 }
