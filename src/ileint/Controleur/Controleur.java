@@ -61,7 +61,6 @@ public class Controleur implements Observateur {
     private int nombreAction;
     private boolean piloteSpe;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
-    private ArrayList<String> nomJoueur;
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
@@ -330,8 +329,6 @@ public class Controleur implements Observateur {
             return 5;
         }
     }
-    
-    
 
     ///////////////getters
     public Stack<CarteInondation> getPiocheInondation() {
@@ -362,7 +359,7 @@ public class Controleur implements Observateur {
         return grille;
     }
     /////////////
-    
+
     ///////////////////////setters
     public void setNiveauEau(int niveauEau) {
         this.niveauEau = niveauEau;
@@ -400,7 +397,7 @@ public class Controleur implements Observateur {
         this.grille = grille;
     }
     //////////////////
-    
+
     public void setPartieTermine(boolean partieTermine) {
         this.partieTermine = partieTermine;
     }
@@ -418,12 +415,12 @@ public class Controleur implements Observateur {
         piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
         piocheOrange.pop();
     }
-    
+
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
     }
-    
+
     public void empilerDefausseInondation() {
         Collections.shuffle(defausseInondation);
         for (CarteInondation uneCarte : defausseInondation) {
@@ -431,7 +428,7 @@ public class Controleur implements Observateur {
         }
         defausseInondation.clear();
     }
-    
+
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
         if (piocheOrange.isEmpty()) {
             Collections.shuffle(defausseOrange);
@@ -439,7 +436,6 @@ public class Controleur implements Observateur {
             defausseOrange.clear();
         }
     }
-
 
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
         ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
@@ -470,8 +466,6 @@ public class Controleur implements Observateur {
             }
         }
     }
-    
-    
 
     public void joueurSuivant() {
         int i = joueurs.indexOf(joueurCourant);
@@ -513,16 +507,6 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message m) {
 
         switch (m.type) {
-            case SE_DEPLACER: //le joueur clique sur se deplacer
-                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
-                messageSauv = m;
-                break;
-
-            case ASSECHER: //le joueur clique sur assecher
-                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
-                messageSauv = m;
-                break;
-
             case CONTINUER: //choix du niveau de dificulté et du nombre de perso
                 int nbJ;
                 if (m.nbJoueur.equals("2")) {
@@ -539,16 +523,16 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
-                nomJoueur = new ArrayList<>();
-                joueurs.get(0).setNom(m.joueur1);
-                joueurs.get(1).setNom(m.joueur2);
+                joueurs.get(0).setNomJoueur(m.joueur1);
+                joueurs.get(1).setNomJoueur(m.joueur2);
                 if (m.joueur3 != null) {
-                    joueurs.get(2).setNom(m.joueur3);
+                    joueurs.get(2).setNomJoueur(m.joueur3);
                 }
                 if (m.joueur4 != null) {
-                    joueurs.get(2).setNom(m.joueur4);
+                    joueurs.get(3).setNomJoueur(m.joueur4);
                 }
                 fenetreJoueur.visible(false);
+                joueurCourant = joueurs.get(0);
 
                 try {
                     fenetreJeu = new FenetreJeu(joueurs);
@@ -561,6 +545,8 @@ public class Controleur implements Observateur {
                 try {
                     fenetreInfo = new FenetreInfo();
                     fenetreInfo.addObservateur(this);
+                    fenetreInfo.modifierLabelJoueur(joueurCourant);
+                    fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -571,6 +557,16 @@ public class Controleur implements Observateur {
                 //ihm.setSurbrillanceDefaut();
                 break;
 
+            case SE_DEPLACER: //le joueur clique sur se deplacer
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
+                messageSauv = m;
+                break;
+
+            case ASSECHER: //le joueur clique sur assecher
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                messageSauv = m;
+                break;
+
             case CHOIX_TUILE:
                 if (messageSauv.type == TypesMessages.SE_DEPLACER) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -578,7 +574,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type == TypesMessages.ASSECHER) {
                     effectuerAssechement(m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.UTILISER_CARTE) {
+                } else if (messageSauv.type == TypesMessages.CHOIX_CARTE) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
 
@@ -611,7 +607,6 @@ public class Controleur implements Observateur {
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
-                System.out.println("passage");
                 break;
 
             case RECUPERER_TRESOR:
@@ -620,7 +615,6 @@ public class Controleur implements Observateur {
                 if (nombreAction == 0) {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
-                System.out.println("recupe");
                 break;
 
             case UTILISER_CARTE:
@@ -636,14 +630,13 @@ public class Controleur implements Observateur {
                     //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                     messageSauv = m;
                     messageSauv.type = TypesMessages.UTILISER_CARTE;
-                }
-                System.out.println("utilisagement");
+                }                
                 break;
 
             //Piochage de cartes oranges à la fin du tour
             case PIOCHER_CARTE_ORANGE:
                 piocherCarteOrange();
-                break;
+                break;   
         }
 
     }

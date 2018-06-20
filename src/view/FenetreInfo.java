@@ -10,6 +10,7 @@ package view;
  * @author piolleta
  */
 
+import ileint.Aventurier.Aventurier;
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -86,7 +87,6 @@ public class FenetreInfo extends Observe {
 
     //Elements pour le CardLayout
     private CardLayout layButton;
-    private String[] actionPossible = {"Helico", "Déplacer autres joueurs"};
     private JPanel pBoutons;
 
     public FenetreInfo() throws MalformedURLException {
@@ -94,10 +94,10 @@ public class FenetreInfo extends Observe {
         //Fenetre principale
         window = new JFrame();
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = 869;
-        int width = (int) dimension.getWidth() - 1090;
+        int height = 805;
+        int width = (int) dimension.getWidth() - 1150;
         window.setSize(new Dimension(width, height));
-        window.setLocation(1090, 0);
+        window.setLocation(1150, 0);
 
         //Panels pour les règles de jeu + instantiation + ajout
         mainPanel = new JPanel(new BorderLayout());
@@ -131,7 +131,7 @@ public class FenetreInfo extends Observe {
         //Paramètre du GridBagLayout
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.BOTH;
-        gc.insets = new Insets(5, 5, 5, 5);
+        gc.insets = new Insets(5, 0, 5, 0);
         gc.ipady = gc.anchor = GridBagConstraints.CENTER;
         gc.weightx = 3;
         gc.weighty = 5;
@@ -327,8 +327,8 @@ public class FenetreInfo extends Observe {
         btnTresor.setEnabled(boo);
     }
 
-    public void modifierLabelJoueur(Role role) {
-        labelRole.setText(role.getRoleName());
+    public void modifierLabelJoueur(Joueur joueur) {
+        labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
     }
 
     public void setJoueurCourant(Joueur joueurCourant) {

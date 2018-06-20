@@ -45,6 +45,7 @@ public class FenetreDebut  extends Observe {
     private JTextField nbJoueurs;
     private final JButton continuer;
     public static int nbJ = 0;
+    private JSlider niveau;
     
     public FenetreDebut() throws MalformedURLException {
         fenetre = new JFrame("Fenetre Debut");
@@ -62,12 +63,12 @@ public class FenetreDebut  extends Observe {
         moins.setFont(new Font("Arial", Font.BOLD, 45));
         nbJoueurs = new JTextField("2");
         nbJoueurs.setHorizontalAlignment(JTextField.CENTER);;
-        nbJoueurs.setFont(new Font("Arial", Font.BOLD, 45));
+        nbJoueurs.setFont(new Font("Arial", Font.BOLD, 35));
         nbJoueurs.setEditable(false);
         plus = new JButton(">");
         plus.setFont(new Font("Arial", Font.BOLD, 45));
         continuer = new JButton("Continuer");
-        continuer.setFont(new Font("Arial", Font.BOLD, 30));
+        continuer.setFont(new Font("Arial", Font.PLAIN, 30));
         
         /* Placement des composants */
         fenetre.setLayout(new GridLayout(3,1));
@@ -75,28 +76,27 @@ public class FenetreDebut  extends Observe {
         
         niveauEau = new JPanel(new GridLayout(3,1));
         fenetre.add(niveauEau);
-        JLabel choixNiveau = new JLabel("Niveau d'eau :");
-        choixNiveau.setFont(new Font("Arial", Font.BOLD, 30));
+        JLabel choixNiveau = new JLabel("Choisissez la difficulté");
+        choixNiveau.setFont(new Font("Arial", Font.PLAIN, 25));
         choixNiveau.setHorizontalAlignment(0);
         niveauEau.add(choixNiveau);
-        JSlider niveau = new JSlider(JSlider.HORIZONTAL,2, 10, 2);
+        niveau = new JSlider(JSlider.HORIZONTAL,1, 4, 1);
         niveau.setMinorTickSpacing(1);
-        niveau.setMajorTickSpacing(2);
+        niveau.setMajorTickSpacing(1);
         niveau.setPaintLabels(true);
         niveau.setPaintTicks(true);
         niveauEau.add(niveau);
         
         Hashtable labelTable = new Hashtable();
-        labelTable.put( 2, new JLabel("2") );
-        labelTable.put( 4, new JLabel("3") );
-        labelTable.put( 6, new JLabel("4") );
-        labelTable.put( 8, new JLabel("5") );
-        labelTable.put( 10, new JLabel("6") );
+        labelTable.put( 1, new JLabel("Novice") );
+        labelTable.put( 2, new JLabel("Normal") );
+        labelTable.put( 3, new JLabel("Epique") );
+        labelTable.put( 4, new JLabel("Légendaire") );
         niveau.setLabelTable( labelTable );
         niveau.setPaintLabels(true);
         
         JLabel choixNbJoueur = new JLabel("Nombre de Joueur :");
-        choixNbJoueur.setFont(new Font("Arial", Font.BOLD, 30));
+        choixNbJoueur.setFont(new Font("Arial", Font.PLAIN, 25));
         choixNbJoueur.setHorizontalAlignment(0);
         niveauEau.add(choixNbJoueur);
         

@@ -47,10 +47,12 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
+                        nomJoueur1.setText("Idiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
                         nomJoueur2 = new JTextField();
+                        nomJoueur2.setText("Lara Croft");
                         mainPanel.add(nomJoueur2);
                         break;
                 }
@@ -89,14 +91,17 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
+                        nomJoueur1.setText("Idiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
                         nomJoueur2 = new JTextField();
+                        nomJoueur2.setText("Lara Croft");
                         mainPanel.add(nomJoueur2);
                         break;
                     case 7:
                         nomJoueur3 = new JTextField();
+                        nomJoueur3.setText("Han Solo");
                         mainPanel.add(nomJoueur3);
                         break;
                 }
@@ -109,7 +114,7 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.equals("")) {
+                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.getText().equals("")) {
                     Message m = new Message();
                     m.type = TypesMessages.DEMARRER;
                     m.joueur1 = nomJoueur1.getText();
@@ -137,18 +142,22 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
+                        nomJoueur1.setText("Idiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
                         nomJoueur2 = new JTextField();
+                        nomJoueur2.setText("Lara Croft");
                         mainPanel.add(nomJoueur2);
                         break;
                     case 7:
                         nomJoueur3 = new JTextField();
+                        nomJoueur3.setText("Han Solo");
                         mainPanel.add(nomJoueur3);
                         break;
                     case 9:
                         nomJoueur4 = new JTextField();
+                        nomJoueur4.setText("Dora");
                         mainPanel.add(nomJoueur4);
                         break;
                 }
@@ -161,7 +170,7 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.equals("") && !nomJoueur4.equals("")) {
+                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.getText().equals("") && !nomJoueur4.getText().equals("")) {
                     Message m = new Message();
                     m.type = TypesMessages.DEMARRER;
                     m.joueur1 = nomJoueur1.getText();
@@ -186,4 +195,5 @@ public class FenetreJoueur extends Observe {
     public void visible(boolean bool) {
         fenetre.setVisible(bool);
     }
+    
 }
