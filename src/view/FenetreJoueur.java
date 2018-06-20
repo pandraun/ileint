@@ -186,8 +186,4 @@ public class FenetreJoueur extends Observe {
     public void visible(boolean bool) {
         fenetre.setVisible(bool);
     }
-    
-    public static void main(String[] args) {
-       FenetreJoueur fenetreJoueur = new FenetreJoueur(2);
-    }
 }

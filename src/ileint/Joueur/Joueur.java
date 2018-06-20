@@ -13,11 +13,10 @@ import util.EmplacementCarte;
 public class Joueur {
 
     private int numeroJoueur;
+    private String nom;
     private Aventurier role;
     private Tuile emplacementJoueur;
     private ArrayList<CarteOrange> mainJoueur;
-    
-   
 
     //Constructeur   
     public Joueur(int numeroJoueur, Aventurier role) {
@@ -25,20 +24,24 @@ public class Joueur {
         this.role = role;
 
         emplacementJoueur = role.getTuileDepart();
-        
+
         mainJoueur = new ArrayList<>();
 
     }
-    
-    public Joueur(int numeroJoueur){
+
+    public Joueur(int numeroJoueur) {
         this.numeroJoueur = numeroJoueur;
-        
+
         mainJoueur = new ArrayList<>();
     }
 
     //Getters
     public int getNumeroJoueur() {
         return numeroJoueur;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public Aventurier getRole() {
@@ -56,6 +59,10 @@ public class Joueur {
     //Setters
     public void setNumeroJoueur(int numeroJoueur) {
         this.numeroJoueur = numeroJoueur;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public void setRole(Aventurier role) {
