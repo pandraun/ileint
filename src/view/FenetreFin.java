@@ -6,7 +6,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -116,9 +115,9 @@ public class FenetreFin extends Observe {
 
     }
 
-    public static void main(String[] args) {
-        FenetreFin fenetreFin = new FenetreFin(true);
-    }
+//    public static void main(String[] args) {
+//        FenetreFin fenetreFin = new FenetreFin(true);
+//    }
 
     public void setTextInfoJeu(JTextArea textInfoJeu) {
         this.textInfoJeu = textInfoJeu;
