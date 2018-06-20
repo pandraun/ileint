@@ -488,13 +488,11 @@ public class Controleur implements Observateur {
             case SE_DEPLACER: //le joueur clique sur se deplacer
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
-                System.out.println("depkacemet");
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
-                System.out.println("assechement");
                 break;
 
             case CONTINUER:
@@ -570,7 +568,6 @@ public class Controleur implements Observateur {
                     //mettre en surbrillance les joueurs qui sont sur la même case
                 }
                 messageSauv = m;
-                System.out.println("donner");
                 break;
 
             case PARAMETRE_DONNER_CARTE:
