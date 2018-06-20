@@ -5,6 +5,7 @@
  */
 package view;
 
+import ileint.Carte.CarteOrange;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.Tuile;
@@ -49,6 +50,10 @@ public class FenetreJeu extends Observe{
     private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
     
     private JButton piocheOrange;
+    private JPanel carteJ1;
+    private JPanel carteJ2;
+    private JPanel carteJ3;
+    private JPanel carteJ4;
     
     GridBagConstraints c = new GridBagConstraints();
     
@@ -66,13 +71,20 @@ public class FenetreJeu extends Observe{
         
         JPanel role1 = new JPanel();
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
-        JButton boutonRole1 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/explorateur.png")));
+        JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(0).getRole().getNom()+".png"));
+
+        System.out.println(joueurs.get(3).getNom());
+        System.out.println(joueurs.get(0).getRole());
+        System.out.println(joueurs.get(1).getRole());
+        System.out.println(joueurs.get(2).getRole());
         role1.add(boutonRole1);
         boutonRole1.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole1 = new JLabel("Emplacement");
+        JLabel EmplacementRole1 = new JLabel("nom : "+joueurs.get(0).getNom());
         role1.add(EmplacementRole1);
         boutonRole1.setContentAreaFilled(false);
         boutonRole1.setOpaque(false);
+        c.weightx = 0;
+        c.weighty = 0;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.gridheight = 2;
@@ -80,96 +92,14 @@ public class FenetreJeu extends Observe{
         c.gridy = 0;
         window.add(role1,c);
 
-        //--------------------------//
-        
-       /* JPanel panelBoutonRole1 = new JPanel(new GridLayout(3, 2));
-
-                    //mettre en surbrillance quand besoin est
-                        JButton btnDeplacer = new JButton();
-                        panelBoutonRole1.add(btnDeplacer);
-                        btnDeplacer.setPreferredSize(new Dimension(40,20));
-                        btnDeplacer.setText("Se deplacer");
-                        btnDeplacer.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.SE_DEPLACER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                            
-                        JButton btnAssecher = new JButton();
-                        panelBoutonRole1.add(btnAssecher);
-                        btnAssecher.setPreferredSize(new Dimension(40,20));
-                        btnAssecher.setText("Assecher");
-                        btnAssecher.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.ASSECHER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                           
-                        JButton btnDonner = new JButton();
-                        panelBoutonRole1.add(btnDonner);
-                        btnDonner.setPreferredSize(new Dimension(40,20));
-                        btnDonner.setText("Donner carte");
-                        btnDonner.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.DONNER_CARTE;
-                                //notifierObservateur(m);
-                            }
-                        });
-                           
-                        JButton btnTresor = new JButton();
-                        panelBoutonRole1.add(btnTresor);
-                        btnTresor.setPreferredSize(new Dimension(40,20));
-                        btnTresor.setText("Recuperer tresor");
-                        btnTresor.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.RECUPERER_TRESOR;
-                                //notifierObservateur(m);
-                            }
-                        });
-                              
-                        JButton btnUtiliserCarte = new JButton();
-                        panelBoutonRole1.add(btnUtiliserCarte);
-                        btnUtiliserCarte.setPreferredSize(new Dimension(40,20));
-                        btnUtiliserCarte.setText("Utiliser carte");
-                        btnUtiliserCarte.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                Message m = new Message();
-                                m.type = TypesMessages.SE_DEPLACER;
-                                //notifierObservateur(m);
-                            }
-                        });
-                            
-                        JButton btnAutre = new JButton();
-                        panelBoutonRole1.add(btnAutre);
-                        btnAutre.setPreferredSize(new Dimension(40,20));
-                        btnAutre.setText("Autre");
-
-                        JLabel nbActionRole1 = new JLabel("Action restante");
-                        
-                    role1.add(panelBoutonRole1);
-                    role1.add(nbActionRole1);*/           
-                    
-       
-
         //======================================//
 
         JPanel role2 = new JPanel();
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
-        JButton boutonRole2 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/navigateur.png")));
+        JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(1).getRole().getNom()+".png"));
         role2.add(boutonRole2);
         boutonRole2.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole2 = new JLabel("Emplacement");
+        JLabel EmplacementRole2 = new JLabel("nom : "+joueurs.get(1).getNom());
         role2.add(EmplacementRole2);
         boutonRole2.setContentAreaFilled(false);
         boutonRole2.setOpaque(false);
@@ -178,21 +108,17 @@ public class FenetreJeu extends Observe{
         c.gridheight = 2;
         c.gridx = 7;
         c.gridy = 0;
+        c.weightx = 0;
+        c.weighty = 0;
         window.add(role2,c);
 
-        //--------------------------//
-        
-        
-        
-        
-        
         //======================================//
         
-        JPanel panelOrange = new JPanel(new GridLayout(2,1));
+        JPanel panelOrange = new JPanel(new GridLayout(2,1,4,4));
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
-        int hauteur = 80;
-        int largeur = 110;
+        int hauteur = 110;
+        int largeur = 140;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
         JButton piocheOrange = new JButton(new ImageIcon(im));
         piocheOrange.setContentAreaFilled(false);
@@ -202,6 +128,7 @@ public class FenetreJeu extends Observe{
         //defausseOrange.setSize(new Dimension(100,70));
         panelOrange.add(piocheOrange);
         panelOrange.add(defausseOrange);
+        panelOrange.setPreferredSize(new Dimension(140,140));
         
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
@@ -226,10 +153,10 @@ public class FenetreJeu extends Observe{
         
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
-        hauteur = 80;
-        largeur = 110;
+        hauteur = 110;
+        largeur = 140;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
-        JPanel panelInondation = new JPanel(new GridLayout(2,1));        
+        JPanel panelInondation = new JPanel(new GridLayout(2,1,4,4));        
         JButton piocheInondation = new JButton(new ImageIcon(im));
         piocheInondation.setContentAreaFilled(false);
         //piocheInondation.setSize(new Dimension(100,70));
@@ -238,6 +165,7 @@ public class FenetreJeu extends Observe{
         //defausseInondation.setSize(new Dimension(100,70));
         panelInondation.add(piocheInondation);
         panelInondation.add(defausseInondation);
+        panelInondation.setPreferredSize(new Dimension(140,140));
         
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
@@ -276,9 +204,9 @@ public class FenetreJeu extends Observe{
         
             JPanel role3 = new JPanel();
             role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole3 = new JLabel("Emplacement");
+            JLabel EmplacementRole3 = new JLabel("nom : "+joueurs.get(2).getNom());
             role3.add(EmplacementRole3);
-            JButton boutonRole3 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/ingenieur.png")));
+            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(2).getRole().getNom()+".png"));
             role3.add(boutonRole3);
             boutonRole3.setContentAreaFilled(false);
             boutonRole3.setPreferredSize(new Dimension(150,210));
@@ -301,9 +229,9 @@ public class FenetreJeu extends Observe{
 
             JPanel role4 = new JPanel();
             role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole4 = new JLabel("Emplacement");
+            JLabel EmplacementRole4 = new JLabel("nom : "+joueurs.get(3).getNom());
             role4.add(EmplacementRole4);
-            JButton boutonRole4 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/pilote.png")));
+            JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(3).getRole().getRoleAventurier()+".png"));
             role4.add(boutonRole4);
             boutonRole4.setPreferredSize(new Dimension(150,210));
             boutonRole4.setContentAreaFilled(false);
@@ -329,12 +257,46 @@ public class FenetreJeu extends Observe{
         
         grille = new JPanel(new GridBagLayout());
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 0.5;
+        c.weightx = 5;
         c.gridheight = 6;
         c.gridwidth = 6;
         c.gridx = 1;
         c.gridy = 1;
         window.add(grille,c);
+        
+        
+        /*carteJ1 = new JPanel(new GridLayout(2,3));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 0;
+        grille.add(carteJ1,c);
+        carteJ2 = new JPanel(new GridLayout(2,3));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 4;
+        c.gridy = 0;
+        grille.add(carteJ2,c);
+        carteJ3 = new JPanel(new GridLayout(2,3));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 4;
+        c.gridy = 5;
+        grille.add(carteJ3,c);
+        carteJ4 = new JPanel(new GridLayout(2,3));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 5;
+        grille.add(carteJ4,c);*/
+        
+        //PlacerMainJoueur(joueurs);
+        
+        
         
         /*ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
         im = calice.getImage();
@@ -342,9 +304,7 @@ public class FenetreJeu extends Observe{
         largeur = 35;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
         
-        for(int i = 0; i < 36; i++){
-            switch (i){
-                case 0:
+        
                     JPanel Cartej11 = new JPanel(new GridLayout(2,3,10,4));
                     for(int j = 0; j < 6; j++){
                         Cartej11.add(new JButton(new ImageIcon(im)));
@@ -487,9 +447,7 @@ public class FenetreJeu extends Observe{
 
             }*/
         window.pack();
-        window.setSize(1150, 805);
-        System.out.println(1150-java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-        window.setIconImage(im);
+        window.setSize(1080, 806);
         window.setResizable(false);
         window.setVisible(true);
     }
@@ -499,11 +457,6 @@ public class FenetreJeu extends Observe{
     }
     
     public void PlacerTuiles(HashMap<Coordonnee, ileint.Tuile.Tuile> tuiles){
-        
-        //ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
-        //Image im = calice.getImage();
-        //im = im.getScaledInstance(35,64,Image.SCALE_DEFAULT);
-        int i = 0;
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getX();
@@ -511,20 +464,40 @@ public class FenetreJeu extends Observe{
                 JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
                 System.out.println("nom tuile : "+uneTuile.getNom());
                 tuile.setPreferredSize(new Dimension(120,120));
+                tuile.setContentAreaFilled(false);
                 c.fill = GridBagConstraints.BOTH;
                 c.weightx = 1;
                 c.weighty = 1;
                 c.gridx = x;
                 c.gridheight = 1;
                 c.gridwidth = 1;
-                i += 1;
-                System.out.println("tuile "+i+": x = "+x);
                 c.gridy = y;
-                System.out.println("tuile "+i+": y = "+y);
-                grille.add(tuile,c); 
+                grille.add(tuile,c);
+                tuile.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                System.out.println("tuile \""+tuile.getName()+"\" en x: "+tuile.getWidth());
+                                System.out.println("tuile \""+tuile.getName()+"\" en y: "+tuile.getHeight());
+                            }
+                        });
             }
-            
-            
+
+
+        }
+    }
+    
+    public void PlacerMainJoueur(ArrayList<Joueur> joueurs){
+        for(Joueur unJoueur : joueurs){
+            for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
+                if (uneCarte.getTypeTresor()!=null){
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeTresor()+".png"));
+                    carteJoueur.setPreferredSize(new Dimension());
+                    carteJ1.add(carteJoueur,c);
+                }else{
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeClasse()+".png"));
+                    carteJ1.add(carteJoueur,c);
+                }
+            }
         }
     }
     
