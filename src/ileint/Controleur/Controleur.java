@@ -532,7 +532,6 @@ public class Controleur implements Observateur {
                 } else {
                     nbJ = 4;
                 }
-                System.out.println("nbJoueur = " + nbJ);
                 initGrille(nbJ);
                 fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
