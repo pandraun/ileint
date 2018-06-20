@@ -331,7 +331,7 @@ public class Controleur implements Observateur {
         }
     }
 
-    //getters
+    ///////////////getters
     public ArrayList<CarteInondation> getPiocheInondation() {
         return piocheInondation;
     }
@@ -359,8 +359,9 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return grille;
     }
-
-    //setters
+    /////////////
+    
+    ///////////////////////setters
     public void setNiveauEau(int niveauEau) {
         this.niveauEau = niveauEau;
     }
@@ -396,7 +397,8 @@ public class Controleur implements Observateur {
     public void setGrille(Grille grille) {
         this.grille = grille;
     }
-
+    //////////////////
+    
     public void setPartieTermine(boolean partieTermine) {
         this.partieTermine = partieTermine;
     }
@@ -519,6 +521,7 @@ public class Controleur implements Observateur {
                 if (m.joueur4 != null) {
                     nomJoueur.add(m.joueur4);
                 }
+                fenetreJoueur.visible(false);
 
                 try {
                     fenetreJeu = new FenetreJeu();
