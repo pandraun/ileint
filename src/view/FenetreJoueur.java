@@ -21,135 +21,163 @@ import util.TypesMessages;
  *
  * @author pandraun
  */
-public class FenetreJoueur extends Observe{
+public class FenetreJoueur extends Observe {
+
     private JFrame fenetre;
     private final JButton demarrer;
-    
-    public FenetreJoueur(int nbJoueurs){
-        if (nbJoueurs == 2){
+    private JPanel mainPanel;
+    private JTextField nomJoueur1;
+    private JTextField nomJoueur2;
+    private JTextField nomJoueur3;
+    private JTextField nomJoueur4;
+
+    public FenetreJoueur(int nbJoueurs) {
+        if (nbJoueurs == 2) {
+            fenetre = new JFrame("Fenetre Joueur");
+            fenetre.setSize(400, 400);
+            fenetre.setLocationRelativeTo(fenetre);
+
+            mainPanel = new JPanel(new GridLayout(5, 1));
+            for (int i = 2; i < 6; i++) {
+                switch (i) {
+                    case 2:
+                    case 4:
+                        JLabel joueur = new JLabel("Joueur" + i / 2);
+                        mainPanel.add(joueur);
+                        break;
+                    case 3:
+                        nomJoueur1 = new JTextField();
+                        mainPanel.add(nomJoueur1);
+                        break;
+                    case 5:
+                        nomJoueur2 = new JTextField();
+                        mainPanel.add(nomJoueur2);
+                        break;
+                }
+            }
+            
+            demarrer = new JButton("Démarrer la partie");
+            demarrer.setFont(new Font("Arial", Font.BOLD, 30));
+            mainPanel.add(demarrer);
+
+            demarrer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.setVisible(false);
+                Message m = new Message();
+                m.type = TypesMessages.DEMARRER;
+                m.joueur1 = nomJoueur1.getText();
+                m.joueur2 = nomJoueur2.getText();
+                notifierObservateur(m);
+            }
+        });
+
+        } else if (nbJoueurs == 3) {
             fenetre = new JFrame("Fenetre Debut");
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 
-            JPanel mainPanel = new JPanel(new GridLayout(9,1));
-            for(int i=2; i<5; i++){
-                switch(i){
+            mainPanel = new JPanel(new GridLayout(7, 1));
+            for (int i = 2; i < 8; i++) {
+                switch (i) {
                     case 2:
                     case 4:
-                        JLabel joueur = new JLabel("Joueur"+i/2);
+                    case 6:
+                        JLabel joueur = new JLabel("Joueur" + i / 2);
                         mainPanel.add(joueur);
                         break;
                     case 3:
-                        JTextField nomJoueur1 = new JTextField();
+                        nomJoueur1 = new JTextField();
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
-                        JTextField nomJoueur2 = new JTextField();
+                        nomJoueur2 = new JTextField();
                         mainPanel.add(nomJoueur2);
                         break;
-                }
-            } 
-            fenetre.add(mainPanel);
-        } else if(nbJoueurs==3){
-            fenetre = new JFrame("Fenetre Debut");
-        fenetre.setSize(400, 400);
-        fenetre.setLocationRelativeTo(fenetre);
-       
-        JPanel mainPanel = new JPanel(new GridLayout(9,1));
-        for(int i=2; i<10; i++){
-            switch(i){
-                case 2:
-                case 4:
-                case 6:
-                    JLabel joueur = new JLabel("Joueur"+i/2);
-                    mainPanel.add(joueur);
-                    break;
-                case 3:
-                    JTextField nomJoueur1 = new JTextField();
-                    mainPanel.add(nomJoueur1);
-                    break;
-                case 5:
-                    JTextField nomJoueur2 = new JTextField();
-                    mainPanel.add(nomJoueur2);
-                    break;
-                case 7:
-                    JTextField nomJoueur3 = new JTextField();
-                    mainPanel.add(nomJoueur3);
-                    break;
+                    case 7:
+                        nomJoueur3 = new JTextField();
+                        mainPanel.add(nomJoueur3);
+                        break;
                 }
             }
-            fenetre.add(mainPanel);
-        } else{
-        fenetre = new JFrame("Fenetre Debut");
-        fenetre.setSize(400, 400);
-        fenetre.setLocationRelativeTo(fenetre);
-       
-        JPanel mainPanel = new JPanel(new GridLayout(9,1));
-        for(int i=2; i<10; i++){
-            switch(i){
-                case 2:
-                case 4:
-                case 6:
-                case 8:
-                    JLabel joueur = new JLabel("Joueur"+i/2);
-                    mainPanel.add(joueur);
-                    break;
-                case 3:
-                    JTextField nomJoueur1 = new JTextField();
-                    mainPanel.add(nomJoueur1);
-                    break;
-                case 5:
-                    JTextField nomJoueur2 = new JTextField();
-                    mainPanel.add(nomJoueur2);
-                    break;
-                case 7:
-                    JTextField nomJoueur3 = new JTextField();
-                    mainPanel.add(nomJoueur3);
-                    break;
-                case 9:
-                    JTextField nomJoueur4 = new JTextField();
-                    mainPanel.add(nomJoueur4);
-                    break;
-                    
-                }
-            } 
-            fenetre.add(mainPanel);
-        }
-        
-        
+            
         demarrer = new JButton("Démarrer la partie");
         demarrer.setFont(new Font("Arial", Font.BOLD, 30));
-        fenetre.add(demarrer);
-        
+        mainPanel.add(demarrer);
+
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fenetre.setVisible(false);
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER;
+                m.joueur1 = nomJoueur1.getText();
+                m.joueur2 = nomJoueur2.getText();
+                m.joueur3 = nomJoueur3.getText();
                 notifierObservateur(m);
-                
-                
-                /*try {
-                    FenetreJeu FJ = new FenetreJeu();
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(FenetreDebut.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
-                
-                /*if (Integer.parseInt(nbJoueurs.getText())>=2){
-                    VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
-                    nbJ+=1;
-                    VueAventurier V2 = new VueAventurier("Gergely", "Navigateur",Utils.Pion.JAUNE.getCouleur());
-                    if (Integer.parseInt(nbJoueurs.getText())>=3){
-                        nbJ+=1;
-                        VueAventurier V3 = new VueAventurier("Camille", "Pilote",Utils.Pion.BLEU.getCouleur());
-                        if (Integer.parseInt(nbJoueurs.getText())==4){
-                            nbJ+=1;
-                            VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
-                }}}*/
-            }    
+
+            }
+        });
+
+        } else {
+            fenetre = new JFrame("Fenetre Debut");
+            fenetre.setSize(400, 400);
+            fenetre.setLocationRelativeTo(fenetre);
+
+            mainPanel = new JPanel(new GridLayout(9, 1));
+            for (int i = 2; i < 10; i++) {
+                switch (i) {
+                    case 2:
+                    case 4:
+                    case 6:
+                    case 8:
+                        JLabel joueur = new JLabel("Joueur" + i / 2);
+                        mainPanel.add(joueur);
+                        break;
+                    case 3:
+                        nomJoueur1 = new JTextField();
+                        mainPanel.add(nomJoueur1);
+                        break;
+                    case 5:
+                        nomJoueur2 = new JTextField();
+                        mainPanel.add(nomJoueur2);
+                        break;
+                    case 7:
+                        nomJoueur3 = new JTextField();
+                        mainPanel.add(nomJoueur3);
+                        break;
+                    case 9:
+                        nomJoueur4 = new JTextField();
+                        mainPanel.add(nomJoueur4);
+                        break;
+                }
+            }
+
+        demarrer = new JButton("Démarrer la partie");
+        demarrer.setFont(new Font("Arial", Font.BOLD, 30));
+        mainPanel.add(demarrer);
+            
+        demarrer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fenetre.setVisible(false);
+                Message m = new Message();
+                m.type = TypesMessages.DEMARRER;
+                m.joueur1 = nomJoueur1.getText();
+                m.joueur2 = nomJoueur2.getText();
+                m.joueur3 = nomJoueur3.getText();
+                m.joueur4 = nomJoueur4.getText();
+                System.out.println("debug");
+                notifierObservateur(m);
+
+            }
         });
         
+        }
+        fenetre.add(mainPanel);
+
+        
+
         fenetre.setResizable(false);
         fenetre.pack();
         fenetre.setVisible(true);

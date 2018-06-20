@@ -11,6 +11,7 @@ package util;
  */
 public enum TypesMessages {
     DEMARRER,
+    CONTINUER,
     SE_DEPLACER,
     ASSECHER,
     ANNULER,
