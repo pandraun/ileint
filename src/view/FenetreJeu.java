@@ -73,13 +73,9 @@ public class FenetreJeu extends Observe{
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
         JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(0).getRole().getNom()+".png"));
 
-        System.out.println(joueurs.get(3).getNom());
-        System.out.println(joueurs.get(0).getRole());
-        System.out.println(joueurs.get(1).getRole());
-        System.out.println(joueurs.get(2).getRole());
         role1.add(boutonRole1);
         boutonRole1.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole1 = new JLabel("nom : "+joueurs.get(0).getNom());
+        JLabel EmplacementRole1 = new JLabel("nom : "+joueurs.get(0).getNomJoueur());
         role1.add(EmplacementRole1);
         boutonRole1.setContentAreaFilled(false);
         boutonRole1.setOpaque(false);
@@ -99,7 +95,7 @@ public class FenetreJeu extends Observe{
         JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(1).getRole().getNom()+".png"));
         role2.add(boutonRole2);
         boutonRole2.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole2 = new JLabel("nom : "+joueurs.get(1).getNom());
+        JLabel EmplacementRole2 = new JLabel("nom : "+joueurs.get(1).getNomJoueur());
         role2.add(EmplacementRole2);
         boutonRole2.setContentAreaFilled(false);
         boutonRole2.setOpaque(false);
@@ -123,7 +119,7 @@ public class FenetreJeu extends Observe{
         JButton piocheOrange = new JButton(new ImageIcon(im));
         piocheOrange.setContentAreaFilled(false);
         //piocheOrange.setSize(new Dimension(100,70));
-        JButton defausseOrange = new JButton(new ImageIcon(im));
+        JButton defausseOrange = new JButton();
         defausseOrange.setContentAreaFilled(false);
         //defausseOrange.setSize(new Dimension(100,70));
         panelOrange.add(piocheOrange);
@@ -160,7 +156,7 @@ public class FenetreJeu extends Observe{
         JButton piocheInondation = new JButton(new ImageIcon(im));
         piocheInondation.setContentAreaFilled(false);
         //piocheInondation.setSize(new Dimension(100,70));
-        JButton defausseInondation = new JButton(new ImageIcon(im));
+        JButton defausseInondation = new JButton();
         defausseInondation.setContentAreaFilled(false);
         //defausseInondation.setSize(new Dimension(100,70));
         panelInondation.add(piocheInondation);
@@ -204,7 +200,7 @@ public class FenetreJeu extends Observe{
         
             JPanel role3 = new JPanel();
             role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole3 = new JLabel("nom : "+joueurs.get(2).getNom());
+            JLabel EmplacementRole3 = new JLabel("nom : "+joueurs.get(2).getNomJoueur());
             role3.add(EmplacementRole3);
             JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(2).getRole().getNom()+".png"));
             role3.add(boutonRole3);
@@ -229,7 +225,7 @@ public class FenetreJeu extends Observe{
 
             JPanel role4 = new JPanel();
             role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole4 = new JLabel("nom : "+joueurs.get(3).getNom());
+            JLabel EmplacementRole4 = new JLabel("nom : "+joueurs.get(3).getNomJoueur());
             role4.add(EmplacementRole4);
             JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(3).getRole().getRoleAventurier()+".png"));
             role4.add(boutonRole4);
@@ -462,7 +458,6 @@ public class FenetreJeu extends Observe{
                 int x = uneTuile.getCoordonnee().getX();
                 int y = uneTuile.getCoordonnee().getY();
                 JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
-                System.out.println("nom tuile : "+uneTuile.getNom());
                 tuile.setPreferredSize(new Dimension(120,120));
                 tuile.setContentAreaFilled(false);
                 c.fill = GridBagConstraints.BOTH;
@@ -473,13 +468,6 @@ public class FenetreJeu extends Observe{
                 c.gridwidth = 1;
                 c.gridy = y;
                 grille.add(tuile,c);
-                tuile.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                System.out.println("tuile \""+tuile.getName()+"\" en x: "+tuile.getWidth());
-                                System.out.println("tuile \""+tuile.getName()+"\" en y: "+tuile.getHeight());
-                            }
-                        });
             }
 
 

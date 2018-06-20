@@ -95,7 +95,7 @@ public class FenetreInfo extends Observe {
         window = new JFrame();
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 805;
-        int width = (int) dimension.getWidth() - 1150;
+        int width =  520;  //(int) dimension.getWidth() - 1150;
         window.setSize(new Dimension(width, height));
         window.setLocation(1150, 0);
 
