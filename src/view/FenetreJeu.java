@@ -5,6 +5,7 @@
  */
 package view;
 
+import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.Tuile;
 import java.awt.BorderLayout;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BoxLayout;
@@ -50,7 +52,7 @@ public class FenetreJeu extends Observe{
     
     GridBagConstraints c = new GridBagConstraints();
     
-    public FenetreJeu() throws MalformedURLException{
+    public FenetreJeu(ArrayList<Joueur> joueurs) throws MalformedURLException{
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -158,7 +160,7 @@ public class FenetreJeu extends Observe{
                     role1.add(panelBoutonRole1);
                     role1.add(nbActionRole1);*/           
                     
-
+       
 
         //======================================//
 
@@ -270,50 +272,56 @@ public class FenetreJeu extends Observe{
         //======================================//
 
         
-        JPanel role3 = new JPanel();
-        role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
-        JLabel EmplacementRole3 = new JLabel("Emplacement");
-        role3.add(EmplacementRole3);
-        JButton boutonRole3 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/ingenieur.png")));
-        role3.add(boutonRole3);
-        boutonRole3.setContentAreaFilled(false);
-        boutonRole3.setPreferredSize(new Dimension(150,210));
-        boutonRole3.setOpaque(false);
-        c.anchor = GridBagConstraints.LAST_LINE_START;
-        c.gridheight = 2;
-        c.gridx = 0;
-        c.gridy = 4;
-        window.add(role3,c);
+        if (joueurs.size()>2){
+        
+            JPanel role3 = new JPanel();
+            role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
+            JLabel EmplacementRole3 = new JLabel("Emplacement");
+            role3.add(EmplacementRole3);
+            JButton boutonRole3 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/ingenieur.png")));
+            role3.add(boutonRole3);
+            boutonRole3.setContentAreaFilled(false);
+            boutonRole3.setPreferredSize(new Dimension(150,210));
+            boutonRole3.setOpaque(false);
+            c.anchor = GridBagConstraints.LAST_LINE_START;
+            c.gridheight = 2;
+            c.gridx = 0;
+            c.gridy = 4;
+            window.add(role3,c);
 
-        //--------------------------//
-        
-        
-        
-        
-        
-        //======================================//
+            //--------------------------//
 
-        JPanel role4 = new JPanel();
-        role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
-        JLabel EmplacementRole4 = new JLabel("Emplacement");
-        role4.add(EmplacementRole4);
-        JButton boutonRole4 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/pilote.png")));
-        role4.add(boutonRole4);
-        boutonRole4.setPreferredSize(new Dimension(150,210));
-        boutonRole4.setContentAreaFilled(false);
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.gridheight = 2;
-        c.gridx = 7;
-        c.gridy = 4;
-        window.add(role4,c);
 
-        //--------------------------//
-        
-        
-        
-        
-        
-        //======================================//
+
+
+
+            //======================================//
+
+            if(joueurs.size()>3){
+
+            JPanel role4 = new JPanel();
+            role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
+            JLabel EmplacementRole4 = new JLabel("Emplacement");
+            role4.add(EmplacementRole4);
+            JButton boutonRole4 = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/maniert/ile_interdite2.0/master/src/images/images/personnages/pilote.png")));
+            role4.add(boutonRole4);
+            boutonRole4.setPreferredSize(new Dimension(150,210));
+            boutonRole4.setContentAreaFilled(false);
+            c.anchor = GridBagConstraints.LAST_LINE_END;
+            c.gridheight = 2;
+            c.gridx = 7;
+            c.gridy = 4;
+            window.add(role4,c);
+
+            //--------------------------//
+
+
+
+            }
+
+            //======================================//
+            
+        }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         

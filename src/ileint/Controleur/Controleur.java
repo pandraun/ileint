@@ -540,18 +540,18 @@ public class Controleur implements Observateur {
 
             case DEMARRER: //le joueur demarre la partie
                 nomJoueur = new ArrayList<>();
-                nomJoueur.add(m.joueur1);
-                nomJoueur.add(m.joueur2);
+                joueurs.get(0).setNom(m.joueur1);
+                joueurs.get(1).setNom(m.joueur2);
                 if (m.joueur3 != null) {
-                    nomJoueur.add(m.joueur3);
+                    joueurs.get(2).setNom(m.joueur3);
                 }
                 if (m.joueur4 != null) {
-                    nomJoueur.add(m.joueur4);
+                    joueurs.get(2).setNom(m.joueur4);
                 }
                 fenetreJoueur.visible(false);
 
                 try {
-                    fenetreJeu = new FenetreJeu();
+                    fenetreJeu = new FenetreJeu(joueurs);
                     fenetreJeu.addObservateur(this);
                     fenetreJeu.PlacerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
