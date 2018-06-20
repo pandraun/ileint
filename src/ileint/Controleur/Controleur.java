@@ -523,7 +523,7 @@ public class Controleur implements Observateur {
                 messageSauv = m;
                 break;
 
-            case CONTINUER:
+            case CONTINUER: //choix du niveau de dificulté et du nombre de perso
                 int nbJ;
                 if (m.nbJoueur.equals("2")) {
                     nbJ = 2;
