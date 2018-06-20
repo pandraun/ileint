@@ -109,7 +109,7 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.equals("")) {
+                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.getText().equals("")) {
                     Message m = new Message();
                     m.type = TypesMessages.DEMARRER;
                     m.joueur1 = nomJoueur1.getText();
@@ -161,7 +161,7 @@ public class FenetreJoueur extends Observe {
         demarrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.equals("") && !nomJoueur4.equals("")) {
+                if (!nomJoueur1.getText().equals("") && !nomJoueur2.getText().equals("") && !nomJoueur3.getText().equals("") && !nomJoueur4.getText().equals("")) {
                     Message m = new Message();
                     m.type = TypesMessages.DEMARRER;
                     m.joueur1 = nomJoueur1.getText();
@@ -186,4 +186,5 @@ public class FenetreJoueur extends Observe {
     public void visible(boolean bool) {
         fenetre.setVisible(bool);
     }
+    
 }
