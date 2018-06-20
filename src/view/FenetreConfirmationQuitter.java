@@ -97,8 +97,8 @@ public class FenetreConfirmationQuitter extends Observe {
         window.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        FenetreConfirmationQuitter fenetreconfquit = new FenetreConfirmationQuitter();
+    public void visible(boolean bool) {
+        window.setVisible(bool);
     }
 
 }

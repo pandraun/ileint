@@ -115,14 +115,12 @@ public class FenetreFin extends Observe {
 
     }
 
-//    public static void main(String[] args) {
-//        FenetreFin fenetreFin = new FenetreFin(true);
-//    }
-
     public void setTextInfoJeu(JTextArea textInfoJeu) {
         this.textInfoJeu = textInfoJeu;
     }
     
-    
+    public void visible(boolean bool){
+        window.setVisible(bool);
+    }
 
 }
