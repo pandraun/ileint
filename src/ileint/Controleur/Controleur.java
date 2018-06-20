@@ -553,6 +553,7 @@ public class Controleur implements Observateur {
                 try {
                     fenetreJeu = new FenetreJeu();
                     fenetreJeu.addObservateur(this);
+                    fenetreJeu.PlacerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }

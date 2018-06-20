@@ -7,6 +7,7 @@ package view;
 
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,11 +15,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.management.relation.Role;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,83 +28,98 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import util.Message;
 import util.TypesMessages;
 
-/**
- *
- * @author pandraun
- */
 public class FenetreInfo extends Observe {
 
-    private JFrame window;
-    private JPanel mainPanel;
-    private JPanel infoPanel;
-
-    private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
-    private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
-    private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
-    private JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
-    private JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
-    private JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
-    private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
-    private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
-
-    private JButton btnDeplacer;
-    private JButton btnAssecher;
-    private JButton btnDonner;
-    private JButton btnTresor;
-    private JButton btnUtiliserCarte;
-    private JButton btnPasser;
-    private JLabel labelRole;
+    //Les différentes parties de l'affichage
+    private final JFrame window;
+    private final JPanel mainPanel;
+    private final JPanel infoPanel;
+    private final JPanel panelRole;
+    private final JPanel reglesPanel;
+    private final JPanel panelInfoJeu;
+    private final JPanel panelMilieu;
+    private final JPanel panelActions;
     
+    //Les boutons pour l'apparence des trésors
+    private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
+    private final JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
+    private final JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
+    private final JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
+    private final JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
+    private final JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
+    private final JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
+    private final JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
+
+    //Les boutons pour les différentes actions possibles
+    private final JButton btnDeplacer;
+    private final JButton btnAssecher;
+    private final JButton btnDonner;
+    private final JButton btnTresor;
+    private final JButton btnUtiliserCarte;
+    private final JButton btnPasser;
+    
+    //Les boutons pour les actions spéciales
+    private final JButton helico;
+    private final JButton depAutresJoueurs;
+    
+    //Le bouton pour l'affichage des règles
+    private final JButton btnRegles;
+    
+    //Apparence du texte
+    private JTextArea textInfoJeu;
+    private Font f;
+
+    //Element changeant suivant informations du controleur
+    private JLabel labelRole;
     private Joueur joueurCourant;
+
+    //Elements pour le CardLayout
+    private CardLayout layButton;
+    private String[] actionPossible = {"Helico", "Déplacer autres joueurs"};
+    private JPanel pBoutons;
 
     public FenetreInfo() throws MalformedURLException {
 
         //Fenetre principale
         window = new JFrame();
-        mainPanel = new JPanel(new BorderLayout());
-        window.add(mainPanel);
-
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 869;
         int width = (int) dimension.getWidth() - 1090;
         window.setSize(new Dimension(width, height));
         window.setLocation(1090, 0);
 
-        //Lire règle
+        //Panels pour les règles de jeu + instantiation + ajout
         infoPanel = new JPanel(new BorderLayout());
-        JPanel reglesPanel = new JPanel(new BorderLayout());
-        JButton btnRegles = new JButton("Lire Règle");
-
+        reglesPanel = new JPanel(new BorderLayout());
+        btnRegles = new JButton("Lire Règle");
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
 
-        //Info jeu
-        JPanel panelInfoJeu = new JPanel();
-        JTextArea textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action \n  parmis celle-ci dessous:");
-        Font f = new Font("Ile int",Font.PLAIN, 30);
+        //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
+        panelInfoJeu = new JPanel();
+        textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action \n  parmis celle-ci dessous:");
+        f = new Font("Ile int", Font.PLAIN, 30);
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
         textInfoJeu.setPreferredSize(new Dimension(440, 250));
-
         panelInfoJeu.add(textInfoJeu);
         infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
 
-        //Info role
-        JPanel panelRole = new JPanel();
+        //Panel pour le role + instantiation + ajout
+        panelRole = new JPanel();
         labelRole = new JLabel("Ingenieur");
-
         panelRole.add(labelRole);
         infoPanel.add(panelRole, BorderLayout.SOUTH);
 
-        //Panel actions
-        JPanel panelMilieu = new JPanel();
-        JPanel panelActions = new JPanel(new GridBagLayout());
+        //Instantiation des panels pour les actions
+        panelMilieu = new JPanel();
+        panelActions = new JPanel(new GridBagLayout());
 
+        //Paramètre du GridBagLayout
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.BOTH;
         gc.insets = new Insets(5, 5, 5, 5);
@@ -119,7 +136,6 @@ public class FenetreInfo extends Observe {
                 Message m = new Message();
                 m.type = TypesMessages.SE_DEPLACER;
                 notifierObservateur(m);
-                System.out.println("wut wuuuut");
             }
 
         });
@@ -202,13 +218,48 @@ public class FenetreInfo extends Observe {
         gc.gridy = 2;
         panelActions.add(btnPasser, gc);
 
-        //Boutons actions spécial
-        JButton btnAutre = new JButton();
-        btnAutre.setText("Autre");
+//************************************************************************
+        JPanel p1, p2, p3;
+
+        layButton = new CardLayout();
+
+        pBoutons = new JPanel(layButton);
+
+        p1 = new JPanel();
+        helico = new JButton("Hélico");
+        helico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACEMENT_HELICO;
+                notifierObservateur(m);
+            }
+        });
+
+        p1.add(helico);
+        pBoutons.add(p1, "helico");
+
+        p2 = new JPanel();
+        depAutresJoueurs = new JButton("Déplacer autre\njoueur");
+        depAutresJoueurs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
+                notifierObservateur(m);
+            }
+        });
+
+        p2.add(depAutresJoueurs);
+        pBoutons.add(p2, "depautresjoueurs");
+
+        p3 = new JPanel();
+        pBoutons.add(p3, "rien");
+
         gc.gridx = 1;
         gc.gridy = 3;
-        panelActions.add(btnAutre, gc);
-        
+        panelActions.add(pBoutons, gc);
+//*********************************************************************
         //Ajout
         panelMilieu.add(panelActions);
 
@@ -236,14 +287,15 @@ public class FenetreInfo extends Observe {
 
         panelBasFenetre.add(panelTresor);
         panelBasFenetre.add(panelBas);
-        
-        
 
         //Rajout de la partie nord au main panel
+        mainPanel = new JPanel(new BorderLayout());
+        
         mainPanel.add(infoPanel, BorderLayout.NORTH);
         mainPanel.add(panelMilieu, BorderLayout.CENTER);
         mainPanel.add(panelBasFenetre, BorderLayout.SOUTH);
 
+        window.add(mainPanel);
         window.setResizable(false);
         window.setVisible(true);
     }
@@ -279,6 +331,30 @@ public class FenetreInfo extends Observe {
     public void setJoueurCourant(Joueur joueurCourant) {
         this.joueurCourant = joueurCourant;
     }
-    
-    
+
+    public void boutonSpeciale(String nomRole) {
+        if (nomRole.equals("Navigateur")) {
+            layButton.show(pBoutons, "depautresjoueurs");
+            depAutresJoueurs.setEnabled(true);
+        } else if (nomRole.equals("Pilote")) {
+            layButton.show(pBoutons, "helico");
+            helico.setEnabled(true);
+
+        } else {
+            layButton.show(pBoutons, "rien");
+        }
+    }
+
+    public void setLabelRole(JLabel labelRole) {
+        this.labelRole = labelRole;
+    }
+
+    public static void main(String[] args) {
+        try {
+            FenetreInfo fenetreInfo = new FenetreInfo();
+            fenetreInfo.boutonSpeciale("Messager");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(FenetreInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

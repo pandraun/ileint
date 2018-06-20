@@ -491,15 +491,15 @@ public class FenetreJeu extends Observe{
     
     public void PlacerTuiles(HashMap<Coordonnee, ileint.Tuile.Tuile> tuiles){
         
-        ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
-        Image im = calice.getImage();
-        im = im.getScaledInstance(35,64,Image.SCALE_DEFAULT);
+        //ImageIcon calice = new ImageIcon("DossierImage/imgCarte/Calice.png");
+        //Image im = calice.getImage();
+        //im = im.getScaledInstance(35,64,Image.SCALE_DEFAULT);
         
         for(Tuile uneTuile : tuiles.values()){
             
             int x = uneTuile.getCoordonnee().getX();
             int y = uneTuile.getCoordonnee().getY();
-            JButton tuile = new JButton(new ImageIcon("DossierImage/TuilesV2/"+uneTuile.getNom()+".png"));
+            JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
             tuile.setPreferredSize(new Dimension(120,120));
             tuile.setOpaque(false);
             c.fill = GridBagConstraints.BOTH;
