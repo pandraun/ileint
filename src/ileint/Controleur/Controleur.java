@@ -61,7 +61,6 @@ public class Controleur implements Observateur {
     private int nombreAction;
     private boolean piloteSpe;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
-    private ArrayList<String> nomJoueur;
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
@@ -539,16 +538,16 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
-                nomJoueur = new ArrayList<>();
-                joueurs.get(0).setNom(m.joueur1);
-                joueurs.get(1).setNom(m.joueur2);
+                joueurs.get(0).setNomJoueur(m.joueur1);
+                joueurs.get(1).setNomJoueur(m.joueur2);
                 if (m.joueur3 != null) {
-                    joueurs.get(2).setNom(m.joueur3);
+                    joueurs.get(2).setNomJoueur(m.joueur3);
                 }
                 if (m.joueur4 != null) {
-                    joueurs.get(2).setNom(m.joueur4);
+                    joueurs.get(2).setNomJoueur(m.joueur4);
                 }
                 fenetreJoueur.visible(false);
+                joueurCourant = joueurs.get(0);
 
                 try {
                     fenetreJeu = new FenetreJeu(joueurs);
@@ -561,6 +560,8 @@ public class Controleur implements Observateur {
                 try {
                     fenetreInfo = new FenetreInfo();
                     fenetreInfo.addObservateur(this);
+                    fenetreInfo.modifierLabelJoueur(joueurCourant.getRole());
+                    fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }

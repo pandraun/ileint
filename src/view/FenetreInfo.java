@@ -10,6 +10,7 @@ package view;
  * @author piolleta
  */
 
+import ileint.Aventurier.Aventurier;
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -86,7 +87,6 @@ public class FenetreInfo extends Observe {
 
     //Elements pour le CardLayout
     private CardLayout layButton;
-    private String[] actionPossible = {"Helico", "Déplacer autres joueurs"};
     private JPanel pBoutons;
 
     public FenetreInfo() throws MalformedURLException {
@@ -327,8 +327,8 @@ public class FenetreInfo extends Observe {
         btnTresor.setEnabled(boo);
     }
 
-    public void modifierLabelJoueur(Role role) {
-        labelRole.setText(role.getRoleName());
+    public void modifierLabelJoueur(Aventurier role) {
+        labelRole.setText(role.getNom());
     }
 
     public void setJoueurCourant(Joueur joueurCourant) {
