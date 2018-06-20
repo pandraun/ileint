@@ -533,6 +533,7 @@ public class Controleur implements Observateur {
                     nbJ = 4;
                 }
                 initGrille(nbJ);
+                fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
                 fenetreJoueur.addObservateur(this);
                 break;

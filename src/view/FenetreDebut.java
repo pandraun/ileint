@@ -138,30 +138,10 @@ public class FenetreDebut  extends Observe {
         continuer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fenetre.setVisible(false);
                 Message m = new Message();
                 m.type = TypesMessages.CONTINUER;
                 m.nbJoueur = nbJoueurs.getText();
                 notifierObservateur(m);
-                
-                
-                /*try {
-                    FenetreJeu FJ = new FenetreJeu();
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(FenetreDebut.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
-                
-                /*if (Integer.parseInt(nbJoueurs.getText())>=2){
-                    VueAventurier V1 = new VueAventurier("Audrey", "Explorateur",Utils.Pion.VERT.getCouleur());
-                    nbJ+=1;
-                    VueAventurier V2 = new VueAventurier("Gergely", "Navigateur",Utils.Pion.JAUNE.getCouleur());
-                    if (Integer.parseInt(nbJoueurs.getText())>=3){
-                        nbJ+=1;
-                        VueAventurier V3 = new VueAventurier("Camille", "Pilote",Utils.Pion.BLEU.getCouleur());
-                        if (Integer.parseInt(nbJoueurs.getText())==4){
-                            nbJ+=1;
-                            VueAventurier V4 = new VueAventurier("Nicolas", "Ingenieur",Utils.Pion.ROUGE.getCouleur());
-                }}}*/
             }    
         });
             
@@ -171,10 +151,8 @@ public class FenetreDebut  extends Observe {
         
         
     }
-    // LE MAIN EST DESORMAIS DANS ILEINT
-    /*public static void main(String [] args) throws MalformedURLException {
-        // Instanciation de la fenêtre 
-        FenetreDebut f = new FenetreDebut();
-    }*/
     
+    public void visible(boolean bool) {
+        fenetre.setVisible(bool);
+    }
 }
