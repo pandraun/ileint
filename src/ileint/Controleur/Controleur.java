@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.EmplacementCarte;
@@ -46,10 +46,10 @@ public class Controleur implements Observateur {
     private boolean hasard = false;
 
     private int niveauEau;
-    private ArrayList<CarteInondation> piocheInondation; // 0..24
-    private ArrayList<CarteInondation> defausseInondation; // 0..24
-    private ArrayList<CarteOrange> piocheOrange; //0..28
-    private ArrayList<CarteOrange> defausseOrange; //0..28
+    private Stack<CarteInondation> piocheInondation; // 0..24
+    private Stack<CarteInondation> defausseInondation; // 0..24
+    private Stack<CarteOrange> piocheOrange; //0..28
+    private Stack<CarteOrange> defausseOrange; //0..28
     private ArrayList<Joueur> joueurs; //2..4
     private ArrayList<String> toutNomAventurier;
     private ArrayList<Aventurier> aventuriers; // Il y en a 6 de base et on peut en retirer max 4
@@ -79,10 +79,10 @@ public class Controleur implements Observateur {
     }
 
     public void initGrille(int nbJoueur) {
-        piocheInondation = new ArrayList<>();
-        defausseInondation = new ArrayList<>();
-        piocheOrange = new ArrayList<>();
-        defausseOrange = new ArrayList<>();
+        piocheInondation = new Stack<>();
+        defausseInondation = new Stack<>();
+        piocheOrange = new Stack<>();
+        defausseOrange = new Stack<>();
         joueurs = new ArrayList<>();
         toutNomAventurier = new ArrayList<>();
         aventuriers = new ArrayList<>();
@@ -330,21 +330,23 @@ public class Controleur implements Observateur {
             return 5;
         }
     }
+    
+    
 
-    //getters
-    public ArrayList<CarteInondation> getPiocheInondation() {
+    ///////////////getters
+    public Stack<CarteInondation> getPiocheInondation() {
         return piocheInondation;
     }
 
-    public ArrayList<CarteInondation> getDefausseInondation() {
+    public Stack<CarteInondation> getDefausseInondation() {
         return defausseInondation;
     }
 
-    public ArrayList<CarteOrange> getPiocheOrange() {
+    public Stack<CarteOrange> getPiocheOrange() {
         return piocheOrange;
     }
 
-    public ArrayList<CarteOrange> getDefausseOrange() {
+    public Stack<CarteOrange> getDefausseOrange() {
         return defausseOrange;
     }
 
@@ -359,25 +361,26 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return grille;
     }
-
-    //setters
+    /////////////
+    
+    ///////////////////////setters
     public void setNiveauEau(int niveauEau) {
         this.niveauEau = niveauEau;
     }
 
-    public void setPiocheInondation(ArrayList<CarteInondation> piocheInondation) {
+    public void setPiocheInondation(Stack<CarteInondation> piocheInondation) {
         this.piocheInondation = piocheInondation;
     }
 
-    public void setDefausseInondation(ArrayList<CarteInondation> defausseInondation) {
+    public void setDefausseInondation(Stack<CarteInondation> defausseInondation) {
         this.defausseInondation = defausseInondation;
     }
 
-    public void setPiocheOrange(ArrayList<CarteOrange> piocheOrange) {
+    public void setPiocheOrange(Stack<CarteOrange> piocheOrange) {
         this.piocheOrange = piocheOrange;
     }
 
-    public void setDefausseOrange(ArrayList<CarteOrange> defausseOrange) {
+    public void setDefausseOrange(Stack<CarteOrange> defausseOrange) {
         this.defausseOrange = defausseOrange;
     }
 
@@ -396,7 +399,8 @@ public class Controleur implements Observateur {
     public void setGrille(Grille grille) {
         this.grille = grille;
     }
-
+    //////////////////
+    
     public void setPartieTermine(boolean partieTermine) {
         this.partieTermine = partieTermine;
     }
@@ -410,10 +414,32 @@ public class Controleur implements Observateur {
     }
 
     public void piocherCarteOrange() {
-        joueurCourant.addCarteMainJoueur(piocheOrange.get(0));
-        piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
-        piocheOrange.remove(piocheOrange.get(0));
+        joueurCourant.addCarteMainJoueur(piocheOrange.peek());
+        piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+        piocheOrange.pop();
     }
+    
+    public void defausserCarte(Joueur joueur, CarteOrange carte) {
+        defausseOrange.push(carte);
+        joueur.getMainJoueur().remove(carte);
+    }
+    
+    public void empilerDefausseInondation() {
+        Collections.shuffle(defausseInondation);
+        for (CarteInondation uneCarte : defausseInondation) {
+            piocheInondation.push(uneCarte);
+        }
+        defausseInondation.clear();
+    }
+    
+    public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
+        if (piocheOrange.isEmpty()) {
+            Collections.shuffle(defausseOrange);
+            piocheOrange.addAll(defausseOrange);
+            defausseOrange.clear();
+        }
+    }
+
 
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
         ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
@@ -436,14 +462,16 @@ public class Controleur implements Observateur {
 
     public void piocherInnondation() {
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (piocheInondation.get(0).getTuile().equals(uneTuile)) {
+            if (piocheInondation.peek().equals(uneTuile)) {
                 uneTuile.arroserTuile();
-                piocheInondation.get(0).setPioche(false);
-                defausseInondation.add(piocheInondation.get(0));
-                piocheInondation.remove(piocheInondation.get(0));
+                piocheInondation.peek().setPioche(false);
+                defausseInondation.push(piocheInondation.pop());
+//                piocheInondation.remove(piocheInondation.get(0));
             }
         }
     }
+    
+    
 
     public void joueurSuivant() {
         int i = joueurs.indexOf(joueurCourant);
@@ -488,13 +516,11 @@ public class Controleur implements Observateur {
             case SE_DEPLACER: //le joueur clique sur se deplacer
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
-                System.out.println("depkacemet");
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
-                System.out.println("assechement");
                 break;
 
             case CONTINUER:
@@ -507,6 +533,7 @@ public class Controleur implements Observateur {
                     nbJ = 4;
                 }
                 initGrille(nbJ);
+                fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
                 fenetreJoueur.addObservateur(this);
                 break;
@@ -521,6 +548,7 @@ public class Controleur implements Observateur {
                 if (m.joueur4 != null) {
                     nomJoueur.add(m.joueur4);
                 }
+                fenetreJoueur.visible(false);
 
                 try {
                     fenetreJeu = new FenetreJeu();
@@ -570,7 +598,6 @@ public class Controleur implements Observateur {
                     //mettre en surbrillance les joueurs qui sont sur la même case
                 }
                 messageSauv = m;
-                System.out.println("donner");
                 break;
 
             case PARAMETRE_DONNER_CARTE:
