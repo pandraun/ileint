@@ -5,6 +5,11 @@
  */
 package view;
 
+/**
+ *
+ * @author piolleta
+ */
+
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -42,7 +47,10 @@ public class FenetreInfo extends Observe {
     private final JPanel panelInfoJeu;
     private final JPanel panelMilieu;
     private final JPanel panelActions;
-    
+    private final JPanel panelBasFenetre;
+    private final JPanel panelBas;
+    private final JPanel panelTresor;
+
     //Les boutons pour l'apparence des trésors
     private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private final JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
@@ -60,14 +68,14 @@ public class FenetreInfo extends Observe {
     private final JButton btnTresor;
     private final JButton btnUtiliserCarte;
     private final JButton btnPasser;
-    
+
     //Les boutons pour les actions spéciales
     private final JButton helico;
     private final JButton depAutresJoueurs;
-    
+
     //Le bouton pour l'affichage des règles
     private final JButton btnRegles;
-    
+
     //Apparence du texte
     private JTextArea textInfoJeu;
     private Font f;
@@ -92,6 +100,7 @@ public class FenetreInfo extends Observe {
         window.setLocation(1090, 0);
 
         //Panels pour les règles de jeu + instantiation + ajout
+        mainPanel = new JPanel(new BorderLayout());
         infoPanel = new JPanel(new BorderLayout());
         reglesPanel = new JPanel(new BorderLayout());
         btnRegles = new JButton("Lire Règle");
@@ -137,7 +146,6 @@ public class FenetreInfo extends Observe {
                 m.type = TypesMessages.SE_DEPLACER;
                 notifierObservateur(m);
             }
-
         });
         gc.gridx = 0;
         gc.gridy = 0;
@@ -218,11 +226,9 @@ public class FenetreInfo extends Observe {
         gc.gridy = 2;
         panelActions.add(btnPasser, gc);
 
-//************************************************************************
+        //Bouton spécial
         JPanel p1, p2, p3;
-
         layButton = new CardLayout();
-
         pBoutons = new JPanel(layButton);
 
         p1 = new JPanel();
@@ -235,7 +241,6 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-
         p1.add(helico);
         pBoutons.add(p1, "helico");
 
@@ -249,7 +254,6 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-
         p2.add(depAutresJoueurs);
         pBoutons.add(p2, "depautresjoueurs");
 
@@ -259,22 +263,21 @@ public class FenetreInfo extends Observe {
         gc.gridx = 1;
         gc.gridy = 3;
         panelActions.add(pBoutons, gc);
-//*********************************************************************
-        //Ajout
         panelMilieu.add(panelActions);
 
-        //Bas fenetre
-        JPanel panelBasFenetre = new JPanel();
-        JPanel panelBas = new JPanel(new GridLayout(2, 1));
+        //Panel pour la jauge d'eau et les trésors
+        panelBasFenetre = new JPanel();
+        panelBas = new JPanel(new GridLayout(2, 1));
 
-        //panelBas.add(IMAGE JAUGE DEAU)
+        //Grid layout pour les trésors
         GridLayout tresor = new GridLayout(1, 4);
-
         tresor.setHgap(15);
         tresor.setVgap(10);
 
-        JPanel panelTresor = new JPanel(tresor);
+        //Panel pour les trésors
+        panelTresor = new JPanel(tresor);
 
+        //Mise en place des trésors
         caliceAbsent.setPreferredSize(new Dimension(100, 100));
         cristalAbsent.setPreferredSize(new Dimension(100, 100));
         pierreAbsent.setPreferredSize(new Dimension(100, 100));
@@ -285,16 +288,16 @@ public class FenetreInfo extends Observe {
         panelTresor.add(pierreAbsent);
         panelTresor.add(statueAbsent);
 
+        //Ajout des trésors
         panelBasFenetre.add(panelTresor);
         panelBasFenetre.add(panelBas);
 
-        //Rajout de la partie nord au main panel
-        mainPanel = new JPanel(new BorderLayout());
-        
+        //Ajout des différentes parties au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
         mainPanel.add(panelMilieu, BorderLayout.CENTER);
         mainPanel.add(panelBasFenetre, BorderLayout.SOUTH);
 
+        //Ajout de mainPanel à la fenre + etat
         window.add(mainPanel);
         window.setResizable(false);
         window.setVisible(true);
@@ -349,12 +352,5 @@ public class FenetreInfo extends Observe {
         this.labelRole = labelRole;
     }
 
-    public static void main(String[] args) {
-        try {
-            FenetreInfo fenetreInfo = new FenetreInfo();
-            fenetreInfo.boutonSpeciale("Messager");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(FenetreInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 }
