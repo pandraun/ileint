@@ -90,6 +90,8 @@ public class FenetreInfo extends Observe {
     private CardLayout layButton;
     private JPanel pBoutons;
     private Dimension d;
+    private CardLayout layNbAc;
+    private JPanel pActions;
 
     public FenetreInfo() throws MalformedURLException {
 
@@ -120,7 +122,7 @@ public class FenetreInfo extends Observe {
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
-        textInfoJeu.setPreferredSize(new Dimension(440, 250));
+        textInfoJeu.setPreferredSize(new Dimension(400, 150));
         panelInfoJeu.add(textInfoJeu);
         infoPanel.add(panelInfoJeu, BorderLayout.CENTER);
 
@@ -261,11 +263,12 @@ public class FenetreInfo extends Observe {
         
         //Paramètre du 2e GridBagLayout
         GridBagConstraints gc2 = new GridBagConstraints();
-        gc2.fill = GridBagConstraints.BOTH;
-        gc2.insets = new Insets(30, 15,10, 15);
-        gc2.ipady = gc.anchor = GridBagConstraints.CENTER;
+        gc2.fill = GridBagConstraints.CENTER;
+        gc2.insets = new Insets(0, 0,0,0);
+        gc2.ipady = gc2.anchor = GridBagConstraints.CENTER;
         gc2.weightx = 1;
         gc2.weighty = 3;
+        d = new Dimension (120,25);
         
         //Panel pour actions annuler passer et nbactions
         panelAutresActions = new JPanel();
@@ -282,9 +285,37 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-        gc.gridx = 0;
-        gc.gridy = 0;
-        panelAc.add(btnAnnuler, gc2);
+        gc2.gridx = 0;
+        gc2.gridy = 0;
+        panelAc.add(btnAnnuler, "annuler");
+        
+        //*********************************************************************
+        
+        //Icone spécial
+        JPanel pan1, pan2, pan3;
+        layNbAc = new CardLayout();
+        pActions = new JPanel(layNbAc);
+        
+        p1 = new JPanel(new BorderLayout());
+        JLabel image1 = new JLabel( new ImageIcon("DossierImage/imgAutre/num1.jpg"));
+        p1.add(image1,BorderLayout.CENTER);
+        pActions.add(p1);
+
+        gc2.gridx = 0;
+        gc2.gridy = 1;
+        pActions.add(p1,gc2);
+        
+//        p2 = new JPanel();
+//        btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
+//        btnDepAutresJoueurs.setPreferredSize(d);
+//        btnDepAutresJoueurs.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Message m = new Message();
+//                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
+//                notifierObservateur(m);
+//            }
+//        });
         
         //Bouton Passer
         btnPasser = new JButton("Passer tour");
@@ -297,20 +328,30 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-        gc.gridx = 0;
-        gc.gridy = 2;
-        panelAc.add(btnPasser, gc2);
+        gc2.gridx = 0;
+        gc2.gridy = 2;
+        panelAc.add(btnPasser, "passerTour");
 
+        layNbAc.show(pActions, "1action");
+
+        panelAc.add(pActions);
         panelAutresActions.add(panelAc, gc2);
         panelMilieu.add(panelAutresActions);
+        
+        //****************************************************
+        
         //Panel pour la jauge d'eau et les trésors
         panelBasFenetre = new JPanel();
         panelBas = new JPanel(new GridLayout(2, 1));
 
+        //Jauge d'eau
+        JLabel imageJauge = new JLabel( new ImageIcon("DossierImage/imgAutre/Niveau.png"));
+        panelBas.add(imageJauge);
+        
         //Grid layout pour les trésors
         GridLayout tresor = new GridLayout(1, 4);
         tresor.setHgap(15);
-        tresor.setVgap(10);
+        tresor.setVgap(15);
 
         //Panel pour les trésors
         panelTresor = new JPanel(tresor);
@@ -327,8 +368,10 @@ public class FenetreInfo extends Observe {
         panelTresor.add(statueAbsent);
 
         //Ajout des trésors
-        panelBasFenetre.add(panelTresor);
+        panelBas.add(panelTresor);
         panelBasFenetre.add(panelBas);
+        //panelBasFenetre.add(panelTresor);
+        
 
         //Ajout des différentes parties au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
@@ -390,5 +433,10 @@ public class FenetreInfo extends Observe {
         this.labelRole = labelRole;
     }
 
+    public void affichageAction(int nbAction){
+        if(nbAction == 1){
+            layNbAc.show(panelAc, "1action");
+        }
+    }
     
 }
