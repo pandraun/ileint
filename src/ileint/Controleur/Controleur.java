@@ -684,7 +684,16 @@ public class Controleur implements Observateur {
                 break;
                 
             case NON_RESTER:
-//            
+                fenetreConfirmationQuitter.quitterFenetre();
+                break;
+                
+            case TROP_CARTE: 
+                fenetreInfo.cliquableAssechement(false);
+                fenetreInfo.cliquableDeplacer(false);
+                fenetreInfo.cliquableDonner(false);
+                fenetreInfo.cliquablePasser(false);
+                fenetreInfo.cliquableTresor(false);
+                fenetreInfo.cliquableUtiliser(false);
         }
     }
 
