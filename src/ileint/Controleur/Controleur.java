@@ -56,10 +56,10 @@ public class Controleur implements Observateur {
     private ArrayList<TypeTresor> tresorsRecuperables;
     private HashMap<Coordonnee, Tuile> tuiles;
     private Grille grille;
-    private boolean partieTermine = false;
     private Joueur joueurCourant;
     private int nombreAction;
     private boolean piloteSpe;
+    private int nbCartePiocher;
     private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
 
     private FenetreDebut fenetreDebut;
@@ -398,21 +398,18 @@ public class Controleur implements Observateur {
     }
     //////////////////
 
-    public void setPartieTermine(boolean partieTermine) {
-        this.partieTermine = partieTermine;
-    }
-
-    public boolean isPartieTermine() {
-        return partieTermine;
-    }
-
     public boolean isTropDeCartes() {
         return joueurCourant.getMainJoueur().size() > 5;
     }
 
     public void piocherCarteOrange() {
-        joueurCourant.addCarteMainJoueur(piocheOrange.peek());
-        piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+        if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
+            niveauEau++;
+            empilerDefausseInondation();
+        } else {
+            joueurCourant.addCarteMainJoueur(piocheOrange.peek());
+            piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+        }
         piocheOrange.pop();
     }
 
@@ -462,7 +459,6 @@ public class Controleur implements Observateur {
                 uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());
-//                piocheInondation.remove(piocheInondation.get(0));
             }
         }
     }
@@ -516,6 +512,7 @@ public class Controleur implements Observateur {
                 } else {
                     nbJ = 4;
                 }
+                System.out.println(m.difficulté);
                 initGrille(nbJ);
                 fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
@@ -622,21 +619,32 @@ public class Controleur implements Observateur {
                 //mise en surbrillance des cartes spé                
                 break;
             case CHOIX_CARTE:
-                if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
-                } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
-                }                
+                if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
+                    if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    }
+                } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
+                    defausserCarte(joueurCourant, m.carteSelectionne);
+                    if (!isTropDeCartes()) {
+                        //ihm.surbrillanceDefaul();
+                    }
+                }
                 break;
 
             //Piochage de cartes oranges à la fin du tour
             case PIOCHER_CARTE_ORANGE:
                 piocherCarteOrange();
-                break;   
+                nbCartePiocher++;
+                if (nbCartePiocher <= 2) {
+                    inondation();
+                }
+                break;
         }
 
     }
@@ -692,5 +700,21 @@ public class Controleur implements Observateur {
 
     public void commencerPiocheOrange() {
         fenetreJeu.piocheCliquable(true);
+    }
+    
+    public void inondation(){
+        for (int i = 0; i < eauAPiocher(); i++) {
+            piocherInnondation();
+        }
+        transitionTour();
+    }
+    
+    public void transitionTour() {
+        joueurSuivant();
+        if (isTropDeCartes()) {
+            Message m = new Message();
+            m.type = TypesMessages.TROP_CARTE;
+            messageSauv = m;
+        }
     }
 }
