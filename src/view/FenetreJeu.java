@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -340,7 +341,10 @@ public class FenetreJeu extends Observe{
                 ajouterCarteMainJoueur();
                 if (uneCarte.getTypeTresor()!=null){
                     JPanel carte = new JPanel();
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartesJoueur/"+uneCarte.getTypeTresor()+".png"));
+                    ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
+                    Image im = Carte.getImage();
+                    im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                    JButton carteJoueur = new JButton(new ImageIcon(im));
                     carte.add(carteJoueur);
                     carteJoueur.setMinimumSize(new Dimension(24, 14));
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
@@ -409,7 +413,10 @@ public class FenetreJeu extends Observe{
                 }else{
                     System.out.println(uneCarte.getTypeClasse());
                     JPanel carte = new JPanel();
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartesJoueur/"+uneCarte.getTypeClasse()+".png"));
+                    ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
+                    Image im = Carte.getImage();
+                    im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                    JButton carteJoueur = new JButton(new ImageIcon(im));
                     carte.add(carteJoueur);
                     carteJoueur.setMinimumSize(new Dimension(24, 14));
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
