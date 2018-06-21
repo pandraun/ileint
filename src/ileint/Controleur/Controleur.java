@@ -700,6 +700,8 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquablePasser(false);
                 fenetreInfo.cliquableTresor(false);
                 fenetreInfo.cliquableUtiliser(false);
+                fenetreInfo.cliquableDeplacementAutre(false);
+                fenetreInfo.cliquableHelico(false);
         }
     }
 
