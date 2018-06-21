@@ -339,11 +339,11 @@ public class FenetreJeu extends Observe{
             for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
                 ajouterCarteMainJoueur();
                 if (uneCarte.getTypeTresor()!=null){
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeTresor()+".png"));
-                    //carteJoueur.setMaximumSize(new Dimension(35,64));
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCarte/"+uneCarte.getTypeTresor()+".png"));
+                    carteJoueur.setMaximumSize(new Dimension(35,64));
                     //carteJoueur.setMinimumSize(new Dimension(35,64));
                     //carteJoueur.setPreferredSize(new Dimension(35,64));
-                    //carteJoueur.setSize(new Dimension(35,64));
+                    carteJoueur.setSize(new Dimension(35,64));
                     System.out.println(uneCarte.getTypeTresor());
                     //carteJoueur.setPreferredSize(new Dimension());
                     switch (unJoueur.getNumeroJoueur()) {
@@ -406,11 +406,11 @@ public class FenetreJeu extends Observe{
                     }
                 }else{
                     System.out.println(uneCarte.getTypeClasse());
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeClasse()+".png"));
-                    //carteJoueur.setMaximumSize(new Dimension(35,64));
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCarte/"+uneCarte.getTypeClasse()+".png"));
+                    carteJoueur.setMaximumSize(new Dimension(35,64));
                     //carteJoueur.setMinimumSize(new Dimension(35,64));
                     //carteJoueur.setPreferredSize(new Dimension(35,64));
-                    //carteJoueur.setSize(new Dimension(35,64));
+                    carteJoueur.setSize(new Dimension(35,64));
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
                             nbCaseCarteJ1 += 1;
@@ -479,15 +479,12 @@ public class FenetreJeu extends Observe{
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
                             c.gridwidth = 1;
-                            c.gridx = 4-(nbCaseCarteJ1%4);
+                            c.gridx = nbCaseCarteJ1;
                             if (nbCaseCarteJ1<4){
                                 c.gridy = 0;
                             }else{
                                 c.gridy = 1;
                             }
-                            
-                            System.out.println("nbCaseCarteJ1 : "+nbCaseCarteJ1);
-                            System.out.println("c.gridy : "+c.gridy);
                             carteJ1.add(new JLabel(""),c);
                             break;
                         case 1:
@@ -495,7 +492,7 @@ public class FenetreJeu extends Observe{
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
                             c.gridwidth = 1;
-                            c.gridx = 4-(nbCaseCarteJ2%4);
+                            c.gridx = nbCaseCarteJ2;
                             if (nbCaseCarteJ2<4){
                                 c.gridy = 0;
                             }else{
@@ -509,7 +506,7 @@ public class FenetreJeu extends Observe{
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
                             c.gridwidth = 1;
-                            c.gridx = 4-(nbCaseCarteJ3%4);
+                            c.gridx = nbCaseCarteJ3;
                             if (nbCaseCarteJ3<4){
                                 c.gridy = 0;
                             }else{
@@ -523,7 +520,7 @@ public class FenetreJeu extends Observe{
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
                             c.gridwidth = 1;
-                            c.gridx = 4-(nbCaseCarteJ4%4);
+                            c.gridx = nbCaseCarteJ4;
                             if (nbCaseCarteJ4<4){
                                 c.gridy = 0;
                             }else{
