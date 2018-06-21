@@ -631,6 +631,9 @@ public class Controleur implements Observateur {
                     }
                 } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
                     defausserCarte(joueurCourant, m.carteSelectionne);
+                    if (!isTropDeCartes()) {
+                        //ihm.surbrillanceDefaul();
+                    }
                 }
                 break;
 
