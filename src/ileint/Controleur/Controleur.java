@@ -94,10 +94,10 @@ public class Controleur implements Observateur {
         tresorsRecuperables.add(TypeTresor.CRISTAL);
         tresorsRecuperables.add(TypeTresor.PIERRE);
 
-        toutNomAventurier.add("Messager");
+        toutNomAventurier.add("Pilote");
         toutNomAventurier.add("Ingenieur");
         toutNomAventurier.add("Explorateur");
-        toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Messager");
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 

@@ -10,7 +10,6 @@ package view;
  * @author piolleta
  */
 
-import ileint.Aventurier.Aventurier;
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -45,21 +44,20 @@ public class FenetreInfo extends Observe {
     private final JPanel panelInfoJeu;
     private final JPanel panelMilieu;
     private final JPanel panelActions;
-    private final JPanel panelBasFenetre;
     private final JPanel panelBas;
     private final JPanel panelTresor;
     private final JPanel panelAutresActions;
     private final JPanel panelAc;
 
     //Les boutons pour l'apparence des trésors
-    private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
-    private final JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
-    private final JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
-    private final JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
-    private final JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
-    private final JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
-    private final JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
-    private final JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
+    private final JLabel caliceAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
+    private final JLabel calicePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
+    private final JLabel cristalAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
+    private final JLabel cristalPresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
+    private final JLabel pierreAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
+    private final JLabel pierrePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
+    private final JLabel statueAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
+    private final JLabel statuePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
     //Les boutons pour les différentes actions possibles
     private JButton btnDeplacer;
@@ -114,6 +112,7 @@ public class FenetreInfo extends Observe {
         reglesPanel.add(btnAides, BorderLayout.WEST);
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
+        
         
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
@@ -218,7 +217,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 2;
-        panelActions.add(btnUtiliserCarte, gc);
+        JPanel panelBtnTresor = new JPanel();
+        panelBtnTresor.add(btnUtiliserCarte);
+        panelActions.add(panelBtnTresor, gc);
 
         //Bouton spécial
         JPanel p1, p2, p3;
@@ -241,7 +242,7 @@ public class FenetreInfo extends Observe {
 
         p2 = new JPanel();
         btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
-        btnDepAutresJoueurs.setPreferredSize(d);
+        btnDepAutresJoueurs.setPreferredSize(new Dimension (100,100));
         btnDepAutresJoueurs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -258,13 +259,15 @@ public class FenetreInfo extends Observe {
 
         gc.gridx = 2;
         gc.gridy = 2;
-        panelActions.add(pBoutons, gc);
+        JPanel panSpe = new JPanel();
+        panSpe.add(pBoutons);
+        panelActions.add(panSpe, gc);
         panelMilieu.add(panelActions, BorderLayout.NORTH);
         
         //Paramètre du 2e GridBagLayout
         GridBagConstraints gc2 = new GridBagConstraints();
-        gc2.fill = GridBagConstraints.CENTER;
-        gc2.insets = new Insets(0, 0,0,0);
+        gc2.fill = GridBagConstraints.BOTH;
+        gc2.insets = new Insets(0, 15,0,15);
         gc2.ipady = gc2.anchor = GridBagConstraints.CENTER;
         gc2.weightx = 1;
         gc2.weighty = 3;
@@ -287,7 +290,7 @@ public class FenetreInfo extends Observe {
         });
         gc2.gridx = 0;
         gc2.gridy = 0;
-        panelAc.add(btnAnnuler, "annuler");
+        panelAc.add(btnAnnuler, gc2);
         
         //*********************************************************************
         
@@ -296,26 +299,25 @@ public class FenetreInfo extends Observe {
         layNbAc = new CardLayout();
         pActions = new JPanel(layNbAc);
         
-        p1 = new JPanel(new BorderLayout());
-        JLabel image1 = new JLabel( new ImageIcon("DossierImage/imgAutre/num1.jpg"));
-        p1.add(image1,BorderLayout.CENTER);
-        pActions.add(p1);
-
-        gc2.gridx = 0;
-        gc2.gridy = 1;
-        pActions.add(p1,gc2);
+        pan1 = new JPanel();
+        JLabel action1 = new JLabel("1");
+        pan1.add(action1);
+        pActions.add(pan1, "1action");
         
-//        p2 = new JPanel();
-//        btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
-//        btnDepAutresJoueurs.setPreferredSize(d);
-//        btnDepAutresJoueurs.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Message m = new Message();
-//                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
-//                notifierObservateur(m);
-//            }
-//        });
+        pan2 = new JPanel();
+        JLabel action2 = new JLabel("2");
+        pan2.add(action2);
+        pActions.add(pan2, "2action");
+        
+        pan3 = new JPanel();
+        JLabel action3 = new JLabel("3");
+        pan3.add(action3);
+        pActions.add(pan3, "3action");
+
+        gc2.gridx = 1;
+        gc2.gridy = 0;
+        panelAc.add(pActions,gc2);
+        
         
         //Bouton Passer
         btnPasser = new JButton("Passer tour");
@@ -328,55 +330,84 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-        gc2.gridx = 0;
-        gc2.gridy = 2;
-        panelAc.add(btnPasser, "passerTour");
+        gc2.gridx = 2;
+        gc2.gridy = 0;
+        panelAc.add(btnPasser, gc2);
 
         layNbAc.show(pActions, "1action");
-
-        panelAc.add(pActions);
+        
         panelAutresActions.add(panelAc, gc2);
-        panelMilieu.add(panelAutresActions);
+        panelMilieu.add(panelAutresActions, BorderLayout.CENTER);
         
         //****************************************************
         
         //Panel pour la jauge d'eau et les trésors
-        panelBasFenetre = new JPanel();
-        panelBas = new JPanel(new GridLayout(2, 1));
+        panelBas = new JPanel(new BorderLayout());
 
         //Jauge d'eau
         JLabel imageJauge = new JLabel( new ImageIcon("DossierImage/imgAutre/Niveau.png"));
-        panelBas.add(imageJauge);
+        panelBas.add(imageJauge, BorderLayout.NORTH);
         
-        //Grid layout pour les trésors
-        GridLayout tresor = new GridLayout(1, 4);
-        tresor.setHgap(15);
-        tresor.setVgap(15);
+//        //Grid layout pour les trésors
+//        GridLayout gridTresor = new GridLayout(1, 4);
+//        gridTresor.setHgap(15);
+//        gridTresor.setVgap(15);
+
 
         //Panel pour les trésors
-        panelTresor = new JPanel(tresor);
+        panelTresor = new JPanel(new GridBagLayout());
+        
+//        //Bouton Deplacer
+//        btnDeplacer = new JButton("Se déplacer");
+//        btnDeplacer.setPreferredSize(d);
+//        btnDeplacer.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Message m = new Message();
+//                m.type = TypesMessages.SE_DEPLACER;
+//                notifierObservateur(m);
+//            }
+//        });
+//        gc.gridx = 0;
+//        gc.gridy = 0;
+//        panelActions.add(btnDeplacer, gc);
+        
+        //Paramètre du  3e GridBagLayout
+        GridBagConstraints gc3 = new GridBagConstraints();
+        gc3.insets = new Insets(10, 15,10, 15);
+        gc.weightx = 1;
+        gc.weighty = 4;
+        
 
         //Mise en place des trésors
-        caliceAbsent.setPreferredSize(new Dimension(100, 100));
-        cristalAbsent.setPreferredSize(new Dimension(100, 100));
-        pierreAbsent.setPreferredSize(new Dimension(100, 100));
-        statueAbsent.setPreferredSize(new Dimension(100, 100));
+        caliceAbsent.setPreferredSize(new Dimension(80, 80));
+        cristalAbsent.setPreferredSize(new Dimension(80, 80));
+        pierreAbsent.setPreferredSize(new Dimension(80, 80));
+        statueAbsent.setPreferredSize(new Dimension(80, 80));
 
-        panelTresor.add(caliceAbsent);
-        panelTresor.add(cristalAbsent);
-        panelTresor.add(pierreAbsent);
-        panelTresor.add(statueAbsent);
+    
+        
+        gc.gridx = 0;
+        gc.gridy = 0;
+        panelTresor.add(caliceAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 1;
+        panelTresor.add(cristalAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 2;
+        panelTresor.add(pierreAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 3;
+        panelTresor.add(statueAbsent,gc3);
 
         //Ajout des trésors
-        panelBas.add(panelTresor);
-        panelBasFenetre.add(panelBas);
-        //panelBasFenetre.add(panelTresor);
+        panelBas.add(panelTresor, BorderLayout.CENTER);
         
 
         //Ajout des différentes parties au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
         mainPanel.add(panelMilieu, BorderLayout.CENTER);
-        mainPanel.add(panelBasFenetre, BorderLayout.SOUTH);
+        mainPanel.add(panelBas, BorderLayout.SOUTH);
 
         //Ajout de mainPanel à la fenre + etat
         window.add(mainPanel);
@@ -438,5 +469,7 @@ public class FenetreInfo extends Observe {
             layNbAc.show(panelAc, "1action");
         }
     }
+
+    
     
 }
