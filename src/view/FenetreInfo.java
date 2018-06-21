@@ -17,7 +17,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,8 +123,8 @@ public class FenetreInfo extends Observe {
 
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
-        textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action \n  parmis celle-ci dessous:");
-        f = new Font("Ile int", Font.PLAIN, 30);
+        textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+        f = new Font("Ile int", Font.PLAIN, 20);
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
@@ -492,6 +491,10 @@ public class FenetreInfo extends Observe {
     public void cliquableDeplacementAutre(boolean bool) {
         btnDepAutresJoueurs.setEnabled(bool);
     }
+    
+    public void cliquableAnnuler(boolean bool){
+        btnAnnuler.setEnabled(bool);
+    }
 
     public void modifierLabelJoueur(Joueur joueur) {
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
@@ -518,6 +521,12 @@ public class FenetreInfo extends Observe {
         this.labelRole = labelRole;
     }
 
+    public void setTextInfoJeu(String nouveauTexte) {
+        textInfoJeu.setText(nouveauTexte);
+    }
+    
+    
+
     public void affichageAction(int nbAction) {
         if (nbAction == 1) {
             layNbAc.show(panelAc, "1action");
@@ -539,4 +548,6 @@ public class FenetreInfo extends Observe {
             layTresor4.show(panelTresor4, "tresor4Present");
         }
     }
+    
+    
 }

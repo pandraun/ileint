@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 import util.EmplacementCarte;
 import util.Message;
 import util.TypeTresor;
@@ -580,20 +581,31 @@ public class Controleur implements Observateur {
             case SE_DEPLACER: //le joueur clique sur se deplacer
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
                 messageSauv = m;
+                fenetreInfo.setTextInfoJeu("\n  "+joueurCourant.getNomJoueur()+" cliquez maintenant sur \n\n  la case où vous voulez vous déplacer !");
+                fenetreInfo.cliquableAssechement(false);
+                fenetreInfo.cliquableDeplacementAutre(false);
+                fenetreInfo.cliquableDeplacer(false);
+                fenetreInfo.cliquableDonner(false);
+                fenetreInfo.cliquableHelico(false);
+                fenetreInfo.cliquablePasser(false);
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
                 messageSauv = m;
+                fenetreInfo.setTextInfoJeu("\n  "+joueurCourant.getNomJoueur()+" cliquez maintenant sur \n\n  la case que vous voulez assécher !");
+
                 break;
 
             case CHOIX_TUILE:
                 if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     nombreAction--;
+                    fenetreInfo.setTextInfoJeu("\n  A vous de jouer" +joueurCourant.getNomJoueur()+ " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                 } else if (messageSauv.type.equals(TypesMessages.ASSECHER)) {
                     effectuerAssechement(m.tuileSelectionne);
                     nombreAction--;
+                    fenetreInfo.setTextInfoJeu("\n  A vous de jouer" +joueurCourant.getNomJoueur()+ " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                 } else if (messageSauv.type.equals(TypesMessages.CHOIX_CARTE)) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -601,11 +613,15 @@ public class Controleur implements Observateur {
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
+                    fenetreInfo.setTextInfoJeu("\n  A vous de jouer" +joueurCourant.getNomJoueur()+ " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)){
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+                    fenetreInfo.setTextInfoJeu("\n  A vous de jouer" +joueurCourant.getNomJoueur()+ " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                 }
+                
                 if (nombreAction == 0) {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
+                    fenetreInfo.setTextInfoJeu("\n  Début du tour de pioche " + joueurCourant.getNomJoueur() );
                 }
                 break;
 
