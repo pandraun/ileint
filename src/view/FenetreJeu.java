@@ -50,7 +50,10 @@ public class FenetreJeu extends Observe{
     private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
     
     private JButton piocheOrange;
-    private JButton btndefausseOrange;
+    private JButton btnDefausseOrange;
+    private JButton btnPiocheOrange;
+    private JButton btnPiocheInondation;
+    private JButton btnDefausseInondation;
     private JPanel carteJ1;
     private JPanel carteJ2;
     private JPanel carteJ3;
@@ -58,7 +61,7 @@ public class FenetreJeu extends Observe{
     
     GridBagConstraints c = new GridBagConstraints();
     
-    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> defausseOrange, Stack<CarteInondation> defausseInondation) throws MalformedURLException{
+    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException{
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -120,14 +123,14 @@ public class FenetreJeu extends Observe{
         int hauteur = 110;
         int largeur = 140;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
-        JButton btnpiocheOrange = new JButton(new ImageIcon(im));
-        btnpiocheOrange.setContentAreaFilled(false);
+        btnPiocheOrange = new JButton(new ImageIcon(im));
+        btnPiocheOrange.setContentAreaFilled(false);
         //piocheOrange.setSize(new Dimension(100,70));
-        btndefausseOrange = new JButton();
-        btndefausseOrange.setContentAreaFilled(false);
+        btnDefausseOrange = new JButton();
+        btnDefausseOrange.setContentAreaFilled(false);
         //defausseOrange.setSize(new Dimension(100,70));
-        panelOrange.add(btnpiocheOrange);
-        panelOrange.add(btndefausseOrange);
+        panelOrange.add(btnPiocheOrange);
+        panelOrange.add(btnDefausseOrange);
         panelOrange.setPreferredSize(new Dimension(140,140));
         
         c.weighty = 20;
@@ -138,26 +141,22 @@ public class FenetreJeu extends Observe{
         c.gridy = 2;
         window.add(panelOrange,c);
         
-       /*if (defausseOrange.firstElement().getTypeTresor()!=null){
-            System.out.println(defausseOrange.peek().getTypeTresor());
-       }else{
-           System.out.println(defausseOrange.peek().getTypeClasse());
-       }    
-        
         //Action de pioche Orange
-        btnpiocheOrange.addActionListener(new ActionListener() {
+        btnPiocheOrange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
                 m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
                 notifierObservateur(m);
-                if (defausseOrange.firstElement().getTypeTresor()!=null){
-                    btndefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseOrange.firstElement().getTypeTresor()+".png"));
+                if (piocheOrange.firstElement().getTypeTresor()!=null){
+                    System.out.println("/"+piocheOrange.firstElement().getTypeTresor()+"/");
+                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.firstElement().getTypeTresor()+".png"));
                 }else{
-                    btndefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseOrange.firstElement().getTypeClasse()+".png"));
+                    System.out.println(piocheOrange.firstElement().getTypeClasse());
+                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.firstElement().getTypeClasse()+".png"));
                 }
             }
-        });*/
+        });
         
         
         JPanel panelInondation = new JPanel(new GridLayout(2,1,4,4));
@@ -166,14 +165,14 @@ public class FenetreJeu extends Observe{
         hauteur = 110;
         largeur = 140;
         im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
-        JButton piocheInondation = new JButton(new ImageIcon(im));
-        piocheInondation.setContentAreaFilled(false);
+        btnPiocheInondation = new JButton(new ImageIcon(im));
+        btnPiocheInondation.setContentAreaFilled(false);
         //piocheInondation.setSize(new Dimension(100,70));
-        JButton btndefausseInondation = new JButton();
-        btndefausseInondation.setContentAreaFilled(false);
+        btnDefausseInondation = new JButton();
+        btnDefausseInondation.setContentAreaFilled(false);
         //defausseInondation.setSize(new Dimension(100,70));
-        panelInondation.add(piocheInondation);
-        panelInondation.add(btndefausseInondation);
+        panelInondation.add(btnPiocheInondation);
+        panelInondation.add(btnDefausseInondation);
         panelInondation.setPreferredSize(new Dimension(140,140));
         
         c.weighty = 20;
@@ -185,7 +184,17 @@ public class FenetreJeu extends Observe{
         window.add(panelInondation,c);
         
         
-        
+        /*//Action de pioche Inondation
+        btnPiocheInondation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
+                notifierObservateur(m);                                                 //.peek()
+                btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseInondation.firstElement().getTuile().getNom()+".png"));
+
+            }
+        });*/
         
         
         
