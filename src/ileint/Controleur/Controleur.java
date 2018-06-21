@@ -593,6 +593,8 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableDonner(false);
                 fenetreInfo.cliquableHelico(false);
                 fenetreInfo.cliquablePasser(false);
+                fenetreInfo.cliquableAnnuler(false);
+                fenetreInfo.cliquableTresor(false);
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
