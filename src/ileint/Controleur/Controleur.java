@@ -420,6 +420,11 @@ public class Controleur implements Observateur {
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
             piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+            if (piocheOrange.peek().getTypeTresor()!=null){
+                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name());
+            }else{
+                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse());
+            }
         }
         piocheOrange.pop();
     }
@@ -682,7 +687,7 @@ public class Controleur implements Observateur {
             case PIOCHER_CARTE_ORANGE:
                 piocherCarteOrange();
                 nbCartePiocher++;
-                if (nbCartePiocher <= 2) {
+                if (nbCartePiocher >= 2) {
                     inondation();
                 }
                 break;
