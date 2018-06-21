@@ -629,6 +629,8 @@ public class Controleur implements Observateur {
                         messageSauv = m;
                         messageSauv.type = TypesMessages.UTILISER_CARTE;
                     }
+                } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
+                    defausserCarte(joueurCourant, m.carteSelectionne);
                 }
                 break;
 
@@ -707,7 +709,9 @@ public class Controleur implements Observateur {
     public void transitionTour() {
         joueurSuivant();
         if (isTropDeCartes()) {
-            //messageSauv
+            Message m = new Message();
+            m.type = TypesMessages.TROP_CARTE;
+            messageSauv = m;
         }
     }
 }
