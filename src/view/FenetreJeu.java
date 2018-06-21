@@ -395,6 +395,15 @@ public class FenetreJeu extends Observe{
         
     }
     
+    
+    public void ajouterCarteMainJoueur(String nomCarteOrange){
+        
+    }
+    
+    public void retirerCarteMainJoueur(String nomCarteOrange){
+        
+    }
+    
 }
 
 
