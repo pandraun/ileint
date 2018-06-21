@@ -535,9 +535,9 @@ public class Controleur implements Observateur {
                 joueurCourant = joueurs.get(0);
 
                 try {
-                    fenetreJeu = new FenetreJeu(joueurs, piocheOrange, piocheInondation);
+                    fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
-                    fenetreJeu.PlacerTuiles(tuiles);
+                    fenetreJeu.placerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }

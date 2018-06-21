@@ -150,10 +150,10 @@ public class FenetreJeu extends Observe{
                 notifierObservateur(m);
                 if (piocheOrange.firstElement().getTypeTresor()!=null){
                     System.out.println("/"+piocheOrange.firstElement().getTypeTresor()+"/");
-                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.firstElement().getTypeTresor()+".png"));
+                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.peek().getTypeTresor()+".png"));
                 }else{
                     System.out.println(piocheOrange.firstElement().getTypeClasse());
-                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.firstElement().getTypeClasse()+".png"));
+                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.peek().getTypeClasse()+".png"));
                 }
             }
         });
@@ -194,26 +194,7 @@ public class FenetreJeu extends Observe{
                 btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseInondation.firstElement().getTuile().getNom()+".png"));
 
             }
-        });*/
-        
-        
-        
-        
-        /*JPanel tresor = new JPanel(new GridLayout(2,2));
-        caliceAbsent.setPreferredSize(new Dimension(40,100));
-        tresor.add(caliceAbsent);
-        cristalAbsent.setPreferredSize(new Dimension(40,100));
-        tresor.add(cristalAbsent);
-        pierreAbsent.setPreferredSize(new Dimension(40,100));
-        tresor.add(pierreAbsent);
-        statueAbsent.setPreferredSize(new Dimension(40,100));
-        tresor.add(statueAbsent);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridheight = 2;
-        c.gridx = 0;
-        c.gridy = 2;
-        window.add(tresor,c);*/
-        
+        });*/      
         
         //======================================//
 
@@ -272,7 +253,36 @@ public class FenetreJeu extends Observe{
         c.gridy = 1;
         window.add(grille,c);
         
+        carteJ1 = new JPanel(new GridLayout(2,6));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 0;
+        grille.add(carteJ1,c);
+        carteJ2 = new JPanel(new GridLayout(2,6));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 4;
+        c.gridy = 0;
+        grille.add(carteJ2,c);
+        carteJ3 = new JPanel(new GridLayout(2,6));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 4;
+        c.gridy = 5;
+        grille.add(carteJ3,c);
+        carteJ4 = new JPanel(new GridLayout(2,6));
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 5;
+        grille.add(carteJ4,c);
         
+        placerMainJoueur(joueurs);  
         
         window.pack();
         window.setSize(1080, 806);
@@ -284,7 +294,7 @@ public class FenetreJeu extends Observe{
         piocheOrange.setEnabled(boo);
     }
     
-    public void PlacerTuiles(HashMap<Coordonnee, ileint.Tuile.Tuile> tuiles){
+    public void placerTuiles(HashMap<Coordonnee, ileint.Tuile.Tuile> tuiles){
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getX();
@@ -306,19 +316,39 @@ public class FenetreJeu extends Observe{
         }
     }
     
-    public void PlacerMainJoueur(ArrayList<Joueur> joueurs){
+    public void placerMainJoueur(ArrayList<Joueur> joueurs){
         for(Joueur unJoueur : joueurs){
             for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
                 if (uneCarte.getTypeTresor()!=null){
                     JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeTresor()+".png"));
-                    carteJoueur.setPreferredSize(new Dimension());
-                    carteJ1.add(carteJoueur,c);
+                    //carteJoueur.setMaximumSize(new Dimension(35,64));
+                    //carteJoueur.setMinimumSize(new Dimension(35,64));
+                    //carteJoueur.setPreferredSize(new Dimension(35,64));
+                    //carteJoueur.setSize(new Dimension(35,64));
+                    System.out.println(uneCarte.getTypeTresor());
+                    //carteJoueur.setPreferredSize(new Dimension());
+                    carteJ1.add(carteJoueur);
                 }else{
+                    System.out.println(uneCarte.getTypeClasse());
                     JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeClasse()+".png"));
-                    carteJ1.add(carteJoueur,c);
+                    //carteJoueur.setMaximumSize(new Dimension(35,64));
+                    //carteJoueur.setMinimumSize(new Dimension(35,64));
+                    //carteJoueur.setPreferredSize(new Dimension(35,64));
+                    //carteJoueur.setSize(new Dimension(35,64));
+                    carteJ1.add(carteJoueur);
                 }
             }
         }
+    }
+    
+    
+    
+    public void piocherCarteOrange(String nomCarteOrange){
+        
+    }
+    
+    public void piocherCarteInondation(String nomCarteInodation){
+        
     }
     
 }
