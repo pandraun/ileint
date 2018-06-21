@@ -327,7 +327,20 @@ public class FenetreJeu extends Observe{
                     //carteJoueur.setSize(new Dimension(35,64));
                     System.out.println(uneCarte.getTypeTresor());
                     //carteJoueur.setPreferredSize(new Dimension());
-                    carteJ1.add(carteJoueur);
+                    switch (unJoueur.getNumeroJoueur()) {
+                        case 0:
+                            carteJ1.add(carteJoueur);
+                            break;
+                        case 1:
+                            carteJ2.add(carteJoueur);
+                            break;
+                        case 2:
+                            carteJ3.add(carteJoueur);
+                            break;
+                        default:
+                            carteJ4.add(carteJoueur);
+                            break;
+                    }
                 }else{
                     System.out.println(uneCarte.getTypeClasse());
                     JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartes/"+uneCarte.getTypeClasse()+".png"));
@@ -335,7 +348,38 @@ public class FenetreJeu extends Observe{
                     //carteJoueur.setMinimumSize(new Dimension(35,64));
                     //carteJoueur.setPreferredSize(new Dimension(35,64));
                     //carteJoueur.setSize(new Dimension(35,64));
-                    carteJ1.add(carteJoueur);
+                    switch (unJoueur.getNumeroJoueur()) {
+                        case 0:
+                            carteJ1.add(carteJoueur);
+                            break;
+                        case 1:
+                            carteJ2.add(carteJoueur);
+                            break;
+                        case 2:
+                            carteJ3.add(carteJoueur);
+                            break;
+                        default:
+                            carteJ4.add(carteJoueur);
+                            break;
+                    }
+                }
+            }
+            if(unJoueur.getMainJoueur().size()<8){
+                for(int i = 0; i<8-unJoueur.getMainJoueur().size(); i++){
+                    switch (unJoueur.getNumeroJoueur()) {
+                        case 0:
+                            carteJ1.add(new JLabel(""));
+                            break;
+                        case 1:
+                            carteJ2.add(new JLabel(""));
+                            break;
+                        case 2:
+                            carteJ3.add(new JLabel(""));
+                            break;
+                        default:
+                            carteJ4.add(new JLabel(""));
+                            break;
+                    }
                 }
             }
         }
