@@ -100,5 +100,9 @@ public class FenetreConfirmationQuitter extends Observe {
     public void visible(boolean bool) {
         window.setVisible(bool);
     }
+    
+    public void quitterFenetre(){
+        window.dispose();
+    }
 
 }

@@ -276,9 +276,15 @@ public class Controleur implements Observateur {
 
         for (Joueur unJoueur : joueurs) {
             for (int i = 0; i < 2; i++) {
-                unJoueur.addCarteMainJoueur(piocheOrange.get(0));
-                piocheOrange.get(0).setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
-                piocheOrange.remove(piocheOrange.get(0));
+                if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
+                   defausseOrange.push(piocheOrange.pop());
+                   i--;
+                   System.out.println("carte montée des eaux dodge"); //test
+                } else {
+                    unJoueur.addCarteMainJoueur(piocheOrange.peek());
+                    piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
+                    piocheOrange.pop();
+                }
             }
         }
         joueurCourant = joueurs.get(0);
@@ -684,7 +690,16 @@ public class Controleur implements Observateur {
                 break;
                 
             case NON_RESTER:
-//            
+                fenetreConfirmationQuitter.quitterFenetre();
+                break;
+                
+            case TROP_CARTE: 
+                fenetreInfo.cliquableAssechement(false);
+                fenetreInfo.cliquableDeplacer(false);
+                fenetreInfo.cliquableDonner(false);
+                fenetreInfo.cliquablePasser(false);
+                fenetreInfo.cliquableTresor(false);
+                fenetreInfo.cliquableUtiliser(false);
         }
     }
 

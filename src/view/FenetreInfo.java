@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import util.Message;
+import util.TypeTresor;
 import util.TypesMessages;
 
 public class FenetreInfo extends Observe {
@@ -90,6 +91,15 @@ public class FenetreInfo extends Observe {
     private Dimension d;
     private CardLayout layNbAc;
     private JPanel pActions;
+    private GridBagConstraints gc3;
+    private CardLayout layTresor1;
+    private JPanel panelTresor1;
+    private CardLayout layTresor2;
+    private JPanel panelTresor2;
+    private CardLayout layTresor3;
+    private JPanel panelTresor3;
+    private CardLayout layTresor4;
+    private JPanel panelTresor4;
 
     public FenetreInfo() throws MalformedURLException {
 
@@ -373,10 +383,10 @@ public class FenetreInfo extends Observe {
 //        panelActions.add(btnDeplacer, gc);
         
         //Paramètre du  3e GridBagLayout
-        GridBagConstraints gc3 = new GridBagConstraints();
+        gc3 = new GridBagConstraints();
         gc3.insets = new Insets(10, 15,10, 15);
-        gc.weightx = 1;
-        gc.weighty = 4;
+        gc3.weightx = 1;
+        gc3.weighty = 4;
         
 
         //Mise en place des trésors
@@ -385,23 +395,72 @@ public class FenetreInfo extends Observe {
         pierreAbsent.setPreferredSize(new Dimension(80, 80));
         statueAbsent.setPreferredSize(new Dimension(80, 80));
 
-    
+        calicePresent.setPreferredSize(new Dimension(80, 80));
+        cristalPresent.setPreferredSize(new Dimension(80, 80));
+        pierrePresent.setPreferredSize(new Dimension(80, 80));
+        statuePresent.setPreferredSize(new Dimension(80, 80));
         
+        JPanel pp1,pp2;
+        
+        layTresor1 = new CardLayout();
+        panelTresor1 = new JPanel(layTresor1);
+        pp1 = new JPanel();
+        pp1.add(caliceAbsent);
+        panelTresor1.add(pp1, "tresor1Absent");
+        pp2 = new JPanel();
+        pp2.add(calicePresent);
+        panelTresor1.add(pp2, "tresor1Present");
+        
+        layTresor2 = new CardLayout();
+        panelTresor2 = new JPanel(layTresor2);
+        pp1 = new JPanel();
+        pp1.add(cristalAbsent);
+        panelTresor2.add(pp1, "tresor2Absent");
+        pp2 = new JPanel();
+        pp2.add(cristalPresent);
+        panelTresor2.add(pp2, "tresor2Present");
+        
+        layTresor3 = new CardLayout();
+        panelTresor3 = new JPanel(layTresor3);
+        pp1 = new JPanel();
+        pp1.add(pierreAbsent);
+        panelTresor3.add(pp1, "tresor3Absent");
+        pp2 = new JPanel();
+        pp2.add(pierrePresent);
+        panelTresor3.add(pp2, "tresor3Present");
+        
+        layTresor4 = new CardLayout();
+        panelTresor4 = new JPanel(layTresor4);
+        pp1 = new JPanel();
+        pp1.add(statueAbsent);
+        panelTresor4.add(pp1, "tresor4Absent");
+        pp2 = new JPanel();
+        pp2.add(statuePresent);
+        panelTresor4.add(pp2, "tresor4Present");
+
         gc.gridx = 0;
         gc.gridy = 0;
-        panelTresor.add(caliceAbsent,gc3);
+        panelTresor.add(panelTresor1,gc3);
         gc.gridx = 0;
         gc.gridy = 1;
-        panelTresor.add(cristalAbsent,gc3);
+        panelTresor.add(panelTresor2,gc3);
         gc.gridx = 0;
         gc.gridy = 2;
-        panelTresor.add(pierreAbsent,gc3);
+        panelTresor.add(panelTresor3,gc3);
         gc.gridx = 0;
         gc.gridy = 3;
-        panelTresor.add(statueAbsent,gc3);
+        panelTresor.add(panelTresor4,gc3);
 
+        layTresor1.show(panelTresor1, "tresor1Absent");
+        layTresor2.show(panelTresor2, "tresor2Absent");
+        layTresor3.show(panelTresor3, "tresor3Absent");
+        layTresor4.show(panelTresor4, "tresor4Absent");
+        
         //Ajout des trésors
-        panelBas.add(panelTresor, BorderLayout.CENTER);
+        panelBas.add(panelTresor, BorderLayout.SOUTH);
+        
+        //TEST//
+        changerImageTresor(TypeTresor.STATUE);
         
 
         //Ajout des différentes parties au main panel
@@ -438,6 +497,14 @@ public class FenetreInfo extends Observe {
     public void cliquableTresor(boolean boo) {
         btnTresor.setEnabled(boo);
     }
+    
+    public void cliquableHelico(boolean bool) {
+        btnHelico.setEnabled(bool);
+    }
+    
+    public void cliquableDeplacementAutre(boolean bool)  {
+        btnDepAutresJoueurs.setEnabled(bool);
+    }
 
     public void modifierLabelJoueur(Joueur joueur) {
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
@@ -467,9 +534,24 @@ public class FenetreInfo extends Observe {
     public void affichageAction(int nbAction){
         if(nbAction == 1){
             layNbAc.show(panelAc, "1action");
+        }else if (nbAction == 2){
+            layNbAc.show(panelAc, "2action");
+        }else{
+            layNbAc.show(panelAc, "3action");
         }
     }
 
+    public void changerImageTresor(TypeTresor type){
+        if (type.equals(TypeTresor.CALICE)) {
+            layTresor1.show(panelTresor1, "tresor1Present");
+        } else if (type.equals(TypeTresor.CRISTAL)) {
+            layTresor2.show(panelTresor2, "tresor2Present");
+        } else if (type.equals(TypeTresor.PIERRE)) {
+            layTresor3.show(panelTresor3, "tresor3Present");
+        } else if (type.equals(TypeTresor.STATUE)) {
+           layTresor4.show(panelTresor4, "tresor4Present"); 
+        }
+    }
     
     
 }
