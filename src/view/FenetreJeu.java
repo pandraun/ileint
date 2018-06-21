@@ -333,12 +333,10 @@ public class FenetreJeu extends Observe{
             for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
                 ajouterCarteMainJoueur();
                 if (uneCarte.getTypeTresor()!=null){
-                    JPanel carte = new JPanel();
                     ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
                     Image im = Carte.getImage();
                     im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
                     JButton carteJoueur = new JButton(new ImageIcon(im));
-                    carte.add(carteJoueur);
                     carteJoueur.setMinimumSize(new Dimension(24, 14));
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
                     carteJoueur.setPreferredSize(new Dimension(24, 14));
@@ -347,6 +345,7 @@ public class FenetreJeu extends Observe{
                     //carteJoueur.setPreferredSize(new Dimension());
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
+                            nbCarteJ1 +=1;
                             nbCaseCarteJ1 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -361,6 +360,7 @@ public class FenetreJeu extends Observe{
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
+                            nbCarteJ2 +=1;
                             nbCaseCarteJ2 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -375,6 +375,7 @@ public class FenetreJeu extends Observe{
                             carteJ2.add(carteJoueur,c);
                             break;
                         case 2:
+                            nbCarteJ3 +=1;
                             nbCaseCarteJ3 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -389,6 +390,7 @@ public class FenetreJeu extends Observe{
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
+                            nbCarteJ4 +=1;
                             nbCaseCarteJ4 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -405,18 +407,17 @@ public class FenetreJeu extends Observe{
                     }
                 }else{
                     System.out.println(uneCarte.getTypeClasse());
-                    JPanel carte = new JPanel();
                     ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
                     Image im = Carte.getImage();
                     im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
                     JButton carteJoueur = new JButton(new ImageIcon(im));
-                    carte.add(carteJoueur);
                     carteJoueur.setMinimumSize(new Dimension(24, 14));
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
                     carteJoueur.setPreferredSize(new Dimension(24, 14));
                     //carteJoueur.setSize(new Dimension(35,64));
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
+                            nbCarteJ1 +=1;
                             nbCaseCarteJ1 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -431,6 +432,7 @@ public class FenetreJeu extends Observe{
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
+                            nbCarteJ2 +=1;
                             nbCaseCarteJ2 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -445,6 +447,7 @@ public class FenetreJeu extends Observe{
                             carteJ2.add(carteJoueur,c);
                             break;
                         case 2:
+                            nbCarteJ3 +=1;
                             nbCaseCarteJ3 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -459,6 +462,7 @@ public class FenetreJeu extends Observe{
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
+                            nbCarteJ4 +=1;
                             nbCaseCarteJ4 += 1;
                             //c.fill = GridBagConstraints.BOTH;
                             c.gridheight = 1;
@@ -543,11 +547,11 @@ public class FenetreJeu extends Observe{
     
     public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
         if (numeroJoueur==0){
-            JPanel carte = new JPanel();
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
             JButton carteJoueur = new JButton(new ImageIcon(im));
+            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ1);
             nbCarteJ1 += 1;
             c.gridheight = 1;
             c.gridwidth = 1;
@@ -555,7 +559,7 @@ public class FenetreJeu extends Observe{
                 c.gridx = nbCarteJ1;
                 c.gridy = 0;
             }else{
-                c.gridx = nbCarteJ1;
+                c.gridx = nbCarteJ1%4;
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
@@ -564,6 +568,7 @@ public class FenetreJeu extends Observe{
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
             JButton carteJoueur = new JButton(new ImageIcon(im));
+            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ2);
             nbCarteJ2 += 1;
             c.gridheight = 1;
             c.gridwidth = 1;
@@ -571,7 +576,7 @@ public class FenetreJeu extends Observe{
                 c.gridx = nbCarteJ2;
                 c.gridy = 0;
             }else{
-                c.gridx = nbCarteJ2;
+                c.gridx = nbCarteJ2%4;
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
@@ -580,6 +585,7 @@ public class FenetreJeu extends Observe{
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
             JButton carteJoueur = new JButton(new ImageIcon(im));
+            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ3);
             nbCarteJ3 += 1;
             c.gridheight = 1;
             c.gridwidth = 1;
@@ -587,7 +593,7 @@ public class FenetreJeu extends Observe{
                 c.gridx = nbCarteJ3;
                 c.gridy = 0;
             }else{
-                c.gridx = nbCarteJ3;
+                c.gridx = nbCarteJ3%4;
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
@@ -596,6 +602,7 @@ public class FenetreJeu extends Observe{
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
             JButton carteJoueur = new JButton(new ImageIcon(im));
+            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ4);
             nbCarteJ4 += 1;
             c.gridheight = 1;
             c.gridwidth = 1;
@@ -603,7 +610,7 @@ public class FenetreJeu extends Observe{
                 c.gridx = nbCarteJ4;
                 c.gridy = 0;
             }else{
-                c.gridx = nbCarteJ4;
+                c.gridx = nbCarteJ4%4;
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
