@@ -311,9 +311,10 @@ public class FenetreJeu extends Observe{
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getX();
                 int y = uneTuile.getCoordonnee().getY();
-                JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));
+                /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
+                VueTuile tuile = new VueTuile(uneTuile);
                 tuile.setPreferredSize(new Dimension(120,120));
-                tuile.setContentAreaFilled(false);
+                //tuile.setContentAreaFilled(false);                
                 c.fill = GridBagConstraints.BOTH;
                 c.weightx = 1;
                 c.weighty = 1;
