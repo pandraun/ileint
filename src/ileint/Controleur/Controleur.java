@@ -708,7 +708,7 @@ public class Controleur implements Observateur {
         }
     }
     
-    public void verifVictoire(Grille g) {
+    public void verifVictoire() {
         if (tresorsRecuperables.isEmpty()) {
             for (Tuile uneTuile : tuiles.values()) {
                 if (uneTuile.getNom().toString().equals("Héliport")) {
