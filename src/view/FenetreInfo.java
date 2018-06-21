@@ -50,14 +50,14 @@ public class FenetreInfo extends Observe {
     private final JPanel panelAc;
 
     //Les boutons pour l'apparence des trésors
-    private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
-    private final JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
-    private final JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
-    private final JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
-    private final JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
-    private final JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
-    private final JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
-    private final JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
+    private final JLabel caliceAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
+    private final JLabel calicePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
+    private final JLabel cristalAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
+    private final JLabel cristalPresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
+    private final JLabel pierreAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
+    private final JLabel pierrePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
+    private final JLabel statueAbsent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
+    private final JLabel statuePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
     //Les boutons pour les différentes actions possibles
     private JButton btnDeplacer;
@@ -112,6 +112,7 @@ public class FenetreInfo extends Observe {
         reglesPanel.add(btnAides, BorderLayout.WEST);
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
+        
         
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
@@ -347,24 +348,57 @@ public class FenetreInfo extends Observe {
         JLabel imageJauge = new JLabel( new ImageIcon("DossierImage/imgAutre/Niveau.png"));
         panelBas.add(imageJauge, BorderLayout.NORTH);
         
-        //Grid layout pour les trésors
-        GridLayout gridTresor = new GridLayout(1, 4);
-        gridTresor.setHgap(15);
-        gridTresor.setVgap(15);
+//        //Grid layout pour les trésors
+//        GridLayout gridTresor = new GridLayout(1, 4);
+//        gridTresor.setHgap(15);
+//        gridTresor.setVgap(15);
+
 
         //Panel pour les trésors
-        panelTresor = new JPanel(gridTresor);
+        panelTresor = new JPanel(new GridBagLayout());
+        
+//        //Bouton Deplacer
+//        btnDeplacer = new JButton("Se déplacer");
+//        btnDeplacer.setPreferredSize(d);
+//        btnDeplacer.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Message m = new Message();
+//                m.type = TypesMessages.SE_DEPLACER;
+//                notifierObservateur(m);
+//            }
+//        });
+//        gc.gridx = 0;
+//        gc.gridy = 0;
+//        panelActions.add(btnDeplacer, gc);
+        
+        //Paramètre du  3e GridBagLayout
+        GridBagConstraints gc3 = new GridBagConstraints();
+        gc3.insets = new Insets(10, 15,10, 15);
+        gc.weightx = 1;
+        gc.weighty = 4;
+        
 
         //Mise en place des trésors
-        caliceAbsent.setPreferredSize(new Dimension(100, 100));
-        cristalAbsent.setPreferredSize(new Dimension(100, 100));
-        pierreAbsent.setPreferredSize(new Dimension(100, 100));
-        statueAbsent.setPreferredSize(new Dimension(100, 100));
+        caliceAbsent.setPreferredSize(new Dimension(80, 80));
+        cristalAbsent.setPreferredSize(new Dimension(80, 80));
+        pierreAbsent.setPreferredSize(new Dimension(80, 80));
+        statueAbsent.setPreferredSize(new Dimension(80, 80));
 
-        panelTresor.add(caliceAbsent);
-        panelTresor.add(cristalAbsent);
-        panelTresor.add(pierreAbsent);
-        panelTresor.add(statueAbsent);
+    
+        
+        gc.gridx = 0;
+        gc.gridy = 0;
+        panelTresor.add(caliceAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 1;
+        panelTresor.add(cristalAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 2;
+        panelTresor.add(pierreAbsent,gc3);
+        gc.gridx = 0;
+        gc.gridy = 3;
+        panelTresor.add(statueAbsent,gc3);
 
         //Ajout des trésors
         panelBas.add(panelTresor, BorderLayout.CENTER);
@@ -435,5 +469,7 @@ public class FenetreInfo extends Observe {
             layNbAc.show(panelAc, "1action");
         }
     }
+
+    
     
 }

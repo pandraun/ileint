@@ -82,7 +82,7 @@ public class FenetreConfirmationQuitter extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                m.type = TypesMessages.NON_QUITTER;
+                m.type = TypesMessages.NON_RESTER;
                 notifierObservateur(m);
             }
         });

@@ -31,7 +31,9 @@ import util.Message;
 import util.TypeTresor;
 import util.TypesMessages;
 import util.Utils;
+import view.FenetreConfirmationQuitter;
 import view.FenetreDebut;
+import view.FenetreFin;
 import view.FenetreInfo;
 import view.FenetreJeu;
 import view.FenetreJoueur;
@@ -66,6 +68,8 @@ public class Controleur implements Observateur {
     private FenetreJeu fenetreJeu;
     private FenetreInfo fenetreInfo;
     private FenetreJoueur fenetreJoueur;
+    private FenetreConfirmationQuitter fenetreConfirmationQuitter;
+    private FenetreFin fenetreFin;
 
     public Controleur() {
         try {
@@ -669,6 +673,18 @@ public class Controleur implements Observateur {
             case DEPLACER_AUTRES_JOUEURS: //Action spéciale du navigo
                 //ihm.setSurbrillanceMachin();       Besion de sauvegarder une donnée
                 break;
+            
+            case CLIQUE_QUITTER: //quand l'utilisateur essaye de quitter
+                fenetreConfirmationQuitter = new FenetreConfirmationQuitter();
+                fenetreConfirmationQuitter.addObservateur(this);
+                break;
+                
+            case OUI_QUITTER: //Action de FenetreFin
+                System.exit(0);
+                break;
+                
+            case NON_RESTER:
+//            
         }
     }
 
