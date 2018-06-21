@@ -707,6 +707,30 @@ public class Controleur implements Observateur {
             }
         }
     }
+    
+    public void verifVictoire(Grille g) {
+        if (tresorsRecuperables.isEmpty()) {
+            for (Tuile uneTuile : tuiles.values()) {
+                if (uneTuile.getNom().toString().equals("Héliport")) {
+                    if (uneTuile.getJoueursTuile().size() == 3) {
+                        if (!toutNomAventurier.contains("Pilote")) {  
+                            // Victoire
+                        } else {
+                            for (Joueur unJoueur : joueurs) {
+                                for (CarteOrange uneCarte : unJoueur.getMainJoueur()) {
+                                    if (uneCarte.getTypeClasse().equals("Helicoptere")) {
+                                        //Victoire
+                                    }  
+                                }
+                                
+                            }
+                        }
+                }
+            }
+            
+        }
+        }
+    }
 
     public void commencerPiocheOrange() {
         fenetreJeu.piocheCliquable(true);
