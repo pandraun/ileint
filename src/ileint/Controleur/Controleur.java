@@ -512,6 +512,7 @@ public class Controleur implements Observateur {
                 } else {
                     nbJ = 4;
                 }
+                System.out.println(m.difficulté);
                 initGrille(nbJ);
                 fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
@@ -618,14 +619,16 @@ public class Controleur implements Observateur {
                 //mise en surbrillance des cartes spé                
                 break;
             case CHOIX_CARTE:
-                if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
-                } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
+                if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
+                    if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    }
                 }
                 break;
 
@@ -704,7 +707,7 @@ public class Controleur implements Observateur {
     public void transitionTour() {
         joueurSuivant();
         if (isTropDeCartes()) {
-            
+            //messageSauv
         }
     }
 }
