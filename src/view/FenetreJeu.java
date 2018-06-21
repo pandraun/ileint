@@ -306,7 +306,7 @@ public class FenetreJeu extends Observe{
         piocheOrange.setEnabled(boo);
     }
     
-    public void placerTuiles(HashMap<Coordonnee, ileint.Tuile.Tuile> tuiles){
+    public void placerTuiles(HashMap<Coordonnee,Tuile> tuiles){
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getX();
