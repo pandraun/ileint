@@ -123,8 +123,8 @@ public class FenetreInfo extends Observe {
 
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
-        textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
         f = new Font("Ile int", Font.PLAIN, 20);
+        textInfoJeu = new JTextArea();
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
@@ -145,7 +145,7 @@ public class FenetreInfo extends Observe {
         //Paramètre du GridBagLayout
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.BOTH;
-        gc.insets = new Insets(10, 15, 10, 15);
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.ipady = gc.anchor = GridBagConstraints.CENTER;
         gc.weightx = 3;
         gc.weighty = 3;
@@ -224,9 +224,7 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 2;
-        JPanel panelBtnTresor = new JPanel();
-        panelBtnTresor.add(btnUtiliserCarte);
-        panelActions.add(panelBtnTresor, gc);
+        panelActions.add(btnUtiliserCarte, gc);
 
         //Bouton spécial
         JPanel p1, p2, p3;
@@ -249,7 +247,7 @@ public class FenetreInfo extends Observe {
 
         p2 = new JPanel();
         btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
-        btnDepAutresJoueurs.setPreferredSize(new Dimension(100, 100));
+        btnDepAutresJoueurs.setPreferredSize(d);
         btnDepAutresJoueurs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -263,12 +261,13 @@ public class FenetreInfo extends Observe {
 
         p3 = new JPanel();
         pBoutons.add(p3, "rien");
-
+        
+        //gc.fill = GridBagConstraints.BOTH;
         gc.gridx = 2;
         gc.gridy = 2;
-        JPanel panSpe = new JPanel();
-        panSpe.add(pBoutons);
-        panelActions.add(panSpe, gc);
+        gc.ipadx = 0;
+        gc.ipady = 0;
+        panelActions.add(pBoutons, gc);
         panelMilieu.add(panelActions, BorderLayout.NORTH);
 
         //Paramètre du 2e GridBagLayout
@@ -286,6 +285,7 @@ public class FenetreInfo extends Observe {
 
         //Bouton Annuler
         btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setEnabled(false);
         btnAnnuler.setPreferredSize(d);
         btnAnnuler.addActionListener(new ActionListener() {
             @Override
@@ -500,9 +500,6 @@ public class FenetreInfo extends Observe {
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
     }
 
-    public void setJoueurCourant(Joueur joueurCourant) {
-        this.joueurCourant = joueurCourant;
-    }
 
     public void boutonSpeciale(String nomRole) {
         if (nomRole.equals("Navigateur")) {
@@ -549,5 +546,40 @@ public class FenetreInfo extends Observe {
         }
     }
     
+    public void cliquableDefaut(){
+        cliquableUtiliser(true);
+        cliquableAssechement(true);
+        cliquableDeplacementAutre(true);
+        cliquableDeplacer(true);
+        cliquableDonner(true);
+        cliquableHelico(true);
+        cliquablePasser(true);
+        cliquableTresor(true);
+        cliquableAnnuler(false);
+    }
+    
+    public void cliquableBloque(){
+        cliquableUtiliser(false);
+        cliquableAssechement(false);
+        cliquableDeplacementAutre(false);
+        cliquableDeplacer(false);
+        cliquableDonner(false);
+        cliquableHelico(false);
+        cliquablePasser(false);
+        cliquableTresor(false);
+        cliquableAnnuler(false);
+    }
+    
+    public void cliquableAttenteDaction(){
+        cliquableUtiliser(false);
+        cliquableAssechement(false);
+        cliquableDeplacementAutre(false);
+        cliquableDeplacer(false);
+        cliquableDonner(false);
+        cliquableHelico(false);
+        cliquablePasser(false);
+        cliquableAnnuler(true);
+        cliquableTresor(false);
+    }
     
 }
