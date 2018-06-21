@@ -42,17 +42,17 @@ public class FenetrePopupDebutTour extends Observe {
         contentPane = new JLabel();
         
         /*if (role.equals("Pilote")) {
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourPilo.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/pilo.png"));
         } else if(role.equals("Explorateur")) {
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourExplo.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/explo.png"));
         } else if(role.equals("Ingénieur")) {
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourIngé.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/inge.png"));
         } else if(role.equals("Messager")) {
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourMessager.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/mess.png"));
         } else if(role.equals("Plongeur")) {
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourPlong.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/plon.png"));
         } else if(role.equals("Navigateur")) {*/
-            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteInondation.Nouveau dossier/tourNavigateur.png"));
+            contentPane.setIcon( new ImageIcon("DossierImage/imgCarteTourJoueur/navigo.png"));
         //}
         window.setContentPane(contentPane);
         
