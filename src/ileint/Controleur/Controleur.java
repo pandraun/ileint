@@ -512,7 +512,7 @@ public class Controleur implements Observateur {
                 } else {
                     nbJ = 4;
                 }
-                System.out.println(m.difficulté);
+                niveauEau = m.difficulté;
                 initGrille(nbJ);
                 fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
@@ -565,19 +565,21 @@ public class Controleur implements Observateur {
                 break;
 
             case CHOIX_TUILE:
-                if (messageSauv.type == TypesMessages.SE_DEPLACER) {
+                if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.ASSECHER) {
+                } else if (messageSauv.type.equals(TypesMessages.ASSECHER)) {
                     effectuerAssechement(m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.CHOIX_CARTE) {
+                } else if (messageSauv.type.equals(TypesMessages.CHOIX_CARTE)) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
 
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
+                } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)){
+                    effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                 }
                 if (nombreAction == 0) {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
@@ -645,8 +647,16 @@ public class Controleur implements Observateur {
                     inondation();
                 }
                 break;
+                
+            case DEPLACEMENT_HELICO: //Action Spéciale du pilote
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                messageSauv = m;
+                break;
+                
+            case DEPLACER_AUTRES_JOUEURS: //Action spéciale du navigo
+                //ihm.setSurbrillanceMachin();       Besion de sauvegarder une donnée
+                break;
         }
-
     }
 
     public void verifFinInondation(Tuile tuileCourante) {
@@ -711,10 +721,12 @@ public class Controleur implements Observateur {
     
     public void transitionTour() {
         joueurSuivant();
+        nombreAction = 3;
+        nbCartePiocher = 0;
         if (isTropDeCartes()) {
             Message m = new Message();
             m.type = TypesMessages.TROP_CARTE;
             messageSauv = m;
-        }
+        }        
     }
 }
