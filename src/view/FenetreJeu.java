@@ -68,15 +68,16 @@ public class FenetreJeu extends Observe{
         int width = (int) dimension.getWidth();
 
         this.window = new JFrame("Fenetre Jeu");
-        //JLabel contentPane = new JLabel();
+        JLabel contentPane = new JLabel();
         //ImagePanel panel = new ImagePanel(new ImageIcon(new URL ("http://image.jeuxvideo.com/downloads/fonds-ecrans-wallpaper/00011568/xenoblade-chronicles-wii-29571-wp.jpg")).getImage());
-        //contentPane.setIcon( new ImageIcon(new URL ("http://image.jeuxvideo.com/downloads/fonds-ecrans-wallpaper/00011568/xenoblade-chronicles-wii-29571-wp.jpg")));
+        contentPane.setIcon( new ImageIcon(new URL ("http://image.jeuxvideo.com/downloads/fonds-ecrans-wallpaper/00011568/xenoblade-chronicles-wii-29571-wp.jpg")));
         //window.add(panel);
-        //window.setContentPane( contentPane );
+        window.setContentPane( contentPane );
         window.setLayout(new GridBagLayout());        
         //====================================è==//
         
         JPanel role1 = new JPanel();
+        role1.setOpaque(false);
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
         JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(0).getRole().getNom()+".png"));
 
@@ -98,6 +99,7 @@ public class FenetreJeu extends Observe{
         //======================================//
 
         JPanel role2 = new JPanel();
+        role2.setOpaque(false);
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
         JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(1).getRole().getNom()+".png"));
         role2.add(boutonRole2);
@@ -118,6 +120,7 @@ public class FenetreJeu extends Observe{
         //======================================//
         
         JPanel panelOrange = new JPanel(new GridLayout(2,1,4,4));
+        panelOrange.setOpaque(false);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
         int hauteur = 110;
@@ -160,6 +163,7 @@ public class FenetreJeu extends Observe{
         
         
         JPanel panelInondation = new JPanel(new GridLayout(2,1,4,4));
+        panelInondation.setOpaque(false);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
         hauteur = 110;
@@ -202,6 +206,7 @@ public class FenetreJeu extends Observe{
         if (joueurs.size()>2){
         
             JPanel role3 = new JPanel();
+            role3.setOpaque(false);
             role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
             JLabel EmplacementRole3 = new JLabel("J3: "+joueurs.get(2).getNomJoueur());
             role3.add(EmplacementRole3);
@@ -221,6 +226,7 @@ public class FenetreJeu extends Observe{
             if(joueurs.size()>3){
 
                 JPanel role4 = new JPanel();
+                role4.setOpaque(false);
                 role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
                 JLabel EmplacementRole4 = new JLabel("J4: "+joueurs.get(3).getNomJoueur());
                 role4.add(EmplacementRole4);
@@ -244,7 +250,7 @@ public class FenetreJeu extends Observe{
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         
-        grille = new JPanel(new GridBagLayout());
+        grille = new JPanel(new GridBagLayout()); grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 5;
         c.gridheight = 6;
@@ -254,6 +260,7 @@ public class FenetreJeu extends Observe{
         window.add(grille,c);
         
         carteJ1 = new JPanel(new GridLayout(2,6));
+        carteJ1.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.gridwidth = 2;
@@ -261,6 +268,7 @@ public class FenetreJeu extends Observe{
         c.gridy = 0;
         grille.add(carteJ1,c);
         carteJ2 = new JPanel(new GridLayout(2,6));
+        carteJ2.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.gridwidth = 2;
@@ -268,6 +276,7 @@ public class FenetreJeu extends Observe{
         c.gridy = 0;
         grille.add(carteJ2,c);
         carteJ3 = new JPanel(new GridLayout(2,6));
+        carteJ3.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.gridwidth = 2;
@@ -275,6 +284,7 @@ public class FenetreJeu extends Observe{
         c.gridy = 5;
         grille.add(carteJ3,c);
         carteJ4 = new JPanel(new GridLayout(2,6));
+        carteJ4.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.gridwidth = 2;
