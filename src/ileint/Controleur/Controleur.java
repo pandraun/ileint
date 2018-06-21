@@ -512,6 +512,7 @@ public class Controleur implements Observateur {
                 } else {
                     nbJ = 4;
                 }
+                niveauEau = m.difficulté;
                 initGrille(nbJ);
                 fenetreDebut.visible(false);
                 fenetreJoueur = new FenetreJoueur(nbJ);
@@ -531,9 +532,9 @@ public class Controleur implements Observateur {
                 joueurCourant = joueurs.get(0);
 
                 try {
-                    fenetreJeu = new FenetreJeu(joueurs, piocheOrange, piocheInondation);
+                    fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
-                    fenetreJeu.PlacerTuiles(tuiles);
+                    fenetreJeu.placerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -564,19 +565,21 @@ public class Controleur implements Observateur {
                 break;
 
             case CHOIX_TUILE:
-                if (messageSauv.type == TypesMessages.SE_DEPLACER) {
+                if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.ASSECHER) {
+                } else if (messageSauv.type.equals(TypesMessages.ASSECHER)) {
                     effectuerAssechement(m.tuileSelectionne);
                     nombreAction--;
-                } else if (messageSauv.type == TypesMessages.CHOIX_CARTE) {
+                } else if (messageSauv.type.equals(TypesMessages.CHOIX_CARTE)) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
 
                     } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                         effectuerAssechement(m.tuileSelectionne);
                     }
+                } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)){
+                    effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                 }
                 if (nombreAction == 0) {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
@@ -618,14 +621,21 @@ public class Controleur implements Observateur {
                 //mise en surbrillance des cartes spé                
                 break;
             case CHOIX_CARTE:
-                if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
-                } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
-                    //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.UTILISER_CARTE;
+                if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
+                    if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
+                        //ihm.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                        messageSauv = m;
+                        messageSauv.type = TypesMessages.UTILISER_CARTE;
+                    }
+                } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
+                    defausserCarte(joueurCourant, m.carteSelectionne);
+                    if (!isTropDeCartes()) {
+                        //ihm.surbrillanceDefaul();
+                    }
                 }
                 break;
 
@@ -637,8 +647,16 @@ public class Controleur implements Observateur {
                     inondation();
                 }
                 break;
+                
+            case DEPLACEMENT_HELICO: //Action Spéciale du pilote
+                //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                messageSauv = m;
+                break;
+                
+            case DEPLACER_AUTRES_JOUEURS: //Action spéciale du navigo
+                //ihm.setSurbrillanceMachin();       Besion de sauvegarder une donnée
+                break;
         }
-
     }
 
     public void verifFinInondation(Tuile tuileCourante) {
@@ -703,8 +721,12 @@ public class Controleur implements Observateur {
     
     public void transitionTour() {
         joueurSuivant();
+        nombreAction = 3;
+        nbCartePiocher = 0;
         if (isTropDeCartes()) {
-            
-        }
+            Message m = new Message();
+            m.type = TypesMessages.TROP_CARTE;
+            messageSauv = m;
+        }        
     }
 }
