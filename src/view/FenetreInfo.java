@@ -539,5 +539,4 @@ public class FenetreInfo extends Observe {
             layTresor4.show(panelTresor4, "tresor4Present");
         }
     }
-
 }
