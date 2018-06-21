@@ -27,5 +27,6 @@ public enum TypesMessages {
     DEPLACER_AUTRES_JOUEURS,
     QUITTER,
     OUI_QUITTER,
-    NON_QUITTER;
+    NON_QUITTER,
+    TROP_CARTE;
 }

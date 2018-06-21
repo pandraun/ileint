@@ -25,9 +25,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.management.relation.Role;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -51,6 +48,8 @@ public class FenetreInfo extends Observe {
     private final JPanel panelBasFenetre;
     private final JPanel panelBas;
     private final JPanel panelTresor;
+    private final JPanel panelAutresActions;
+    private final JPanel panelAc;
 
     //Les boutons pour l'apparence des trésors
     private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
@@ -63,19 +62,21 @@ public class FenetreInfo extends Observe {
     private final JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
     //Les boutons pour les différentes actions possibles
-    private final JButton btnDeplacer;
-    private final JButton btnAssecher;
-    private final JButton btnDonner;
-    private final JButton btnTresor;
-    private final JButton btnUtiliserCarte;
-    private final JButton btnPasser;
+    private JButton btnDeplacer;
+    private JButton btnAssecher;
+    private JButton btnDonner;
+    private JButton btnTresor;
+    private JButton btnUtiliserCarte;
+    private JButton btnPasser;
+    private JButton btnAnnuler;
 
     //Les boutons pour les actions spéciales
-    private final JButton helico;
-    private final JButton depAutresJoueurs;
+    private JButton btnHelico;
+    private JButton btnDepAutresJoueurs;
 
-    //Le bouton pour l'affichage des règles
+    //Le bouton pour l'affichage des règles et aides
     private final JButton btnRegles;
+    private final JButton btnAides;
 
     //Apparence du texte
     private JTextArea textInfoJeu;
@@ -88,6 +89,7 @@ public class FenetreInfo extends Observe {
     //Elements pour le CardLayout
     private CardLayout layButton;
     private JPanel pBoutons;
+    private Dimension d;
 
     public FenetreInfo() throws MalformedURLException {
 
@@ -103,10 +105,14 @@ public class FenetreInfo extends Observe {
         mainPanel = new JPanel(new BorderLayout());
         infoPanel = new JPanel(new BorderLayout());
         reglesPanel = new JPanel(new BorderLayout());
-        btnRegles = new JButton("Lire Règle");
+        btnRegles = new JButton("Lire les règles");
+        btnAides = new JButton("Lire aide interface");
+        btnRegles.setPreferredSize(new Dimension(165,25));
+        btnAides.setPreferredSize(new Dimension(165,25));
+        reglesPanel.add(btnAides, BorderLayout.WEST);
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
-
+        
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
         textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action \n  parmis celle-ci dessous:");
@@ -125,20 +131,21 @@ public class FenetreInfo extends Observe {
         infoPanel.add(panelRole, BorderLayout.SOUTH);
 
         //Instantiation des panels pour les actions
-        panelMilieu = new JPanel();
+        panelMilieu = new JPanel(new BorderLayout());
         panelActions = new JPanel(new GridBagLayout());
 
         //Paramètre du GridBagLayout
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.BOTH;
-        gc.insets = new Insets(5, 0, 5, 0);
+        gc.insets = new Insets(10, 15,10, 15);
         gc.ipady = gc.anchor = GridBagConstraints.CENTER;
         gc.weightx = 3;
-        gc.weighty = 5;
+        gc.weighty = 3;
+        d = new Dimension (150,25);
 
         //Bouton Deplacer
-        btnDeplacer = new JButton();
-        btnDeplacer.setText("Deplacer");
+        btnDeplacer = new JButton("Se déplacer");
+        btnDeplacer.setPreferredSize(d);
         btnDeplacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,8 +159,8 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnDeplacer, gc);
 
         //Bouton Assecher
-        btnAssecher = new JButton();
-        btnAssecher.setText("Assecher");
+        btnAssecher = new JButton("Assécher");
+        btnAssecher.setPreferredSize(d);
         btnAssecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -167,8 +174,8 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnAssecher, gc);
 
         //Bouton Donner
-        btnDonner = new JButton();
-        btnDonner.setText("Donner");
+        btnDonner = new JButton("Donner carte");
+        btnDonner.setPreferredSize(d);
         btnDonner.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -182,8 +189,8 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnDonner, gc);
 
         //Bouton trésor
-        btnTresor = new JButton();
-        btnTresor.setText("Recuperer");
+        btnTresor = new JButton("Récupérer");
+        btnTresor.setPreferredSize(d);
         btnTresor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,8 +204,8 @@ public class FenetreInfo extends Observe {
         panelActions.add(btnTresor, gc);
 
         //Bouton utiliser carte
-        btnUtiliserCarte = new JButton();
-        btnUtiliserCarte.setText("Utiliser");
+        btnUtiliserCarte = new JButton("Utiliser carte");
+        btnUtiliserCarte.setPreferredSize(d);
         btnUtiliserCarte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -211,9 +218,77 @@ public class FenetreInfo extends Observe {
         gc.gridy = 2;
         panelActions.add(btnUtiliserCarte, gc);
 
+        //Bouton spécial
+        JPanel p1, p2, p3;
+        layButton = new CardLayout();
+        pBoutons = new JPanel(layButton);
+
+        p1 = new JPanel();
+        btnHelico = new JButton("Hélico");
+        btnHelico.setPreferredSize(d);
+        btnHelico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACEMENT_HELICO;
+                notifierObservateur(m);
+            }
+        });
+        p1.add(btnHelico);
+        pBoutons.add(p1, "helico");
+
+        p2 = new JPanel();
+        btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
+        btnDepAutresJoueurs.setPreferredSize(d);
+        btnDepAutresJoueurs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
+                notifierObservateur(m);
+            }
+        });
+        p2.add(btnDepAutresJoueurs);
+        pBoutons.add(p2, "depautresjoueurs");
+
+        p3 = new JPanel();
+        pBoutons.add(p3, "rien");
+
+        gc.gridx = 2;
+        gc.gridy = 2;
+        panelActions.add(pBoutons, gc);
+        panelMilieu.add(panelActions, BorderLayout.NORTH);
+        
+        //Paramètre du 2e GridBagLayout
+        GridBagConstraints gc2 = new GridBagConstraints();
+        gc2.fill = GridBagConstraints.BOTH;
+        gc2.insets = new Insets(30, 15,10, 15);
+        gc2.ipady = gc.anchor = GridBagConstraints.CENTER;
+        gc2.weightx = 1;
+        gc2.weighty = 3;
+        
+        //Panel pour actions annuler passer et nbactions
+        panelAutresActions = new JPanel();
+        panelAc = new JPanel(new GridBagLayout());
+        
+        //Bouton Annuler
+        btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setPreferredSize(d);
+        btnAnnuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.ANNULER;
+                notifierObservateur(m);
+            }
+        });
+        gc.gridx = 0;
+        gc.gridy = 0;
+        panelAc.add(btnAnnuler, gc2);
+        
         //Bouton Passer
-        btnPasser = new JButton();
-        btnPasser.setText("Passer");
+        btnPasser = new JButton("Passer tour");
+        btnPasser.setPreferredSize(d);
         btnPasser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -222,49 +297,12 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-        gc.gridx = 2;
+        gc.gridx = 0;
         gc.gridy = 2;
-        panelActions.add(btnPasser, gc);
+        panelAc.add(btnPasser, gc2);
 
-        //Bouton spécial
-        JPanel p1, p2, p3;
-        layButton = new CardLayout();
-        pBoutons = new JPanel(layButton);
-
-        p1 = new JPanel();
-        helico = new JButton("Hélico");
-        helico.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.DEPLACEMENT_HELICO;
-                notifierObservateur(m);
-            }
-        });
-        p1.add(helico);
-        pBoutons.add(p1, "helico");
-
-        p2 = new JPanel();
-        depAutresJoueurs = new JButton("Déplacer autre\njoueur");
-        depAutresJoueurs.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
-                notifierObservateur(m);
-            }
-        });
-        p2.add(depAutresJoueurs);
-        pBoutons.add(p2, "depautresjoueurs");
-
-        p3 = new JPanel();
-        pBoutons.add(p3, "rien");
-
-        gc.gridx = 1;
-        gc.gridy = 3;
-        panelActions.add(pBoutons, gc);
-        panelMilieu.add(panelActions);
-
+        panelAutresActions.add(panelAc, gc2);
+        panelMilieu.add(panelAutresActions);
         //Panel pour la jauge d'eau et les trésors
         panelBasFenetre = new JPanel();
         panelBas = new JPanel(new GridLayout(2, 1));
@@ -338,10 +376,10 @@ public class FenetreInfo extends Observe {
     public void boutonSpeciale(String nomRole) {
         if (nomRole.equals("Navigateur")) {
             layButton.show(pBoutons, "depautresjoueurs");
-            depAutresJoueurs.setEnabled(true);
+            btnDepAutresJoueurs.setEnabled(true);
         } else if (nomRole.equals("Pilote")) {
             layButton.show(pBoutons, "helico");
-            helico.setEnabled(true);
+            btnHelico.setEnabled(true);
 
         } else {
             layButton.show(pBoutons, "rien");
