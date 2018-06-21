@@ -418,7 +418,7 @@ public class Controleur implements Observateur {
         joueur.getMainJoueur().remove(carte);
     }
 
-    public void empilerDefausseInondation() {
+    public void empilerDefausseInondation() { //qd y'a une carte montée des eaux
         Collections.shuffle(defausseInondation);
         for (CarteInondation uneCarte : defausseInondation) {
             piocheInondation.push(uneCarte);
@@ -433,6 +433,19 @@ public class Controleur implements Observateur {
             defausseOrange.clear();
         }
     }
+    
+//    public CarteOrange getDerniereCarteOrangeDefaussee() {
+//        if (defausseOrange.isEmpty()) {
+//            return 
+//        } else {
+//            return defausseOrange.peek();
+//        }
+//        
+//    }
+//    
+//    public CarteInondation getDerniereCarteInonDefaussee() {
+//        return defausseInondation.peek();
+//    }
 
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
         ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
@@ -708,11 +721,17 @@ public class Controleur implements Observateur {
         }
     }
     
+    public void verifDéfaiteNiveauEau() {
+        if (getNiveauEau() == 9) {
+            // défaite niveau d'eau trop élevé
+        }
+    }
+    
     public void verifVictoire() {
         if (tresorsRecuperables.isEmpty()) {
             for (Tuile uneTuile : tuiles.values()) {
                 if (uneTuile.getNom().toString().equals("Héliport")) {
-                    if (uneTuile.getJoueursTuile().size() == 3) {
+                    if (uneTuile.getJoueursTuile().size() == joueurs.size()) {
                         if (!toutNomAventurier.contains("Pilote")) {  
                             // Victoire
                         } else {
@@ -725,12 +744,14 @@ public class Controleur implements Observateur {
                                 
                             }
                         }
+                    }
                 }
-            }
             
-        }
+            }
         }
     }
+    
+    
 
     public void commencerPiocheOrange() {
         fenetreJeu.piocheCliquable(true);
