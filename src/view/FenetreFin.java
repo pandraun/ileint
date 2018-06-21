@@ -77,7 +77,7 @@ public class FenetreFin extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                m.type = TypesMessages.QUITTER;
+                //m.type = TypesMessages.QUITTER;
                 notifierObservateur(m);
             }
         });

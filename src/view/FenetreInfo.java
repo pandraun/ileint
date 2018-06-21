@@ -452,8 +452,15 @@ public class FenetreInfo extends Observe {
         panelTresor.add(panelTresor4,gc3);
 
         layTresor1.show(panelTresor1, "tresor1Absent");
+        layTresor2.show(panelTresor2, "tresor2Absent");
+        layTresor3.show(panelTresor3, "tresor3Absent");
+        layTresor4.show(panelTresor4, "tresor4Absent");
         
         //Ajout des trésors
+        panelBas.add(panelTresor, BorderLayout.SOUTH);
+        
+        //TEST//
+        changerImageTresor(TypeTresor.STATUE);
         
 
         //Ajout des différentes parties au main panel
@@ -489,6 +496,14 @@ public class FenetreInfo extends Observe {
 
     public void cliquableTresor(boolean boo) {
         btnTresor.setEnabled(boo);
+    }
+    
+    public void cliquableHelico(boolean bool) {
+        btnHelico.setEnabled(bool);
+    }
+    
+    public void cliquableDeplacementAutre(boolean bool)  {
+        btnDepAutresJoueurs.setEnabled(bool);
     }
 
     public void modifierLabelJoueur(Joueur joueur) {
@@ -527,8 +542,14 @@ public class FenetreInfo extends Observe {
     }
 
     public void changerImageTresor(TypeTresor type){
-        if(type == TypeTresor.CALICE){
-            
+        if (type.equals(TypeTresor.CALICE)) {
+            layTresor1.show(panelTresor1, "tresor1Present");
+        } else if (type.equals(TypeTresor.CRISTAL)) {
+            layTresor2.show(panelTresor2, "tresor2Present");
+        } else if (type.equals(TypeTresor.PIERRE)) {
+            layTresor3.show(panelTresor3, "tresor3Present");
+        } else if (type.equals(TypeTresor.STATUE)) {
+           layTresor4.show(panelTresor4, "tresor4Present"); 
         }
     }
     
