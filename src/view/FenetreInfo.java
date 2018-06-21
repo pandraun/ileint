@@ -123,8 +123,8 @@ public class FenetreInfo extends Observe {
 
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
-        textInfoJeu = new JTextArea("\n  A vous de jouer !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
         f = new Font("Ile int", Font.PLAIN, 20);
+        textInfoJeu = new JTextArea();
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
@@ -286,6 +286,7 @@ public class FenetreInfo extends Observe {
 
         //Bouton Annuler
         btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setEnabled(false);
         btnAnnuler.setPreferredSize(d);
         btnAnnuler.addActionListener(new ActionListener() {
             @Override
@@ -500,9 +501,6 @@ public class FenetreInfo extends Observe {
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
     }
 
-    public void setJoueurCourant(Joueur joueurCourant) {
-        this.joueurCourant = joueurCourant;
-    }
 
     public void boutonSpeciale(String nomRole) {
         if (nomRole.equals("Navigateur")) {
@@ -549,5 +547,40 @@ public class FenetreInfo extends Observe {
         }
     }
     
+    public void cliquableDefaut(){
+        cliquableUtiliser(true);
+        cliquableAssechement(true);
+        cliquableDeplacementAutre(true);
+        cliquableDeplacer(true);
+        cliquableDonner(true);
+        cliquableHelico(true);
+        cliquablePasser(true);
+        cliquableTresor(true);
+        cliquableAnnuler(false);
+    }
+    
+    public void cliquableBloque(){
+        cliquableUtiliser(false);
+        cliquableAssechement(false);
+        cliquableDeplacementAutre(false);
+        cliquableDeplacer(false);
+        cliquableDonner(false);
+        cliquableHelico(false);
+        cliquablePasser(false);
+        cliquableTresor(false);
+        cliquableAnnuler(false);
+    }
+    
+    public void cliquableAttenteDaction(){
+        cliquableUtiliser(false);
+        cliquableAssechement(false);
+        cliquableDeplacementAutre(false);
+        cliquableDeplacer(false);
+        cliquableDonner(false);
+        cliquableHelico(false);
+        cliquablePasser(false);
+        cliquableAnnuler(true);
+        cliquableTresor(false);
+    }
     
 }
