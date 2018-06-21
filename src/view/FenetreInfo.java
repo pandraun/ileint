@@ -10,7 +10,6 @@ package view;
  * @author piolleta
  */
 
-import ileint.Aventurier.Aventurier;
 import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -45,7 +44,6 @@ public class FenetreInfo extends Observe {
     private final JPanel panelInfoJeu;
     private final JPanel panelMilieu;
     private final JPanel panelActions;
-    private final JPanel panelBasFenetre;
     private final JPanel panelBas;
     private final JPanel panelTresor;
     private final JPanel panelAutresActions;
@@ -218,7 +216,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 2;
-        panelActions.add(btnUtiliserCarte, gc);
+        JPanel panelBtnTresor = new JPanel();
+        panelBtnTresor.add(btnUtiliserCarte);
+        panelActions.add(panelBtnTresor, gc);
 
         //Bouton spécial
         JPanel p1, p2, p3;
@@ -241,7 +241,7 @@ public class FenetreInfo extends Observe {
 
         p2 = new JPanel();
         btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
-        btnDepAutresJoueurs.setPreferredSize(d);
+        btnDepAutresJoueurs.setPreferredSize(new Dimension (100,100));
         btnDepAutresJoueurs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -258,13 +258,15 @@ public class FenetreInfo extends Observe {
 
         gc.gridx = 2;
         gc.gridy = 2;
-        panelActions.add(pBoutons, gc);
+        JPanel panSpe = new JPanel();
+        panSpe.add(pBoutons);
+        panelActions.add(panSpe, gc);
         panelMilieu.add(panelActions, BorderLayout.NORTH);
         
         //Paramètre du 2e GridBagLayout
         GridBagConstraints gc2 = new GridBagConstraints();
-        gc2.fill = GridBagConstraints.CENTER;
-        gc2.insets = new Insets(0, 0,0,0);
+        gc2.fill = GridBagConstraints.BOTH;
+        gc2.insets = new Insets(0, 15,0,15);
         gc2.ipady = gc2.anchor = GridBagConstraints.CENTER;
         gc2.weightx = 1;
         gc2.weighty = 3;
@@ -287,7 +289,7 @@ public class FenetreInfo extends Observe {
         });
         gc2.gridx = 0;
         gc2.gridy = 0;
-        panelAc.add(btnAnnuler, "annuler");
+        panelAc.add(btnAnnuler, gc2);
         
         //*********************************************************************
         
@@ -296,26 +298,25 @@ public class FenetreInfo extends Observe {
         layNbAc = new CardLayout();
         pActions = new JPanel(layNbAc);
         
-        p1 = new JPanel(new BorderLayout());
-        JLabel image1 = new JLabel( new ImageIcon("DossierImage/imgAutre/num1.jpg"));
-        p1.add(image1,BorderLayout.CENTER);
-        pActions.add(p1);
-
-        gc2.gridx = 0;
-        gc2.gridy = 1;
-        pActions.add(p1,gc2);
+        pan1 = new JPanel();
+        JLabel action1 = new JLabel("1");
+        pan1.add(action1);
+        pActions.add(pan1, "1action");
         
-//        p2 = new JPanel();
-//        btnDepAutresJoueurs = new JButton("Déplacer autre\njoueur");
-//        btnDepAutresJoueurs.setPreferredSize(d);
-//        btnDepAutresJoueurs.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Message m = new Message();
-//                m.type = TypesMessages.DEPLACER_AUTRES_JOUEURS;
-//                notifierObservateur(m);
-//            }
-//        });
+        pan2 = new JPanel();
+        JLabel action2 = new JLabel("2");
+        pan2.add(action2);
+        pActions.add(pan2, "2action");
+        
+        pan3 = new JPanel();
+        JLabel action3 = new JLabel("3");
+        pan3.add(action3);
+        pActions.add(pan3, "3action");
+
+        gc2.gridx = 1;
+        gc2.gridy = 0;
+        panelAc.add(pActions,gc2);
+        
         
         //Bouton Passer
         btnPasser = new JButton("Passer tour");
@@ -328,33 +329,31 @@ public class FenetreInfo extends Observe {
                 notifierObservateur(m);
             }
         });
-        gc2.gridx = 0;
-        gc2.gridy = 2;
-        panelAc.add(btnPasser, "passerTour");
+        gc2.gridx = 2;
+        gc2.gridy = 0;
+        panelAc.add(btnPasser, gc2);
 
         layNbAc.show(pActions, "1action");
-
-        panelAc.add(pActions);
+        
         panelAutresActions.add(panelAc, gc2);
-        panelMilieu.add(panelAutresActions);
+        panelMilieu.add(panelAutresActions, BorderLayout.CENTER);
         
         //****************************************************
         
         //Panel pour la jauge d'eau et les trésors
-        panelBasFenetre = new JPanel();
-        panelBas = new JPanel(new GridLayout(2, 1));
+        panelBas = new JPanel(new BorderLayout());
 
         //Jauge d'eau
         JLabel imageJauge = new JLabel( new ImageIcon("DossierImage/imgAutre/Niveau.png"));
-        panelBas.add(imageJauge);
+        panelBas.add(imageJauge, BorderLayout.NORTH);
         
         //Grid layout pour les trésors
-        GridLayout tresor = new GridLayout(1, 4);
-        tresor.setHgap(15);
-        tresor.setVgap(15);
+        GridLayout gridTresor = new GridLayout(1, 4);
+        gridTresor.setHgap(15);
+        gridTresor.setVgap(15);
 
         //Panel pour les trésors
-        panelTresor = new JPanel(tresor);
+        panelTresor = new JPanel(gridTresor);
 
         //Mise en place des trésors
         caliceAbsent.setPreferredSize(new Dimension(100, 100));
@@ -368,15 +367,13 @@ public class FenetreInfo extends Observe {
         panelTresor.add(statueAbsent);
 
         //Ajout des trésors
-        panelBas.add(panelTresor);
-        panelBasFenetre.add(panelBas);
-        //panelBasFenetre.add(panelTresor);
+        panelBas.add(panelTresor, BorderLayout.CENTER);
         
 
         //Ajout des différentes parties au main panel
         mainPanel.add(infoPanel, BorderLayout.NORTH);
         mainPanel.add(panelMilieu, BorderLayout.CENTER);
-        mainPanel.add(panelBasFenetre, BorderLayout.SOUTH);
+        mainPanel.add(panelBas, BorderLayout.SOUTH);
 
         //Ajout de mainPanel à la fenre + etat
         window.add(mainPanel);
