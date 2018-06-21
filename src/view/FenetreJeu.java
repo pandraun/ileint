@@ -339,11 +339,13 @@ public class FenetreJeu extends Observe{
             for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
                 ajouterCarteMainJoueur();
                 if (uneCarte.getTypeTresor()!=null){
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCarte/"+uneCarte.getTypeTresor()+".png"));
-                    carteJoueur.setMaximumSize(new Dimension(35,64));
-                    //carteJoueur.setMinimumSize(new Dimension(35,64));
-                    //carteJoueur.setPreferredSize(new Dimension(35,64));
-                    carteJoueur.setSize(new Dimension(35,64));
+                    JPanel carte = new JPanel();
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartesJoueur/"+uneCarte.getTypeTresor()+".png"));
+                    carte.add(carteJoueur);
+                    carteJoueur.setMinimumSize(new Dimension(24, 14));
+                    carteJoueur.setMaximumSize(new Dimension(24, 14));
+                    carteJoueur.setPreferredSize(new Dimension(24, 14));
+                    //carteJoueur.setSize(new Dimension(35,64));
                     System.out.println(uneCarte.getTypeTresor());
                     //carteJoueur.setPreferredSize(new Dimension());
                     switch (unJoueur.getNumeroJoueur()) {
@@ -406,11 +408,13 @@ public class FenetreJeu extends Observe{
                     }
                 }else{
                     System.out.println(uneCarte.getTypeClasse());
-                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCarte/"+uneCarte.getTypeClasse()+".png"));
-                    carteJoueur.setMaximumSize(new Dimension(35,64));
-                    //carteJoueur.setMinimumSize(new Dimension(35,64));
-                    //carteJoueur.setPreferredSize(new Dimension(35,64));
-                    carteJoueur.setSize(new Dimension(35,64));
+                    JPanel carte = new JPanel();
+                    JButton carteJoueur = new JButton(new ImageIcon("DossierImage/imgCartesJoueur/"+uneCarte.getTypeClasse()+".png"));
+                    carte.add(carteJoueur);
+                    carteJoueur.setMinimumSize(new Dimension(24, 14));
+                    carteJoueur.setMaximumSize(new Dimension(24, 14));
+                    carteJoueur.setPreferredSize(new Dimension(24, 14));
+                    //carteJoueur.setSize(new Dimension(35,64));
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
                             nbCaseCarteJ1 += 1;
@@ -537,8 +541,26 @@ public class FenetreJeu extends Observe{
     
     
     
-    public void piocherCarteOrange(String nomCarteOrange){
-        
+    public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
+        if (numeroJoueur==0){
+            
+            nbCarteJ1 += 1;
+            if (nbCarteJ1<4){
+                c.gridheight = 1;
+                c.gridwidth = 1;
+                c.gridx = nbCarteJ1;
+                c.gridy = 0;
+                //carteJ1.add(carteJoueur,c);
+            }else{
+                
+            }
+        }else if (numeroJoueur==1){
+            
+        }else if (numeroJoueur==1){
+            
+        }else{
+            
+        }
     }
     
     public void piocherCarteInondation(String nomCarteInodation){
@@ -547,7 +569,7 @@ public class FenetreJeu extends Observe{
     
     
     public void ajouterCarteMainJoueur(){
-        nbCarteJ1 += 1;
+        
     }
     
     public void retirerCarteMainJoueur(String nomCarteOrange){
