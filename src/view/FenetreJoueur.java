@@ -47,7 +47,7 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
-                        nomJoueur1.setText("Idiana Jones");
+                        nomJoueur1.setText("Indiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
@@ -91,7 +91,7 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
-                        nomJoueur1.setText("Idiana Jones");
+                        nomJoueur1.setText("Indiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
@@ -142,7 +142,7 @@ public class FenetreJoueur extends Observe {
                         break;
                     case 3:
                         nomJoueur1 = new JTextField();
-                        nomJoueur1.setText("Idiana Jones");
+                        nomJoueur1.setText("Indiana Jones");
                         mainPanel.add(nomJoueur1);
                         break;
                     case 5:
