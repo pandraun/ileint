@@ -160,13 +160,6 @@ public class FenetreJeu extends Observe{
                 Message m = new Message();
                 m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
                 notifierObservateur(m);
-                if (piocheOrange.firstElement().getTypeTresor()!=null){
-                    System.out.println("/"+piocheOrange.firstElement().getTypeTresor()+"/");
-                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.peek().getTypeTresor()+".png"));
-                }else{
-                    System.out.println(piocheOrange.firstElement().getTypeClasse());
-                    btnDefausseOrange = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocheOrange.peek().getTypeClasse()+".png"));
-                }
             }
         });
         
@@ -550,23 +543,70 @@ public class FenetreJeu extends Observe{
     
     public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
         if (numeroJoueur==0){
-            
+            JPanel carte = new JPanel();
+            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
+            Image im = Carte.getImage();
+            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+            JButton carteJoueur = new JButton(new ImageIcon(im));
             nbCarteJ1 += 1;
+            c.gridheight = 1;
+            c.gridwidth = 1;
             if (nbCarteJ1<4){
-                c.gridheight = 1;
-                c.gridwidth = 1;
                 c.gridx = nbCarteJ1;
                 c.gridy = 0;
-                //carteJ1.add(carteJoueur,c);
             }else{
-                
+                c.gridx = nbCarteJ1;
+                c.gridy = 1;
             }
+            carteJ1.add(carteJoueur,c);
         }else if (numeroJoueur==1){
-            
+            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
+            Image im = Carte.getImage();
+            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+            JButton carteJoueur = new JButton(new ImageIcon(im));
+            nbCarteJ2 += 1;
+            c.gridheight = 1;
+            c.gridwidth = 1;
+            if (nbCarteJ2<4){
+                c.gridx = nbCarteJ2;
+                c.gridy = 0;
+            }else{
+                c.gridx = nbCarteJ2;
+                c.gridy = 1;
+            }
+            carteJ1.add(carteJoueur,c);
         }else if (numeroJoueur==1){
-            
+            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
+            Image im = Carte.getImage();
+            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+            JButton carteJoueur = new JButton(new ImageIcon(im));
+            nbCarteJ3 += 1;
+            c.gridheight = 1;
+            c.gridwidth = 1;
+            if (nbCarteJ3<4){
+                c.gridx = nbCarteJ3;
+                c.gridy = 0;
+            }else{
+                c.gridx = nbCarteJ3;
+                c.gridy = 1;
+            }
+            carteJ1.add(carteJoueur,c);
         }else{
-            
+            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
+            Image im = Carte.getImage();
+            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+            JButton carteJoueur = new JButton(new ImageIcon(im));
+            nbCarteJ4 += 1;
+            c.gridheight = 1;
+            c.gridwidth = 1;
+            if (nbCarteJ4<4){
+                c.gridx = nbCarteJ4;
+                c.gridy = 0;
+            }else{
+                c.gridx = nbCarteJ4;
+                c.gridy = 1;
+            }
+            carteJ1.add(carteJoueur,c);
         }
     }
     
@@ -579,7 +619,7 @@ public class FenetreJeu extends Observe{
         
     }
     
-    public void retirerCarteMainJoueur(String nomCarteOrange){
+    public void retirerCarteMainJoueur(int numeroJoueur, int nomCarteOrange){
         
     }
     
