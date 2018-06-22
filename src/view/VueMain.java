@@ -70,4 +70,13 @@ public class VueMain extends JPanel{
         cartes.remove(carte);
         repaint();
     }
+    
+    public CarteOrange getCarte(int x, int y) {
+        int i = x;
+        if (y>=2) {
+            i += 4;
+        }
+        i -=1;
+        return cartes.get(i);
+    }
 }

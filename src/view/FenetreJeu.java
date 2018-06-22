@@ -42,11 +42,11 @@ import util.Utils;
  *
  * @author pandraun
  */
-public class FenetreJeu extends Observe{
+public class FenetreJeu extends Observe {
 
     private JFrame window;
     private JPanel grille;
-    
+
     private VueTuile vuetuile;
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
@@ -56,7 +56,7 @@ public class FenetreJeu extends Observe{
     private JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
     private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
     private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
-    
+
     private JButton piocheOrange;
     private JButton btnDefausseOrange;
     private JButton btnPiocheOrange;
@@ -66,10 +66,10 @@ public class FenetreJeu extends Observe{
     private VueMain carteJ2;
     private VueMain carteJ3;
     private VueMain carteJ4;
-    
+
     GridBagConstraints c = new GridBagConstraints();
-    
-    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException{
+
+    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -78,20 +78,20 @@ public class FenetreJeu extends Observe{
         this.window = new JFrame("Fenetre Jeu");
         JLabel contentPane = new JLabel();
         //ImagePanel panel = new ImagePanel(new ImageIcon(new URL ("http://image.jeuxvideo.com/downloads/fonds-ecrans-wallpaper/00011568/xenoblade-chronicles-wii-29571-wp.jpg")).getImage());
-        contentPane.setIcon( new ImageIcon(new URL ("https://aaronsinternetwhispersblog.files.wordpress.com/2011/12/sea_bg.png")));
+        contentPane.setIcon(new ImageIcon(new URL("https://aaronsinternetwhispersblog.files.wordpress.com/2011/12/sea_bg.png")));
         //window.add(panel);
-        window.setContentPane( contentPane );
-        window.setLayout(new GridBagLayout());        
+        window.setContentPane(contentPane);
+        window.setLayout(new GridBagLayout());
         //====================================è==//
-        
+
         JPanel role1 = new JPanel();
         role1.setOpaque(false);
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
-        JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(0).getRole().getNom()+".png"));
+        JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(0).getRole().getNom() + ".png"));
 
         role1.add(boutonRole1);
-        boutonRole1.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole1 = new JLabel("J1: "+joueurs.get(0).getNomJoueur());
+        boutonRole1.setPreferredSize(new Dimension(150, 210));
+        JLabel EmplacementRole1 = new JLabel("J1: " + joueurs.get(0).getNomJoueur());
         role1.add(EmplacementRole1);
         boutonRole1.setContentAreaFilled(false);
         boutonRole1.setOpaque(false);
@@ -102,10 +102,9 @@ public class FenetreJeu extends Observe{
         c.gridheight = 2;
         c.gridx = 0;
         c.gridy = 0;
-        window.add(role1,c);
-        
+        window.add(role1, c);
+
         //-----------------------//
-        
         boutonRole1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,16 +115,15 @@ public class FenetreJeu extends Observe{
                 }
             }
         });
-        
-        //======================================//
 
+        //======================================//
         JPanel role2 = new JPanel();
         role2.setOpaque(false);
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
-        JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(1).getRole().getNom()+".png"));
+        JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(1).getRole().getNom() + ".png"));
         role2.add(boutonRole2);
-        boutonRole2.setPreferredSize(new Dimension(150,210));
-        JLabel EmplacementRole2 = new JLabel("J2: "+joueurs.get(1).getNomJoueur());
+        boutonRole2.setPreferredSize(new Dimension(150, 210));
+        JLabel EmplacementRole2 = new JLabel("J2: " + joueurs.get(1).getNomJoueur());
         role2.add(EmplacementRole2);
         boutonRole2.setContentAreaFilled(false);
         boutonRole2.setOpaque(false);
@@ -136,10 +134,9 @@ public class FenetreJeu extends Observe{
         c.gridy = 0;
         c.weightx = 0;
         c.weighty = 0;
-        window.add(role2,c);
-        
+        window.add(role2, c);
+
         //-----------------------//
-        
         boutonRole2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,14 +149,13 @@ public class FenetreJeu extends Observe{
         });
 
         //======================================//
-        
-        JPanel panelOrange = new JPanel(new GridLayout(2,1,4,4));
+        JPanel panelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
         panelOrange.setOpaque(false);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
         int hauteur = 110;
         int largeur = 140;
-        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
         btnPiocheOrange = new JButton(new ImageIcon(im));
         btnPiocheOrange.setContentAreaFilled(false);
         //piocheOrange.setSize(new Dimension(100,70));
@@ -168,16 +164,16 @@ public class FenetreJeu extends Observe{
         //defausseOrange.setSize(new Dimension(100,70));
         panelOrange.add(btnPiocheOrange);
         panelOrange.add(btnDefausseOrange);
-        panelOrange.setPreferredSize(new Dimension(140,140));
-        
+        panelOrange.setPreferredSize(new Dimension(140, 140));
+
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LAST_LINE_START;
         c.gridheight = 2;
         c.gridx = 0;
         c.gridy = 2;
-        window.add(panelOrange,c);
-        
+        window.add(panelOrange, c);
+
         //Action de pioche Orange
         btnPiocheOrange.addActionListener(new ActionListener() {
             @Override
@@ -187,15 +183,14 @@ public class FenetreJeu extends Observe{
                 notifierObservateur(m);
             }
         });
-        
-        
-        JPanel panelInondation = new JPanel(new GridLayout(2,1,4,4));
+
+        JPanel panelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
         panelInondation.setOpaque(false);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
         hauteur = 110;
         largeur = 140;
-        im = im.getScaledInstance(largeur,hauteur,Image.SCALE_DEFAULT);
+        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
         btnPiocheInondation = new JButton(new ImageIcon(im));
         btnPiocheInondation.setContentAreaFilled(false);
         //piocheInondation.setSize(new Dimension(100,70));
@@ -204,17 +199,16 @@ public class FenetreJeu extends Observe{
         //defausseInondation.setSize(new Dimension(100,70));
         panelInondation.add(btnPiocheInondation);
         panelInondation.add(btnDefausseInondation);
-        panelInondation.setPreferredSize(new Dimension(140,140));
-        
+        panelInondation.setPreferredSize(new Dimension(140, 140));
+
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.gridheight = 2;
         c.gridx = 7;
         c.gridy = 2;
-        window.add(panelInondation,c);
-        
-        
+        window.add(panelInondation, c);
+
         /*//Action de pioche Inondation
         btnPiocheInondation.addActionListener(new ActionListener() {
             @Override
@@ -225,31 +219,27 @@ public class FenetreJeu extends Observe{
                 btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseInondation.firstElement().getTuile().getNom()+".png"));
 
             }
-        });*/      
-        
+        });*/
         //======================================//
+        if (joueurs.size() > 2) {
 
-        
-        if (joueurs.size()>2){
-        
             JPanel role3 = new JPanel();
             role3.setOpaque(false);
             role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole3 = new JLabel("J3: "+joueurs.get(2).getNomJoueur());
+            JLabel EmplacementRole3 = new JLabel("J3: " + joueurs.get(2).getNomJoueur());
             role3.add(EmplacementRole3);
-            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(2).getRole().getNom()+".png"));
+            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
             role3.add(boutonRole3);
             boutonRole3.setContentAreaFilled(false);
-            boutonRole3.setPreferredSize(new Dimension(150,210));
+            boutonRole3.setPreferredSize(new Dimension(150, 210));
             boutonRole3.setOpaque(false);
             c.anchor = GridBagConstraints.LAST_LINE_START;
             c.gridheight = 2;
             c.gridx = 7;
             c.gridy = 4;
-            window.add(role3,c);
-        
-            //-----------------------//
+            window.add(role3, c);
 
+            //-----------------------//
             boutonRole3.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -262,26 +252,24 @@ public class FenetreJeu extends Observe{
             });
 
             //======================================//
-
-            if(joueurs.size()>3){
+            if (joueurs.size() > 3) {
 
                 JPanel role4 = new JPanel();
                 role4.setOpaque(false);
                 role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
-                JLabel EmplacementRole4 = new JLabel("J4: "+joueurs.get(3).getNomJoueur());
+                JLabel EmplacementRole4 = new JLabel("J4: " + joueurs.get(3).getNomJoueur());
                 role4.add(EmplacementRole4);
-                JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/"+joueurs.get(3).getRole().getRoleAventurier()+".png"));
+                JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
                 role4.add(boutonRole4);
-                boutonRole4.setPreferredSize(new Dimension(150,210));
+                boutonRole4.setPreferredSize(new Dimension(150, 210));
                 boutonRole4.setContentAreaFilled(false);
                 c.anchor = GridBagConstraints.LAST_LINE_END;
                 c.gridheight = 2;
                 c.gridx = 0;
                 c.gridy = 4;
-                window.add(role4,c);
+                window.add(role4, c);
 
                 //-----------------------//
-
                 boutonRole4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -296,76 +284,169 @@ public class FenetreJeu extends Observe{
             }
 
             //======================================//
-            
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
-        
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
-        
-        grille = new JPanel(new GridBagLayout()); grille.setOpaque(false);
+        grille = new JPanel(new GridBagLayout());
+        grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 5;
         c.gridheight = 6;
         c.gridwidth = 6;
         c.gridx = 1;
         c.gridy = 1;
-        window.add(grille,c);
-        
+        window.add(grille, c);
+
         carteJ1 = new VueMain(joueurs.get(0).getMainJoueur());
         carteJ1.setOpaque(false);
+        carteJ1.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = getColonne(e.getX());
+                int y = getLigne(e.getY());
+                System.out.println("x = " + x);
+                System.out.println("y = " + y);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 0;
-        grille.add(carteJ1,c);
-        
+        grille.add(carteJ1, c);
+
         carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
         carteJ2.setOpaque(false);
+        carteJ2.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = getColonne(e.getX());
+                int y = getLigne(e.getY());
+                System.out.println("x = " + x);
+                System.out.println("y = " + y);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.gridx = 4;
         c.gridy = 0;
-        grille.add(carteJ2,c);
-        
+        grille.add(carteJ2, c);
+
         carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
         carteJ3.setOpaque(false);
+        carteJ3.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = getColonne(e.getX());
+                int y = getLigne(e.getY());
+                System.out.println("x = " + x);
+                System.out.println("y = " + y);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.gridx = 4;
         c.gridy = 5;
-        grille.add(carteJ3,c);
-        
+        grille.add(carteJ3, c);
+
         carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
         carteJ4.setOpaque(false);
+        carteJ4.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = getColonne(e.getX());
+                int y = getLigne(e.getY());
+                System.out.println("x = " + x);
+                System.out.println("y = " + y);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 5;
-        grille.add(carteJ4,c);
-        
-        
+        grille.add(carteJ4, c);
+
         window.pack();
         window.setSize(1080, 806);
         window.setResizable(false);
         window.setVisible(true);
     }
-    
-    public void piocheCliquable(Boolean boo){
+
+    public void piocheCliquable(Boolean boo) {
         piocheOrange.setEnabled(boo);
     }
-    
-    public void placerTuiles(HashMap<Coordonnee,Tuile> tuiles){
-        for(Tuile uneTuile : tuiles.values()){
-            if (uneTuile.getNom()!=null){
+
+    public void placerTuiles(HashMap<Coordonnee, Tuile> tuiles) {
+        for (Tuile uneTuile : tuiles.values()) {
+            if (uneTuile.getNom() != null) {
                 int x = uneTuile.getCoordonnee().getY();
                 int y = uneTuile.getCoordonnee().getX();
                 vuetuile = new VueTuile(uneTuile);
-                vuetuile.setPreferredSize(new Dimension(120,120));
+                vuetuile.setPreferredSize(new Dimension(120, 120));
                 vuetuile.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -375,15 +456,19 @@ public class FenetreJeu extends Observe{
                         m.tuileSelectionne = uneTuile;
                         notifierObservateur(m);
                     }
+
                     @Override
                     public void mousePressed(MouseEvent e) {
                     }
+
                     @Override
                     public void mouseReleased(MouseEvent e) {
                     }
+
                     @Override
                     public void mouseEntered(MouseEvent e) {
                     }
+
                     @Override
                     public void mouseExited(MouseEvent e) {
                     }
@@ -395,17 +480,21 @@ public class FenetreJeu extends Observe{
                 c.gridheight = 1;
                 c.gridwidth = 1;
                 c.gridy = y;
-                grille.add(vuetuile,c);
+                grille.add(vuetuile, c);
             }
-
 
         }
     }
     
+    private int getColonne(int x) {
+        return (x * 4) / 256;
+    }
     
-    
-    
-    public void piocherCarteOrange(ArrayList<Joueur> joueurs){
+    private int getLigne(int y) {
+        return (y * 2) / 128;
+    }
+
+    public void piocherCarteOrange(ArrayList<Joueur> joueurs) {
 //        carteJ1.removeAll();
 //        carteJ2.removeAll();
 //        carteJ3.removeAll();
@@ -489,17 +578,16 @@ public class FenetreJeu extends Observe{
             carteJ1.add(carteJoueur,c);
         }*/
     }
-    
-    public void piocherCarteInondation(String nomCarteInodation){
-        
+
+    public void piocherCarteInondation(String nomCarteInodation) {
+
     }
-    
-    
-    public void ajouterCarteMainJoueur(){
-        
+
+    public void ajouterCarteMainJoueur() {
+
     }
-    
-    public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs){
+
+    public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs) {
         /*carteJ1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -574,11 +662,11 @@ public class FenetreJeu extends Observe{
         });
         //placerMainJoueur(joueurs);*/
     }
-    
-    public void DefausserCarte(String nomCarteOrange){
-        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/"+nomCarteOrange+".png"));
+
+    public void DefausserCarte(String nomCarteOrange) {
+        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png"));
     }
-    
+
 }
 
 
