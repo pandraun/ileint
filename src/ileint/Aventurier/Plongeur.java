@@ -37,27 +37,27 @@ public class Plongeur extends Aventurier {
         HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
         HashMap<Coordonnee, Tuile> tuilesEau = new HashMap<>();
 
-        tuilesAVisiter = g.filtreTuilesAccessibles(g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur()));
+        tuilesAVisiter = g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
         
         while (tuilesAVisiter.size() > 0) {
             
             for (Tuile uneTuile : tuilesAVisiter.values()) {
                 
-                if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.INONDEE))) {   // si tuile inondée trouvée -> on l'ajoute
+                if (uneTuile.getEtat().equals(Utils.EtatTuile.INONDEE)) {   // si tuile inondée trouvée -> on l'ajoute
                     tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
                     
-                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.ASSECHEE))) {
+                } else if (uneTuile.getEtat().equals(Utils.EtatTuile.ASSECHEE)) {
                     tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
                     
-                } else if (tuilesAVisiter.containsValue(uneTuile.getEtat().equals(Utils.EtatTuile.COULEE))){
+                } else if (uneTuile.getEtat().equals(Utils.EtatTuile.COULEE)){
                     tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
                 }
-                
-                tuilesAVisiter = tuilesEau;
             }
+             tuilesAVisiter = tuilesEau;
+             
             for (Tuile uneTuile : tuilesAVisiter.values()) {
-                tuilesAVisiter.putAll(g.filtreTuilesAccessibles(g.getCasesLateralesDeplacement(uneTuile)));
+                tuilesAVisiter.putAll(g.getCasesLateralesDeplacement(uneTuile));
             }
         }
         return tuilesAccessibles;

@@ -26,7 +26,7 @@ public class FenetrePopupDebutTour extends Observe {
     private BufferedImage image;
 
     public FenetrePopupDebutTour(String role) {
-        window = new JFrame();
+        window = new JFrame("Informations Rôle");
 
         if (role.equals("Pilote")) {
             chemin = "DossierImage/imgCarteTourJoueur/pilote.png";
@@ -54,7 +54,7 @@ public class FenetrePopupDebutTour extends Observe {
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("appui bouton");
+                window.setVisible(false);
             }
         });
 
