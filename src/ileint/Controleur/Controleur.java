@@ -102,10 +102,10 @@ public class Controleur implements Observateur {
         tresorsRecuperables.add(TypeTresor.CRISTAL);
         tresorsRecuperables.add(TypeTresor.PIERRE);
 
-        toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Messager");
         toutNomAventurier.add("Ingenieur");
         toutNomAventurier.add("Explorateur");
-        toutNomAventurier.add("Messager");
+        toutNomAventurier.add("Pilote");
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
@@ -279,7 +279,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 4; i++) {  //DEBUG
+            for (int i = 0; i < 6; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;

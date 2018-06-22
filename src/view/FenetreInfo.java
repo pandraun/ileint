@@ -215,10 +215,7 @@ public class FenetreInfo extends Observe {
         d = new Dimension(150, 35);
 
         //Bouton Deplacer
-        btnDeplacer = new JButton(new ImageIcon("DossierImage/IconeBouton/IconDeplacementExploV2.png"));
-//        btnDeplacer.setHorizontalTextPosition(SwingConstants.WEST); 
-//        btnDeplacer.setIcon(new ImageIcon("DossierImage/IconeBouton/IconDeplacementExplo.png"));
-
+        btnDeplacer = new JButton("Se déplacer");
         btnDeplacer.setPreferredSize(d);
         btnDeplacer.addActionListener(new ActionListener() {
             @Override
