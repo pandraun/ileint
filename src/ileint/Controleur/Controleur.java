@@ -12,7 +12,6 @@ import ileint.Carte.CarteOrange;
 import ileint.Carte.Helicoptere;
 import ileint.Carte.MontéeEau;
 import ileint.Carte.SacDeSable;
-import ileint.Carte.Speciale;
 import ileint.Carte.Tresor;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextArea;
 import util.EmplacementCarte;
 import util.Message;
 import util.TypeTresor;
@@ -599,6 +597,16 @@ public class Controleur implements Observateur {
 
                 break;
 
+            case CHOIX_JOUEUR:
+                if(messageSauv.type.equals(TypesMessages.CHOIX_CARTE)){
+                    effectuerDonCarte(joueurCourant, m.joueurVise, messageSauv.carteSelectionne);
+                }else if(m.type.equals(TypesMessages.DEPLACER_AUTRES_JOUEURS)){
+                    messageSauv = m;
+                    fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " choisissez maintenant \n  le joueur que vous voulez déplacer  :");
+                    fenetreInfo.cliquableAttenteDaction();
+                }
+                break;
+                
             case CHOIX_TUILE:
                 if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -619,6 +627,8 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer" + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+                }else if (messageSauv.type.equals(TypesMessages.CHOIX_JOUEUR)){
+                    effectuerDeplacement(messageSauv.joueurVise, m.tuileSelectionne);
                 }
 
                 fenetreInfo.cliquableDefaut();
@@ -640,14 +650,6 @@ public class Controleur implements Observateur {
                 messageSauv = m;
                 break;
 
-            case PARAMETRE_DONNER_CARTE:
-                effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
-                fenetreInfo.cliquableDefaut();
-                nombreAction--;
-                if (nombreAction == 0) {
-                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
-                }
-                break;
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
@@ -694,6 +696,12 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquablePasser(false);
                     fenetreInfo.cliquableAnnuler(true);
                     fenetreInfo.cliquableTresor(false);
+                }else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)){
+                    //mettre en surbrillance les joueurs
+                    messageSauv = m;
+                    messageSauv.type = TypesMessages.DONNER_CARTE;
+                    fenetreInfo.cliquableAttenteDaction();
+
                 }
                 break;
 
@@ -741,6 +749,10 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableUtiliser(true);
                 fenetreInfo.cliquableDeplacementAutre(false);
                 fenetreInfo.cliquableHelico(false);
+                break;
+                
+            
+                
         }
     }
 
