@@ -10,6 +10,7 @@ import ileint.Carte.CarteOrange;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.Tuile;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,6 +38,7 @@ import javax.swing.JPanel;
 import util.Message;
 import util.TypesMessages;
 import util.Utils;
+import static util.Utils.EtatTuile.ASSECHEE;
 
 /**
  *
@@ -149,8 +151,12 @@ public class FenetreJeu extends Observe {
         });
 
         //======================================//
-        JPanel panelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
+        JPanel panelOrange = new JPanel(new BorderLayout());
         panelOrange.setOpaque(false);
+        JPanel sousPanelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
+        sousPanelOrange.setOpaque(false);
+        panelOrange.add(new JLabel("nb cartes : "+piocheOrange.capacity()), BorderLayout.NORTH);
+        panelOrange.add(sousPanelOrange);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
         int hauteur = 110;
@@ -162,9 +168,9 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange = new JButton();
         btnDefausseOrange.setContentAreaFilled(false);
         //defausseOrange.setSize(new Dimension(100,70));
-        panelOrange.add(btnPiocheOrange);
-        panelOrange.add(btnDefausseOrange);
-        panelOrange.setPreferredSize(new Dimension(140, 140));
+        sousPanelOrange.add(btnPiocheOrange);
+        sousPanelOrange.add(btnDefausseOrange);
+        sousPanelOrange.setPreferredSize(new Dimension(140, 140));
 
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
@@ -184,8 +190,15 @@ public class FenetreJeu extends Observe {
             }
         });
 
-        JPanel panelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
+        JPanel panelInondation = new JPanel(new BorderLayout());
         panelInondation.setOpaque(false);
+        JPanel sousPanelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
+        sousPanelInondation.setOpaque(false);
+        JPanel panelnbCarteI = new JPanel(new BorderLayout());
+        panelnbCarteI.setOpaque(false);
+        panelInondation.add(panelnbCarteI, BorderLayout.NORTH);
+        panelnbCarteI.add(new JLabel("nb cartes : "+piocheInondation.capacity()), BorderLayout.EAST);
+        panelInondation.add(sousPanelInondation);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
         hauteur = 110;
@@ -197,9 +210,9 @@ public class FenetreJeu extends Observe {
         btnDefausseInondation = new JButton();
         btnDefausseInondation.setContentAreaFilled(false);
         //defausseInondation.setSize(new Dimension(100,70));
-        panelInondation.add(btnPiocheInondation);
-        panelInondation.add(btnDefausseInondation);
-        panelInondation.setPreferredSize(new Dimension(140, 140));
+        sousPanelInondation.add(btnPiocheInondation);
+        sousPanelInondation.add(btnDefausseInondation);
+        sousPanelInondation.setPreferredSize(new Dimension(140, 140));
 
         c.weighty = 20;
         c.fill = GridBagConstraints.NONE;
@@ -209,17 +222,17 @@ public class FenetreJeu extends Observe {
         c.gridy = 2;
         window.add(panelInondation, c);
 
-        /*//Action de pioche Inondation
+        //Action de pioche Inondation
         btnPiocheInondation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
-                notifierObservateur(m);                                                 //.peek()
-                btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseInondation.firstElement().getTuile().getNom()+".png"));
-
+                m.type = TypesMessages.PIOCHER_CARTE_INONDATION;
+                System.out.println("PiocheInondation : 1");
+                notifierObservateur(m);
             }
-        });*/
+        });
+        
         //======================================//
         if (joueurs.size() > 2) {
 
@@ -600,6 +613,18 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
+    public void piocherInondation(CarteInondation CarteTuile) {
+        System.out.println("debug");
+        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
+        Image im = CarteInondation.getImage();
+        im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
+        btnDefausseInondation.setIcon(new ImageIcon(im));
+        if(CarteTuile.getTuile().getEtat()==ASSECHEE){
+            //CarteTuile.getTuile().
+        }
+    }
+    //btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+piocInondation.firstElement().getTuile().getNom()+".png"));
+    
 }
 
 

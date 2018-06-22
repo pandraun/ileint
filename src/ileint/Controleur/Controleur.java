@@ -274,7 +274,7 @@ public class Controleur implements Observateur {
 
         if (hasard) {
             for (int i = 0; i < 6; i++) {
-                piocherInnondation();
+                piocherInondation();
             }
         }
 
@@ -488,9 +488,18 @@ public class Controleur implements Observateur {
         return false;
     }
 
-    public void piocherInnondation() {
+    public void piocherInondation() {
+        System.out.println("PiocheInondation : 2");
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (piocheInondation.peek().equals(uneTuile)) {
+            //System.out.println("uneTuile : "+ uneTuile.getNom());
+            if (piocheInondation.peek().getTuile().equals(uneTuile) && uneTuile.getNom() != null) {
+                System.out.println("PiocheInondation : 3");
+                //System.out.println("piocheInondation.peek().getTuile().getNom().name() : "+ piocheInondation.peek().getTuile().getNom().name());
+                fenetreJeu.piocherInondation(piocheInondation.peek());
+                uneTuile.arroserTuile();
+                piocheInondation.peek().setPioche(false);
+                defausseInondation.push(piocheInondation.pop());
+            }else if (piocheInondation.peek().getTuile().equals(uneTuile) && uneTuile.getNom() == null) {
                 uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());
@@ -729,6 +738,14 @@ public class Controleur implements Observateur {
                     nombreAction = 3;
                 }
                 break;
+                
+            ///TEMPORAIRE////////////////////////////////////////////////////////////////
+                
+            case PIOCHER_CARTE_INONDATION:
+                piocherInondation();
+                break;
+                
+            /////////////////////////////////////////////////////////////////////////////
 
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
@@ -875,7 +892,7 @@ public class Controleur implements Observateur {
 
     public void inondation() {
         for (int i = 0; i < eauAPiocher(); i++) {
-            piocherInnondation();
+            piocherInondation();
         }
         transitionTour();
     }
