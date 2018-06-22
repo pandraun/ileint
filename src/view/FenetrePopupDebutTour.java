@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -59,12 +60,15 @@ public class FenetrePopupDebutTour extends Observe {
 
         window.setContentPane(pane);
 
-        mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel();
         mainPanel.setOpaque(false);
-
+        
+       
         btnOk = new JButton("Compris");
-        //btnOk.setOpaque(false);
-        window.add(btnOk, BorderLayout.SOUTH);
+        window.setLayout(null);
+        btnOk.setBounds(140, 422, 110, 22);
+        window.add(btnOk);
+        
 
         btnOk.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +77,7 @@ public class FenetrePopupDebutTour extends Observe {
             }
         });
 
-        window.add(mainPanel);
+        
         window.setLocation(400, 150);
         window.setSize(404, 480);
         window.setResizable(false);
