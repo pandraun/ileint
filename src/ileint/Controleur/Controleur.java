@@ -12,7 +12,6 @@ import ileint.Carte.CarteOrange;
 import ileint.Carte.Helicoptere;
 import ileint.Carte.MontéeEau;
 import ileint.Carte.SacDeSable;
-import ileint.Carte.Speciale;
 import ileint.Carte.Tresor;
 import ileint.Grille.Grille;
 import ileint.Joueur.Joueur;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextArea;
 import util.EmplacementCarte;
 import util.Message;
 import util.TypeTresor;
@@ -421,9 +419,9 @@ public class Controleur implements Observateur {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
             piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
             if (piocheOrange.peek().getTypeTresor() != null) {
-                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name());
+                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name()*/);
             } else {
-                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse());
+                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse()*/);
             }
         }
         piocheOrange.pop();
@@ -432,6 +430,13 @@ public class Controleur implements Observateur {
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
+        fenetreJeu.retirerCarteMainJoueur(joueurs);
+        if (carte.getTypeTresor().name()!=null){
+            fenetreJeu.DefausserCarte(carte.getTypeTresor().name());
+        } else{
+            fenetreJeu.DefausserCarte(carte.getTypeClasse());
+        }
+        
     }
 
     public void empilerDefausseInondation() { //qd y'a une carte montée des eaux
@@ -559,7 +564,8 @@ public class Controleur implements Observateur {
                 }
                 fenetreJoueur.visible(false);
                 joueurCourant = joueurs.get(0);
-
+                
+                
                 try {
                     fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
@@ -573,6 +579,8 @@ public class Controleur implements Observateur {
                     fenetreInfo.addObservateur(this);
                     fenetreInfo.modifierLabelJoueur(joueurCourant);
                     fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
+                    nombreAction = 3;
+                    fenetreInfo.affichageAction(nombreAction);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -599,6 +607,16 @@ public class Controleur implements Observateur {
 
                 break;
 
+            case CHOIX_JOUEUR:
+                if(messageSauv.type.equals(TypesMessages.CHOIX_CARTE)){
+                    effectuerDonCarte(joueurCourant, m.joueurVise, messageSauv.carteSelectionne);
+                }else if(m.type.equals(TypesMessages.DEPLACER_AUTRES_JOUEURS)){
+                    messageSauv = m;
+                    fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " choisissez maintenant \n  le joueur que vous voulez déplacer  :");
+                    fenetreInfo.cliquableAttenteDaction();
+                }
+                break;
+                
             case CHOIX_TUILE:
                 if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -619,6 +637,8 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer" + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+                }else if (messageSauv.type.equals(TypesMessages.CHOIX_JOUEUR)){
+                    effectuerDeplacement(messageSauv.joueurVise, m.tuileSelectionne);
                 }
 
                 fenetreInfo.cliquableDefaut();
@@ -640,14 +660,6 @@ public class Controleur implements Observateur {
                 messageSauv = m;
                 break;
 
-            case PARAMETRE_DONNER_CARTE:
-                effectuerDonCarte(joueurCourant, m.joueurVise, m.carteSelectionne);
-                fenetreInfo.cliquableDefaut();
-                nombreAction--;
-                if (nombreAction == 0) {
-                    commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
-                }
-                break;
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
@@ -669,6 +681,7 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableAttenteDaction();
                 break;
             case CHOIX_CARTE:
+                defausserCarte(joueurCourant, m.carteSelectionne);
                 if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
                         //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
@@ -694,8 +707,13 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquablePasser(false);
                     fenetreInfo.cliquableAnnuler(true);
                     fenetreInfo.cliquableTresor(false);
+                }else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)){
+                    //mettre en surbrillance les joueurs
+                    messageSauv = m;
+                    messageSauv.type = TypesMessages.DONNER_CARTE;
+                    fenetreInfo.cliquableAttenteDaction();
+
                 }
-                fenetreJeu.retirerCarteMainJoueur(joueurs);
                 break;
 
             //Piochage de cartes oranges à la fin du tour
@@ -704,6 +722,7 @@ public class Controleur implements Observateur {
                 nbCartePiocher++;
                 if (nbCartePiocher >= 2) {
                     inondation();
+                    nombreAction = 3;
                 }
                 break;
 
@@ -742,6 +761,10 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableUtiliser(true);
                 fenetreInfo.cliquableDeplacementAutre(false);
                 fenetreInfo.cliquableHelico(false);
+                break;
+                
+            
+                
         }
     }
 

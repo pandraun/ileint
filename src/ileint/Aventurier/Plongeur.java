@@ -21,6 +21,7 @@ public class Plongeur extends Aventurier {
         for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_de_Fer) {
                 setTuileDepart(tuile);
+                tuile.getJoueursTuile().add(joueur);
             }
         }
     }

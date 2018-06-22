@@ -309,8 +309,8 @@ public class FenetreJeu extends Observe{
     public void placerTuiles(HashMap<Coordonnee,Tuile> tuiles){
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
-                int x = uneTuile.getCoordonnee().getX();
-                int y = uneTuile.getCoordonnee().getY();
+                int x = uneTuile.getCoordonnee().getY();
+                int y = uneTuile.getCoordonnee().getX();
                 /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
                 VueTuile tuile = new VueTuile(uneTuile);
                 tuile.setPreferredSize(new Dimension(120,120));
@@ -367,7 +367,6 @@ public class FenetreJeu extends Observe{
                                 }
                             });
                             
-                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -382,6 +381,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ2.add(carteJoueur,c);
                             break;
@@ -398,6 +406,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
@@ -412,6 +429,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ4.add(carteJoueur,c);
                             break;
@@ -440,6 +466,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -470,6 +505,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
@@ -484,6 +528,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ4.add(carteJoueur,c);
                             break;
@@ -556,8 +609,13 @@ public class FenetreJeu extends Observe{
     
     
     
-    public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
-        if (numeroJoueur==0){
+    public void piocherCarteOrange(ArrayList<Joueur> joueurs){
+        carteJ1.removeAll();
+        carteJ2.removeAll();
+        carteJ3.removeAll();
+        carteJ3.removeAll();
+        placerMainJoueur(joueurs);
+        /*if (numeroJoueur==0){
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
@@ -625,7 +683,7 @@ public class FenetreJeu extends Observe{
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
-        }
+        }*/
     }
     
     public void piocherCarteInondation(String nomCarteInodation){
@@ -643,6 +701,10 @@ public class FenetreJeu extends Observe{
         carteJ3.removeAll();
         carteJ3.removeAll();
         placerMainJoueur(joueurs);
+    }
+    
+    public void DefausserCarte(String nomCarteOrange){
+        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/"+nomCarteOrange+".png"));
     }
     
 }
