@@ -20,7 +20,6 @@ public enum TypesMessages {
     UTILISER_CARTE,
     PASSER_TOUR,
     CHOIX_TUILE,
-    PARAMETRE_DONNER_CARTE,
     CHOIX_CARTE,
     CHOIX_JOUEUR,
     PIOCHER_CARTE_ORANGE,
@@ -29,5 +28,9 @@ public enum TypesMessages {
     CLIQUE_QUITTER,
     OUI_QUITTER,
     NON_RESTER,
-    TROP_CARTE;
+    TROP_CARTE,
+    LIRE_REGLES,
+    LIRE_INTERFACE,
+    FERMER_REGLES,
+    FERMER_INTERFACE;
 }
