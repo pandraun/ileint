@@ -38,7 +38,7 @@ public class FenetrePopupDebutTour extends Observe {
             chemin = "DossierImage/imgCarteTourJoueur/pilote.png";
         } else if (role.equals("Explorateur")) {
             chemin = "DossierImage/imgCarteTourJoueur/explo.png";
-        } else if (role.equals("Ingénieur")) {
+        } else if (role.equals("Ingenieur")) {
             chemin = "DossierImage/imgCarteTourJoueur/inge.png";
         } else if (role.equals("Messager")) {
             chemin = "DossierImage/imgCarteTourJoueur/mess.png";
