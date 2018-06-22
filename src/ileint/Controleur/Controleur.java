@@ -35,8 +35,10 @@ import view.FenetreConfirmationQuitter;
 import view.FenetreDebut;
 import view.FenetreFin;
 import view.FenetreInfo;
+import view.FenetreInterface;
 import view.FenetreJeu;
 import view.FenetreJoueur;
+import view.FenetreRegles;
 import view.Observateur;
 
 /**
@@ -70,6 +72,8 @@ public class Controleur implements Observateur {
     private FenetreJoueur fenetreJoueur;
     private FenetreConfirmationQuitter fenetreConfirmationQuitter;
     private FenetreFin fenetreFin;
+    private FenetreRegles fenetreRegles;
+    private FenetreInterface fenetreInterface;
 
     public Controleur() {
         try {
@@ -279,7 +283,6 @@ public class Controleur implements Observateur {
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
-                    System.out.println("carte montée des eaux dodge"); //test
                 } else {
                     unJoueur.addCarteMainJoueur(piocheOrange.peek());
                     piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
@@ -435,12 +438,12 @@ public class Controleur implements Observateur {
         if (carte == null) {
             System.out.println("debug null");
         }
-        if (carte.getTypeTresor()!=null){
+        if (carte.getTypeTresor() != null) {
             fenetreJeu.DefausserCarte(carte.getTypeTresor().name());
-        } else{
+        } else {
             fenetreJeu.DefausserCarte(carte.getTypeClasse());
         }
-        
+
     }
 
     public void empilerDefausseInondation() { //qd y'a une carte montée des eaux
@@ -557,7 +560,7 @@ public class Controleur implements Observateur {
                 break;
 
             case DEMARRER: //le joueur demarre la partie
-                
+
                 joueurs.get(0).setNomJoueur(m.joueur1);
                 joueurs.get(1).setNomJoueur(m.joueur2);
                 if (m.joueur3 != null) {
@@ -568,8 +571,7 @@ public class Controleur implements Observateur {
                 }
                 fenetreJoueur.visible(false);
                 joueurCourant = joueurs.get(0);
-                
-                
+
                 try {
                     fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
@@ -588,8 +590,8 @@ public class Controleur implements Observateur {
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                    Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Cliquez sur l'une des actions\n  ci-dessous :");
                 break;
 
@@ -614,15 +616,15 @@ public class Controleur implements Observateur {
                 break;
 
             case CHOIX_JOUEUR:
-                if(messageSauv.type.equals(TypesMessages.CHOIX_CARTE)){
+                if (messageSauv.type.equals(TypesMessages.CHOIX_CARTE)) {
                     effectuerDonCarte(joueurCourant, m.joueurVise, messageSauv.carteSelectionne);
-                }else if(m.type.equals(TypesMessages.DEPLACER_AUTRES_JOUEURS)){
+                } else if (m.type.equals(TypesMessages.DEPLACER_AUTRES_JOUEURS)) {
                     messageSauv = m;
                     fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " choisissez maintenant \n  le joueur que vous voulez déplacer  :");
                     fenetreInfo.cliquableAttenteDaction();
                 }
                 break;
-                
+
             case CHOIX_TUILE:
                 if (messageSauv.type.equals(TypesMessages.SE_DEPLACER)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -643,7 +645,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer" + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
-                }else if (messageSauv.type.equals(TypesMessages.CHOIX_JOUEUR)){
+                } else if (messageSauv.type.equals(TypesMessages.CHOIX_JOUEUR)) {
                     effectuerDeplacement(messageSauv.joueurVise, m.tuileSelectionne);
                 }
 
@@ -665,7 +667,6 @@ public class Controleur implements Observateur {
                 }
                 messageSauv = m;
                 break;
-
 
             case PASSER_TOUR:
                 //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
@@ -714,7 +715,7 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquablePasser(false);
                     fenetreInfo.cliquableAnnuler(true);
                     fenetreInfo.cliquableTresor(false);
-                }else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)){
+                } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)) {
                     //mettre en surbrillance les joueurs
                     messageSauv = m;
                     messageSauv.type = TypesMessages.DONNER_CARTE;
@@ -769,9 +770,26 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableDeplacementAutre(false);
                 fenetreInfo.cliquableHelico(false);
                 break;
-                
-            
-                
+
+            case LIRE_REGLES:
+                fenetreRegles = new FenetreRegles();
+                fenetreRegles.addObservateur(this);
+                break;
+
+            case LIRE_INTERFACE:
+                fenetreInterface = new FenetreInterface();
+                fenetreInterface.addObservateur(this);
+
+                break;
+
+            case FERMER_INTERFACE:
+                fenetreInterface.visible(false);
+                break;
+
+            case FERMER_REGLES:
+                fenetreRegles.visible(false);
+
+                break;
         }
     }
 
