@@ -21,6 +21,7 @@ public class Navigateur extends Aventurier {
         for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_d_Or) {
                 setTuileDepart(tuile);
+                tuile.getJoueursTuile().add(joueur);
             }
         }
     }

@@ -17,6 +17,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -309,8 +311,8 @@ public class FenetreJeu extends Observe{
     public void placerTuiles(HashMap<Coordonnee,Tuile> tuiles){
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
-                int x = uneTuile.getCoordonnee().getX();
-                int y = uneTuile.getCoordonnee().getY();
+                int x = uneTuile.getCoordonnee().getY();
+                int y = uneTuile.getCoordonnee().getX();
                 /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
                 VueTuile tuile = new VueTuile(uneTuile);
                 tuile.setPreferredSize(new Dimension(120,120));
@@ -342,7 +344,6 @@ public class FenetreJeu extends Observe{
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
                     carteJoueur.setPreferredSize(new Dimension(24, 14));
                     //carteJoueur.setSize(new Dimension(35,64));
-                    System.out.println(uneCarte.getTypeTresor());
                     //carteJoueur.setPreferredSize(new Dimension());
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
@@ -363,10 +364,10 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);   
                                 }
                             });
-                            
                             
                             carteJ1.add(carteJoueur,c);
                             break;
@@ -383,6 +384,16 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ2.add(carteJoueur,c);
                             break;
                         case 2:
@@ -397,6 +408,16 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ3.add(carteJoueur,c);
                             break;
@@ -413,11 +434,20 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ4.add(carteJoueur,c);
                             break;
                     }
                 }else{
-                    System.out.println(uneCarte.getTypeClasse());
                     ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
                     Image im = Carte.getImage();
                     im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
@@ -440,6 +470,16 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -470,6 +510,16 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
@@ -484,6 +534,16 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ4.add(carteJoueur,c);
                             break;
@@ -556,8 +616,13 @@ public class FenetreJeu extends Observe{
     
     
     
-    public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
-        if (numeroJoueur==0){
+    public void piocherCarteOrange(ArrayList<Joueur> joueurs){
+        carteJ1.removeAll();
+        carteJ2.removeAll();
+        carteJ3.removeAll();
+        carteJ4.removeAll();
+        //placerMainJoueur(joueurs);
+        /*if (numeroJoueur==0){
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
@@ -625,7 +690,7 @@ public class FenetreJeu extends Observe{
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
-        }
+        }*/
     }
     
     public void piocherCarteInondation(String nomCarteInodation){
@@ -638,11 +703,419 @@ public class FenetreJeu extends Observe{
     }
     
     public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs){
-        carteJ1.removeAll();
-        carteJ2.removeAll();
-        carteJ3.removeAll();
-        carteJ3.removeAll();
+        carteJ1.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ1.removeAll();
+                carteJ1.setVisible(false);
+                carteJ1.setVisible(true);
+                nbCarteJ1 -= 1;
+                nbCaseCarteJ1 = 0;
+                
+                for(Joueur unJoueur : joueurs){
+                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
+                        ajouterCarteMainJoueur();
+                        if (uneCarte.getTypeTresor()!=null){
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            //carteJoueur.setPreferredSize(new Dimension());
+                            nbCarteJ1 +=1;
+                            nbCaseCarteJ1 += 1;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ1%4;
+                            if (nbCaseCarteJ1<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ1.add(carteJoueur,c);
+                        }else{
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            nbCarteJ1 +=1;
+                            nbCaseCarteJ1 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ1%4;
+                            if (nbCaseCarteJ1<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ1.add(carteJoueur,c);
+                        }
+                    }
+                    if(unJoueur.getMainJoueur().size()<8){
+                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
+                            nbCaseCarteJ1 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ1;
+                            if (nbCaseCarteJ1<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            carteJ1.add(new JLabel(""),c);
+                        }
+                    }    
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ2.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ2.removeAll();
+                carteJ2.setVisible(false);
+                carteJ2.setVisible(true);
+                nbCarteJ2 -= 1;
+                nbCaseCarteJ2 = 0;
+                
+                for(Joueur unJoueur : joueurs){
+                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
+                        ajouterCarteMainJoueur();
+                        if (uneCarte.getTypeTresor()!=null){
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            //carteJoueur.setPreferredSize(new Dimension());
+                            nbCarteJ2 +=1;
+                            nbCaseCarteJ2 += 1;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ2%4;
+                            if (nbCaseCarteJ2<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ2.add(carteJoueur,c);
+                        }else{
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            nbCarteJ2 +=1;
+                            nbCaseCarteJ2 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ2%4;
+                            if (nbCaseCarteJ2<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ2.add(carteJoueur,c);
+                        }
+                    }
+                    if(unJoueur.getMainJoueur().size()<8){
+                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
+                            nbCaseCarteJ2 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ2;
+                            if (nbCaseCarteJ2<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            carteJ2.add(new JLabel(""),c);
+                        }
+                    }    
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ3.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ3.removeAll();
+                carteJ3.setVisible(false);
+                carteJ3.setVisible(true);
+                nbCarteJ3 -= 1;
+                nbCaseCarteJ3 = 0;
+                
+                for(Joueur unJoueur : joueurs){
+                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
+                        ajouterCarteMainJoueur();
+                        if (uneCarte.getTypeTresor()!=null){
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            //carteJoueur.setPreferredSize(new Dimension());
+                            nbCarteJ3 +=1;
+                            nbCaseCarteJ3 += 1;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ3%4;
+                            if (nbCaseCarteJ3<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ3.add(carteJoueur,c);
+                        }else{
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            nbCarteJ3 +=1;
+                            nbCaseCarteJ3 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ3%4;
+                            if (nbCaseCarteJ3<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ3.add(carteJoueur,c);
+                        }
+                    }
+                    if(unJoueur.getMainJoueur().size()<8){
+                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
+                            nbCaseCarteJ3 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ3;
+                            if (nbCaseCarteJ3<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            carteJ3.add(new JLabel(""),c);
+                        }
+                    }    
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ4.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ4.removeAll();
+                carteJ4.setVisible(false);
+                carteJ4.setVisible(true);
+                nbCarteJ4 -= 1;
+                nbCaseCarteJ4 = 0;
+                
+                for(Joueur unJoueur : joueurs){
+                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
+                        ajouterCarteMainJoueur();
+                        if (uneCarte.getTypeTresor()!=null){
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            //carteJoueur.setPreferredSize(new Dimension());
+                            nbCarteJ4 +=1;
+                            nbCaseCarteJ4 += 1;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ4%4;
+                            if (nbCaseCarteJ4<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ4.add(carteJoueur,c);
+                        }else{
+                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
+                            Image im = Carte.getImage();
+                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
+                            JButton carteJoueur = new JButton(new ImageIcon(im));
+                            carteJoueur.setMinimumSize(new Dimension(24, 14));
+                            carteJoueur.setMaximumSize(new Dimension(24, 14));
+                            carteJoueur.setPreferredSize(new Dimension(24, 14));
+                            //carteJoueur.setSize(new Dimension(35,64));
+                            nbCarteJ4 +=1;
+                            nbCaseCarteJ4 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ4%4;
+                            if (nbCaseCarteJ4<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            carteJ4.add(carteJoueur,c);
+                        }
+                    }
+                    if(unJoueur.getMainJoueur().size()<8){
+                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
+                            nbCaseCarteJ4 += 1;
+                            //c.fill = GridBagConstraints.BOTH;
+                            c.gridheight = 1;
+                            c.gridwidth = 1;
+                            c.gridx = nbCaseCarteJ4;
+                            if (nbCaseCarteJ4<4){
+                                c.gridy = 0;
+                            }else{
+                                c.gridy = 1;
+                            }
+                            carteJ4.add(new JLabel(""),c);
+                        }
+                    }    
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
         //placerMainJoueur(joueurs);
+    }
+    
+    public void DefausserCarte(String nomCarteOrange){
+        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/"+nomCarteOrange+".png"));
     }
     
 }
