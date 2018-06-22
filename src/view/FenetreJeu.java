@@ -288,6 +288,8 @@ public class FenetreJeu extends Observe {
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
+        
+        System.out.println("debug1");
         grille = new JPanel(new GridBagLayout());
         grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
@@ -333,7 +335,8 @@ public class FenetreJeu extends Observe {
         c.gridx = 0;
         c.gridy = 0;
         grille.add(carteJ1, c);
-
+        
+        System.out.println("debug2");
         carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
         carteJ2.setOpaque(false);
         carteJ2.addMouseListener(new MouseListener() {
@@ -370,85 +373,97 @@ public class FenetreJeu extends Observe {
         c.gridx = 4;
         c.gridy = 0;
         grille.add(carteJ2, c);
-
-        carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
-        carteJ3.setOpaque(false);
-        carteJ3.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = getColonne(e.getX());
-                int y = getLigne(e.getY());
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ3.getCarte(x, y);
-                if (m.carteSelectionne != null) {
-                    notifierObservateur(m);
+        
+        if (joueurs.size() > 2) {
+            
+            System.out.println("debug3");
+            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
+            carteJ3.setOpaque(false);
+            carteJ3.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
                 }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        c.weightx = 0;
-        c.gridheight = 1;
-        c.gridwidth = 2;
-        c.gridx = 4;
-        c.gridy = 5;
-        grille.add(carteJ3, c);
-
-        carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
-        carteJ4.setOpaque(false);
-        carteJ4.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = getColonne(e.getX());
-                int y = getLigne(e.getY());
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ4.getCarte(x, y);
-                if (m.carteSelectionne != null) {
-                    notifierObservateur(m);
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    int x = getColonne(e.getX());
+                    int y = getLigne(e.getY());
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_CARTE;
+                    m.carteSelectionne = carteJ3.getCarte(x, y);
+                    if (m.carteSelectionne != null) {
+                        notifierObservateur(m);
+                    }
                 }
-            }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        c.weightx = 0;
-        c.gridheight = 1;
-        c.gridwidth = 2;
-        c.gridx = 0;
-        c.gridy = 5;
-        grille.add(carteJ4, c);
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
+            c.weightx = 0;
+            c.gridheight = 1;
+            c.gridwidth = 2;
+            c.gridx = 4;
+            c.gridy = 5;
+            grille.add(carteJ3, c);
 
-        window.pack();
-        window.setSize(1080, 806);
-        window.setResizable(false);
-        window.setVisible(true);
+            if (joueurs.size() > 3) {
+            
+                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
+                carteJ4.setOpaque(false);
+                carteJ4.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                    }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        int x = getColonne(e.getX());
+                        int y = getLigne(e.getY());
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_CARTE;
+                        m.carteSelectionne = carteJ4.getCarte(x, y);
+                        if (m.carteSelectionne != null) {
+                            notifierObservateur(m);
+                        }
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+                c.weightx = 0;
+                c.gridheight = 1;
+                c.gridwidth = 2;
+                c.gridx = 0;
+                c.gridy = 5;
+                grille.add(carteJ4, c);
+
+            }
+        
+        }
+                window.pack();
+                window.setSize(1080, 806);
+                window.setResizable(false);
+                System.out.println("debugVisible");
+                window.setVisible(true);
+            
+            
+        
     }
 
     public void piocheCliquable(Boolean boo) {
