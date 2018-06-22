@@ -642,7 +642,7 @@ public class FenetreJeu extends Observe{
         carteJ2.removeAll();
         carteJ3.removeAll();
         carteJ3.removeAll();
-        placerMainJoueur(joueurs);
+        //placerMainJoueur(joueurs);
     }
     
 }
