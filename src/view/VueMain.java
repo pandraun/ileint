@@ -62,13 +62,12 @@ public class VueMain extends JPanel{
     }
     
     public void ajouterCarte(CarteOrange carte){
-        System.out.println("debug : " + cartes.size());
-        cartes.add(carte);
+        //cartes.add(carte);
         repaint();
     }
     
     public void enleverCarte(CarteOrange carte) {
-        cartes.remove(carte);
+        //cartes.remove(carte);
         repaint();
     }
     
@@ -83,5 +82,9 @@ public class VueMain extends JPanel{
             return null;
         }
         
+    }
+    
+    public ArrayList<CarteOrange> bla(){
+        return cartes;
     }
 }
