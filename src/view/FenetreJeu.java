@@ -346,8 +346,10 @@ public class FenetreJeu extends Observe {
                 int y = getLigne(e.getY());
                 Message m = new Message();
                 m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ1.getCarte(x, y);
-                notifierObservateur(m);
+                m.carteSelectionne = carteJ2.getCarte(x, y);
+                if (m.carteSelectionne != null) {
+                    notifierObservateur(m);
+                }
             }
 
             @Override
@@ -381,8 +383,10 @@ public class FenetreJeu extends Observe {
                 int y = getLigne(e.getY());
                 Message m = new Message();
                 m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ1.getCarte(x, y);
-                notifierObservateur(m);
+                m.carteSelectionne = carteJ3.getCarte(x, y);
+                if (m.carteSelectionne != null) {
+                    notifierObservateur(m);
+                }
             }
 
             @Override
@@ -416,8 +420,10 @@ public class FenetreJeu extends Observe {
                 int y = getLigne(e.getY());
                 Message m = new Message();
                 m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ1.getCarte(x, y);
-                notifierObservateur(m);
+                m.carteSelectionne = carteJ4.getCarte(x, y);
+                if (m.carteSelectionne != null) {
+                    notifierObservateur(m);
+                }
             }
 
             @Override
@@ -602,13 +608,13 @@ public class FenetreJeu extends Observe {
                 carteJ1.enleverCarte(carte);
                 break;
             case 1:
-                carteJ1.enleverCarte(carte);
+                carteJ2.enleverCarte(carte);
                 break;
             case 2:
-                carteJ1.enleverCarte(carte);
+                carteJ3.enleverCarte(carte);
                 break;
             default:
-                carteJ1.enleverCarte(carte);
+                carteJ4.enleverCarte(carte);
                 break;
         }
     }
