@@ -587,6 +587,7 @@ public class Controleur implements Observateur {
                     fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
                     nombreAction = 3;
                     fenetreInfo.affichageAction(nombreAction);
+                    fenetreInfo.changerImageJauge(niveauEau);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
