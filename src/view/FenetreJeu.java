@@ -106,7 +106,16 @@ public class FenetreJeu extends Observe{
         c.gridx = 0;
         c.gridy = 0;
         window.add(role1,c);
-
+        
+        //-----------------------//
+        
+        boutonRole1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(0).getRole().getNom());
+            }
+        });
+        
         //======================================//
 
         JPanel role2 = new JPanel();
@@ -127,6 +136,15 @@ public class FenetreJeu extends Observe{
         c.weightx = 0;
         c.weighty = 0;
         window.add(role2,c);
+        
+        //-----------------------//
+        
+        boutonRole2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(1).getRole().getNom());
+            }
+        });
 
         //======================================//
         
@@ -224,6 +242,15 @@ public class FenetreJeu extends Observe{
             c.gridx = 7;
             c.gridy = 4;
             window.add(role3,c);
+        
+            //-----------------------//
+
+            boutonRole3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
+                }
+            });
 
             //======================================//
 
@@ -243,6 +270,15 @@ public class FenetreJeu extends Observe{
                 c.gridx = 0;
                 c.gridy = 4;
                 window.add(role4,c);
+
+                //-----------------------//
+
+                boutonRole4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
+                    }
+                });
 
             }
 
@@ -365,7 +401,11 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m);  
+                                    carteJ1.remove(carteJoueur);
+                                    carteJ1.add(new JLabel(""));
+                                    carteJ1.setVisible(false);
+                                    carteJ1.setVisible(true);
                                 }
                             });
                             
@@ -390,7 +430,11 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m);  
+                                    carteJ2.remove(carteJoueur);
+                                    carteJ2.add(new JLabel(""));
+                                    carteJ2.setVisible(false);
+                                    carteJ2.setVisible(true);
                                 }
                             });
                             
@@ -415,7 +459,11 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m); 
+                                    carteJ3.remove(carteJoueur);
+                                    carteJ3.add(new JLabel(""));
+                                    carteJ3.setVisible(false);
+                                    carteJ3.setVisible(true);
                                 }
                             });
                             
@@ -441,6 +489,10 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);   
+                                    carteJ4.remove(carteJoueur);
+                                    carteJ4.add(new JLabel(""));
+                                    carteJ4.setVisible(false);
+                                    carteJ4.setVisible(true);
                                 }
                             });
                             
@@ -476,7 +528,11 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m);  
+                                    carteJ1.remove(carteJoueur);
+                                    carteJ1.add(new JLabel(""));
+                                    carteJ1.setVisible(false);
+                                    carteJ1.setVisible(true);
                                 }
                             });
                             
@@ -494,6 +550,20 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ2.remove(carteJoueur);
+                                    carteJ2.add(new JLabel(""));
+                                    carteJ2.setVisible(false);
+                                    carteJ2.setVisible(true);
+                                }
+                            });
                             
                             carteJ2.add(carteJoueur,c);
                             break;
@@ -516,7 +586,11 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m);  
+                                    carteJ3.remove(carteJoueur);
+                                    carteJ3.add(new JLabel(""));
+                                    carteJ3.setVisible(false);
+                                    carteJ3.setVisible(true);
                                 }
                             });
                             
@@ -542,6 +616,10 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);   
+                                    carteJ4.remove(carteJoueur);
+                                    carteJ4.add(new JLabel(""));
+                                    carteJ4.setVisible(false);
+                                    carteJ4.setVisible(true);
                                 }
                             });
                             
@@ -703,7 +781,7 @@ public class FenetreJeu extends Observe{
     }
     
     public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs){
-        carteJ1.addMouseListener(new MouseListener() {
+        /*carteJ1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 carteJ1.removeAll();
@@ -711,90 +789,6 @@ public class FenetreJeu extends Observe{
                 carteJ1.setVisible(true);
                 nbCarteJ1 -= 1;
                 nbCaseCarteJ1 = 0;
-                
-                for(Joueur unJoueur : joueurs){
-                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
-                        ajouterCarteMainJoueur();
-                        if (uneCarte.getTypeTresor()!=null){
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            //carteJoueur.setPreferredSize(new Dimension());
-                            nbCarteJ1 +=1;
-                            nbCaseCarteJ1 += 1;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1%4;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ1.add(carteJoueur,c);
-                        }else{
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            nbCarteJ1 +=1;
-                            nbCaseCarteJ1 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1%4;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ1.add(carteJoueur,c);
-                        }
-                    }
-                    if(unJoueur.getMainJoueur().size()<8){
-                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
-                            nbCaseCarteJ1 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            carteJ1.add(new JLabel(""),c);
-                        }
-                    }    
-                }
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -813,90 +807,6 @@ public class FenetreJeu extends Observe{
                 carteJ2.setVisible(true);
                 nbCarteJ2 -= 1;
                 nbCaseCarteJ2 = 0;
-                
-                for(Joueur unJoueur : joueurs){
-                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
-                        ajouterCarteMainJoueur();
-                        if (uneCarte.getTypeTresor()!=null){
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            //carteJoueur.setPreferredSize(new Dimension());
-                            nbCarteJ2 +=1;
-                            nbCaseCarteJ2 += 1;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2%4;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ2.add(carteJoueur,c);
-                        }else{
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            nbCarteJ2 +=1;
-                            nbCaseCarteJ2 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2%4;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ2.add(carteJoueur,c);
-                        }
-                    }
-                    if(unJoueur.getMainJoueur().size()<8){
-                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
-                            nbCaseCarteJ2 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            carteJ2.add(new JLabel(""),c);
-                        }
-                    }    
-                }
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -915,90 +825,6 @@ public class FenetreJeu extends Observe{
                 carteJ3.setVisible(true);
                 nbCarteJ3 -= 1;
                 nbCaseCarteJ3 = 0;
-                
-                for(Joueur unJoueur : joueurs){
-                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
-                        ajouterCarteMainJoueur();
-                        if (uneCarte.getTypeTresor()!=null){
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            //carteJoueur.setPreferredSize(new Dimension());
-                            nbCarteJ3 +=1;
-                            nbCaseCarteJ3 += 1;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3%4;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ3.add(carteJoueur,c);
-                        }else{
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            nbCarteJ3 +=1;
-                            nbCaseCarteJ3 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3%4;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ3.add(carteJoueur,c);
-                        }
-                    }
-                    if(unJoueur.getMainJoueur().size()<8){
-                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
-                            nbCaseCarteJ3 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            carteJ3.add(new JLabel(""),c);
-                        }
-                    }    
-                }
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -1017,90 +843,6 @@ public class FenetreJeu extends Observe{
                 carteJ4.setVisible(true);
                 nbCarteJ4 -= 1;
                 nbCaseCarteJ4 = 0;
-                
-                for(Joueur unJoueur : joueurs){
-                    for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
-                        ajouterCarteMainJoueur();
-                        if (uneCarte.getTypeTresor()!=null){
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            //carteJoueur.setPreferredSize(new Dimension());
-                            nbCarteJ4 +=1;
-                            nbCaseCarteJ4 += 1;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4%4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ4.add(carteJoueur,c);
-                        }else{
-                            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
-                            Image im = Carte.getImage();
-                            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                            JButton carteJoueur = new JButton(new ImageIcon(im));
-                            carteJoueur.setMinimumSize(new Dimension(24, 14));
-                            carteJoueur.setMaximumSize(new Dimension(24, 14));
-                            carteJoueur.setPreferredSize(new Dimension(24, 14));
-                            //carteJoueur.setSize(new Dimension(35,64));
-                            nbCarteJ4 +=1;
-                            nbCaseCarteJ4 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4%4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
-                                }
-                            });
-                            carteJ4.add(carteJoueur,c);
-                        }
-                    }
-                    if(unJoueur.getMainJoueur().size()<8){
-                        for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
-                            nbCaseCarteJ4 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            carteJ4.add(new JLabel(""),c);
-                        }
-                    }    
-                }
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -1111,7 +853,7 @@ public class FenetreJeu extends Observe{
             @Override
             public void mouseExited(MouseEvent e) {}
         });
-        //placerMainJoueur(joueurs);
+        //placerMainJoueur(joueurs);*/
     }
     
     public void DefausserCarte(String nomCarteOrange){
