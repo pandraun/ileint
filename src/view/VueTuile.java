@@ -19,25 +19,20 @@ import util.Utils.EtatTuile;
  *
  * @author fodorg
  */
-public class VueTuile extends JPanel{
-    
+public class VueTuile extends JPanel {
+
     private Tuile tuile;
     private BufferedImage image;
     private boolean surbrillance;
-    
+
     public VueTuile(Tuile tuile) {
         super();
         this.tuile = tuile;
         repaint();
     }
-    
+
     public void paintComponent(Graphics g) {
-        /*try { //  A CHANGER EN FONCTION DE L'ETAT
-            image = ImageIO.read(new File("DossierImage/Tuiles/" + tuile.getNom() +".png"));
-        } catch (IOException ex) {
-            Logger.getLogger(VueTuile.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
+
         if (tuile.getEtat().equals(EtatTuile.COULEE)) {
             try {
                 image = ImageIO.read(new File("DossierImage/Tuiles/CASECOULEE.png"));
@@ -52,8 +47,8 @@ public class VueTuile extends JPanel{
                     Logger.getLogger(VueTuile.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else { //si la tuile est assechée
-                try {                
-                image = ImageIO.read(new File("DossierImage/Tuiles/" + tuile.getNom() + "2.png"));
+                try {
+                    image = ImageIO.read(new File("DossierImage/Tuiles/" + tuile.getNom() + "2.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(VueTuile.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -73,9 +68,9 @@ public class VueTuile extends JPanel{
                 }
             }
         }
-        
+
         g.drawImage(image, 0, 0, null);
-        
+
         int i = 4;
         for (Joueur joueur : tuile.getJoueursTuile()) {
             g.setColor(joueur.getRole().getCouleur().getCouleur());
@@ -83,12 +78,12 @@ public class VueTuile extends JPanel{
             i += 29;
         }
     }
-    
+
     public void setTuile(Tuile tuile) {
         this.tuile = tuile;
         repaint();
     }
-    
+
     public void setSurbrillance(Boolean bool) {
         this.surbrillance = bool;
         repaint();

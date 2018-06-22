@@ -46,6 +46,7 @@ public class FenetreJeu extends Observe{
 
     private JFrame window;
     private JPanel grille;
+    private VueTuile vuetuile;
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
     private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
@@ -368,10 +369,30 @@ public class FenetreJeu extends Observe{
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getY();
                 int y = uneTuile.getCoordonnee().getX();
-                /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
-                VueTuile tuile = new VueTuile(uneTuile);
-                tuile.setPreferredSize(new Dimension(120,120));
-                //tuile.setContentAreaFilled(false);                
+                vuetuile = new VueTuile(uneTuile);
+                vuetuile.setPreferredSize(new Dimension(120,120));
+                vuetuile.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        System.out.println("clique sur : " + uneTuile.getNom().toString());
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_TUILE;
+                        m.tuileSelectionne = uneTuile;
+                        notifierObservateur(m);
+                    }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
                 c.fill = GridBagConstraints.BOTH;
                 c.weightx = 1;
                 c.weighty = 1;
@@ -379,7 +400,7 @@ public class FenetreJeu extends Observe{
                 c.gridheight = 1;
                 c.gridwidth = 1;
                 c.gridy = y;
-                grille.add(tuile,c);
+                grille.add(vuetuile,c);
             }
 
 
