@@ -419,9 +419,9 @@ public class Controleur implements Observateur {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
             piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
             if (piocheOrange.peek().getTypeTresor() != null) {
-                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name());
+                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name()*/);
             } else {
-                fenetreJeu.piocherCarteOrange(joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse());
+                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse()*/);
             }
         }
         piocheOrange.pop();
@@ -430,6 +430,13 @@ public class Controleur implements Observateur {
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
+        fenetreJeu.retirerCarteMainJoueur(joueurs);
+        if (carte.getTypeTresor()!=null){
+            fenetreJeu.DefausserCarte(carte.getTypeTresor().name());
+        } else{
+            fenetreJeu.DefausserCarte(carte.getTypeClasse());
+        }
+        
     }
 
     public void empilerDefausseInondation() { //qd y'a une carte montée des eaux
