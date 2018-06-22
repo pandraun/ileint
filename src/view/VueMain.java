@@ -73,7 +73,7 @@ public class VueMain extends JPanel{
     
     public CarteOrange getCarte(int x, int y) {
         int i = x;
-        if (y>=2) {
+        if (y>=1) {
             i += 4;
         }
         if (i<cartes.size()) {
