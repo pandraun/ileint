@@ -69,7 +69,7 @@ public class FenetreJeu extends Observe {
 
     GridBagConstraints c = new GridBagConstraints();
 
-    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
+    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation, int joueurCourant) throws MalformedURLException {
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -311,12 +311,12 @@ public class FenetreJeu extends Observe {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
                 if (x < 4 && y < 2) {
-                    System.out.println("x = " + x);
-                    System.out.println("y = " + y);
+                    //System.out.println("x = " + x);
+                    //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ1.getCarte(x, y);
-                    if (m.carteSelectionne != null) {
+                    if (m.carteSelectionne != null && joueurs.get(0).getNumeroJoueur() == joueurCourant) {
                         notifierObservateur(m);
                     }
                 }
@@ -354,12 +354,12 @@ public class FenetreJeu extends Observe {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
                 if (x < 4 && y < 2) {
-                    System.out.println("x = " + x);
-                    System.out.println("y = " + y);
+                    //System.out.println("x = " + x);
+                    //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ2.getCarte(x, y);
-                    if (m.carteSelectionne != null) {
+                    if (m.carteSelectionne != null && joueurs.get(1).getNumeroJoueur() == joueurCourant) {
                         notifierObservateur(m);
                     }
                 }
@@ -398,12 +398,12 @@ public class FenetreJeu extends Observe {
                     int x = getColonne(e.getX());
                     int y = getLigne(e.getY());
                     if (x < 4 && y < 2) {
-                        System.out.println("x = " + x);
-                        System.out.println("y = " + y);
+                        //System.out.println("x = " + x);
+                        //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ3.getCarte(x, y);
-                        if (m.carteSelectionne != null) {
+                        if (m.carteSelectionne != null && joueurs.get(2).getNumeroJoueur() == joueurCourant) {
                             notifierObservateur(m);
                         }
                     }
@@ -442,12 +442,12 @@ public class FenetreJeu extends Observe {
                         int x = getColonne(e.getX());
                         int y = getLigne(e.getY());
                         if (x < 4 && y < 2) {
-                        System.out.println("x = " + x);
-                        System.out.println("y = " + y);
+                        //System.out.println("x = " + x);
+                        //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ4.getCarte(x, y);
-                        if (m.carteSelectionne != null) {
+                        if (m.carteSelectionne != null && joueurs.get(3).getNumeroJoueur() == joueurCourant) {
                             notifierObservateur(m);
                         }
                     }
@@ -496,7 +496,7 @@ public class FenetreJeu extends Observe {
                 vuetuile.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        System.out.println("clique sur : " + uneTuile.getNom().toString());
+                        //System.out.println("clique sur : " + uneTuile.getNom().toString());
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.tuileSelectionne = uneTuile;
@@ -594,7 +594,6 @@ public class FenetreJeu extends Observe {
     }
 
     public void DefausserCarte(String nomCarteOrange) {
-        System.out.println("nom Carte : /"+nomCarteOrange+"/");
         ImageIcon CarteOrange = new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png");
         Image im = CarteOrange.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
