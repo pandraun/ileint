@@ -544,11 +544,11 @@ public class FenetreInfo extends Observe {
 
     public void affichageAction(int nbAction) {
         if (nbAction == 1) {
-            layNbAc.show(panelAc, "1action");
+            layNbAc.show(pActions, "1action");
         } else if (nbAction == 2) {
-            layNbAc.show(panelAc, "2action");
+            layNbAc.show(pActions, "2action");
         } else {
-            layNbAc.show(panelAc, "3action");
+            layNbAc.show(pActions, "3action");
         }
     }
 
