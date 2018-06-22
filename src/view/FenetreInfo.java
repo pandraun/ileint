@@ -13,12 +13,12 @@ import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,17 +28,18 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 import util.Message;
 import util.TypeTresor;
 import util.TypesMessages;
+import util.Utils;
 
 public class FenetreInfo extends Observe {
 
@@ -132,7 +133,7 @@ public class FenetreInfo extends Observe {
         window.setSize(new Dimension(width, height));
         window.setLocation(1150, 0);
 
-        final BufferedImage image = ImageIO.read(new File("DossierImage/imgAutre/fond1.png"));
+        final BufferedImage image = ImageIO.read(new File("DossierImage/imgAutre/fond2.jpg"));
 
         JPanel pane = new JPanel() {
             @Override
@@ -185,6 +186,11 @@ public class FenetreInfo extends Observe {
         panelInfoJeu.setOpaque(false);
         f = new Font("Ile int", Font.PLAIN, 20);
         textInfoJeu = new JTextArea();
+        
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        textInfoJeu.setBorder(BorderFactory.createCompoundBorder(border,
+        BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
@@ -194,8 +200,9 @@ public class FenetreInfo extends Observe {
 
         //Panel pour le role + instantiation + ajout
         panelRole = new JPanel();
-        panelRole.setOpaque(false);
-        labelRole = new JLabel("Ingenieur");
+        //panelRole.setOpaque(false);
+        labelRole = new JLabel();
+
         panelRole.add(labelRole);
         infoPanel.add(panelRole, BorderLayout.SOUTH);
 
@@ -381,7 +388,10 @@ public class FenetreInfo extends Observe {
         });
         gc2.gridx = 0;
         gc2.gridy = 0;
-        panelAc.add(btnAnnuler, gc2);
+        JPanel panAnn = new JPanel();
+        panAnn.add(btnAnnuler);
+        panAnn.setOpaque(false);
+        panelAc.add(panAnn, gc2);
 
         //*********************************************************************
         //Icone spécial
@@ -389,7 +399,7 @@ public class FenetreInfo extends Observe {
         layNbAc = new CardLayout();
         pActions = new JPanel(layNbAc);
         pActions.setOpaque(false);
-        f2 = new Font("NbAction", Font.BOLD, 25);
+        f2 = new Font("NbAction", Font.BOLD, 35);
 
         pan1 = new JPanel();
         pan1.setOpaque(false);
@@ -429,7 +439,10 @@ public class FenetreInfo extends Observe {
         });
         gc2.gridx = 2;
         gc2.gridy = 0;
-        panelAc.add(btnPasser, gc2);
+        JPanel panPas = new JPanel();
+        panPas.add(btnPasser);
+        panPas.setOpaque(false);
+        panelAc.add(panPas, gc2);
 
         panelAutresActions.add(panelAc, gc2);
         panelMilieu.add(panelAutresActions, BorderLayout.CENTER);
@@ -630,7 +643,23 @@ public class FenetreInfo extends Observe {
     }
 
     public void modifierLabelJoueur(Joueur joueur) {
+
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
+
+        if (joueur.getRole().getNom() == "Messager") {
+            labelRole.setForeground(Utils.Pion.ORANGE.getCouleur());
+        } else if (joueur.getRole().getNom() == "Ingénieur") {
+            labelRole.setForeground(Utils.Pion.ROUGE.getCouleur());
+        } else if (joueur.getRole().getNom() == "Explorateur") {
+            labelRole.setForeground(Utils.Pion.VERT.getCouleur());
+        } else if (joueur.getRole().getNom() == "Pilote") {
+            labelRole.setForeground(Utils.Pion.BLEU.getCouleur());
+        } else if (joueur.getRole().getNom() == "Navigateur") {
+            labelRole.setForeground(Utils.Pion.JAUNE.getCouleur());
+        } else if (joueur.getRole().getNom() == "Plongeur") {
+            labelRole.setForeground(Utils.Pion.VIOLET.getCouleur());
+        }
+        
     }
 
     public void boutonSpeciale(String nomRole) {
