@@ -311,8 +311,8 @@ public class FenetreJeu extends Observe{
     public void placerTuiles(HashMap<Coordonnee,Tuile> tuiles){
         for(Tuile uneTuile : tuiles.values()){
             if (uneTuile.getNom()!=null){
-                int x = uneTuile.getCoordonnee().getX();
-                int y = uneTuile.getCoordonnee().getY();
+                int x = uneTuile.getCoordonnee().getY();
+                int y = uneTuile.getCoordonnee().getX();
                 /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
                 VueTuile tuile = new VueTuile(uneTuile);
                 tuile.setPreferredSize(new Dimension(120,120));
