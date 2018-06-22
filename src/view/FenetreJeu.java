@@ -43,6 +43,7 @@ public class FenetreJeu extends Observe{
 
     private JFrame window;
     private JPanel grille;
+    private VueTuile tuile;
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
     private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
@@ -349,10 +350,26 @@ public class FenetreJeu extends Observe{
             if (uneTuile.getNom()!=null){
                 int x = uneTuile.getCoordonnee().getY();
                 int y = uneTuile.getCoordonnee().getX();
-                /*JButton tuile = new JButton(new ImageIcon("DossierImage/Tuiles/"+uneTuile.getNom()+".png"));*/
-                VueTuile tuile = new VueTuile(uneTuile);
+                tuile = new VueTuile(uneTuile);
                 tuile.setPreferredSize(new Dimension(120,120));
-                //tuile.setContentAreaFilled(false);                
+                tuile.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        
+                    }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
                 c.fill = GridBagConstraints.BOTH;
                 c.weightx = 1;
                 c.weighty = 1;
