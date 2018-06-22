@@ -36,12 +36,12 @@ public class VueMain extends JPanel{
         for (CarteOrange carte : cartes) {
             if (i==5){
                 x = 0;
-                y = 64;
+                y = 69;
             }
             chercherImage(carte);
             g.drawImage(image, x, y, null);
             i++;
-            x += 42;
+            x += 47;
         }
     }
     
