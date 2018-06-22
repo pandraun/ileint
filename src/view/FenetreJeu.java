@@ -658,8 +658,11 @@ public class FenetreJeu extends Observe {
     }
 
     public void DefausserCarte(String nomCarteOrange) {
-        System.out.println("nom Carte : /" + nomCarteOrange + "/");
-        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png"));
+        System.out.println("nom Carte : /"+nomCarteOrange+"/");
+        ImageIcon CarteOrange = new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png");
+        Image im = CarteOrange.getImage();
+        im = im.getScaledInstance(140, 100, Image.SCALE_DEFAULT);
+        btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
 }
