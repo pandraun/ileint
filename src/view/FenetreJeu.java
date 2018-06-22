@@ -367,7 +367,6 @@ public class FenetreJeu extends Observe{
                                 }
                             });
                             
-                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -382,6 +381,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ2.add(carteJoueur,c);
                             break;
@@ -398,6 +406,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
@@ -412,6 +429,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ4.add(carteJoueur,c);
                             break;
@@ -440,6 +466,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -470,6 +505,15 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
                             carteJ3.add(carteJoueur,c);
                             break;
                         default:
@@ -484,6 +528,15 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
                             
                             carteJ4.add(carteJoueur,c);
                             break;

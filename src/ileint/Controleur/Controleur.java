@@ -671,6 +671,7 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableAttenteDaction();
                 break;
             case CHOIX_CARTE:
+                fenetreJeu.retirerCarteMainJoueur(joueurs);
                 if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
                         //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
