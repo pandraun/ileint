@@ -279,7 +279,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 6; i++) {  //DEBUG
+            for (int i = 0; i < 2; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -421,7 +421,6 @@ public class Controleur implements Observateur {
             empilerDefausseInondation();
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
-            piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
             fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek());
         }
         piocheOrange.pop();
