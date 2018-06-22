@@ -76,7 +76,11 @@ public class VueMain extends JPanel{
         if (y>=2) {
             i += 4;
         }
-        i -=1;
-        return cartes.get(i);
+        if (i<cartes.size()) {
+            return cartes.get(i);
+        } else {
+            return null;
+        }
+        
     }
 }

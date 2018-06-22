@@ -279,7 +279,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 4; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -434,7 +434,7 @@ public class Controleur implements Observateur {
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
-        fenetreJeu.retirerCarteMainJoueur(joueurs);
+        fenetreJeu.retirerCarteMainJoueur(joueur, carte);
         if (carte == null) {
             System.out.println("debug null");
         }
