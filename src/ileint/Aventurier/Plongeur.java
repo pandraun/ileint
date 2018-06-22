@@ -43,15 +43,20 @@ public class Plongeur extends Aventurier {
             
             for (Tuile uneTuile : tuilesAVisiter.values()) {
                 
-                if (uneTuile.getEtat().equals(Utils.EtatTuile.INONDEE)) {   // si tuile inondée trouvée -> on l'ajoute
-                    tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
-                    tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
-                    
-                } else if (uneTuile.getEtat().equals(Utils.EtatTuile.ASSECHEE)) {
-                    tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
-                    
-                } else if (uneTuile.getEtat().equals(Utils.EtatTuile.COULEE)){
-                    tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
+                switch (uneTuile.getEtat()) {
+                    case INONDEE:
+                        // si tuile inondée trouvée -> on l'ajoute
+                        tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
+                        tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
+                        break;
+                    case ASSECHEE:
+                        tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
+                        break;
+                    case COULEE:
+                        tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
+                        break;
+                    default:
+                        break;
                 }
             }
              tuilesAVisiter = tuilesEau;
