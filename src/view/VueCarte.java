@@ -1,48 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
 import ileint.Carte.CarteOrange;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
  *
- * @author fodorg
+ * @author pandraun
  */
-public class VueMain extends JPanel{
-    
-    private ArrayList<CarteOrange> cartes;
+public class VueCarte extends JPanel{
+    private CarteOrange carte;
     private BufferedImage image;
     
-    public VueMain(ArrayList<CarteOrange> cartes) {
+    public VueCarte() {
         super();
-        this.cartes = cartes;
-        repaint();
     }
     
-    public void paintComponent(Graphics g) { //~42*64
-        int x = 0;
-        int y = 0;
-        int i = 1;
-        
-        for (CarteOrange carte : cartes) {
-            if (i==5){
-                x = 0;
-                y = 64;
-            }
-            chercherImage(carte);
-            g.drawImage(image, x, y, null);
-            i++;
-            x += 42;
-        }
+    public void paintComponent(Graphics g) {
+        chercherImage(carte);
+        g.drawImage(image, 0, 0, null);
     }
     
     private void chercherImage(CarteOrange carte) {
@@ -61,13 +48,17 @@ public class VueMain extends JPanel{
         }
     }
     
-    public void ajouterCarte(CarteOrange carte){
-        cartes.add(carte);
+    public void setImage(CarteOrange carte) {
+        this.carte = carte;
         repaint();
     }
     
-    public void enleverCarte(CarteOrange carte) {
-        cartes.remove(carte);
+    public void enleverImage() {
+        try {
+                image = ImageIO.read(new File(""));
+            } catch (IOException ex) {
+                Logger.getLogger(VueMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
         repaint();
     }
 }
