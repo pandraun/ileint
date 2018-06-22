@@ -695,6 +695,7 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquableAnnuler(true);
                     fenetreInfo.cliquableTresor(false);
                 }
+                fenetreJeu.retirerCarteMainJoueur(joueurs);
                 break;
 
             //Piochage de cartes oranges à la fin du tour

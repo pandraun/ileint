@@ -358,6 +358,16 @@ public class FenetreJeu extends Observe{
                                 c.gridy = 1;
                             }
                             
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    notifierObservateur(m);   
+                                }
+                            });
+                            
+                            
                             carteJ1.add(carteJoueur,c);
                             break;
                         case 1:
@@ -627,8 +637,12 @@ public class FenetreJeu extends Observe{
         
     }
     
-    public void retirerCarteMainJoueur(int numeroJoueur, int nomCarteOrange){
-        
+    public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs){
+        carteJ1.removeAll();
+        carteJ2.removeAll();
+        carteJ3.removeAll();
+        carteJ3.removeAll();
+        placerMainJoueur(joueurs);
     }
     
 }
