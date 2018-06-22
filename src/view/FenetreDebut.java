@@ -142,7 +142,6 @@ public class FenetreDebut  extends Observe {
                 m.type = TypesMessages.CONTINUER;
                 m.nbJoueur = nbJoueurs.getText();
                 m.difficulté = niveau.getValue();
-                System.out.println("debug : " + niveau.getValue());
                 notifierObservateur(m);
             }    
         });

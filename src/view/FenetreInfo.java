@@ -475,6 +475,7 @@ public class FenetreInfo extends Observe {
         j6.add(niv6);
         panelJauge.add(j6, "niv6");
         j7 = new JPanel();
+        j7 = new JPanel();
         j7.add(niv7);
         panelJauge.add(j7, "niv7");
         j8 = new JPanel();
@@ -679,6 +680,7 @@ public class FenetreInfo extends Observe {
     }
 
     public void changerImageJauge(int niv) {
+        System.out.println(niv);
         if (niv == 1) {
             layJauge.show(panelJauge, "niv1");
         } else if (niv == 2) {
@@ -686,7 +688,7 @@ public class FenetreInfo extends Observe {
         } else if (niv == 3) {
             layJauge.show(panelJauge, "niv3");
         } else if (niv == 4) {
-            layJauge.show(panelJauge, "ni4");
+            layJauge.show(panelJauge, "niv4");
         } else if (niv == 5) {
             layJauge.show(panelJauge, "niv5");
         } else if (niv == 6) {
@@ -696,7 +698,7 @@ public class FenetreInfo extends Observe {
         } else if (niv == 8) {
             layJauge.show(panelJauge, "niv8");
         } else if (niv == 9) {
-            layJauge.show(panelJauge, "ni9");
+            layJauge.show(panelJauge, "niv9");
         } else if (niv == 10) {
             layJauge.show(panelJauge, "niv10");
         }
