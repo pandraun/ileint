@@ -431,7 +431,7 @@ public class Controleur implements Observateur {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
         fenetreJeu.retirerCarteMainJoueur(joueurs);
-        if (carte.getTypeTresor()!=null){
+        if (carte.getTypeTresor().name()!=null){
             fenetreJeu.DefausserCarte(carte.getTypeTresor().name());
         } else{
             fenetreJeu.DefausserCarte(carte.getTypeClasse());
@@ -681,7 +681,7 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableAttenteDaction();
                 break;
             case CHOIX_CARTE:
-                fenetreJeu.retirerCarteMainJoueur(joueurs);
+                defausserCarte(joueurCourant, m.carteSelectionne);
                 if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
                         //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
