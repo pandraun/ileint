@@ -62,6 +62,7 @@ public class VueMain extends JPanel{
     }
     
     public void ajouterCarte(CarteOrange carte){
+        System.out.println("debug : " + cartes.size());
         cartes.add(carte);
         repaint();
     }
