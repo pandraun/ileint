@@ -187,11 +187,11 @@ public class FenetreInfo extends Observe {
         //Paramètre du GridBagLayout
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.BOTH;
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(10, 0, 0, 0);
         gc.ipady = gc.anchor = GridBagConstraints.CENTER;
         gc.weightx = 3;
         gc.weighty = 3;
-        d = new Dimension(150, 25);
+        d = new Dimension(150, 35);
 
         //Bouton Deplacer
         btnDeplacer = new JButton("Se déplacer");
@@ -334,7 +334,7 @@ public class FenetreInfo extends Observe {
         //Paramètre du 2e GridBagLayout
         GridBagConstraints gc2 = new GridBagConstraints();
         gc2.fill = GridBagConstraints.BOTH;
-        gc2.insets = new Insets(0, 15, 0, 15);
+        gc2.insets = new Insets(50, 15, 50, 15);
         gc2.ipady = gc2.anchor = GridBagConstraints.CENTER;
         gc2.weightx = 1;
         gc2.weighty = 3;
@@ -469,6 +469,7 @@ public class FenetreInfo extends Observe {
 
         panelBas.add(panelJauge, BorderLayout.NORTH);
 
+        
         //Panel pour les trésors
         panelTresor = new JPanel(new GridBagLayout());
         panelTresor.setOpaque(false);
