@@ -17,6 +17,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -104,7 +106,16 @@ public class FenetreJeu extends Observe{
         c.gridx = 0;
         c.gridy = 0;
         window.add(role1,c);
-
+        
+        //-----------------------//
+        
+        boutonRole1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(0).getRole().getNom());
+            }
+        });
+        
         //======================================//
 
         JPanel role2 = new JPanel();
@@ -125,6 +136,15 @@ public class FenetreJeu extends Observe{
         c.weightx = 0;
         c.weighty = 0;
         window.add(role2,c);
+        
+        //-----------------------//
+        
+        boutonRole2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(1).getRole().getNom());
+            }
+        });
 
         //======================================//
         
@@ -222,6 +242,15 @@ public class FenetreJeu extends Observe{
             c.gridx = 7;
             c.gridy = 4;
             window.add(role3,c);
+        
+            //-----------------------//
+
+            boutonRole3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
+                }
+            });
 
             //======================================//
 
@@ -241,6 +270,15 @@ public class FenetreJeu extends Observe{
                 c.gridx = 0;
                 c.gridy = 4;
                 window.add(role4,c);
+
+                //-----------------------//
+
+                boutonRole4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
+                    }
+                });
 
             }
 
@@ -342,7 +380,6 @@ public class FenetreJeu extends Observe{
                     carteJoueur.setMaximumSize(new Dimension(24, 14));
                     carteJoueur.setPreferredSize(new Dimension(24, 14));
                     //carteJoueur.setSize(new Dimension(35,64));
-                    System.out.println(uneCarte.getTypeTresor());
                     //carteJoueur.setPreferredSize(new Dimension());
                     switch (unJoueur.getNumeroJoueur()) {
                         case 0:
@@ -363,7 +400,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
-                                    notifierObservateur(m);   
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ1.remove(carteJoueur);
+                                    carteJ1.add(new JLabel(""));
+                                    carteJ1.setVisible(false);
+                                    carteJ1.setVisible(true);
                                 }
                             });
                             
@@ -387,7 +429,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
-                                    notifierObservateur(m);   
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ2.remove(carteJoueur);
+                                    carteJ2.add(new JLabel(""));
+                                    carteJ2.setVisible(false);
+                                    carteJ2.setVisible(true);
                                 }
                             });
                             
@@ -411,7 +458,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
-                                    notifierObservateur(m);   
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m); 
+                                    carteJ3.remove(carteJoueur);
+                                    carteJ3.add(new JLabel(""));
+                                    carteJ3.setVisible(false);
+                                    carteJ3.setVisible(true);
                                 }
                             });
                             
@@ -435,7 +487,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);   
+                                    carteJ4.remove(carteJoueur);
+                                    carteJ4.add(new JLabel(""));
+                                    carteJ4.setVisible(false);
+                                    carteJ4.setVisible(true);
                                 }
                             });
                             
@@ -443,7 +500,6 @@ public class FenetreJeu extends Observe{
                             break;
                     }
                 }else{
-                    System.out.println(uneCarte.getTypeClasse());
                     ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
                     Image im = Carte.getImage();
                     im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
@@ -471,7 +527,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
-                                    notifierObservateur(m);   
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ1.remove(carteJoueur);
+                                    carteJ1.add(new JLabel(""));
+                                    carteJ1.setVisible(false);
+                                    carteJ1.setVisible(true);
                                 }
                             });
                             
@@ -489,6 +550,20 @@ public class FenetreJeu extends Observe{
                             }else{
                                 c.gridy = 1;
                             }
+                            
+                            carteJoueur.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    Message m = new Message();
+                                    m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ2.remove(carteJoueur);
+                                    carteJ2.add(new JLabel(""));
+                                    carteJ2.setVisible(false);
+                                    carteJ2.setVisible(true);
+                                }
+                            });
                             
                             carteJ2.add(carteJoueur,c);
                             break;
@@ -510,7 +585,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
-                                    notifierObservateur(m);   
+                                    m.carteSelectionne = uneCarte;
+                                    notifierObservateur(m);  
+                                    carteJ3.remove(carteJoueur);
+                                    carteJ3.add(new JLabel(""));
+                                    carteJ3.setVisible(false);
+                                    carteJ3.setVisible(true);
                                 }
                             });
                             
@@ -534,7 +614,12 @@ public class FenetreJeu extends Observe{
                                 public void actionPerformed(ActionEvent e) {
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
+                                    m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);   
+                                    carteJ4.remove(carteJoueur);
+                                    carteJ4.add(new JLabel(""));
+                                    carteJ4.setVisible(false);
+                                    carteJ4.setVisible(true);
                                 }
                             });
                             
@@ -613,8 +698,8 @@ public class FenetreJeu extends Observe{
         carteJ1.removeAll();
         carteJ2.removeAll();
         carteJ3.removeAll();
-        carteJ3.removeAll();
-        placerMainJoueur(joueurs);
+        carteJ4.removeAll();
+        //placerMainJoueur(joueurs);
         /*if (numeroJoueur==0){
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
@@ -696,11 +781,79 @@ public class FenetreJeu extends Observe{
     }
     
     public void retirerCarteMainJoueur(ArrayList<Joueur> joueurs){
-        carteJ1.removeAll();
-        carteJ2.removeAll();
-        carteJ3.removeAll();
-        carteJ3.removeAll();
-        placerMainJoueur(joueurs);
+        /*carteJ1.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ1.removeAll();
+                carteJ1.setVisible(false);
+                carteJ1.setVisible(true);
+                nbCarteJ1 -= 1;
+                nbCaseCarteJ1 = 0;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ2.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ2.removeAll();
+                carteJ2.setVisible(false);
+                carteJ2.setVisible(true);
+                nbCarteJ2 -= 1;
+                nbCaseCarteJ2 = 0;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ3.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ3.removeAll();
+                carteJ3.setVisible(false);
+                carteJ3.setVisible(true);
+                nbCarteJ3 -= 1;
+                nbCaseCarteJ3 = 0;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        carteJ4.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                carteJ4.removeAll();
+                carteJ4.setVisible(false);
+                carteJ4.setVisible(true);
+                nbCarteJ4 -= 1;
+                nbCaseCarteJ4 = 0;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        //placerMainJoueur(joueurs);*/
     }
     
     public void DefausserCarte(String nomCarteOrange){
