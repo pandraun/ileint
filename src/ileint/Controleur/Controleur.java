@@ -422,11 +422,7 @@ public class Controleur implements Observateur {
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
             piocheOrange.peek().setEmplacementCarte(EmplacementCarte.MAINJOUEUR);
-            if (piocheOrange.peek().getTypeTresor() != null) {
-                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeTresor().name()*/);
-            } else {
-                fenetreJeu.piocherCarteOrange(joueurs/*joueurCourant.getNumeroJoueur(), piocheOrange.peek().getTypeClasse()*/);
-            }
+            fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek());
         }
         piocheOrange.pop();
     }

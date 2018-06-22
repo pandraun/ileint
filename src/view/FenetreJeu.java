@@ -519,98 +519,34 @@ public class FenetreJeu extends Observe {
     private int getLigne(int y) {
         return (y * 2) / 128;
     }
-
-    public void piocherCarteOrange(ArrayList<Joueur> joueurs) {
-//        carteJ1.removeAll();
-//        carteJ2.removeAll();
-//        carteJ3.removeAll();
-//        carteJ4.removeAll();
-//        carteJ1.setVisible(false);
-//        carteJ1.setVisible(true);
-//        carteJ2.setVisible(false);
-//        carteJ2.setVisible(true);
-//        carteJ3.setVisible(false);
-//        carteJ3.setVisible(true);
-//        carteJ4.setVisible(false);
-//        carteJ4.setVisible(true);
-//        placerMainJoueur(joueurs);
-        /*if (numeroJoueur==0){
-            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
-            Image im = Carte.getImage();
-            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-            JButton carteJoueur = new JButton(new ImageIcon(im));
-            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ1);
-            nbCarteJ1 += 1;
-            c.gridheight = 1;
-            c.gridwidth = 1;
-            if (nbCarteJ1<4){
-                c.gridx = nbCarteJ1;
-                c.gridy = 0;
-            }else{
-                c.gridx = nbCarteJ1%4;
-                c.gridy = 1;
-            }
-            carteJ1.add(carteJoueur,c);
-        }else if (numeroJoueur==1){
-            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
-            Image im = Carte.getImage();
-            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-            JButton carteJoueur = new JButton(new ImageIcon(im));
-            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ2);
-            nbCarteJ2 += 1;
-            c.gridheight = 1;
-            c.gridwidth = 1;
-            if (nbCarteJ2<4){
-                c.gridx = nbCarteJ2;
-                c.gridy = 0;
-            }else{
-                c.gridx = nbCarteJ2%4;
-                c.gridy = 1;
-            }
-            carteJ1.add(carteJoueur,c);
-        }else if (numeroJoueur==1){
-            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
-            Image im = Carte.getImage();
-            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-            JButton carteJoueur = new JButton(new ImageIcon(im));
-            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ3);
-            nbCarteJ3 += 1;
-            c.gridheight = 1;
-            c.gridwidth = 1;
-            if (nbCarteJ3<4){
-                c.gridx = nbCarteJ3;
-                c.gridy = 0;
-            }else{
-                c.gridx = nbCarteJ3%4;
-                c.gridy = 1;
-            }
-            carteJ1.add(carteJoueur,c);
-        }else{
-            ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
-            Image im = Carte.getImage();
-            im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-            JButton carteJoueur = new JButton(new ImageIcon(im));
-            System.out.println("nbCarteJoueur "+numeroJoueur+" : "+nbCarteJ4);
-            nbCarteJ4 += 1;
-            c.gridheight = 1;
-            c.gridwidth = 1;
-            if (nbCarteJ4<4){
-                c.gridx = nbCarteJ4;
-                c.gridy = 0;
-            }else{
-                c.gridx = nbCarteJ4%4;
-                c.gridy = 1;
-            }
-            carteJ1.add(carteJoueur,c);
-        }*/
+    
+    public void piocherCarteOrange(Joueur joueur, CarteOrange carte){
+        switch (joueur.getNumeroJoueur()) {
+            case 0:
+                carteJ1.ajouterCarte(carte);
+                break;
+            case 1:
+                carteJ2.ajouterCarte(carte);
+                break;
+            case 2:
+                carteJ3.ajouterCarte(carte);
+                break;
+            default:
+                carteJ4.ajouterCarte(carte);
+                break;
+        }
     }
+    
 
-    public void piocherCarteInondation(String nomCarteInodation) {
-
+    public void piocherCarteInondation() {
+        //ImageIcon CarteOrange = new ImageIcon("DossierImage/imgCartePiocheOrange/" + carte. + ".png");
+        //Image im = CarteOrange.getImage();
+        //im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
+        //btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
     public void ajouterCarteMainJoueur() {
-
+        
     }
 
     public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
@@ -641,7 +577,7 @@ public class FenetreJeu extends Observe {
         System.out.println("nom Carte : /"+nomCarteOrange+"/");
         ImageIcon CarteOrange = new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png");
         Image im = CarteOrange.getImage();
-        im = im.getScaledInstance(140, 100, Image.SCALE_DEFAULT);
+        im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
