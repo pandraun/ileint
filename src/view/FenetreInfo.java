@@ -78,6 +78,7 @@ public class FenetreInfo extends Observe {
     //Apparence du texte
     private JTextArea textInfoJeu;
     private Font f;
+    private Font f2;
 
     //Element changeant suivant informations du controleur
     private JLabel labelRole;
@@ -108,7 +109,7 @@ public class FenetreInfo extends Observe {
         int width = 520;  //(int) dimension.getWidth() - 1150;
         window.setSize(new Dimension(width, height));
         window.setLocation(1150, 0);
-
+        
         //Panels pour les règles de jeu + instantiation + ajout
         mainPanel = new JPanel(new BorderLayout());
         infoPanel = new JPanel(new BorderLayout());
@@ -121,6 +122,8 @@ public class FenetreInfo extends Observe {
         reglesPanel.add(btnRegles, BorderLayout.EAST);
         infoPanel.add(reglesPanel, BorderLayout.NORTH);
 
+        //window.setContentPane(new ImagePanel("DossierImage/imgAutre/sable.jpg"));
+        
         //Panels pour les informations de jeu + mise en place du texte et de son apparence + ajout
         panelInfoJeu = new JPanel();
         f = new Font("Ile int", Font.PLAIN, 20);
@@ -164,7 +167,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 0;
-        panelActions.add(btnDeplacer, gc);
+        JPanel panDeplacer = new JPanel();
+        panDeplacer.add(btnDeplacer);
+        panelActions.add(panDeplacer, gc);
 
         //Bouton Assecher
         btnAssecher = new JButton("Assécher");
@@ -179,7 +184,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 2;
         gc.gridy = 0;
-        panelActions.add(btnAssecher, gc);
+        JPanel panAssecher = new JPanel();
+        panAssecher.add(btnAssecher);
+        panelActions.add(panAssecher, gc);
 
         //Bouton Donner
         btnDonner = new JButton("Donner carte");
@@ -194,7 +201,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 1;
-        panelActions.add(btnDonner, gc);
+        JPanel panDonner = new JPanel();
+        panDonner.add(btnDonner);
+        panelActions.add(panDonner, gc);
 
         //Bouton trésor
         btnTresor = new JButton("Récupérer");
@@ -209,7 +218,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 2;
         gc.gridy = 1;
-        panelActions.add(btnTresor, gc);
+        JPanel panRecuperer = new JPanel();
+        panRecuperer.add(btnTresor);
+        panelActions.add(panRecuperer, gc);
 
         //Bouton utiliser carte
         btnUtiliserCarte = new JButton("Utiliser carte");
@@ -224,7 +235,9 @@ public class FenetreInfo extends Observe {
         });
         gc.gridx = 0;
         gc.gridy = 2;
-        panelActions.add(btnUtiliserCarte, gc);
+        JPanel panUtiliser = new JPanel();
+        panUtiliser.add(btnUtiliserCarte);
+        panelActions.add(panUtiliser, gc);
 
         //Bouton spécial
         JPanel p1, p2, p3;
@@ -304,19 +317,24 @@ public class FenetreInfo extends Observe {
         JPanel pan1, pan2, pan3;
         layNbAc = new CardLayout();
         pActions = new JPanel(layNbAc);
+        f2 = new Font("NbAction", Font.BOLD, 25);
+
 
         pan1 = new JPanel();
         JLabel action1 = new JLabel("1");
+        action1.setFont(f2);
         pan1.add(action1);
         pActions.add(pan1, "1action");
 
         pan2 = new JPanel();
         JLabel action2 = new JLabel("2");
+        action2.setFont(f2);
         pan2.add(action2);
         pActions.add(pan2, "2action");
 
         pan3 = new JPanel();
         JLabel action3 = new JLabel("3");
+        action3.setFont(f2);
         pan3.add(action3);
         pActions.add(pan3, "3action");
 
@@ -526,11 +544,11 @@ public class FenetreInfo extends Observe {
 
     public void affichageAction(int nbAction) {
         if (nbAction == 1) {
-            layNbAc.show(panelAc, "1action");
+            layNbAc.show(pActions, "1action");
         } else if (nbAction == 2) {
-            layNbAc.show(panelAc, "2action");
+            layNbAc.show(pActions, "2action");
         } else {
-            layNbAc.show(panelAc, "3action");
+            layNbAc.show(pActions, "3action");
         }
     }
 
