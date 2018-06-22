@@ -18,6 +18,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import util.Message;
 import util.TypeTresor;
@@ -126,12 +128,12 @@ public class FenetreInfo extends Observe {
         this.window = new JFrame();
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 805;
-        int width = 520;  
+        int width = 520;
         window.setSize(new Dimension(width, height));
         window.setLocation(1150, 0);
 
         final BufferedImage image = ImageIO.read(new File("DossierImage/imgAutre/fond1.png"));
-        
+
         JPanel pane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -139,7 +141,6 @@ public class FenetreInfo extends Observe {
                 g.drawImage(image, 0, 0, null);
             }
         };
-
 
         window.setContentPane(pane);
 
@@ -151,7 +152,27 @@ public class FenetreInfo extends Observe {
         reglesPanel = new JPanel(new BorderLayout());
         reglesPanel.setOpaque(false);
         btnRegles = new JButton("Lire les règles");
+
+        btnRegles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.LIRE_REGLES;
+                notifierObservateur(m);
+            }
+        });
+
         btnAides = new JButton("Lire aide interface");
+
+        btnAides.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message();
+                m.type = TypesMessages.LIRE_INTERFACE;
+                notifierObservateur(m);
+            }
+        });
+
         btnRegles.setPreferredSize(new Dimension(165, 25));
         btnAides.setPreferredSize(new Dimension(165, 25));
         reglesPanel.add(btnAides, BorderLayout.WEST);
@@ -194,7 +215,10 @@ public class FenetreInfo extends Observe {
         d = new Dimension(150, 35);
 
         //Bouton Deplacer
-        btnDeplacer = new JButton("Se déplacer");
+        btnDeplacer = new JButton(new ImageIcon("DossierImage/IconeBouton/IconDeplacementExploV2.png"));
+//        btnDeplacer.setHorizontalTextPosition(SwingConstants.WEST); 
+//        btnDeplacer.setIcon(new ImageIcon("DossierImage/IconeBouton/IconDeplacementExplo.png"));
+
         btnDeplacer.setPreferredSize(d);
         btnDeplacer.addActionListener(new ActionListener() {
             @Override
@@ -345,7 +369,7 @@ public class FenetreInfo extends Observe {
         panelAutresActions.setOpaque(false);
         panelAc = new JPanel(new GridBagLayout());
         panelAc.setOpaque(false);
-        
+
         //Bouton Annuler
         btnAnnuler = new JButton("Annuler");
         btnAnnuler.setEnabled(false);
@@ -410,7 +434,6 @@ public class FenetreInfo extends Observe {
         gc2.gridy = 0;
         panelAc.add(btnPasser, gc2);
 
-
         panelAutresActions.add(panelAc, gc2);
         panelMilieu.add(panelAutresActions, BorderLayout.CENTER);
 
@@ -418,7 +441,7 @@ public class FenetreInfo extends Observe {
         //Panel pour la jauge d'eau et les trésors
         panelBas = new JPanel(new BorderLayout());
         panelBas.setOpaque(false);
-        
+
         //Jauge d'eau
         //JLabel imageJauge = new JLabel(new ImageIcon("DossierImage/imgAutre/Niveau.png"));
         //panelBas.add(imageJauge, BorderLayout.NORTH);
@@ -469,7 +492,6 @@ public class FenetreInfo extends Observe {
 
         panelBas.add(panelJauge, BorderLayout.NORTH);
 
-        
         //Panel pour les trésors
         panelTresor = new JPanel(new GridBagLayout());
         panelTresor.setOpaque(false);

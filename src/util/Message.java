@@ -8,6 +8,7 @@ package util;
 import ileint.Carte.CarteOrange;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Tuile;
+import java.awt.Dimension;
 
 /**
  *
@@ -30,5 +31,7 @@ public class Message {
     public String joueur2;
     public String joueur3;
     public String joueur4;
+    
+    public Dimension dim;
     
 }
