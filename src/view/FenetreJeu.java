@@ -19,11 +19,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -112,7 +115,11 @@ public class FenetreJeu extends Observe{
         boutonRole1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(0).getRole().getNom());
+                try {
+                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(0).getRole().getNom());
+                } catch (IOException ex) {
+                    Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -142,7 +149,11 @@ public class FenetreJeu extends Observe{
         boutonRole2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(1).getRole().getNom());
+                try {
+                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(1).getRole().getNom());
+                } catch (IOException ex) {
+                    Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -248,7 +259,11 @@ public class FenetreJeu extends Observe{
             boutonRole3.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
+                    try {
+                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
+                    } catch (IOException ex) {
+                        Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
 
@@ -276,7 +291,11 @@ public class FenetreJeu extends Observe{
                 boutonRole4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
+                        try {
+                            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
+                        } catch (IOException ex) {
+                            Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 });
 

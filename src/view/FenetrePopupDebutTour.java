@@ -6,9 +6,13 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,8 +29,9 @@ public class FenetrePopupDebutTour extends Observe {
     private final String chemin;
     private BufferedImage image;
 
-    public FenetrePopupDebutTour(String role) {
+    public FenetrePopupDebutTour(String role) throws IOException {
         window = new JFrame("Informations Rôle");
+        window.setLayout(new BorderLayout());
 
         if (role.equals("Pilote")) {
             chemin = "DossierImage/imgCarteTourJoueur/pilote.png";
@@ -42,14 +47,24 @@ public class FenetrePopupDebutTour extends Observe {
             chemin = "DossierImage/imgCarteTourJoueur/navigo.png";
         }
 
+        final BufferedImage image = ImageIO.read(new File(chemin));
         
+        JPanel pane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, null);
+            }
+        };
+
+        window.setContentPane(pane);
 
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setOpaque(false);
 
         btnOk = new JButton("Compris");
-        btnOk.setOpaque(false);
-        mainPanel.add(btnOk, BorderLayout.SOUTH);
+        //btnOk.setOpaque(false);
+        window.add(btnOk, BorderLayout.SOUTH);
 
         btnOk.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +80,7 @@ public class FenetrePopupDebutTour extends Observe {
         window.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FenetrePopupDebutTour fen = new FenetrePopupDebutTour("Pilote");
     }
 }
