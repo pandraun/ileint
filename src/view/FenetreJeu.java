@@ -609,8 +609,13 @@ public class FenetreJeu extends Observe{
     
     
     
-    public void piocherCarteOrange(int numeroJoueur, String nomCarteOrange){
-        if (numeroJoueur==0){
+    public void piocherCarteOrange(ArrayList<Joueur> joueurs){
+        carteJ1.removeAll();
+        carteJ2.removeAll();
+        carteJ3.removeAll();
+        carteJ3.removeAll();
+        placerMainJoueur(joueurs);
+        /*if (numeroJoueur==0){
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
             im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
@@ -678,7 +683,7 @@ public class FenetreJeu extends Observe{
                 c.gridy = 1;
             }
             carteJ1.add(carteJoueur,c);
-        }
+        }*/
     }
     
     public void piocherCarteInondation(String nomCarteInodation){
@@ -695,7 +700,11 @@ public class FenetreJeu extends Observe{
         carteJ2.removeAll();
         carteJ3.removeAll();
         carteJ3.removeAll();
-        //placerMainJoueur(joueurs);
+        placerMainJoueur(joueurs);
+    }
+    
+    public void DefausserCarte(String nomCarteOrange){
+        btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/"+nomCarteOrange+".png"));
     }
     
 }
