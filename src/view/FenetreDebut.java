@@ -57,7 +57,7 @@ public class FenetreDebut  extends Observe {
         
         /* Composants de la partie */
         
-        JLabel ileInterdite = new JLabel( new ImageIcon("DossierImage/imgAutre/ile2.jpg") );
+        JLabel ileInterdite = new JLabel( new ImageIcon( new URL( "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwR0FAcHRchd6Nv221nWtgEsegeuzmnSukXSSWUVru8S_gtyIDUg" ) ) );
                 
         moins = new JButton("<");
         moins.setFont(new Font("Arial", Font.BOLD, 45));
