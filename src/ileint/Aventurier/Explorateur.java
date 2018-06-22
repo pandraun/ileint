@@ -22,6 +22,7 @@ public class Explorateur extends Aventurier {
         for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_de_Cuivre) {
                 setTuileDepart(tuile);
+                tuile.getJoueursTuile().add(joueur);
             }
         }
 
