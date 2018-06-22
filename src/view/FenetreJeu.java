@@ -421,8 +421,11 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);  
+                                    
+                                    nbCarteJ1 -=1;
                                     carteJ1.remove(carteJoueur);
                                     carteJ1.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ1.setVisible(false);
                                     carteJ1.setVisible(true);
                                 }
@@ -449,9 +452,12 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);  
+                                    notifierObservateur(m); 
+                                    
+                                    nbCarteJ2 -=1;
                                     carteJ2.remove(carteJoueur);
                                     carteJ2.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ2.setVisible(false);
                                     carteJ2.setVisible(true);
                                 }
@@ -479,8 +485,11 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m); 
+                                    
+                                    nbCarteJ3 -=1;
                                     carteJ3.remove(carteJoueur);
                                     carteJ3.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ3.setVisible(false);
                                     carteJ3.setVisible(true);
                                 }
@@ -507,9 +516,12 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m); 
+                                    
+                                    nbCarteJ4 -=1;
                                     carteJ4.remove(carteJoueur);
                                     carteJ4.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ4.setVisible(false);
                                     carteJ4.setVisible(true);
                                 }
@@ -547,9 +559,12 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);  
+                                    notifierObservateur(m); 
+                                    
+                                    nbCarteJ1 -=1;
                                     carteJ1.remove(carteJoueur);
                                     carteJ1.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ1.setVisible(false);
                                     carteJ1.setVisible(true);
                                 }
@@ -577,8 +592,11 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);  
+                                    
+                                    nbCarteJ2 -=1;
                                     carteJ2.remove(carteJoueur);
                                     carteJ2.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ2.setVisible(false);
                                     carteJ2.setVisible(true);
                                 }
@@ -606,8 +624,11 @@ public class FenetreJeu extends Observe{
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
                                     notifierObservateur(m);  
+                                    
+                                    nbCarteJ3 -=1;
                                     carteJ3.remove(carteJoueur);
                                     carteJ3.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ3.setVisible(false);
                                     carteJ3.setVisible(true);
                                 }
@@ -634,9 +655,12 @@ public class FenetreJeu extends Observe{
                                     Message m = new Message();
                                     m.type = TypesMessages.CHOIX_CARTE;
                                     m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);   
+                                    notifierObservateur(m); 
+                                    
+                                    nbCarteJ4 -=1;
                                     carteJ4.remove(carteJoueur);
                                     carteJ4.add(new JLabel(""));
+                                    //placerMainJoueur(joueurs);
                                     carteJ4.setVisible(false);
                                     carteJ4.setVisible(true);
                                 }
@@ -718,7 +742,23 @@ public class FenetreJeu extends Observe{
         carteJ2.removeAll();
         carteJ3.removeAll();
         carteJ4.removeAll();
-        //placerMainJoueur(joueurs);
+        carteJ1.setVisible(false);
+        carteJ1.setVisible(true);
+        carteJ2.setVisible(false);
+        carteJ2.setVisible(true);
+        carteJ3.setVisible(false);
+        carteJ3.setVisible(true);
+        carteJ4.setVisible(false);
+        carteJ4.setVisible(true);
+        nbCaseCarteJ1 = 0;
+        nbCaseCarteJ2 = 0;
+        nbCaseCarteJ3 = 0;
+        nbCaseCarteJ4 = 0;
+        nbCarteJ1 = 0;
+        nbCarteJ2 = 0;
+        nbCarteJ3 = 0;
+        nbCarteJ4 = 0;
+        placerMainJoueur(joueurs);
         /*if (numeroJoueur==0){
             ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+nomCarteOrange+".png");
             Image im = Carte.getImage();
