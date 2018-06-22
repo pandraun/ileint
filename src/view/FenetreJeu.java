@@ -614,6 +614,13 @@ public class FenetreJeu extends Observe {
     }
 
     public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
+        
+        if(carte.getTypeTresor()!=null){
+            DefausserCarte(carte.getTypeTresor().name());
+        }else{
+            DefausserCarte(carte.getTypeClasse());
+        }
+            
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.enleverCarte(carte);
@@ -631,6 +638,7 @@ public class FenetreJeu extends Observe {
     }
 
     public void DefausserCarte(String nomCarteOrange) {
+        System.out.println("nom Carte : /"+nomCarteOrange+"/");
         btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCartePiocheOrange/" + nomCarteOrange + ".png"));
     }
 
