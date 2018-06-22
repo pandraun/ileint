@@ -513,7 +513,7 @@ public class FenetreJeu extends Observe {
     }
     
     private int getColonne(int x) {
-        return (x * 4) / 256;
+        return (x * 4) / 168;
     }
     
     private int getLigne(int y) {
