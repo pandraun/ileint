@@ -289,7 +289,6 @@ public class FenetreJeu extends Observe {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         
-        System.out.println("debug1");
         grille = new JPanel(new GridBagLayout());
         grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
@@ -336,7 +335,6 @@ public class FenetreJeu extends Observe {
         c.gridy = 0;
         grille.add(carteJ1, c);
         
-        System.out.println("debug2");
         carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
         carteJ2.setOpaque(false);
         carteJ2.addMouseListener(new MouseListener() {
@@ -376,7 +374,6 @@ public class FenetreJeu extends Observe {
         
         if (joueurs.size() > 2) {
             
-            System.out.println("debug3");
             carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
             carteJ3.setOpaque(false);
             carteJ3.addMouseListener(new MouseListener() {
@@ -459,7 +456,6 @@ public class FenetreJeu extends Observe {
                 window.pack();
                 window.setSize(1080, 806);
                 window.setResizable(false);
-                System.out.println("debugVisible");
                 window.setVisible(true);
             
             
