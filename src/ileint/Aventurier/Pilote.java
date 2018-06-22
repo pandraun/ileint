@@ -21,6 +21,7 @@ public class Pilote extends Aventurier {
         for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.Heliport) {
                 setTuileDepart(tuile);
+                tuile.getJoueursTuile().add(joueur);
             }
         }
     }

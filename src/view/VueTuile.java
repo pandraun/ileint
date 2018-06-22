@@ -1,5 +1,6 @@
 package view;
 
+import ileint.Joueur.Joueur;
 import ileint.Tuile.Tuile;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -36,6 +37,12 @@ public class VueTuile extends JPanel{
         }
         g.drawImage(image, 0, 0, null);
         
+        int i = 4;
+        for (Joueur joueur : tuile.getJoueursTuile()) {
+            g.setColor(joueur.getRole().getCouleur().getCouleur());
+            g.fillOval(i, 4, 25, 25);
+            i += 29;
+        }
     }
     
     public void setTuile(Tuile tuile) {

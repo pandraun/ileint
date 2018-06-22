@@ -21,6 +21,7 @@ public class Messager extends Aventurier {
         for (Tuile tuile : grille.getTuiles().values()) {
             if (tuile.getNom() == NomTuile.La_Porte_d_Argent) {
                 setTuileDepart(tuile);
+                tuile.getJoueursTuile().add(joueur);
             }
         }
     }
