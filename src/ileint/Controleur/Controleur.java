@@ -557,7 +557,8 @@ public class Controleur implements Observateur {
                 }
                 fenetreJoueur.visible(false);
                 joueurCourant = joueurs.get(0);
-
+                
+                
                 try {
                     fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
@@ -571,6 +572,8 @@ public class Controleur implements Observateur {
                     fenetreInfo.addObservateur(this);
                     fenetreInfo.modifierLabelJoueur(joueurCourant);
                     fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
+                    nombreAction = 3;
+                    fenetreInfo.affichageAction(nombreAction);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -712,6 +715,7 @@ public class Controleur implements Observateur {
                 nbCartePiocher++;
                 if (nbCartePiocher >= 2) {
                     inondation();
+                    nombreAction = 3;
                 }
                 break;
 
