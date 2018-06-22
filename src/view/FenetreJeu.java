@@ -288,7 +288,6 @@ public class FenetreJeu extends Observe {
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
-        
         grille = new JPanel(new GridBagLayout());
         grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
@@ -306,24 +305,32 @@ public class FenetreJeu extends Observe {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
+
             @Override
             public void mousePressed(MouseEvent e) {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ1.getCarte(x, y);
-                if (m.carteSelectionne != null) {
-                    notifierObservateur(m);
+                if (x < 4 && y < 2) {
+                    System.out.println("x = " + x);
+                    System.out.println("y = " + y);
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_CARTE;
+                    m.carteSelectionne = carteJ1.getCarte(x, y);
+                    if (m.carteSelectionne != null) {
+                        notifierObservateur(m);
+                    }
                 }
-                
+
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
             }
+
             @Override
             public void mouseEntered(MouseEvent e) {
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
             }
@@ -334,22 +341,27 @@ public class FenetreJeu extends Observe {
         c.gridx = 0;
         c.gridy = 0;
         grille.add(carteJ1, c);
-        
+
         carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
         carteJ2.setOpaque(false);
         carteJ2.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
+
             @Override
             public void mousePressed(MouseEvent e) {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
-                Message m = new Message();
-                m.type = TypesMessages.CHOIX_CARTE;
-                m.carteSelectionne = carteJ2.getCarte(x, y);
-                if (m.carteSelectionne != null) {
-                    notifierObservateur(m);
+                if (x < 4 && y < 2) {
+                    System.out.println("x = " + x);
+                    System.out.println("y = " + y);
+                    Message m = new Message();
+                    m.type = TypesMessages.CHOIX_CARTE;
+                    m.carteSelectionne = carteJ2.getCarte(x, y);
+                    if (m.carteSelectionne != null) {
+                        notifierObservateur(m);
+                    }
                 }
             }
 
@@ -371,24 +383,29 @@ public class FenetreJeu extends Observe {
         c.gridx = 4;
         c.gridy = 0;
         grille.add(carteJ2, c);
-        
+
         if (joueurs.size() > 2) {
-            
+
             carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
             carteJ3.setOpaque(false);
             carteJ3.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                 }
+
                 @Override
                 public void mousePressed(MouseEvent e) {
                     int x = getColonne(e.getX());
                     int y = getLigne(e.getY());
-                    Message m = new Message();
-                    m.type = TypesMessages.CHOIX_CARTE;
-                    m.carteSelectionne = carteJ3.getCarte(x, y);
-                    if (m.carteSelectionne != null) {
-                        notifierObservateur(m);
+                    if (x < 4 && y < 2) {
+                        System.out.println("x = " + x);
+                        System.out.println("y = " + y);
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_CARTE;
+                        m.carteSelectionne = carteJ3.getCarte(x, y);
+                        if (m.carteSelectionne != null) {
+                            notifierObservateur(m);
+                        }
                     }
                 }
 
@@ -412,23 +429,28 @@ public class FenetreJeu extends Observe {
             grille.add(carteJ3, c);
 
             if (joueurs.size() > 3) {
-            
+
                 carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
                 carteJ4.setOpaque(false);
                 carteJ4.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                     }
+
                     @Override
                     public void mousePressed(MouseEvent e) {
                         int x = getColonne(e.getX());
                         int y = getLigne(e.getY());
+                        if (x < 4 && y < 2) {
+                        System.out.println("x = " + x);
+                        System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ4.getCarte(x, y);
                         if (m.carteSelectionne != null) {
                             notifierObservateur(m);
                         }
+                    }
                     }
 
                     @Override
@@ -451,15 +473,13 @@ public class FenetreJeu extends Observe {
                 grille.add(carteJ4, c);
 
             }
-        
+
         }
-                window.pack();
-                window.setSize(1080, 806);
-                window.setResizable(false);
-                window.setVisible(true);
-            
-            
-        
+        window.pack();
+        window.setSize(1080, 806);
+        window.setResizable(false);
+        window.setVisible(true);
+
     }
 
     public void piocheCliquable(Boolean boo) {
@@ -511,13 +531,13 @@ public class FenetreJeu extends Observe {
 
         }
     }
-    
+
     private int getColonne(int x) {
-        return (x * 4) / 168;
+        return (x * 4) / 188;
     }
-    
+
     private int getLigne(int y) {
-        return (y * 2) / 128;
+        return (y * 2) / 133;
     }
     
     public void piocherCarteOrange(Joueur joueur, CarteOrange carte){
@@ -550,13 +570,13 @@ public class FenetreJeu extends Observe {
     }
 
     public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
-        
-        if(carte.getTypeTresor()!=null){
+
+        if (carte.getTypeTresor() != null) {
             DefausserCarte(carte.getTypeTresor().name());
-        }else{
+        } else {
             DefausserCarte(carte.getTypeClasse());
         }
-            
+
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.enleverCarte(carte);
