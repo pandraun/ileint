@@ -19,7 +19,7 @@ import util.Utils.EtatTuile;
  *
  * @author fodorg
  */
-public class VueTuile extends JPanel {
+public class VueTuile extends JPanel  {
 
     private Tuile tuile;
     private BufferedImage image;
