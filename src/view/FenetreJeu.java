@@ -71,12 +71,20 @@ public class FenetreJeu extends Observe {
     private VueMain carteJ2;
     private VueMain carteJ3;
     private VueMain carteJ4;
+    
+    private JPanel role1;
+    private JPanel role2;
+    private JPanel role3;
+    private JPanel role4;
+    private JButton boutonRole1;
+    private JButton boutonRole2;
+    private JButton boutonRole3;
+    private JButton boutonRole4;
 
     GridBagConstraints c = new GridBagConstraints();
 
     public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
-        System.out.println(piocheOrange.size());
         this.window = new JFrame("Fenetre Jeu");
         
         //Background du jeu//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,10 +100,10 @@ public class FenetreJeu extends Observe {
         //Joueur1
         //=======================================//
 
-        JPanel role1 = new JPanel();
+        role1 = new JPanel();
         role1.setOpaque(false);
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
-        JButton boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(0).getRole().getNom() + ".png"));
+        boutonRole1 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(0).getRole().getNom() + ".png"));
 
         role1.add(boutonRole1);
         boutonRole1.setPreferredSize(new Dimension(150, 210));
@@ -129,11 +137,12 @@ public class FenetreJeu extends Observe {
         //Joueur2
         //=======================================//
         
-        JPanel role2 = new JPanel();
+        role2 = new JPanel();
         role2.setOpaque(false);
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
-        JButton boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(1).getRole().getNom() + ".png"));
+        boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(1).getRole().getNom() + ".png"));
         role2.add(boutonRole2);
+        
         boutonRole2.setPreferredSize(new Dimension(150, 210));
         JLabel EmplacementRole2 = new JLabel("J2: " + joueurs.get(1).getNomJoueur());
         role2.add(EmplacementRole2);
@@ -266,13 +275,14 @@ public class FenetreJeu extends Observe {
 
         if (joueurs.size() > 2) {
 
-            JPanel role3 = new JPanel();
+            role3 = new JPanel();
             role3.setOpaque(false);
             role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
             JLabel EmplacementRole3 = new JLabel("J3: " + joueurs.get(2).getNomJoueur());
             role3.add(EmplacementRole3);
-            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
+            boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
             role3.add(boutonRole3);
+            
             boutonRole3.setContentAreaFilled(false);
             boutonRole3.setPreferredSize(new Dimension(150, 210));
             boutonRole3.setOpaque(false);
@@ -301,13 +311,14 @@ public class FenetreJeu extends Observe {
             
             if (joueurs.size() > 3) {
 
-                JPanel role4 = new JPanel();
+                role4 = new JPanel();
                 role4.setOpaque(false);
                 role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
                 JLabel EmplacementRole4 = new JLabel("J4: " + joueurs.get(3).getNomJoueur());
                 role4.add(EmplacementRole4);
-                JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
+                boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
                 role4.add(boutonRole4);
+                
                 boutonRole4.setPreferredSize(new Dimension(150, 210));
                 boutonRole4.setContentAreaFilled(false);
                 c.anchor = GridBagConstraints.LAST_LINE_END;
@@ -604,7 +615,6 @@ public class FenetreJeu extends Observe {
                 vuetuile.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        //System.out.println("clique sur : " + uneTuile.getNom().toString());
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_TUILE;
                         m.tuileSelectionne = uneTuile;
@@ -724,7 +734,34 @@ public class FenetreJeu extends Observe {
         if(CarteTuile.getTuile().getEtat()==ASSECHEE){
             //CarteTuile.getTuile().
         }
-    }    
+    }
+    
+    public void cliquableRole(int num, boolean bool) {
+        if (num == 1) {
+            boutonRole1.setEnabled(bool);
+        } else if (num == 2) {
+            boutonRole2.setEnabled(bool);
+        } else if (num == 3) {
+            boutonRole2.setEnabled(bool);
+        } else {
+            boutonRole4.setEnabled(bool);
+        }
+    }
+    
+    public void cliquableRoleToutTrue() {
+        boutonRole1.setEnabled(true);
+        boutonRole2.setEnabled(true);
+        boutonRole3.setEnabled(true);
+        boutonRole4.setEnabled(true);
+    }
+    
+    public void cliquableRoleToutFalse() {
+        System.out.println("debug");
+        boutonRole1.setEnabled(false);
+        boutonRole2.setEnabled(false);
+        boutonRole3.setEnabled(false);
+        boutonRole4.setEnabled(false);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

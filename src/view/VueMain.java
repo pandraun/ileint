@@ -3,6 +3,7 @@ package view;
 import ileint.Carte.CarteOrange;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
@@ -32,13 +33,14 @@ public class VueMain extends JPanel{
         super();
         this.cartes = cartes;
         this.couleur = couleur;
-        Border border = BorderFactory.createLineBorder(this.couleur);
+        Border border = BorderFactory.createLineBorder(couleur);
         this.setBorder(BorderFactory.createCompoundBorder(border,
         BorderFactory.createLineBorder(couleur,3)));
         repaint();
     }
     
     public void paintComponent(Graphics g) { //~42*64
+        this.setSize(new Dimension(256,128));
         int x = 0;
         int y = 0;
         int i = 1;
