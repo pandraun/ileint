@@ -706,7 +706,6 @@ public class FenetreInfo extends Observe {
     }
 
     public void changerImageJauge(int niv) {
-        System.out.println(niv);
         if (niv == 1) {
             layJauge.show(panelJauge, "niv1");
         } else if (niv == 2) {

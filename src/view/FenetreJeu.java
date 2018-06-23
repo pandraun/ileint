@@ -10,6 +10,7 @@ import ileint.Carte.CarteOrange;
 import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.Tuile;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,6 +38,7 @@ import javax.swing.JPanel;
 import util.Message;
 import util.TypesMessages;
 import util.Utils;
+import static util.Utils.EtatTuile.ASSECHEE;
 
 /**
  *
@@ -62,6 +64,8 @@ public class FenetreJeu extends Observe {
     private JButton btnPiocheOrange;
     private JButton btnPiocheInondation;
     private JButton btnDefausseInondation;
+    private JLabel labelNbCarteI;
+    private JLabel labelNbCarteO;
     private VueMain carteJ1;
     private VueMain carteJ2;
     private VueMain carteJ3;
@@ -69,20 +73,22 @@ public class FenetreJeu extends Observe {
 
     GridBagConstraints c = new GridBagConstraints();
 
-    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation, int joueurCourant) throws MalformedURLException {
-
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
+    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         this.window = new JFrame("Fenetre Jeu");
+        
+        //Background du jeu//////////////////////////////////////////////////////////////////////////////////////////////////////
         JLabel contentPane = new JLabel();
-        //ImagePanel panel = new ImagePanel(new ImageIcon(new URL ("http://image.jeuxvideo.com/downloads/fonds-ecrans-wallpaper/00011568/xenoblade-chronicles-wii-29571-wp.jpg")).getImage());
         contentPane.setIcon(new ImageIcon(new URL("https://aaronsinternetwhispersblog.files.wordpress.com/2011/12/sea_bg.png")));
-        //window.add(panel);
         window.setContentPane(contentPane);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
         window.setLayout(new GridBagLayout());
-        //====================================è==//
+        
+        //=======================================//
+        //Joueur1
+        //=======================================//
 
         JPanel role1 = new JPanel();
         role1.setOpaque(false);
@@ -104,7 +110,8 @@ public class FenetreJeu extends Observe {
         c.gridy = 0;
         window.add(role1, c);
 
-        //-----------------------//
+        //-----------Informations sur le Rôle du joueur------------//
+        
         boutonRole1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,7 +123,10 @@ public class FenetreJeu extends Observe {
             }
         });
 
-        //======================================//
+        //=======================================//
+        //Joueur2
+        //=======================================//
+        
         JPanel role2 = new JPanel();
         role2.setOpaque(false);
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
@@ -136,7 +146,8 @@ public class FenetreJeu extends Observe {
         c.weighty = 0;
         window.add(role2, c);
 
-        //-----------------------//
+        //-----------Informations sur le Rôle du joueur------------//
+        
         boutonRole2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,79 +159,10 @@ public class FenetreJeu extends Observe {
             }
         });
 
-        //======================================//
-        JPanel panelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
-        panelOrange.setOpaque(false);
-        ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
-        Image im = carteRouge.getImage();
-        int hauteur = 110;
-        int largeur = 140;
-        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
-        btnPiocheOrange = new JButton(new ImageIcon(im));
-        btnPiocheOrange.setContentAreaFilled(false);
-        //piocheOrange.setSize(new Dimension(100,70));
-        btnDefausseOrange = new JButton();
-        btnDefausseOrange.setContentAreaFilled(false);
-        //defausseOrange.setSize(new Dimension(100,70));
-        panelOrange.add(btnPiocheOrange);
-        panelOrange.add(btnDefausseOrange);
-        panelOrange.setPreferredSize(new Dimension(140, 140));
+        //=======================================//
+        //Joueur3
+        //=======================================//
 
-        c.weighty = 20;
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.LAST_LINE_START;
-        c.gridheight = 2;
-        c.gridx = 0;
-        c.gridy = 2;
-        window.add(panelOrange, c);
-
-        //Action de pioche Orange
-        btnPiocheOrange.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
-                notifierObservateur(m);
-            }
-        });
-
-        JPanel panelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
-        panelInondation.setOpaque(false);
-        ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
-        im = CarteBleu.getImage();
-        hauteur = 110;
-        largeur = 140;
-        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
-        btnPiocheInondation = new JButton(new ImageIcon(im));
-        btnPiocheInondation.setContentAreaFilled(false);
-        //piocheInondation.setSize(new Dimension(100,70));
-        btnDefausseInondation = new JButton();
-        btnDefausseInondation.setContentAreaFilled(false);
-        //defausseInondation.setSize(new Dimension(100,70));
-        panelInondation.add(btnPiocheInondation);
-        panelInondation.add(btnDefausseInondation);
-        panelInondation.setPreferredSize(new Dimension(140, 140));
-
-        c.weighty = 20;
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.gridheight = 2;
-        c.gridx = 7;
-        c.gridy = 2;
-        window.add(panelInondation, c);
-
-        /*//Action de pioche Inondation
-        btnPiocheInondation.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
-                notifierObservateur(m);                                                 //.peek()
-                btnDefausseInondation = new JButton(new ImageIcon("DossierImage/imgCarte/"+defausseInondation.firstElement().getTuile().getNom()+".png"));
-
-            }
-        });*/
-        //======================================//
         if (joueurs.size() > 2) {
 
             JPanel role3 = new JPanel();
@@ -239,7 +181,8 @@ public class FenetreJeu extends Observe {
             c.gridy = 4;
             window.add(role3, c);
 
-            //-----------------------//
+            //-----------Informations sur le Rôle du joueur------------//
+            
             boutonRole3.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -251,7 +194,10 @@ public class FenetreJeu extends Observe {
                 }
             });
 
-            //======================================//
+            //=======================================//
+            //Joueur4
+            //=======================================//
+            
             if (joueurs.size() > 3) {
 
                 JPanel role4 = new JPanel();
@@ -269,7 +215,8 @@ public class FenetreJeu extends Observe {
                 c.gridy = 4;
                 window.add(role4, c);
 
-                //-----------------------//
+                //-----------Informations sur le Rôle du joueur------------//
+                
                 boutonRole4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -285,9 +232,115 @@ public class FenetreJeu extends Observe {
 
             //======================================//
         }
+        
+        
+        //=======================================//
+        //Pioche et Defausse Cartes Orange
+        //=======================================//
+        
+        JPanel panelOrange = new JPanel(new BorderLayout());
+        panelOrange.setOpaque(false);
+        JPanel sousPanelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
+        sousPanelOrange.setOpaque(false);
+        labelNbCarteO = new JLabel("nb cartes : "+piocheOrange.size());             //Compteur des cartes dans la pioche Orange
+        panelOrange.add(labelNbCarteO, BorderLayout.NORTH);
+        panelOrange.add(sousPanelOrange);
+        ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
+        Image im = carteRouge.getImage();
+        int hauteur = 110;
+        int largeur = 140;
+        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
+        btnPiocheOrange = new JButton(new ImageIcon(im));                           //Création de la pioche Orange
+        btnPiocheOrange.setContentAreaFilled(false);
+        btnDefausseOrange = new JButton();                                          //Création de la defausse Orange
+        btnDefausseOrange.setContentAreaFilled(false);
+        sousPanelOrange.add(btnPiocheOrange);
+        sousPanelOrange.add(btnDefausseOrange);
+        sousPanelOrange.setPreferredSize(new Dimension(140, 140));
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////:
+        c.weighty = 20;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.LAST_LINE_START;
+        c.gridheight = 2;
+        c.gridx = 0;
+        c.gridy = 2;
+        window.add(panelOrange, c);
+
+        //-----------Lors d'un clic sur la Pioche de Cartes Oranges------------//
+        
+        btnPiocheOrange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (piocheOrange.size()>0){
+                    Message m = new Message();
+                    m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
+                    notifierObservateur(m);
+                } else {
+                    System.out.println("Pioche Orange Vide");
+                    btnPiocheOrange.setEnabled(false);
+                }
+            }
+        });
+        
+        //=======================================//
+        //Pioche et Defausse Cartes Inondation
+        //=======================================//
+
+        JPanel panelInondation = new JPanel(new BorderLayout());
+        panelInondation.setOpaque(false);
+        JPanel sousPanelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
+        sousPanelInondation.setOpaque(false);
+        JPanel panelnbCarteI = new JPanel(new BorderLayout());
+        panelnbCarteI.setOpaque(false);
+        panelInondation.add(panelnbCarteI, BorderLayout.NORTH);
+        labelNbCarteI = new JLabel("nb cartes : "+piocheInondation.size());         //Compteur des cartes dans la pioche Inondation
+        panelnbCarteI.add(labelNbCarteI, BorderLayout.EAST);
+        panelInondation.add(sousPanelInondation);
+        ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
+        im = CarteBleu.getImage();
+        hauteur = 110;
+        largeur = 140;
+        im = im.getScaledInstance(largeur, hauteur, Image.SCALE_DEFAULT);
+        btnPiocheInondation = new JButton(new ImageIcon(im));                       //Création de la pioche Inondation
+        btnPiocheInondation.setContentAreaFilled(false);
+        btnDefausseInondation = new JButton();                                      //Création de la defausse Inondation
+        btnDefausseInondation.setContentAreaFilled(false);
+        sousPanelInondation.add(btnPiocheInondation);
+        sousPanelInondation.add(btnDefausseInondation);
+        sousPanelInondation.setPreferredSize(new Dimension(140, 140));
+
+        c.weighty = 20;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.gridheight = 2;
+        c.gridx = 7;
+        c.gridy = 2;
+        window.add(panelInondation, c);
+
+        //-----------Lors d'un clic sur la Pioche de Cartes Inondations------------//
+        
+        btnPiocheInondation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (piocheInondation.size() > 0){
+                    Message m = new Message();
+                    m.type = TypesMessages.PIOCHER_CARTE_INONDATION;
+                    notifierObservateur(m);
+                } else{
+                    System.out.println("Pioche Inondation vide");
+                    btnPiocheInondation.setEnabled(false);
+                }
+            }
+        });
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+            //Mise en place de la grille comportant les tuiles et les cartes des joueurs*
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        //==Création de la Grille====================//
+        
         grille = new JPanel(new GridBagLayout());
         grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
@@ -296,12 +349,21 @@ public class FenetreJeu extends Observe {
         c.gridwidth = 6;
         c.gridx = 1;
         c.gridy = 1;
-        window.add(grille, c);
+        window.add(grille, c);                                                      //ajout de la Grille a la fenetre principale
+        
+        //===========================================//
+        
+        //=======================================//
+        //Placement des cartes du Joueur 1
+        //=======================================//
 
-        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur());
+        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), 1);
         //carteJ1.setPreferredSize(new Dimension(256, 128));
         carteJ1.setOpaque(false);
-        carteJ1.addMouseListener(new MouseListener() {
+        
+        //-----------Lors d'un clic sur les Cartes du Joueurs 1------------//
+        
+        carteJ1.addMouseListener(new MouseListener() {                              //permet au joueur de séléctionner une carte
             @Override
             public void mouseClicked(MouseEvent e) {
             }
@@ -316,7 +378,7 @@ public class FenetreJeu extends Observe {
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ1.getCarte(x, y);
-                    if (m.carteSelectionne != null && joueurs.get(0).getNumeroJoueur() == joueurCourant) {
+                    if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
                     }
                 }
@@ -335,22 +397,32 @@ public class FenetreJeu extends Observe {
             public void mouseExited(MouseEvent e) {
             }
         });
+        
+        //-----------Placement des cartes du Joueur 1 sur la grille------------//
+        
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
         grille.add(carteJ1, c);
+        
+        //=======================================//
+        //Placement des cartes du Joueur 2
+        //=======================================//
 
-        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
+        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), 2);
         carteJ2.setOpaque(false);
+        
+        //-----------Lors d'un clic sur les Cartes du Joueurs 2------------//
+        
         carteJ2.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {                              //permet au joueur de séléctionner une carte
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
                 if (x < 4 && y < 2) {
@@ -359,7 +431,7 @@ public class FenetreJeu extends Observe {
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ2.getCarte(x, y);
-                    if (m.carteSelectionne != null && joueurs.get(1).getNumeroJoueur() == joueurCourant) {
+                    if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
                     }
                 }
@@ -377,18 +449,28 @@ public class FenetreJeu extends Observe {
             public void mouseExited(MouseEvent e) {
             }
         });
+        
+        //-----------Placement des cartes du Joueur 2 sur la grille------------//
+        
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 2;
         c.gridx = 4;
         c.gridy = 0;
         grille.add(carteJ2, c);
+        
+        //=======================================//
+        //Placement des cartes du Joueur 3
+        //=======================================//
 
         if (joueurs.size() > 2) {
 
-            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
+            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), 3);
             carteJ3.setOpaque(false);
-            carteJ3.addMouseListener(new MouseListener() {
+            
+            //-----------Lors d'un clic sur les Cartes du Joueurs 3------------//
+            
+            carteJ3.addMouseListener(new MouseListener() {                          //permet au joueur de séléctionner une carte
                 @Override
                 public void mouseClicked(MouseEvent e) {
                 }
@@ -403,7 +485,7 @@ public class FenetreJeu extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ3.getCarte(x, y);
-                        if (m.carteSelectionne != null && joueurs.get(2).getNumeroJoueur() == joueurCourant) {
+                        if (m.carteSelectionne != null /*&& joueurs.get(2).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
                         }
                     }
@@ -421,18 +503,28 @@ public class FenetreJeu extends Observe {
                 public void mouseExited(MouseEvent e) {
                 }
             });
+            
+            //-----------Placement des cartes du Joueur 3 sur la grille------------//
+            
             c.weightx = 0;
             c.gridheight = 1;
             c.gridwidth = 2;
             c.gridx = 4;
             c.gridy = 5;
             grille.add(carteJ3, c);
+            
+            //=======================================//
+            //Placement des cartes du Joueur 4
+            //=======================================//
 
             if (joueurs.size() > 3) {
 
-                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
+                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), 4);
                 carteJ4.setOpaque(false);
-                carteJ4.addMouseListener(new MouseListener() {
+                
+                //-----------Lors d'un clic sur les Cartes du Joueurs 4------------//
+                
+                carteJ4.addMouseListener(new MouseListener() {                      //permet au joueur de séléctionner une carte
                     @Override
                     public void mouseClicked(MouseEvent e) {
                     }
@@ -447,7 +539,7 @@ public class FenetreJeu extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ4.getCarte(x, y);
-                        if (m.carteSelectionne != null && joueurs.get(3).getNumeroJoueur() == joueurCourant) {
+                        if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
                         }
                     }
@@ -465,6 +557,9 @@ public class FenetreJeu extends Observe {
                     public void mouseExited(MouseEvent e) {
                     }
                 });
+                
+                //-----------Placement des cartes du Joueur 4 sur la grille------------//
+                
                 c.weightx = 0;
                 c.gridheight = 1;
                 c.gridwidth = 2;
@@ -475,10 +570,17 @@ public class FenetreJeu extends Observe {
             }
 
         }
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        //Affichage de la fenetre Principale==========//
+        
         window.pack();
         window.setSize(1080, 806);
         window.setResizable(false);
         window.setVisible(true);
+        
+        //============================================//
 
     }
 
@@ -540,7 +642,8 @@ public class FenetreJeu extends Observe {
         return (y * 2) / 133;
     }
     
-    public void piocherCarteOrange(Joueur joueur, CarteOrange carte){
+    public void piocherCarteOrange(Joueur joueur, CarteOrange carte, int nbCarte){
+        labelNbCarteO.setText("nb cartes : "+nbCarte);
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.ajouterCarte(carte);
@@ -556,21 +659,8 @@ public class FenetreJeu extends Observe {
                 break;
         }
     }
-    
-
-    public void piocherCarteInondation() {
-        //ImageIcon CarteOrange = new ImageIcon("DossierImage/imgCartePiocheOrange/" + carte. + ".png");
-        //Image im = CarteOrange.getImage();
-        //im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
-        //btnDefausseOrange.setIcon(new ImageIcon(im));
-    }
-
-    public void ajouterCarteMainJoueur() {
-        
-    }
 
     public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
-
         if (carte.getTypeTresor() != null) {
             DefausserCarte(carte.getTypeTresor().name());
         } else {
@@ -600,354 +690,21 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
+    public void piocherInondation(CarteInondation CarteTuile, int nbCarte) {
+        labelNbCarteI.setText("nb cartes : "+nbCarte);
+        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
+        Image im = CarteInondation.getImage();
+        im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
+        btnDefausseInondation.setIcon(new ImageIcon(im));
+        if(CarteTuile.getTuile().getEtat()==ASSECHEE){
+            //CarteTuile.getTuile().
+        }
+    }    
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*public void placerMainJoueur(ArrayList<Joueur> joueurs){
-        for(Joueur unJoueur : joueurs){
-            for(CarteOrange uneCarte : unJoueur.getMainJoueur()){
-                ajouterCarteMainJoueur();
-                if (uneCarte.getTypeTresor()!=null){
-                    ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeTresor()+".png");
-                    Image im = Carte.getImage();
-                    im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                    JButton carteJoueur = new JButton(new ImageIcon(im));
-                    carteJoueur.setMinimumSize(new Dimension(24, 14));
-                    carteJoueur.setMaximumSize(new Dimension(24, 14));
-                    carteJoueur.setPreferredSize(new Dimension(24, 14));
-                    //carteJoueur.setSize(new Dimension(35,64));
-                    //carteJoueur.setPreferredSize(new Dimension());
-                    switch (unJoueur.getNumeroJoueur()) {
-                        case 0:
-                            nbCarteJ1 +=1;
-                            nbCaseCarteJ1 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1%4;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);  
-                                    
-                                    nbCarteJ1 -=1;
-                                    carteJ1.remove(carteJoueur);
-                                    carteJ1.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ1.setVisible(false);
-                                    carteJ1.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ1.add(carteJoueur,c);
-                            break;
-                        case 1:
-                            nbCarteJ2 +=1;
-                            nbCaseCarteJ2 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2%4;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m); 
-                                    
-                                    nbCarteJ2 -=1;
-                                    carteJ2.remove(carteJoueur);
-                                    carteJ2.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ2.setVisible(false);
-                                    carteJ2.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ2.add(carteJoueur,c);
-                            break;
-                        case 2:
-                            nbCarteJ3 +=1;
-                            nbCaseCarteJ3 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3%4;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m); 
-                                    
-                                    nbCarteJ3 -=1;
-                                    carteJ3.remove(carteJoueur);
-                                    carteJ3.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ3.setVisible(false);
-                                    carteJ3.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ3.add(carteJoueur,c);
-                            break;
-                        default:
-                            nbCarteJ4 +=1;
-                            nbCaseCarteJ4 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4%4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m); 
-                                    
-                                    nbCarteJ4 -=1;
-                                    carteJ4.remove(carteJoueur);
-                                    carteJ4.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ4.setVisible(false);
-                                    carteJ4.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ4.add(carteJoueur,c);
-                            break;
-                    }
-                }else{
-                    ImageIcon Carte = new ImageIcon("DossierImage/AutreCarteJoueur/"+uneCarte.getTypeClasse()+".png");
-                    Image im = Carte.getImage();
-                    im = im.getScaledInstance(54,85,Image.SCALE_DEFAULT);
-                    JButton carteJoueur = new JButton(new ImageIcon(im));
-                    carteJoueur.setMinimumSize(new Dimension(24, 14));
-                    carteJoueur.setMaximumSize(new Dimension(24, 14));
-                    carteJoueur.setPreferredSize(new Dimension(24, 14));
-                    //carteJoueur.setSize(new Dimension(35,64));
-                    switch (unJoueur.getNumeroJoueur()) {
-                        case 0:
-                            nbCarteJ1 +=1;
-                            nbCaseCarteJ1 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1%4;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m); 
-                                    
-                                    nbCarteJ1 -=1;
-                                    carteJ1.remove(carteJoueur);
-                                    carteJ1.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ1.setVisible(false);
-                                    carteJ1.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ1.add(carteJoueur,c);
-                            break;
-                        case 1:
-                            nbCarteJ2 +=1;
-                            nbCaseCarteJ2 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2%4;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);  
-                                    
-                                    nbCarteJ2 -=1;
-                                    carteJ2.remove(carteJoueur);
-                                    carteJ2.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ2.setVisible(false);
-                                    carteJ2.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ2.add(carteJoueur,c);
-                            break;
-                        case 2:
-                            nbCarteJ3 +=1;
-                            nbCaseCarteJ3 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3%4;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m);  
-                                    
-                                    nbCarteJ3 -=1;
-                                    carteJ3.remove(carteJoueur);
-                                    carteJ3.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ3.setVisible(false);
-                                    carteJ3.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ3.add(carteJoueur,c);
-                            break;
-                        default:
-                            nbCarteJ4 +=1;
-                            nbCaseCarteJ4 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4%4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJoueur.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    Message m = new Message();
-                                    m.type = TypesMessages.CHOIX_CARTE;
-                                    m.carteSelectionne = uneCarte;
-                                    notifierObservateur(m); 
-                                    
-                                    nbCarteJ4 -=1;
-                                    carteJ4.remove(carteJoueur);
-                                    carteJ4.add(new JLabel(""));
-                                    //placerMainJoueur(joueurs);
-                                    carteJ4.setVisible(false);
-                                    carteJ4.setVisible(true);
-                                }
-                            });
-                            
-                            carteJ4.add(carteJoueur,c);
-                            break;
-                    }
-                }
-            }
-            if(unJoueur.getMainJoueur().size()<8){
-                for(int i = 0; i<7-unJoueur.getMainJoueur().size(); i++){
-                    switch (unJoueur.getNumeroJoueur()) {
-                        case 0:
-                            nbCaseCarteJ1 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ1;
-                            if (nbCaseCarteJ1<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            carteJ1.add(new JLabel(""),c);
-                            break;
-                        case 1:
-                            nbCaseCarteJ2 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ2;
-                            if (nbCaseCarteJ2<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJ2.add(new JLabel(""),c);
-                            break;
-                        case 2:
-                            nbCaseCarteJ3 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ3;
-                            if (nbCaseCarteJ3<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJ3.add(new JLabel(""),c);
-                            break;
-                        default:
-                            nbCaseCarteJ4 += 1;
-                            //c.fill = GridBagConstraints.BOTH;
-                            c.gridheight = 1;
-                            c.gridwidth = 1;
-                            c.gridx = nbCaseCarteJ4;
-                            if (nbCaseCarteJ4<4){
-                                c.gridy = 0;
-                            }else{
-                                c.gridy = 1;
-                            }
-                            
-                            carteJ4.add(new JLabel(""),c);
-                            break;
-                    }
-                }
-            }
-        }
-    }*/
+//*La grille comporte des panels a ses 4 coins contenant chacun la liste de carte du joueur qui lui est associé ce qui permet
+//un gain de place sur la fenetre du jeu.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -274,7 +274,7 @@ public class Controleur implements Observateur {
 
         if (hasard) {
             for (int i = 0; i < 6; i++) {
-                piocherInnondation();
+                piocherInondation();
             }
         }
 
@@ -418,10 +418,13 @@ public class Controleur implements Observateur {
     public void piocherCarteOrange() {
         if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
             niveauEau++;
-            empilerDefausseInondation();
+            fenetreJeu.DefausserCarte("MontéeEau");
+            for (int i = 0; i<niveauEau; i++){
+                empilerDefausseInondation();
+            }
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
-            fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek());
+            fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek(), piocheOrange.size());
         }
         piocheOrange.pop();
     }
@@ -430,9 +433,6 @@ public class Controleur implements Observateur {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
         fenetreJeu.retirerCarteMainJoueur(joueur, carte);
-        if (carte == null) {
-            System.out.println("debug null");
-        }
         if (carte.getTypeTresor() != null) {
             fenetreJeu.DefausserCarte(carte.getTypeTresor().name());
         } else {
@@ -488,9 +488,14 @@ public class Controleur implements Observateur {
         return false;
     }
 
-    public void piocherInnondation() {
+    public void piocherInondation() {
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (piocheInondation.peek().equals(uneTuile)) {
+            if (uneTuile.getNom() == null){
+                //uneTuile.arroserTuile();
+                piocheInondation.peek().setPioche(false);
+                defausseInondation.push(piocheInondation.pop());
+            } else if (piocheInondation.peek().getTuile().equals(uneTuile)) {
+                fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size());
                 uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());
@@ -568,7 +573,7 @@ public class Controleur implements Observateur {
                 joueurCourant = joueurs.get(0);
 
                 try {
-                    fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation, joueurCourant.getNumeroJoueur());
+                    fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
                     fenetreJeu.addObservateur(this);
                     fenetreJeu.placerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
@@ -729,6 +734,14 @@ public class Controleur implements Observateur {
                     nombreAction = 3;
                 }
                 break;
+                
+            ///TEMPORAIRE////////////////////////////////////////////////////////////////
+                
+            case PIOCHER_CARTE_INONDATION:
+                piocherInondation();
+                break;
+                
+            /////////////////////////////////////////////////////////////////////////////
 
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
@@ -875,7 +888,7 @@ public class Controleur implements Observateur {
 
     public void inondation() {
         for (int i = 0; i < eauAPiocher(); i++) {
-            piocherInnondation();
+            piocherInondation();
         }
         transitionTour();
     }
