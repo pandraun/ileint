@@ -1,8 +1,11 @@
 package view;
 
 import ileint.Carte.CarteOrange;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +13,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  *
@@ -21,12 +26,15 @@ public class VueMain extends JPanel{
     
     private ArrayList<CarteOrange> cartes;
     private BufferedImage image;
-    private int joueurCourant;
+    private Color couleur;
     
-    public VueMain(ArrayList<CarteOrange> cartes, int joueurCourant) {
+    public VueMain(ArrayList<CarteOrange> cartes, Color couleur) {
         super();
         this.cartes = cartes;
-        this.joueurCourant = joueurCourant;
+        this.couleur = couleur;
+        Border border = BorderFactory.createLineBorder(this.couleur);
+        this.setBorder(BorderFactory.createCompoundBorder(border,
+        BorderFactory.createLineBorder(couleur,3)));
         repaint();
     }
     
@@ -37,51 +45,16 @@ public class VueMain extends JPanel{
         
         
         for (CarteOrange carte : cartes) {
-            if (joueurCourant == 1){
-                //System.out.println("1.joueur : "+ joueurCourant);
-                if (i==5){
-                    x = 0;
-                    y = 69;
-                }
-                chercherImage(carte);
-                g.drawImage(image, x, y, null);
-                i++;
-                x += 47;
-            } else if (joueurCourant == 2){
-                //System.out.println("2.joueur : "+ joueurCourant);
-                if (i==5){
-                    x = 168;
-                    y = 69;
-                }
-                chercherImage(carte);
-                g.drawImage(image, x, y, null);
-                i++;
-                x -= 47;
-            } else if (joueurCourant == 3){
-                //System.out.println("3.joueur : "+ joueurCourant);
+            if (i==5){
+                x = 0;
                 y = 69;
-                if (i==5){
-                    x = 168;
-                    y = 0;
-                }
-                chercherImage(carte);
-                g.drawImage(image, x, y, null);
-                i++;
-                x -= 47;
-            } else if (joueurCourant == 4){
-                //System.out.println("4.joueur : "+ joueurCourant);
-                y = 69;
-                if (i==5){
-                    x = 0;
-                    y = 0;
-                }
-                chercherImage(carte);
-                g.drawImage(image, x, y, null);
-                i++;
-                x += 47;
             }
+            chercherImage(carte);
+            g.drawImage(image, x, y, null);
+            i++;
+            x += 47;
+               
         }
-        //i=0;
     }
     
     private void chercherImage(CarteOrange carte) {

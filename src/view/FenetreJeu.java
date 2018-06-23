@@ -75,6 +75,7 @@ public class FenetreJeu extends Observe {
 
     public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
+        System.out.println(piocheOrange.size());
         this.window = new JFrame("Fenetre Jeu");
         
         //Background du jeu//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -158,81 +159,6 @@ public class FenetreJeu extends Observe {
                 }
             }
         });
-
-        //=======================================//
-        //Joueur3
-        //=======================================//
-
-        if (joueurs.size() > 2) {
-
-            JPanel role3 = new JPanel();
-            role3.setOpaque(false);
-            role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
-            JLabel EmplacementRole3 = new JLabel("J3: " + joueurs.get(2).getNomJoueur());
-            role3.add(EmplacementRole3);
-            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
-            role3.add(boutonRole3);
-            boutonRole3.setContentAreaFilled(false);
-            boutonRole3.setPreferredSize(new Dimension(150, 210));
-            boutonRole3.setOpaque(false);
-            c.anchor = GridBagConstraints.LAST_LINE_START;
-            c.gridheight = 2;
-            c.gridx = 7;
-            c.gridy = 4;
-            window.add(role3, c);
-
-            //-----------Informations sur le Rôle du joueur------------//
-            
-            boutonRole3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
-                    } catch (IOException ex) {
-                        Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-
-            //=======================================//
-            //Joueur4
-            //=======================================//
-            
-            if (joueurs.size() > 3) {
-
-                JPanel role4 = new JPanel();
-                role4.setOpaque(false);
-                role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
-                JLabel EmplacementRole4 = new JLabel("J4: " + joueurs.get(3).getNomJoueur());
-                role4.add(EmplacementRole4);
-                JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
-                role4.add(boutonRole4);
-                boutonRole4.setPreferredSize(new Dimension(150, 210));
-                boutonRole4.setContentAreaFilled(false);
-                c.anchor = GridBagConstraints.LAST_LINE_END;
-                c.gridheight = 2;
-                c.gridx = 0;
-                c.gridy = 4;
-                window.add(role4, c);
-
-                //-----------Informations sur le Rôle du joueur------------//
-                
-                boutonRole4.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
-                        } catch (IOException ex) {
-                            Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-
-            }
-
-            //======================================//
-        }
-        
         
         //=======================================//
         //Pioche et Defausse Cartes Orange
@@ -333,6 +259,83 @@ public class FenetreJeu extends Observe {
             }
         });
 
+        //=======================================//
+        //Joueur3
+        //=======================================//
+
+        if (joueurs.size() > 2) {
+
+            JPanel role3 = new JPanel();
+            role3.setOpaque(false);
+            role3.setLayout(new BoxLayout(role3, BoxLayout.Y_AXIS));
+            JLabel EmplacementRole3 = new JLabel("J3: " + joueurs.get(2).getNomJoueur());
+            role3.add(EmplacementRole3);
+            JButton boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
+            role3.add(boutonRole3);
+            boutonRole3.setContentAreaFilled(false);
+            boutonRole3.setPreferredSize(new Dimension(150, 210));
+            boutonRole3.setOpaque(false);
+            c.anchor = GridBagConstraints.LAST_LINE_START;
+            c.gridheight = 2;
+            c.gridx = 7;
+            c.gridy = 4;
+            window.add(role3, c);
+
+            //-----------Informations sur le Rôle du joueur------------//
+            
+            boutonRole3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
+                    } catch (IOException ex) {
+                        Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+
+            //=======================================//
+            //Joueur4
+            //=======================================//
+            
+            if (joueurs.size() > 3) {
+
+                JPanel role4 = new JPanel();
+                role4.setOpaque(false);
+                role4.setLayout(new BoxLayout(role4, BoxLayout.Y_AXIS));
+                JLabel EmplacementRole4 = new JLabel("J4: " + joueurs.get(3).getNomJoueur());
+                role4.add(EmplacementRole4);
+                JButton boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
+                role4.add(boutonRole4);
+                boutonRole4.setPreferredSize(new Dimension(150, 210));
+                boutonRole4.setContentAreaFilled(false);
+                c.anchor = GridBagConstraints.LAST_LINE_END;
+                c.gridheight = 2;
+                c.gridx = 0;
+                c.gridy = 4;
+                window.add(role4, c);
+
+                //-----------Informations sur le Rôle du joueur------------//
+                
+                boutonRole4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
+                        } catch (IOException ex) {
+                            Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+
+            }
+
+            //======================================//
+        }
+        
+        
+        
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
             //Mise en place de la grille comportant les tuiles et les cartes des joueurs*
@@ -357,7 +360,7 @@ public class FenetreJeu extends Observe {
         //Placement des cartes du Joueur 1
         //=======================================//
 
-        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), 1);
+        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), joueurs.get(0).getRole().getCouleur().getCouleur());
         //carteJ1.setPreferredSize(new Dimension(256, 128));
         carteJ1.setOpaque(false);
         
@@ -411,7 +414,7 @@ public class FenetreJeu extends Observe {
         //Placement des cartes du Joueur 2
         //=======================================//
 
-        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), 2);
+        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), joueurs.get(1).getRole().getCouleur().getCouleur());
         carteJ2.setOpaque(false);
         
         //-----------Lors d'un clic sur les Cartes du Joueurs 2------------//
@@ -465,7 +468,7 @@ public class FenetreJeu extends Observe {
 
         if (joueurs.size() > 2) {
 
-            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), 3);
+            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), joueurs.get(2).getRole().getCouleur().getCouleur());
             carteJ3.setOpaque(false);
             
             //-----------Lors d'un clic sur les Cartes du Joueurs 3------------//
@@ -519,7 +522,7 @@ public class FenetreJeu extends Observe {
 
             if (joueurs.size() > 3) {
 
-                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), 4);
+                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), joueurs.get(3).getRole().getCouleur().getCouleur());
                 carteJ4.setOpaque(false);
                 
                 //-----------Lors d'un clic sur les Cartes du Joueurs 4------------//

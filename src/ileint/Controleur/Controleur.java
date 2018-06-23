@@ -245,7 +245,18 @@ public class Controleur implements Observateur {
         }
 
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            piocheInondation.add(new CarteInondation(uneTuile, true));
+            if (uneTuile.getNom() != null) {
+                if (hasard) {
+                   piocheInondation.add(new CarteInondation(uneTuile, true)); 
+                } else {
+                    if (uneTuile.getEtat().equals(Utils.EtatTuile.ASSECHEE)) {
+                        piocheInondation.add(new CarteInondation(uneTuile, true)); 
+                    } else if (uneTuile.getEtat().equals(Utils.EtatTuile.INONDEE)) {
+                        defausseInondation.add(new CarteInondation(uneTuile, true));
+                    }
+                }
+                
+            }
         }
 
         Collections.shuffle(piocheInondation);
@@ -419,7 +430,7 @@ public class Controleur implements Observateur {
         if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
             niveauEau++;
             fenetreJeu.DefausserCarte("MontéeEau");
-            for (int i = 0; i<niveauEau; i++){
+            for (int i = 0; i < niveauEau; i++) {
                 empilerDefausseInondation();
             }
         } else {
@@ -490,7 +501,7 @@ public class Controleur implements Observateur {
 
     public void piocherInondation() {
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() == null){
+            if (uneTuile.getNom() == null) {
                 //uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());
@@ -573,7 +584,7 @@ public class Controleur implements Observateur {
                 joueurCourant = joueurs.get(0);
 
                 try {
-                    fenetreJeu = new FenetreJeu(joueurs, defausseOrange, defausseInondation);
+                    fenetreJeu = new FenetreJeu(joueurs, piocheOrange, piocheInondation);
                     fenetreJeu.addObservateur(this);
                     fenetreJeu.placerTuiles(tuiles);
                 } catch (MalformedURLException ex) {
@@ -734,15 +745,13 @@ public class Controleur implements Observateur {
                     nombreAction = 3;
                 }
                 break;
-                
+
             ///TEMPORAIRE////////////////////////////////////////////////////////////////
-                
             case PIOCHER_CARTE_INONDATION:
                 piocherInondation();
                 break;
-                
-            /////////////////////////////////////////////////////////////////////////////
 
+            /////////////////////////////////////////////////////////////////////////////
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
                 fenetreInfo.cliquableAttenteDaction();
