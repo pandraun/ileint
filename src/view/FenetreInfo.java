@@ -126,7 +126,7 @@ public class FenetreInfo extends Observe {
     public FenetreInfo() throws MalformedURLException, IOException {
 
         //Fenetre principale
-        this.window = new JFrame();
+        this.window = new JFrame("Fentre Info");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 805;
         int width = 520;

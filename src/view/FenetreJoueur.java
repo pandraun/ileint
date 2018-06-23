@@ -76,7 +76,7 @@ public class FenetreJoueur extends Observe {
         });
 
         } else if (nbJoueurs == 3) {
-            fenetre = new JFrame("Fenetre Debut");
+            fenetre = new JFrame("Fenetre Joueur");
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 
@@ -126,7 +126,7 @@ public class FenetreJoueur extends Observe {
         });
 
         } else {
-            fenetre = new JFrame("Fenetre Debut");
+            fenetre = new JFrame("Fenetre Joueur");
             fenetre.setSize(400, 400);
             fenetre.setLocationRelativeTo(fenetre);
 

@@ -50,6 +50,7 @@ public class FenetreJeu extends Observe {
     private JPanel grille;
 
     private VueTuile vuetuile;
+    private HashMap<Coordonnee,VueTuile> hmVueTuile = new HashMap<>();
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
     private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
@@ -585,6 +586,7 @@ public class FenetreJeu extends Observe {
         
         //============================================//
 
+        
     }
 
     public void piocheCliquable(Boolean boo) {
@@ -597,6 +599,7 @@ public class FenetreJeu extends Observe {
                 int x = uneTuile.getCoordonnee().getY();
                 int y = uneTuile.getCoordonnee().getX();
                 vuetuile = new VueTuile(uneTuile);
+                hmVueTuile.put(uneTuile.getCoordonnee(), vuetuile);
                 vuetuile.setPreferredSize(new Dimension(120, 120));
                 vuetuile.addMouseListener(new MouseListener() {
                     @Override
@@ -635,6 +638,25 @@ public class FenetreJeu extends Observe {
             }
 
         }
+    }
+    
+    public void setSurbrillance(HashMap<Coordonnee,Tuile> tuiles) {
+        for (Tuile tuile : tuiles.values()) {
+            if (tuile.getNom() != null) {
+                hmVueTuile.get(tuile.getCoordonnee()).setSurbrillance(true); 
+            }
+           
+        }
+    }
+    
+    public void setSurbrillanceDefault() {
+        for (VueTuile vueTuile : hmVueTuile.values()) {
+            vueTuile.setSurbrillance(false);
+        }
+    } 
+    
+    public void setTuile(Tuile tuile) {
+        hmVueTuile.get(tuile.getCoordonnee()).setTuile(tuile);
     }
 
     private int getColonne(int x) {

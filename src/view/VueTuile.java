@@ -84,7 +84,7 @@ public class VueTuile extends JPanel  {
         repaint();
     }
 
-    public void setSurbrillance(Boolean bool) {
+    public void setSurbrillance(boolean bool) {
         this.surbrillance = bool;
         repaint();
     }
