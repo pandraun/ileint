@@ -431,7 +431,7 @@ public class Controleur implements Observateur {
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
         defausseOrange.push(carte);
         joueur.getMainJoueur().remove(carte);
-        fenetreJeu.retirerCarteMainJoueur(joueur, carte);
+        fenetreJeu.retirerCarteMainJoueur(joueur, carte, piocheOrange.size());
         if (carte == null) {
             System.out.println("debug null");
         }
@@ -500,10 +500,10 @@ public class Controleur implements Observateur {
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());
             } else if (piocheInondation.peek().getTuile().equals(uneTuile)) {
-                
+                System.out.println("taille pile Inondation : "+ piocheInondation.size());
                 System.out.println("PiocheInondation : 3");
                 //System.out.println("piocheInondation.peek().getTuile().getNom().name() : "+ piocheInondation.peek().getTuile().getNom().name());
-                fenetreJeu.piocherInondation(piocheInondation.peek());
+                fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size());
                 uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());

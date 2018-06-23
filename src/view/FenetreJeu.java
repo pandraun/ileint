@@ -64,6 +64,8 @@ public class FenetreJeu extends Observe {
     private JButton btnPiocheOrange;
     private JButton btnPiocheInondation;
     private JButton btnDefausseInondation;
+    private JLabel labelNbCarteI;
+    private JLabel labelNbCarteO;
     private VueMain carteJ1;
     private VueMain carteJ2;
     private VueMain carteJ3;
@@ -155,7 +157,8 @@ public class FenetreJeu extends Observe {
         panelOrange.setOpaque(false);
         JPanel sousPanelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
         sousPanelOrange.setOpaque(false);
-        panelOrange.add(new JLabel("nb cartes : "+piocheOrange.size()), BorderLayout.NORTH);
+        labelNbCarteO = new JLabel("nb cartes : "+piocheOrange.size());
+        panelOrange.add(labelNbCarteO, BorderLayout.NORTH);
         panelOrange.add(sousPanelOrange);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
@@ -197,7 +200,8 @@ public class FenetreJeu extends Observe {
         JPanel panelnbCarteI = new JPanel(new BorderLayout());
         panelnbCarteI.setOpaque(false);
         panelInondation.add(panelnbCarteI, BorderLayout.NORTH);
-        panelnbCarteI.add(new JLabel("nb cartes : "+piocheInondation.size()), BorderLayout.EAST);
+        labelNbCarteI = new JLabel("nb cartes : "+piocheInondation.size());
+        panelnbCarteI.add(labelNbCarteI, BorderLayout.EAST);
         panelInondation.add(sousPanelInondation);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
@@ -554,6 +558,7 @@ public class FenetreJeu extends Observe {
     }
     
     public void piocherCarteOrange(Joueur joueur, CarteOrange carte){
+        
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.ajouterCarte(carte);
@@ -582,8 +587,8 @@ public class FenetreJeu extends Observe {
         
     }
 
-    public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
-
+    public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte, int nbCarte) {
+        labelNbCarteO.setText("nb cartes : "+nbCarte);
         if (carte.getTypeTresor() != null) {
             DefausserCarte(carte.getTypeTresor().name());
         } else {
@@ -613,7 +618,8 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
-    public void piocherInondation(CarteInondation CarteTuile) {
+    public void piocherInondation(CarteInondation CarteTuile, int nbCarte) {
+        labelNbCarteI.setText("nb cartes : "+nbCarte);
         System.out.println("debug");
         ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
         Image im = CarteInondation.getImage();
