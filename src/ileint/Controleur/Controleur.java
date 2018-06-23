@@ -418,7 +418,9 @@ public class Controleur implements Observateur {
     public void piocherCarteOrange() {
         if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
             niveauEau++;
-            empilerDefausseInondation();
+            for (int i = 0; i<niveauEau; i++){
+                empilerDefausseInondation();
+            }
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
             fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek());
@@ -492,14 +494,16 @@ public class Controleur implements Observateur {
         System.out.println("PiocheInondation : 2");
         for (Tuile uneTuile : grille.getTuiles().values()) {
             //System.out.println("uneTuile : "+ uneTuile.getNom());
-            if (piocheInondation.peek().getTuile().equals(uneTuile) && uneTuile.getNom() != null) {
+            if (uneTuile.getNom() == null){
+                System.out.println("PiocheInondation : null");
+                //uneTuile.arroserTuile();
+                piocheInondation.peek().setPioche(false);
+                defausseInondation.push(piocheInondation.pop());
+            } else if (piocheInondation.peek().getTuile().equals(uneTuile)) {
+                
                 System.out.println("PiocheInondation : 3");
                 //System.out.println("piocheInondation.peek().getTuile().getNom().name() : "+ piocheInondation.peek().getTuile().getNom().name());
                 fenetreJeu.piocherInondation(piocheInondation.peek());
-                uneTuile.arroserTuile();
-                piocheInondation.peek().setPioche(false);
-                defausseInondation.push(piocheInondation.pop());
-            }else if (piocheInondation.peek().getTuile().equals(uneTuile) && uneTuile.getNom() == null) {
                 uneTuile.arroserTuile();
                 piocheInondation.peek().setPioche(false);
                 defausseInondation.push(piocheInondation.pop());

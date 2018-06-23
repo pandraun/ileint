@@ -155,7 +155,7 @@ public class FenetreJeu extends Observe {
         panelOrange.setOpaque(false);
         JPanel sousPanelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
         sousPanelOrange.setOpaque(false);
-        panelOrange.add(new JLabel("nb cartes : "+piocheOrange.capacity()), BorderLayout.NORTH);
+        panelOrange.add(new JLabel("nb cartes : "+piocheOrange.size()), BorderLayout.NORTH);
         panelOrange.add(sousPanelOrange);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
         Image im = carteRouge.getImage();
@@ -197,7 +197,7 @@ public class FenetreJeu extends Observe {
         JPanel panelnbCarteI = new JPanel(new BorderLayout());
         panelnbCarteI.setOpaque(false);
         panelInondation.add(panelnbCarteI, BorderLayout.NORTH);
-        panelnbCarteI.add(new JLabel("nb cartes : "+piocheInondation.capacity()), BorderLayout.EAST);
+        panelnbCarteI.add(new JLabel("nb cartes : "+piocheInondation.size()), BorderLayout.EAST);
         panelInondation.add(sousPanelInondation);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
         im = CarteBleu.getImage();
@@ -311,7 +311,7 @@ public class FenetreJeu extends Observe {
         c.gridy = 1;
         window.add(grille, c);
 
-        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur());
+        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), joueurCourant);
         //carteJ1.setPreferredSize(new Dimension(256, 128));
         carteJ1.setOpaque(false);
         carteJ1.addMouseListener(new MouseListener() {
@@ -355,7 +355,7 @@ public class FenetreJeu extends Observe {
         c.gridy = 0;
         grille.add(carteJ1, c);
 
-        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur());
+        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), joueurCourant);
         carteJ2.setOpaque(false);
         carteJ2.addMouseListener(new MouseListener() {
             @Override
@@ -399,7 +399,7 @@ public class FenetreJeu extends Observe {
 
         if (joueurs.size() > 2) {
 
-            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur());
+            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), joueurCourant);
             carteJ3.setOpaque(false);
             carteJ3.addMouseListener(new MouseListener() {
                 @Override
@@ -443,7 +443,7 @@ public class FenetreJeu extends Observe {
 
             if (joueurs.size() > 3) {
 
-                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur());
+                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), joueurCourant);
                 carteJ4.setOpaque(false);
                 carteJ4.addMouseListener(new MouseListener() {
                     @Override

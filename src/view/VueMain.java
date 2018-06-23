@@ -21,10 +21,12 @@ public class VueMain extends JPanel{
     
     private ArrayList<CarteOrange> cartes;
     private BufferedImage image;
+    private int joueurCourant;
     
-    public VueMain(ArrayList<CarteOrange> cartes) {
+    public VueMain(ArrayList<CarteOrange> cartes, int joueurCourant) {
         super();
         this.cartes = cartes;
+        this.joueurCourant = joueurCourant;
         repaint();
     }
     
@@ -34,14 +36,45 @@ public class VueMain extends JPanel{
         int i = 1;
         
         for (CarteOrange carte : cartes) {
-            if (i==5){
-                x = 0;
+            if (joueurCourant == 0){
+                if (i==5){
+                    x = 0;
+                    y = 69;
+                }
+                chercherImage(carte);
+                g.drawImage(image, x, y, null);
+                i++;
+                x += 47;
+            } else if (joueurCourant == 1){
+                if (i==5){
+                    x = 220;
+                    y = 69;
+                }
+                chercherImage(carte);
+                g.drawImage(image, x, y, null);
+                i++;
+                x -= 47;
+            } else if (joueurCourant == 2){
                 y = 69;
+                if (i==5){
+                    x = 220;
+                    y = 0;
+                }
+                chercherImage(carte);
+                g.drawImage(image, x, y, null);
+                i++;
+                x -= 47;
+            } else if (joueurCourant == 3){
+                y = 69;
+                if (i==5){
+                    x = 0;
+                    y = 0;
+                }
+                chercherImage(carte);
+                g.drawImage(image, x, y, null);
+                i++;
+                x += 47;
             }
-            chercherImage(carte);
-            g.drawImage(image, x, y, null);
-            i++;
-            x += 47;
         }
     }
     
