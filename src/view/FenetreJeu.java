@@ -73,7 +73,7 @@ public class FenetreJeu extends Observe {
 
     GridBagConstraints c = new GridBagConstraints();
 
-    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation, int joueurCourant) throws MalformedURLException {
+    public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -187,9 +187,14 @@ public class FenetreJeu extends Observe {
         btnPiocheOrange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
-                notifierObservateur(m);
+                if (piocheOrange.size()>0){
+                    Message m = new Message();
+                    m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
+                    notifierObservateur(m);
+                } else {
+                    System.out.println("Pioche Orange Vide");
+                    btnPiocheOrange.setEnabled(false);
+                }
             }
         });
 
@@ -230,10 +235,14 @@ public class FenetreJeu extends Observe {
         btnPiocheInondation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.PIOCHER_CARTE_INONDATION;
-                System.out.println("PiocheInondation : 1");
-                notifierObservateur(m);
+                if (piocheInondation.size() > 0){
+                    Message m = new Message();
+                    m.type = TypesMessages.PIOCHER_CARTE_INONDATION;
+                    notifierObservateur(m);
+                } else{
+                    System.out.println("Pioche Inondation vide");
+                    btnPiocheInondation.setEnabled(false);
+                }
             }
         });
         
@@ -315,7 +324,7 @@ public class FenetreJeu extends Observe {
         c.gridy = 1;
         window.add(grille, c);
 
-        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), joueurCourant);
+        carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), 1);
         //carteJ1.setPreferredSize(new Dimension(256, 128));
         carteJ1.setOpaque(false);
         carteJ1.addMouseListener(new MouseListener() {
@@ -333,7 +342,7 @@ public class FenetreJeu extends Observe {
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ1.getCarte(x, y);
-                    if (m.carteSelectionne != null && joueurs.get(0).getNumeroJoueur() == joueurCourant) {
+                    if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
                     }
                 }
@@ -359,7 +368,7 @@ public class FenetreJeu extends Observe {
         c.gridy = 0;
         grille.add(carteJ1, c);
 
-        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), joueurCourant);
+        carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), 2);
         carteJ2.setOpaque(false);
         carteJ2.addMouseListener(new MouseListener() {
             @Override
@@ -376,7 +385,7 @@ public class FenetreJeu extends Observe {
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.carteSelectionne = carteJ2.getCarte(x, y);
-                    if (m.carteSelectionne != null && joueurs.get(1).getNumeroJoueur() == joueurCourant) {
+                    if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
                     }
                 }
@@ -403,7 +412,7 @@ public class FenetreJeu extends Observe {
 
         if (joueurs.size() > 2) {
 
-            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), joueurCourant);
+            carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), 3);
             carteJ3.setOpaque(false);
             carteJ3.addMouseListener(new MouseListener() {
                 @Override
@@ -420,7 +429,7 @@ public class FenetreJeu extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ3.getCarte(x, y);
-                        if (m.carteSelectionne != null && joueurs.get(2).getNumeroJoueur() == joueurCourant) {
+                        if (m.carteSelectionne != null /*&& joueurs.get(2).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
                         }
                     }
@@ -447,7 +456,7 @@ public class FenetreJeu extends Observe {
 
             if (joueurs.size() > 3) {
 
-                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), joueurCourant);
+                carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), 4);
                 carteJ4.setOpaque(false);
                 carteJ4.addMouseListener(new MouseListener() {
                     @Override
@@ -464,7 +473,7 @@ public class FenetreJeu extends Observe {
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.carteSelectionne = carteJ4.getCarte(x, y);
-                        if (m.carteSelectionne != null && joueurs.get(3).getNumeroJoueur() == joueurCourant) {
+                        if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
                         }
                     }
@@ -557,8 +566,8 @@ public class FenetreJeu extends Observe {
         return (y * 2) / 133;
     }
     
-    public void piocherCarteOrange(Joueur joueur, CarteOrange carte){
-        
+    public void piocherCarteOrange(Joueur joueur, CarteOrange carte, int nbCarte){
+        labelNbCarteO.setText("nb cartes : "+nbCarte);
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.ajouterCarte(carte);
@@ -587,8 +596,7 @@ public class FenetreJeu extends Observe {
         
     }
 
-    public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte, int nbCarte) {
-        labelNbCarteO.setText("nb cartes : "+nbCarte);
+    public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
         if (carte.getTypeTresor() != null) {
             DefausserCarte(carte.getTypeTresor().name());
         } else {
@@ -620,7 +628,6 @@ public class FenetreJeu extends Observe {
 
     public void piocherInondation(CarteInondation CarteTuile, int nbCarte) {
         labelNbCarteI.setText("nb cartes : "+nbCarte);
-        System.out.println("debug");
         ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
         Image im = CarteInondation.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);

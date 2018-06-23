@@ -35,8 +35,10 @@ public class VueMain extends JPanel{
         int y = 0;
         int i = 1;
         
+        
         for (CarteOrange carte : cartes) {
-            if (joueurCourant == 0){
+            if (joueurCourant == 1){
+                //System.out.println("1.joueur : "+ joueurCourant);
                 if (i==5){
                     x = 0;
                     y = 69;
@@ -45,26 +47,29 @@ public class VueMain extends JPanel{
                 g.drawImage(image, x, y, null);
                 i++;
                 x += 47;
-            } else if (joueurCourant == 1){
+            } else if (joueurCourant == 2){
+                //System.out.println("2.joueur : "+ joueurCourant);
                 if (i==5){
-                    x = 220;
+                    x = 168;
                     y = 69;
                 }
                 chercherImage(carte);
                 g.drawImage(image, x, y, null);
                 i++;
                 x -= 47;
-            } else if (joueurCourant == 2){
+            } else if (joueurCourant == 3){
+                //System.out.println("3.joueur : "+ joueurCourant);
                 y = 69;
                 if (i==5){
-                    x = 220;
+                    x = 168;
                     y = 0;
                 }
                 chercherImage(carte);
                 g.drawImage(image, x, y, null);
                 i++;
                 x -= 47;
-            } else if (joueurCourant == 3){
+            } else if (joueurCourant == 4){
+                //System.out.println("4.joueur : "+ joueurCourant);
                 y = 69;
                 if (i==5){
                     x = 0;
@@ -76,6 +81,7 @@ public class VueMain extends JPanel{
                 x += 47;
             }
         }
+        //i=0;
     }
     
     private void chercherImage(CarteOrange carte) {
