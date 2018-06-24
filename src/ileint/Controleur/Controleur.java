@@ -490,19 +490,6 @@ public class Controleur implements Observateur {
             fenetreJeu.viderDefausseOrange(piocheOrange.size());
         }
     }
-
-//    public CarteOrange getDerniereCarteOrangeDefaussee() {
-//        if (defausseOrange.isEmpty()) {
-//            return 
-//        } else {
-//            return defausseOrange.peek();
-//        }
-//        
-//    }
-//    
-//    public CarteInondation getDerniereCarteInonDefaussee() {
-//        return defausseInondation.peek();
-//    }
     public ArrayList<CarteOrange> getCarteSpeJoueurCourant() {
         ArrayList<CarteOrange> carteSpeJoueurCourant = new ArrayList<>();
         for (CarteOrange carteMain : joueurCourant.getMainJoueur()) {
@@ -539,11 +526,6 @@ public class Controleur implements Observateur {
                 
             }
         }
-        
-        /*
-        System.out.println("debug : " + tuileProvisoire);
-        fenetreJeu.piocherInondation(defausseInondation.peek(), piocheInondation.size());
-        fenetreJeu.setTuile(defausseInondation.peek().getTuile());*/
     }
 
     public void joueurSuivant() {
