@@ -21,6 +21,7 @@ public class Message {
     public String nbJoueur;  //utiliser en début de partie pour avoir le nombre de joueur
     public int difficulté;   //valeur du slider
     
+    public Joueur joueurActuel;           //utiliser pour donner des cartes
     public Joueur joueurVise;             //utiliser pour donner des cartes    
     public CarteOrange carteSelectionne;  //utiliser pour donner des cartes
     

@@ -39,8 +39,6 @@ public class FenetreFin extends Observe {
 
     public FenetreFin(boolean aGagne) {
 
-        aGagne = false;
-
         //Creation de la fenetre
         window = new JFrame();
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -77,7 +75,7 @@ public class FenetreFin extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                //m.type = TypesMessages.QUITTER;
+                System.exit(0);
                 notifierObservateur(m);
             }
         });
@@ -122,5 +120,7 @@ public class FenetreFin extends Observe {
     public void visible(boolean bool){
         window.setVisible(bool);
     }
-
+public static void main(String[] args) {
+       FenetreFin controleur = new FenetreFin(true);
+    }
 }

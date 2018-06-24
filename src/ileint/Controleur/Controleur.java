@@ -294,7 +294,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 2; i++) {  //DEBUG
+            for (int i = 0; i <2; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -525,6 +525,8 @@ public class Controleur implements Observateur {
                 
             }
         }
+        verifFinInondation(tuileSauv);
+        verifDéfaiteNiveauEau();
     }
 
     public void joueurSuivant() {
@@ -646,6 +648,8 @@ public class Controleur implements Observateur {
                 fenetreInfo.cliquableAttenteDaction();
                 
                 fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuilesDeplacementPossible(grille));
+                
+                verifVictoire();
                 break;
 
             case ASSECHER: //le joueur clique sur assecher
@@ -773,7 +777,8 @@ public class Controleur implements Observateur {
                     }
                 } else {
                     for (Joueur joueur : joueurCourant.getEmplacementJoueur().getJoueursTuile()) {
-                        if (!joueur.equals(joueurCourant) && joueur.nbCartesJoueur()<9) {
+                        if (!joueur.equals(joueurCourant) && joueur.nbCartesJoueur()<8) {
+                            System.out.println(joueur.nbCartesJoueur());
                             fenetreJeu.cliquableRole(joueur.getNumeroJoueur(), true);
                         }
                     }
@@ -847,16 +852,7 @@ public class Controleur implements Observateur {
                         fenetreInfo.cliquableBloque();
                         fenetreInfo.cliquableUtiliser(true);
                     }
-                    /*fenetreInfo.cliquableUtiliser(true);
-                    fenetreInfo.cliquableAssechement(false);
-                    fenetreInfo.cliquableDeplacementAutre(false);
-                    fenetreInfo.cliquableDeplacer(false);
-                    fenetreInfo.cliquableDonner(false);
-                    fenetreInfo.cliquableHelico(false);
-                    fenetreInfo.cliquablePasser(false);
-                    fenetreInfo.cliquableAnnuler(true);
-                    fenetreInfo.cliquableTresor(false);*/
-                } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE) && messageSauv.joueurVise != null) {
+                } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE) && messageSauv.joueurVise != null && m.joueurActuel.equals(joueurCourant)) {
                     fenetreInfo.cliquableDefaut();
                     
                     effectuerDonCarte(joueurCourant, messageSauv.joueurVise, m.carteSelectionne);
