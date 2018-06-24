@@ -19,6 +19,16 @@ public class Grille {
     }
 //    
 
+    public HashMap<Coordonnee, Tuile> getTuilesPure() {
+        HashMap<Coordonnee, Tuile> tuilesPures = new HashMap<>();
+        for (Tuile tuile : tuiles.values()) {
+            if (tuile.getNom() != null) {
+                tuilesPures.put(tuile.getCoordonnee(), tuile);
+            }
+        }
+        return tuilesPures;
+    }
+    
     public HashMap<Coordonnee, Tuile> getTuilesAssechees() { // retourne toutes les cases sèches du plateau
         return filtreCasesSeches(tuiles);
     }

@@ -16,6 +16,10 @@ public class Tuile {
     private EtatTuile etat;
     private TypeTresor caseTresor;
     private HashSet<Joueur> joueursTuile;
+    
+    public Tuile(){
+        joueursTuile = new HashSet<>();
+    }
 
     public Tuile(NomTuile nom, Coordonnee coordonnee, EtatTuile etat) {
         setNom(nom);

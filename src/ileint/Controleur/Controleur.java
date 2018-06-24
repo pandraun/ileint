@@ -64,7 +64,7 @@ public class Controleur implements Observateur {
     private Grille grille;
     private Joueur joueurCourant;
     private int nombreAction;
-    private boolean piloteSpe;
+    private boolean piloteSpe = false;
     private int nbCartePiocher;
     private Message messageSauv = new Message(); // sauvegarde du message précédent dans le traiterMessage
     private Message messageRien = new Message();
@@ -305,6 +305,9 @@ public class Controleur implements Observateur {
             }
         }
         joueurCourant = joueurs.get(0);
+        if (joueurCourant.getRole().getNom().equals("Pilote")) {
+            
+        }
     }
 
     public boolean isDeplacementPossible() {
@@ -509,40 +512,30 @@ public class Controleur implements Observateur {
     }
 
     public void piocherInondation() {
-        String tuileProvisoire = null;
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().equals(uneTuile)) {
-                tuileProvisoire = uneTuile.getNom().toString();
-                if(uneTuile.getEtat()== EtatTuile.ASSECHEE){
-                    uneTuile.setEtat(EtatTuile.INONDEE);
-                } else if (uneTuile.getEtat()== EtatTuile.INONDEE){
-                    uneTuile.setEtat(EtatTuile.COULEE);
-                }                
-            }
-        }
-        fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size()-1);
+        System.out.println("entrée pioche inondation : " + piocheInondation.size());
+        CarteInondation CarteSauv = new CarteInondation();
+        Tuile tuileSauv = new Tuile();
+        CarteSauv.setTuile(tuileSauv);
+        tuileSauv = piocheInondation.pop().getTuile();
         
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().getNom().toString().equals(tuileProvisoire)) {
-                uneTuile.arroserTuile();
-                System.out.println("arrosage");
-                if(uneTuile.getEtat()!= EtatTuile.COULEE){
-                    piocheInondation.peek().setPioche(false);
-                    defausseInondation.push(piocheInondation.pop());
-                    System.out.println("pioche--defausse++");
-                } else {
-                    piocheInondation.pop();
-                    verifFinInondation(uneTuile);
-                    System.out.println("pioche--");
+        System.out.println("taille grille : " + grille.getTuiles().values().size());
+        for (Tuile tuile : grille.getTuilesPure().values()) {
+            if (tuile.equals(tuileSauv)) {
+                System.out.println("tuile == tuileSauv");
+                tuile.arroserTuile();
+                fenetreJeu.setTuile(tuile);
+                fenetreJeu.piocherInondation(tuile, piocheInondation.size());
+                if (tuile.getEtat()!=EtatTuile.COULEE) {
+                    defausseInondation.push(CarteSauv);
                 }
                 
             }
         }
         
-        
+        /*
         System.out.println("debug : " + tuileProvisoire);
-        
-        fenetreJeu.setTuile(defausseInondation.peek().getTuile());
+        fenetreJeu.piocherInondation(defausseInondation.peek(), piocheInondation.size());
+        fenetreJeu.setTuile(defausseInondation.peek().getTuile());*/
     }
 
     public void joueurSuivant() {
@@ -967,12 +960,9 @@ public class Controleur implements Observateur {
             } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
                 System.out.println("tuile donné == tuile tresor");
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
-                    for (Tuile tuile : grille.getTuiles().values()) {
-                        if (tuile.getNom() != null) {
-                            if (tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
-                                //fin partie car un trésor pas récupérable//
-                                System.out.println("salut");
-                            }     
+                    for (Tuile tuile : tuiles.values()) {
+                        if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
+                            //fin partie car un trésor pas récupérable//
                         }
                     }
                 }
@@ -987,7 +977,7 @@ public class Controleur implements Observateur {
                         effectuerDeplacement(joueur, sauve.get(0));
                     } else {                        // si c'est pas un pilote alors on tente un déplacement normale
                         ArrayList<Tuile> sauve = null;
-                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values()); /////////////////////////
+                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
                             boolean aCarteHelico = false;
                             for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
@@ -1057,19 +1047,18 @@ public class Controleur implements Observateur {
     public void inondation() {
         for (int i = 0; i < eauAPiocher(); i++) {
             piocherInondation();
-        }
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null){
-            }
-            
-        }   
-        System.out.println("WHAT THE FUUUUUUUUUUUUUUUUUUUUUUU");
+        }  
         transitionTour();
     }
 
     public void transitionTour() {
         joueurSuivant();
         nombreAction = 3;
+        fenetreInfo.affichageAction(nombreAction);
+        fenetreInfo.cliquableDefaut();
+        fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+        fenetreInfo.modifierLabelJoueur(joueurCourant);
+        fenetreJeu.setSurbrillanceDefault();
         nbCartePiocher = 0;
         if (isTropDeCartes()) {
             Message m = new Message();
