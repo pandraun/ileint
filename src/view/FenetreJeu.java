@@ -565,9 +565,7 @@ public class FenetreJeu extends Observe {
         //============================================//
     }
 
-    public void piocheCliquable(Boolean boo) {
-        piocheOrange.setEnabled(boo);
-    }
+    
 
     public void placerTuiles(HashMap<Coordonnee, Tuile> tuiles) {
         for (Tuile uneTuile : tuiles.values()) {

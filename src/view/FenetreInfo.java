@@ -395,11 +395,18 @@ public class FenetreInfo extends Observe {
 
         //*********************************************************************
         //Icone spécial
-        JPanel pan1, pan2, pan3;
+        JPanel pan0, pan1, pan2, pan3;
         layNbAc = new CardLayout();
         pActions = new JPanel(layNbAc);
         pActions.setOpaque(false);
         f2 = new Font("NbAction", Font.BOLD, 35);
+        
+        pan0 = new JPanel();
+        pan0.setOpaque(false);
+        JLabel action0 = new JLabel(" ");
+        action0.setFont(f2);
+        pan0.add(action0);
+        pActions.add(pan0, "0action");
 
         pan1 = new JPanel();
         pan1.setOpaque(false);
@@ -684,7 +691,9 @@ public class FenetreInfo extends Observe {
     }
 
     public void affichageAction(int nbAction) {
-        if (nbAction == 1) {
+        if (nbAction == 0) {
+            layNbAc.show(pActions, "0action");
+        } else if (nbAction == 1) {
             layNbAc.show(pActions, "1action");
         } else if (nbAction == 2) {
             layNbAc.show(pActions, "2action");
