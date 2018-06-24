@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import static java.awt.SystemColor.window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -88,6 +89,19 @@ public class FenetreJeu extends Observe {
     public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         this.window = new JFrame("Fenetre Jeu");
+        window.addWindowListener(new java.awt.event.WindowListener() {
+            public void windowOpened(java.awt.event.WindowEvent e) {}
+            public void windowClosed(java.awt.event.WindowEvent e) {}
+            public void windowIconified(java.awt.event.WindowEvent e) {}
+            public void windowDeiconified(java.awt.event.WindowEvent e) {}
+            public void windowActivated(java.awt.event.WindowEvent e) {}
+            public void windowDeactivated(java.awt.event.WindowEvent e) {}
+            public void windowClosing(java.awt.event.WindowEvent e) { 
+                Message message = new Message();
+                message.type = TypesMessages.CLIQUE_QUITTER;
+                notifierObservateur(message);
+            }
+        });
 
         this.joueurs = joueurs;
 
@@ -420,7 +434,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
-                    m.joueurVise = joueurs.get(2);
+                    m.joueurVise = joueurs.get(1);
                     m.carteSelectionne = carteJ2.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -472,6 +486,7 @@ public class FenetreJeu extends Observe {
                         //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
+                        m.joueurVise = joueurs.get(2);
                         m.carteSelectionne = carteJ3.getCarte(x, y);
                         if (m.carteSelectionne != null /*&& joueurs.get(2).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
@@ -523,6 +538,7 @@ public class FenetreJeu extends Observe {
                             //System.out.println("y = " + y);
                             Message m = new Message();
                             m.type = TypesMessages.CHOIX_CARTE;
+                            m.joueurVise = joueurs.get(3);
                             m.carteSelectionne = carteJ4.getCarte(x, y);
                             if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                                 notifierObservateur(m);
@@ -682,18 +698,24 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
-    public void piocherInondation(CarteInondation carteTuile, int nbCarte) {
-        System.out.println("sqlut");
+    public void piocherInondation(Tuile tuile, int nbCarte) {
         labelNbCarteI.setText("nb cartes : " + nbCarte);
-        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + carteTuile.getTuile().getNom().name() + ".png");
+        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + tuile.getNom().name() + ".png");
         Image im = CarteInondation.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
-        btnDefausseInondation.setIcon(new ImageIcon(im));
+        if (tuile.getEtat()!=Utils.EtatTuile.COULEE) {
+            btnDefausseInondation.setIcon(new ImageIcon(im));
+        }
     }
     
-    public void viderInondation(int nbCarte) {
+    public void viderDefausseInondation(int nbCarte) {
         labelNbCarteI.setText("nb cartes : " + nbCarte);
         btnDefausseInondation.setIcon(null);
+    }
+    
+    public void viderDefausseOrange(int nbCarte) {
+        labelNbCarteO.setText("nb cartes : " + nbCarte);
+        btnDefausseOrange.setIcon(null);
     }
 
     public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte) {
@@ -782,6 +804,10 @@ public class FenetreJeu extends Observe {
                 boutonRole4.setEnabled(false);
             }
         }
+    }
+    
+    public void setVisible(boolean bool) {
+        window.setVisible(bool);
     }
 }
 

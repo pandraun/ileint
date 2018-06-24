@@ -64,7 +64,7 @@ public class Controleur implements Observateur {
     private Grille grille;
     private Joueur joueurCourant;
     private int nombreAction;
-    private boolean piloteSpe;
+    private boolean piloteSpe = false;
     private int nbCartePiocher;
     private Message messageSauv = new Message(); // sauvegarde du message précédent dans le traiterMessage
     private Message messageRien = new Message();
@@ -77,6 +77,8 @@ public class Controleur implements Observateur {
     private FenetreFin fenetreFin;
     private FenetreRegles fenetreRegles;
     private FenetreInterface fenetreInterface;
+    private boolean IngeAssecherPossible;
+    
 
     public Controleur() {
         messageRien.type = TypesMessages.RIEN;
@@ -305,6 +307,17 @@ public class Controleur implements Observateur {
             }
         }
         joueurCourant = joueurs.get(0);
+        if (joueurCourant.getRole().getNom().equals("Pilote")) {
+            piloteSpe = true;
+        } else {
+            piloteSpe = false;
+        }
+        
+        if(joueurCourant.getRole().getNom().equals("Ingenieur")) {
+            IngeAssecherPossible = true;
+        } else {
+            IngeAssecherPossible = false;
+        }
     }
 
     public boolean isDeplacementPossible() {
@@ -466,7 +479,7 @@ public class Controleur implements Observateur {
             piocheInondation.push(uneCarte);
         }
         defausseInondation.clear();
-        fenetreJeu.viderInondation(piocheInondation.size());
+        fenetreJeu.viderDefausseInondation(piocheInondation.size());
     }
 
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
@@ -474,6 +487,7 @@ public class Controleur implements Observateur {
             Collections.shuffle(defausseOrange);
             piocheOrange.addAll(defausseOrange);
             defausseOrange.clear();
+            fenetreJeu.viderDefausseOrange(piocheOrange.size());
         }
     }
 
@@ -509,40 +523,27 @@ public class Controleur implements Observateur {
     }
 
     public void piocherInondation() {
-        String tuileProvisoire = null;
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().equals(uneTuile)) {
-                tuileProvisoire = uneTuile.getNom().toString();
-                if(uneTuile.getEtat()== EtatTuile.ASSECHEE){
-                    uneTuile.setEtat(EtatTuile.INONDEE);
-                } else if (uneTuile.getEtat()== EtatTuile.INONDEE){
-                    uneTuile.setEtat(EtatTuile.COULEE);
-                }                
-            }
-        }
-        fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size()-1);
+        CarteInondation CarteSauv = new CarteInondation();
+        Tuile tuileSauv = new Tuile();
+        CarteSauv.setTuile(tuileSauv);
+        tuileSauv = piocheInondation.pop().getTuile();
         
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().getNom().toString().equals(tuileProvisoire)) {
-                uneTuile.arroserTuile();
-                System.out.println("arrosage");
-                if(uneTuile.getEtat()!= EtatTuile.COULEE){
-                    piocheInondation.peek().setPioche(false);
-                    defausseInondation.push(piocheInondation.pop());
-                    System.out.println("pioche--defausse++");
-                } else {
-                    piocheInondation.pop();
-                    verifFinInondation(uneTuile);
-                    System.out.println("pioche--");
+        for (Tuile tuile : grille.getTuilesPure().values()) {
+            if (tuile.equals(tuileSauv)) {
+                tuile.arroserTuile();
+                fenetreJeu.setTuile(tuile);
+                fenetreJeu.piocherInondation(tuile, piocheInondation.size());
+                if (tuile.getEtat()!=EtatTuile.COULEE) {
+                    defausseInondation.push(CarteSauv);
                 }
                 
             }
         }
         
-        
+        /*
         System.out.println("debug : " + tuileProvisoire);
-        
-        fenetreJeu.setTuile(defausseInondation.peek().getTuile());
+        fenetreJeu.piocherInondation(defausseInondation.peek(), piocheInondation.size());
+        fenetreJeu.setTuile(defausseInondation.peek().getTuile());*/
     }
 
     public void joueurSuivant() {
@@ -719,10 +720,16 @@ public class Controleur implements Observateur {
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                     fenetreInfo.affichageAction(nombreAction);
                     
-                    messageSauv = messageRien;
+                    if (joueurCourant.getRole().getNom().equals("Ingenieur") && !joueurCourant.getRole().getTuilesAssechables(grille).isEmpty() && IngeAssecherPossible) {
+                        fenetreJeu.setSurbrillanceDefault();
+                        fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                    } else {
+                       messageSauv = messageRien;
                     
-                    fenetreInfo.cliquableDefaut();
-                    fenetreJeu.setSurbrillanceDefault();
+                       fenetreInfo.cliquableDefaut();
+                       fenetreJeu.setSurbrillanceDefault(); 
+                    }
+                    
                 } else if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -742,6 +749,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO) && joueurCourant.getRole().getTuileHelicoPossible(grille).containsValue(m.tuileSelectionne)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+                    fenetreInfo.boutonSpeciale("rien");
                    
                     fenetreInfo.cliquableDefaut();
                     fenetreJeu.setSurbrillanceDefault();
@@ -792,8 +800,13 @@ public class Controleur implements Observateur {
                 break;
 
             case PASSER_TOUR:
-                //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
-                fenetreInfo.cliquableBloque();
+                fenetreInfo.cliquableDefaut();
+                messageSauv = messageRien;
+                nombreAction = 0;
+                fenetreInfo.affichageAction(nombreAction);
+                commencerPiocheOrange();
+                fenetreInfo.setTextInfoJeu("\n  Début du tour de pioche \n  " + joueurCourant.getNomJoueur());
+                    
                 break;
 
             case RECUPERER_TRESOR:
@@ -843,10 +856,17 @@ public class Controleur implements Observateur {
                     
                 } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
                     defausserCarte(joueurCourant, m.carteSelectionne);
+                    
+                    melangerPiocheOrange(defausseOrange); //effectue le test seul
+                    
                     if (!isTropDeCartes()) {
-                        //ihm.surbrillanceDefaul();
+                        fenetreInfo.cliquableDefaut();
+                        messageSauv = messageRien;
+                    } else {
+                        fenetreInfo.cliquableBloque();
+                        fenetreInfo.cliquableUtiliser(true);
                     }
-                    fenetreInfo.cliquableUtiliser(true);
+                    /*fenetreInfo.cliquableUtiliser(true);
                     fenetreInfo.cliquableAssechement(false);
                     fenetreInfo.cliquableDeplacementAutre(false);
                     fenetreInfo.cliquableDeplacer(false);
@@ -854,7 +874,7 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquableHelico(false);
                     fenetreInfo.cliquablePasser(false);
                     fenetreInfo.cliquableAnnuler(true);
-                    fenetreInfo.cliquableTresor(false);
+                    fenetreInfo.cliquableTresor(false);*/
                 } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE) && messageSauv.joueurVise != null) {
                     fenetreInfo.cliquableDefaut();
                     
@@ -887,16 +907,13 @@ public class Controleur implements Observateur {
                     }
                 }
                 break;
-
-            ///TEMPORAIRE////////////////////////////////////////////////////////////////
-            case PIOCHER_CARTE_INONDATION:
-                break;
-
-            /////////////////////////////////////////////////////////////////////////////
+                
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                
                 fenetreInfo.cliquableAttenteDaction();
                 fenetreInfo.setTextInfoJeu("\n " + joueurCourant.getNomJoueur() + ", où voulez  \n \nvous atterrir ?");
+                
                 messageSauv = m;
                 break;
 
@@ -915,7 +932,8 @@ public class Controleur implements Observateur {
             case CLIQUE_QUITTER: //quand l'utilisateur essaye de quitter
                 fenetreConfirmationQuitter = new FenetreConfirmationQuitter();
                 fenetreConfirmationQuitter.addObservateur(this);
-                fenetreInfo.cliquableBloque();
+                fenetreInfo.setVisible(false);
+                fenetreJeu.setVisible(false);
                 break;
 
             case OUI_QUITTER: //Action de FenetreFin
@@ -924,6 +942,8 @@ public class Controleur implements Observateur {
 
             case NON_RESTER:
                 fenetreConfirmationQuitter.quitterFenetre();
+                fenetreInfo.setVisible(true);
+                fenetreJeu.setVisible(true);
                 break;
 
             case TROP_CARTE:
@@ -967,12 +987,9 @@ public class Controleur implements Observateur {
             } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
                 System.out.println("tuile donné == tuile tresor");
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
-                    for (Tuile tuile : grille.getTuiles().values()) {
-                        if (tuile.getNom() != null) {
-                            if (tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
-                                //fin partie car un trésor pas récupérable//
-                                System.out.println("salut");
-                            }     
+                    for (Tuile tuile : tuiles.values()) {
+                        if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
+                            //fin partie car un trésor pas récupérable//
                         }
                     }
                 }
@@ -987,7 +1004,7 @@ public class Controleur implements Observateur {
                         effectuerDeplacement(joueur, sauve.get(0));
                     } else {                        // si c'est pas un pilote alors on tente un déplacement normale
                         ArrayList<Tuile> sauve = null;
-                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values()); /////////////////////////
+                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
                             boolean aCarteHelico = false;
                             for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
@@ -1057,24 +1074,42 @@ public class Controleur implements Observateur {
     public void inondation() {
         for (int i = 0; i < eauAPiocher(); i++) {
             piocherInondation();
-        }
-        for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null){
-            }
-            
-        }   
-        System.out.println("WHAT THE FUUUUUUUUUUUUUUUUUUUUUUU");
+        }  
         transitionTour();
     }
 
     public void transitionTour() {
         joueurSuivant();
         nombreAction = 3;
+        fenetreInfo.affichageAction(nombreAction);
+        fenetreInfo.cliquableDefaut();
+        fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+        fenetreInfo.modifierLabelJoueur(joueurCourant);
+        fenetreJeu.setSurbrillanceDefault();
         nbCartePiocher = 0;
+        
+        if (joueurCourant.getRole().getNom().equals("Pilote")) {
+            piloteSpe = true;
+        }
+        
+        if (joueurCourant.getRole().getNom().equals("Ingenieur")) {
+            IngeAssecherPossible = true;
+        }
+        
+        try {
+            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurCourant.getRole().getNom());
+        } catch (IOException ex) {
+            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if (isTropDeCartes()) {
             Message m = new Message();
             m.type = TypesMessages.TROP_CARTE;
             messageSauv = m;
+            fenetreInfo.cliquableBloque();
+            if (isACarteSpe()) {
+                fenetreInfo.cliquableUtiliser(true);
+            }
         }
     }
 }
