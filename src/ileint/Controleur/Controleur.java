@@ -18,6 +18,7 @@ import ileint.Joueur.Joueur;
 import ileint.Tuile.Coordonnee;
 import ileint.Tuile.NomTuile;
 import ileint.Tuile.Tuile;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ import view.FenetreInterface;
 import view.FenetreJeu;
 import view.FenetreJoueur;
 import view.FenetrePopupDebutTour;
-import view.FenetreRegles;
 import view.Observateur;
 
 /**
@@ -75,7 +75,6 @@ public class Controleur implements Observateur {
     private FenetreJoueur fenetreJoueur;
     private FenetreConfirmationQuitter fenetreConfirmationQuitter;
     private FenetreFin fenetreFin;
-    private FenetreRegles fenetreRegles;
     private FenetreInterface fenetreInterface;
     private boolean IngeAssecherPossible;
     
@@ -937,12 +936,26 @@ public class Controleur implements Observateur {
                 break;
 
             case LIRE_REGLES:
-                fenetreRegles = new FenetreRegles();
-                fenetreRegles.addObservateur(this);
+        {
+            try {
+                
+
+            java.awt.Desktop.getDesktop().open(new File("DossierImage/FenetreRegles/regles.pdf"));
+            } catch (IOException ex) {
+                Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
                 break;
 
             case LIRE_INTERFACE:
+        {
+            try {
                 fenetreInterface = new FenetreInterface();
+            } catch (IOException ex) {
+                Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 fenetreInterface.addObservateur(this);
 
                 break;
@@ -951,10 +964,8 @@ public class Controleur implements Observateur {
                 fenetreInterface.visible(false);
                 break;
 
-            case FERMER_REGLES:
-                fenetreRegles.visible(false);
+            
 
-                break;
         }
     }
 

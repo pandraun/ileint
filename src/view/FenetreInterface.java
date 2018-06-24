@@ -9,8 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,19 +39,34 @@ public class FenetreInterface extends Observe{
     
     private final Font f;
     
-    public FenetreInterface(){
+    public FenetreInterface() throws IOException{
         //Creation de la fenetre
         window = new JFrame("Aide interface");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
-        window.setSize(new Dimension(500, 170));
-        window.setLocation((width / 2 - 250), (height / 2 - 150));
+        window.setSize(new Dimension(1280, 650));
+        window.setLocation((width / 2 - 640), (height / 2 - 325));
+        
+        final BufferedImage image = ImageIO.read(new File("DossierImage/FenetreInterface/interface1.jpg"));
+
+        JPanel pane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, null);
+            }
+        };
+
+        window.setContentPane(pane);
 
         //Element de la fenetre
         mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setOpaque(false);
         panelBas = new JPanel();
+        panelBas.setOpaque(false);
         panelHaut = new JPanel();
+        panelHaut.setOpaque(false);
 
         //Texte question
         
