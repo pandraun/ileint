@@ -79,21 +79,23 @@ public class FenetreFin extends Observe {
                 notifierObservateur(m);
             }
         });
-        
+
         btnRejouer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER;
-                notifierObservateur(m);            }
+                notifierObservateur(m);
+            }
         });
-        
+
         btnRetenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
                 m.type = TypesMessages.DEMARRER;
-                notifierObservateur(m);            }
+                notifierObservateur(m);
+            }
         });
 
         if (aGagne == true) {
@@ -116,11 +118,12 @@ public class FenetreFin extends Observe {
     public void setTextInfoJeu(String nouveauString) {
         textInfoJeu.setText(nouveauString);
     }
-    
-    public void visible(boolean bool){
+
+    public void visible(boolean bool) {
         window.setVisible(bool);
     }
-public static void main(String[] args) {
-       FenetreFin controleur = new FenetreFin(true);
+
+    public static void main(String[] args) {
+        FenetreFin controleur = new FenetreFin(true);
     }
 }

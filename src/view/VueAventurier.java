@@ -13,46 +13,41 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
-import util.Utils.Pion;
 import static view.FenetreDebut.nbJ;
 
- 
-public class VueAventurier  {
-     
-    private final JPanel panelBoutons ;
-    private final JPanel panelCentre ;
+public class VueAventurier {
+
+    private final JPanel panelBoutons;
+    private final JPanel panelCentre;
     private final JFrame window;
     private final JPanel panelAventurier;
     private final JPanel mainPanel;
-    private final JButton btnBouger  ;
+    private final JButton btnBouger;
     private final JButton btnAssecher;
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
     private JTextField position;
-   
-   
-   
-    
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur){
-        
+
+    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
+
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight();
-        int width  = (int)dimension.getWidth();
-        
+        int height = (int) dimension.getHeight();
+        int width = (int) dimension.getWidth();
+
         this.window = new JFrame();
-        window.setSize(width/8, height/3-30);
+        window.setSize(width / 8, height / 3 - 30);
         switch (nbJ) {
             case 0:
                 window.setLocation(0, 30);
                 break;
             case 1:
-                window.setLocation(width-(int)(window.getAlignmentX()/2), height-(int)(window.getAlignmentY()/2));
+                window.setLocation(width - (int) (window.getAlignmentX() / 2), height - (int) (window.getAlignmentY() / 2));
                 break;
             case 2:
-                window.setLocation(0, height-(int)(window.getAlignmentY()/2));
+                window.setLocation(0, height - (int) (window.getAlignmentY() / 2));
                 break;
             case 3:
-                window.setLocation(width-(int)(window.getAlignmentX()/2), 30);
+                window.setLocation(width - (int) (window.getAlignmentX() / 2), 30);
                 break;
             default:
                 window.setLocationRelativeTo(window);
@@ -64,56 +59,54 @@ public class VueAventurier  {
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
+        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
 
         // =================================================================================
         // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
-
         this.panelAventurier = new JPanel();
         panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier,SwingConstants.CENTER ));
+        panelAventurier.add(new JLabel(nomAventurier, SwingConstants.CENTER));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
-   
+
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
         this.panelCentre = new JPanel(new GridLayout(2, 1));
         this.panelCentre.setOpaque(false);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
-        
-        panelCentre.add(new JLabel ("Position", SwingConstants.CENTER));
-        position = new  JTextField(30); 
+
+        panelCentre.add(new JLabel("Position", SwingConstants.CENTER));
+        position = new JTextField(30);
         position.setHorizontalAlignment(CENTER);
         panelCentre.add(position);
 
-
         // =================================================================================
         // SUD : les boutons
-        this.panelBoutons = new JPanel(new GridLayout(2,2));
+        this.panelBoutons = new JPanel(new GridLayout(2, 2));
         this.panelBoutons.setOpaque(false);
         mainPanel.add(this.panelBoutons, BorderLayout.SOUTH);
 
-        this.btnBouger = new JButton("Bouger") ;
+        this.btnBouger = new JButton("Bouger");
         this.btnAssecher = new JButton("Assecher");
-        this.btnAutreAction = new JButton("AutreAction") ;
-        this.btnTerminerTour = new JButton("Terminer Tour") ;
-        
+        this.btnAutreAction = new JButton("AutreAction");
+        this.btnTerminerTour = new JButton("Terminer Tour");
+
         this.panelBoutons.add(btnBouger);
         this.panelBoutons.add(btnAssecher);
         this.panelBoutons.add(btnAutreAction);
         this.panelBoutons.add(btnTerminerTour);
 
         this.window.setVisible(true);
-    } 
-    
+    }
+
     public void setPosition(String pos) {
         this.position.setText(pos);
     }
-    
-     public JButton getBtnAutreAction() {
+
+    public JButton getBtnAutreAction() {
         return btnAutreAction;
     }
-    
+
     public String getPosition() {
         return position.getText();
     }
@@ -121,7 +114,7 @@ public class VueAventurier  {
     public JButton getBtnBouger() {
         return btnBouger;
     }
-    
+
     public JButton getBtnAssecher() {
         return btnAssecher;
     }
@@ -129,12 +122,5 @@ public class VueAventurier  {
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
     }
- 
-    /*public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier("Audrey", "Explorateur",Pion.ROUGE.getCouleur() );
-    }*/
+
 }
-
- 
-

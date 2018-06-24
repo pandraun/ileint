@@ -6,7 +6,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,7 +18,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import util.Message;
 import util.TypesMessages;
@@ -28,7 +26,8 @@ import util.TypesMessages;
  *
  * @author piolleta
  */
-public class FenetreInterface extends Observe{
+public class FenetreInterface extends Observe {
+
     private final JFrame window;
     private final JPanel mainPanel;
     private final JPanel panelBas;
@@ -36,10 +35,9 @@ public class FenetreInterface extends Observe{
 
     private final JButton btnQuitter;
 
-    
     private final Font f;
-    
-    public FenetreInterface() throws IOException{
+
+    public FenetreInterface() throws IOException {
         //Creation de la fenetre
         window = new JFrame("Aide interface");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,7 +45,7 @@ public class FenetreInterface extends Observe{
         int width = (int) dimension.getWidth();
         window.setSize(new Dimension(1280, 650));
         window.setLocation((width / 2 - 640), (height / 2 - 325));
-        
+
         final BufferedImage image = ImageIO.read(new File("DossierImage/FenetreInterface/interface1.jpg"));
 
         JPanel pane = new JPanel() {
@@ -69,15 +67,13 @@ public class FenetreInterface extends Observe{
         panelHaut.setOpaque(false);
 
         //Texte question
-        
         f = new Font("Ile int", Font.PLAIN, 23);
-        
 
         panelBas.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         btnQuitter = new JButton("J'ai compris");
-        btnQuitter.setPreferredSize(new Dimension(150,25));
-        
+        btnQuitter.setPreferredSize(new Dimension(150, 25));
+
         btnQuitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,7 +83,6 @@ public class FenetreInterface extends Observe{
             }
         });
 
-        
         panelBas.add(btnQuitter);
 
         mainPanel.add(panelHaut, BorderLayout.CENTER);
@@ -100,9 +95,9 @@ public class FenetreInterface extends Observe{
     public void visible(boolean bool) {
         window.setVisible(bool);
     }
-    
-    public void quitterFenetre(){
+
+    public void quitterFenetre() {
         window.dispose();
     }
-    
+
 }
