@@ -682,15 +682,13 @@ public class FenetreJeu extends Observe {
         btnDefausseOrange.setIcon(new ImageIcon(im));
     }
 
-    public void piocherInondation(CarteInondation CarteTuile, int nbCarte) {
+    public void piocherInondation(CarteInondation carteTuile, int nbCarte) {
+        System.out.println("sqlut");
         labelNbCarteI.setText("nb cartes : " + nbCarte);
-        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
+        ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + carteTuile.getTuile().getNom().name() + ".png");
         Image im = CarteInondation.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
         btnDefausseInondation.setIcon(new ImageIcon(im));
-        if (CarteTuile.getTuile().getEtat() == ASSECHEE) {
-            //CarteTuile.getTuile().
-        }
     }
 
     public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte) {

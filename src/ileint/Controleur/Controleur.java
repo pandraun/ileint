@@ -31,6 +31,7 @@ import util.Message;
 import util.TypeTresor;
 import util.TypesMessages;
 import util.Utils;
+import util.Utils.EtatTuile;
 import view.FenetreConfirmationQuitter;
 import view.FenetreDebut;
 import view.FenetreFin;
@@ -292,7 +293,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 8; i++) {  //DEBUG
+            for (int i = 0; i < 2; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -436,12 +437,13 @@ public class Controleur implements Observateur {
         if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
             niveauEau++;
             fenetreJeu.DefausserCarte("MontéeEau");
+            fenetreInfo.changerImageJauge(niveauEau);
             for (int i = 0; i < niveauEau; i++) {
                 empilerDefausseInondation();
             }
         } else {
             joueurCourant.addCarteMainJoueur(piocheOrange.peek());
-            fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek(), piocheOrange.size());
+            fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek(), piocheOrange.size() -1);
         }
         piocheOrange.pop();
     }
@@ -506,18 +508,30 @@ public class Controleur implements Observateur {
     }
 
     public void piocherInondation() {
+        String tuileProvisoire = null;
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() == null) {
-                //uneTuile.arroserTuile();
-                piocheInondation.peek().setPioche(false);
-                defausseInondation.push(piocheInondation.pop());
-            } else if (piocheInondation.peek().getTuile().equals(uneTuile)) {
-                fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size());
-                uneTuile.arroserTuile();
-                piocheInondation.peek().setPioche(false);
-                defausseInondation.push(piocheInondation.pop());
+            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().equals(uneTuile)) {
+                tuileProvisoire = uneTuile.getNom().name();
+                if(uneTuile.getEtat()== EtatTuile.ASSECHEE){
+                    uneTuile.setEtat(EtatTuile.INONDEE);
+                } else if (uneTuile.getEtat()== EtatTuile.INONDEE){
+                    uneTuile.setEtat(EtatTuile.COULEE);
+                }                
             }
         }
+        
+        
+        for (Tuile uneTuile : grille.getTuiles().values()) {
+            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().getNom().equals(tuileProvisoire)) {
+                uneTuile.arroserTuile();
+                
+            }
+        }
+        piocheInondation.peek().setPioche(false);
+        defausseInondation.push(piocheInondation.pop());
+        System.out.println("debug : " + tuileProvisoire);
+        fenetreJeu.piocherInondation(defausseInondation.peek(), piocheInondation.size());
+        fenetreJeu.setTuile(defausseInondation.peek().getTuile());
     }
 
     public void joueurSuivant() {
@@ -799,7 +813,7 @@ public class Controleur implements Observateur {
                 if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
                         fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " cliquez maintenant sur \n\n  la case où vous voulez vous déplacer !");
-                        
+                        fenetreJeu.setSurbrillanceDefault();
                         fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
                         
                         messageSauv = m;
@@ -807,7 +821,7 @@ public class Controleur implements Observateur {
                         
                     } else if (m.carteSelectionne.getTypeClasse() == "SacDeSable") {
                         fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " cliquez maintenant sur \n\n  la case que vous voulez assécher !");
-                        
+                        fenetreJeu.setSurbrillanceDefault();
                         fenetreJeu.setSurbrillance(grille.getTuilesInondees());
                         
                         messageSauv = m;
@@ -1015,13 +1029,13 @@ public class Controleur implements Observateur {
     }
 
     public void commencerPiocheOrange() {
-        if (isPiocherPossible()) {
+        if (isPiocherPossible() && nbCartePiocher <=2) {
              fenetreInfo.cliquableBloque();
             if (isACarteSpe()) {
              fenetreInfo.cliquableUtiliser(true);
             }
         } else {
-            piocherInondation();
+            inondation();
         }
     }
 
@@ -1029,6 +1043,12 @@ public class Controleur implements Observateur {
         for (int i = 0; i < eauAPiocher(); i++) {
             piocherInondation();
         }
+        for (Tuile uneTuile : grille.getTuiles().values()) {
+            if (uneTuile.getNom() != null){
+                verifFinInondation(uneTuile);
+            }
+            
+        }    
         transitionTour();
     }
 
