@@ -34,5 +34,6 @@ public enum TypesMessages {
     LIRE_INTERFACE,
     FERMER_REGLES,
     FERMER_INTERFACE,
-    RIEN;
+    RIEN,
+    NOUVELLE_PARTIE;
 }

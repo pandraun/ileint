@@ -74,9 +74,7 @@ public class FenetreFin extends Observe {
         btnQuitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
                 System.exit(0);
-                notifierObservateur(m);
             }
         });
         
@@ -84,7 +82,7 @@ public class FenetreFin extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
+                m.type = TypesMessages.NOUVELLE_PARTIE;
                 notifierObservateur(m);            }
         });
         
@@ -92,7 +90,7 @@ public class FenetreFin extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
-                m.type = TypesMessages.DEMARRER;
+                m.type = TypesMessages.NOUVELLE_PARTIE;
                 notifierObservateur(m);            }
         });
 
@@ -121,6 +119,7 @@ public class FenetreFin extends Observe {
         window.setVisible(bool);
     }
 public static void main(String[] args) {
-       FenetreFin controleur = new FenetreFin(true);
+       FenetreFin fenetreFin = new FenetreFin(true);
+       fenetreFin.setTextInfoJeu("\n Felicitaion, vous vous  \n \n échappez de l'île");
     }
 }

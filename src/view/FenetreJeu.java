@@ -379,8 +379,6 @@ public class FenetreJeu extends Observe {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
                 if (x < 4 && y < 2) {
-                    //System.out.println("x = " + x);
-                    //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.joueurActuel = joueurs.get(0);
@@ -430,8 +428,6 @@ public class FenetreJeu extends Observe {
                 int x = getColonne(e.getX());
                 int y = getLigne(e.getY());
                 if (x < 4 && y < 2) {
-                    //System.out.println("x = " + x);
-                    //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
                     m.joueurActuel = joueurs.get(1);
@@ -482,8 +478,6 @@ public class FenetreJeu extends Observe {
                     int x = getColonne(e.getX());
                     int y = getLigne(e.getY());
                     if (x < 4 && y < 2) {
-                        //System.out.println("x = " + x);
-                        //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
                         m.joueurActuel = joueurs.get(2);
@@ -534,8 +528,6 @@ public class FenetreJeu extends Observe {
                         int x = getColonne(e.getX());
                         int y = getLigne(e.getY());
                         if (x < 4 && y < 2) {
-                            //System.out.println("x = " + x);
-                            //System.out.println("y = " + y);
                             Message m = new Message();
                             m.type = TypesMessages.CHOIX_CARTE;
                             m.joueurActuel = joueurs.get(3);

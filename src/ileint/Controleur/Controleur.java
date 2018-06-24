@@ -630,7 +630,6 @@ public class Controleur implements Observateur {
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Cliquez sur l'une des actions\n  ci-dessous :");
                     fenetreInfo.cliquableDefaut();
                     fenetreJeu.cliquableRoleToutTrue();
-                    System.out.println("debug");
                     fenetreJeu.setSurbrillanceDefault();
 
                     messageSauv = messageRien;
@@ -778,7 +777,6 @@ public class Controleur implements Observateur {
                 } else {
                     for (Joueur joueur : joueurCourant.getEmplacementJoueur().getJoueursTuile()) {
                         if (!joueur.equals(joueurCourant) && joueur.nbCartesJoueur()<8) {
-                            System.out.println(joueur.nbCartesJoueur());
                             fenetreJeu.cliquableRole(joueur.getNumeroJoueur(), true);
                         }
                     }
@@ -974,7 +972,6 @@ public class Controleur implements Observateur {
             if (tuileCourante.getNom().equals(NomTuile.Heliport)) { //si l'héliport sombre
                 //fin partie car l'héliport a sombré//
             } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
-                System.out.println("tuile donné == tuile tresor");
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
                     for (Tuile tuile : tuiles.values()) {
                         if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
