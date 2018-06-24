@@ -479,7 +479,7 @@ public class Controleur implements Observateur {
             piocheInondation.push(uneCarte);
         }
         defausseInondation.clear();
-        fenetreJeu.viderInondation(piocheInondation.size());
+        fenetreJeu.viderDefausseInondation(piocheInondation.size());
     }
 
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
@@ -487,7 +487,7 @@ public class Controleur implements Observateur {
             Collections.shuffle(defausseOrange);
             piocheOrange.addAll(defausseOrange);
             defausseOrange.clear();
-            
+            fenetreJeu.viderDefausseOrange(piocheOrange.size());
         }
     }
 
