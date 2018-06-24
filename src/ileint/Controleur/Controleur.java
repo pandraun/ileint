@@ -77,6 +77,7 @@ public class Controleur implements Observateur {
     private FenetreFin fenetreFin;
     private FenetreRegles fenetreRegles;
     private FenetreInterface fenetreInterface;
+    
 
     public Controleur() {
         messageRien.type = TypesMessages.RIEN;
@@ -306,7 +307,9 @@ public class Controleur implements Observateur {
         }
         joueurCourant = joueurs.get(0);
         if (joueurCourant.getRole().getNom().equals("Pilote")) {
-            
+            piloteSpe = true;
+        } else {
+            piloteSpe = false;
         }
     }
 
@@ -735,6 +738,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.DEPLACEMENT_HELICO) && joueurCourant.getRole().getTuileHelicoPossible(grille).containsValue(m.tuileSelectionne)) {
                     effectuerDeplacement(joueurCourant, m.tuileSelectionne);
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
+                    fenetreInfo.boutonSpeciale("rien");
                    
                     fenetreInfo.cliquableDefaut();
                     fenetreJeu.setSurbrillanceDefault();
@@ -888,8 +892,10 @@ public class Controleur implements Observateur {
             /////////////////////////////////////////////////////////////////////////////
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
+                
                 fenetreInfo.cliquableAttenteDaction();
                 fenetreInfo.setTextInfoJeu("\n " + joueurCourant.getNomJoueur() + ", où voulez  \n \nvous atterrir ?");
+                
                 messageSauv = m;
                 break;
 
@@ -1064,6 +1070,11 @@ public class Controleur implements Observateur {
             Message m = new Message();
             m.type = TypesMessages.TROP_CARTE;
             messageSauv = m;
+        }
+        try {
+            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurCourant.getRole().getNom());
+        } catch (IOException ex) {
+            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
