@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import static java.awt.SystemColor.window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -88,6 +89,19 @@ public class FenetreJeu extends Observe {
     public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         this.window = new JFrame("Fenetre Jeu");
+        window.addWindowListener(new java.awt.event.WindowListener() {
+            public void windowOpened(java.awt.event.WindowEvent e) {}
+            public void windowClosed(java.awt.event.WindowEvent e) {}
+            public void windowIconified(java.awt.event.WindowEvent e) {}
+            public void windowDeiconified(java.awt.event.WindowEvent e) {}
+            public void windowActivated(java.awt.event.WindowEvent e) {}
+            public void windowDeactivated(java.awt.event.WindowEvent e) {}
+            public void windowClosing(java.awt.event.WindowEvent e) { 
+                Message message = new Message();
+                message.type = TypesMessages.CLIQUE_QUITTER;
+                notifierObservateur(message);
+            }
+        });
 
         this.joueurs = joueurs;
 
@@ -783,6 +797,10 @@ public class FenetreJeu extends Observe {
                 boutonRole4.setEnabled(false);
             }
         }
+    }
+    
+    public void setVisible(boolean bool) {
+        window.setVisible(bool);
     }
 }
 

@@ -714,7 +714,7 @@ public class Controleur implements Observateur {
                     nombreAction--;
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                     fenetreInfo.affichageAction(nombreAction);
-                    
+                    f
                     messageSauv = messageRien;
                     
                     fenetreInfo.cliquableDefaut();
@@ -789,8 +789,13 @@ public class Controleur implements Observateur {
                 break;
 
             case PASSER_TOUR:
-                //ihm.piochageCarteOrange(); //méthode qui fais apparaitre les widgets de piochage
-                fenetreInfo.cliquableBloque();
+                fenetreInfo.cliquableDefaut();
+                messageSauv = messageRien;
+                nombreAction = 0;
+                fenetreInfo.affichageAction(nombreAction);
+                commencerPiocheOrange();
+                fenetreInfo.setTextInfoJeu("\n  Début du tour de pioche \n  " + joueurCourant.getNomJoueur());
+                    
                 break;
 
             case RECUPERER_TRESOR:
@@ -841,9 +846,12 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
                     defausserCarte(joueurCourant, m.carteSelectionne);
                     if (!isTropDeCartes()) {
-                        //ihm.surbrillanceDefaul();
+                        fenetreInfo.cliquableDefaut();
+                    } else {
+                        fenetreInfo.cliquableBloque();
+                        fenetreInfo.cliquableUtiliser(true);
                     }
-                    fenetreInfo.cliquableUtiliser(true);
+                    /*fenetreInfo.cliquableUtiliser(true);
                     fenetreInfo.cliquableAssechement(false);
                     fenetreInfo.cliquableDeplacementAutre(false);
                     fenetreInfo.cliquableDeplacer(false);
@@ -851,7 +859,7 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquableHelico(false);
                     fenetreInfo.cliquablePasser(false);
                     fenetreInfo.cliquableAnnuler(true);
-                    fenetreInfo.cliquableTresor(false);
+                    fenetreInfo.cliquableTresor(false);*/
                 } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE) && messageSauv.joueurVise != null) {
                     fenetreInfo.cliquableDefaut();
                     
@@ -914,7 +922,8 @@ public class Controleur implements Observateur {
             case CLIQUE_QUITTER: //quand l'utilisateur essaye de quitter
                 fenetreConfirmationQuitter = new FenetreConfirmationQuitter();
                 fenetreConfirmationQuitter.addObservateur(this);
-                fenetreInfo.cliquableBloque();
+                fenetreInfo.setVisible(false);
+                fenetreJeu.setVisible(false);
                 break;
 
             case OUI_QUITTER: //Action de FenetreFin
@@ -923,6 +932,8 @@ public class Controleur implements Observateur {
 
             case NON_RESTER:
                 fenetreConfirmationQuitter.quitterFenetre();
+                fenetreInfo.setVisible(true);
+                fenetreJeu.setVisible(true);
                 break;
 
             case TROP_CARTE:
@@ -1066,15 +1077,21 @@ public class Controleur implements Observateur {
         fenetreInfo.modifierLabelJoueur(joueurCourant);
         fenetreJeu.setSurbrillanceDefault();
         nbCartePiocher = 0;
-        if (isTropDeCartes()) {
-            Message m = new Message();
-            m.type = TypesMessages.TROP_CARTE;
-            messageSauv = m;
-        }
+        
         try {
             FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurCourant.getRole().getNom());
         } catch (IOException ex) {
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (isTropDeCartes()) {
+            Message m = new Message();
+            m.type = TypesMessages.TROP_CARTE;
+            messageSauv = m;
+            fenetreInfo.cliquableBloque();
+            if (isACarteSpe()) {
+                fenetreInfo.cliquableUtiliser(true);
+            }
         }
     }
 }

@@ -127,6 +127,19 @@ public class FenetreInfo extends Observe {
 
         //Fenetre principale
         this.window = new JFrame("Fentre Info");
+        window.addWindowListener(new java.awt.event.WindowListener() {
+            public void windowOpened(java.awt.event.WindowEvent e) {}
+            public void windowClosed(java.awt.event.WindowEvent e) {}
+            public void windowIconified(java.awt.event.WindowEvent e) {}
+            public void windowDeiconified(java.awt.event.WindowEvent e) {}
+            public void windowActivated(java.awt.event.WindowEvent e) {}
+            public void windowDeactivated(java.awt.event.WindowEvent e) {}
+            public void windowClosing(java.awt.event.WindowEvent e) { 
+                Message message = new Message();
+                message.type = TypesMessages.CLIQUE_QUITTER;
+                notifierObservateur(message);
+            }
+        });
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 805;
         int width = 520;
@@ -202,6 +215,7 @@ public class FenetreInfo extends Observe {
         panelRole = new JPanel();
         //panelRole.setOpaque(false);
         labelRole = new JLabel();
+        panelRole.setOpaque(false);
 
         panelRole.add(labelRole);
         infoPanel.add(panelRole, BorderLayout.SOUTH);
@@ -652,20 +666,6 @@ public class FenetreInfo extends Observe {
     public void modifierLabelJoueur(Joueur joueur) {
 
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
-
-        if (joueur.getRole().getNom() == "Messager") {
-            labelRole.setForeground(Utils.Pion.ORANGE.getCouleur());
-        } else if (joueur.getRole().getNom() == "Ingénieur") {
-            labelRole.setForeground(Utils.Pion.ROUGE.getCouleur());
-        } else if (joueur.getRole().getNom() == "Explorateur") {
-            labelRole.setForeground(Utils.Pion.VERT.getCouleur());
-        } else if (joueur.getRole().getNom() == "Pilote") {
-            labelRole.setForeground(Utils.Pion.BLEU.getCouleur());
-        } else if (joueur.getRole().getNom() == "Navigateur") {
-            labelRole.setForeground(Utils.Pion.JAUNE.getCouleur());
-        } else if (joueur.getRole().getNom() == "Plongeur") {
-            labelRole.setForeground(Utils.Pion.VIOLET.getCouleur());
-        }
         
     }
 
@@ -772,6 +772,10 @@ public class FenetreInfo extends Observe {
         cliquablePasser(false);
         cliquableAnnuler(true);
         cliquableTresor(false);
+    }
+    
+    public void setVisible(boolean bool) {
+        window.setVisible(bool);
     }
 
 }

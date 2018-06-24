@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import util.Message;
 import util.TypesMessages;
@@ -41,6 +42,8 @@ public class FenetreConfirmationQuitter extends Observe {
 
         //Creation de la fenetre
         window = new JFrame();
+        window.setUndecorated(true);
+        window.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
