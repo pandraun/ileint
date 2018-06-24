@@ -1025,7 +1025,9 @@ public class Controleur implements Observateur {
                             for (Joueur unJoueur : joueurs) {
                                 for (CarteOrange uneCarte : unJoueur.getMainJoueur()) {
                                     if (uneCarte.getTypeClasse().equals("Helicoptere")) {
-                                        //Victoire
+                                        fenetreFin = new FenetreFin(true);
+                                        fenetreFin.addObservateur(this);
+                                        fenetreFin.setTextInfoJeu("\n Felicitaion, vous vous échappez de l'île");
                                     }
                                 }
 

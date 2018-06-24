@@ -113,8 +113,8 @@ public class FenetreFin extends Observe {
 
     }
 
-    public void setTextInfoJeu(JTextArea textInfoJeu) {
-        this.textInfoJeu = textInfoJeu;
+    public void setTextInfoJeu(String nouveauString) {
+        textInfoJeu.setText(nouveauString);
     }
     
     public void visible(boolean bool){
