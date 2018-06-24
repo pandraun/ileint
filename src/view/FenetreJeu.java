@@ -690,6 +690,11 @@ public class FenetreJeu extends Observe {
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
         btnDefausseInondation.setIcon(new ImageIcon(im));
     }
+    
+    public void viderInondation(int nbCarte) {
+        labelNbCarteI.setText("nb cartes : " + nbCarte);
+        btnDefausseInondation.setIcon(null);
+    }
 
     public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte) {
         switch (joueurCourant.getNumeroJoueur()) {

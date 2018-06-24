@@ -466,6 +466,7 @@ public class Controleur implements Observateur {
             piocheInondation.push(uneCarte);
         }
         defausseInondation.clear();
+        fenetreJeu.viderInondation(piocheInondation.size());
     }
 
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
@@ -511,7 +512,7 @@ public class Controleur implements Observateur {
         String tuileProvisoire = null;
         for (Tuile uneTuile : grille.getTuiles().values()) {
             if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().equals(uneTuile)) {
-                tuileProvisoire = uneTuile.getNom().name();
+                tuileProvisoire = uneTuile.getNom().toString();
                 if(uneTuile.getEtat()== EtatTuile.ASSECHEE){
                     uneTuile.setEtat(EtatTuile.INONDEE);
                 } else if (uneTuile.getEtat()== EtatTuile.INONDEE){
@@ -519,18 +520,28 @@ public class Controleur implements Observateur {
                 }                
             }
         }
-        
+        fenetreJeu.piocherInondation(piocheInondation.peek(), piocheInondation.size()-1);
         
         for (Tuile uneTuile : grille.getTuiles().values()) {
-            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().getNom().equals(tuileProvisoire)) {
+            if (uneTuile.getNom() != null && piocheInondation.peek().getTuile().getNom().toString().equals(tuileProvisoire)) {
                 uneTuile.arroserTuile();
+                System.out.println("arrosage");
+                if(uneTuile.getEtat()!= EtatTuile.COULEE){
+                    piocheInondation.peek().setPioche(false);
+                    defausseInondation.push(piocheInondation.pop());
+                    System.out.println("pioche--defausse++");
+                } else {
+                    piocheInondation.pop();
+                    verifFinInondation(uneTuile);
+                    System.out.println("pioche--");
+                }
                 
             }
         }
-        piocheInondation.peek().setPioche(false);
-        defausseInondation.push(piocheInondation.pop());
+        
+        
         System.out.println("debug : " + tuileProvisoire);
-        fenetreJeu.piocherInondation(defausseInondation.peek(), piocheInondation.size());
+        
         fenetreJeu.setTuile(defausseInondation.peek().getTuile());
     }
 
@@ -954,10 +965,14 @@ public class Controleur implements Observateur {
             if (tuileCourante.getNom().equals(NomTuile.Heliport)) { //si l'héliport sombre
                 //fin partie car l'héliport a sombré//
             } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
+                System.out.println("tuile donné == tuile tresor");
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
-                    for (Tuile tuile : tuiles.values()) {
-                        if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
-                            //fin partie car un trésor pas récupérable//
+                    for (Tuile tuile : grille.getTuiles().values()) {
+                        if (tuile.getNom() != null) {
+                            if (tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
+                                //fin partie car un trésor pas récupérable//
+                                System.out.println("salut");
+                            }     
                         }
                     }
                 }
@@ -972,7 +987,7 @@ public class Controleur implements Observateur {
                         effectuerDeplacement(joueur, sauve.get(0));
                     } else {                        // si c'est pas un pilote alors on tente un déplacement normale
                         ArrayList<Tuile> sauve = null;
-                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
+                        sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values()); /////////////////////////
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
                             boolean aCarteHelico = false;
                             for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
@@ -1045,10 +1060,10 @@ public class Controleur implements Observateur {
         }
         for (Tuile uneTuile : grille.getTuiles().values()) {
             if (uneTuile.getNom() != null){
-                verifFinInondation(uneTuile);
             }
             
-        }    
+        }   
+        System.out.println("WHAT THE FUUUUUUUUUUUUUUUUUUUUUUU");
         transitionTour();
     }
 
