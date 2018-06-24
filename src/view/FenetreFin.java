@@ -123,7 +123,7 @@ public class FenetreFin extends Observe {
 
 public static void main(String[] args) {
        FenetreFin fenetreFin = new FenetreFin(true);
-       fenetreFin.setTextInfoJeu("\n Felicitaion, vous vous  \n \n échappez de l'île");
+       fenetreFin.setTextInfoJeu("\n Perdu ! Un des trésors est \n \n irrécupérable");
 }
 
 }
