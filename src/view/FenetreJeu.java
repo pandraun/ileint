@@ -50,7 +50,7 @@ public class FenetreJeu extends Observe {
     private JPanel grille;
 
     private VueTuile vuetuile;
-    private HashMap<Coordonnee,VueTuile> hmVueTuile = new HashMap<>();
+    private HashMap<Coordonnee, VueTuile> hmVueTuile = new HashMap<>();
     private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
     private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
     private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
@@ -71,7 +71,7 @@ public class FenetreJeu extends Observe {
     private VueMain carteJ2;
     private VueMain carteJ3;
     private VueMain carteJ4;
-    
+
     private JPanel role1;
     private JPanel role2;
     private JPanel role3;
@@ -83,23 +83,25 @@ public class FenetreJeu extends Observe {
 
     GridBagConstraints c = new GridBagConstraints();
 
+    private ArrayList<Joueur> joueurs;
+
     public FenetreJeu(ArrayList<Joueur> joueurs, Stack<CarteOrange> piocheOrange, Stack<CarteInondation> piocheInondation) throws MalformedURLException {
 
         this.window = new JFrame("Fenetre Jeu");
-        
+
+        this.joueurs = joueurs;
+
         //Background du jeu//////////////////////////////////////////////////////////////////////////////////////////////////////
         JLabel contentPane = new JLabel();
         contentPane.setIcon(new ImageIcon(new URL("https://aaronsinternetwhispersblog.files.wordpress.com/2011/12/sea_bg.png")));
         window.setContentPane(contentPane);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        
+
         window.setLayout(new GridBagLayout());
-        
+
         //=======================================//
         //Joueur1
         //=======================================//
-
         role1 = new JPanel();
         role1.setOpaque(false);
         role1.setLayout(new BoxLayout(role1, BoxLayout.Y_AXIS));
@@ -121,7 +123,6 @@ public class FenetreJeu extends Observe {
         window.add(role1, c);
 
         //-----------Informations sur le Rôle du joueur------------//
-        
         boutonRole1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -135,13 +136,12 @@ public class FenetreJeu extends Observe {
         //=======================================//
         //Joueur2
         //=======================================//
-        
         role2 = new JPanel();
         role2.setOpaque(false);
         role2.setLayout(new BoxLayout(role2, BoxLayout.Y_AXIS));
         boutonRole2 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(1).getRole().getNom() + ".png"));
         role2.add(boutonRole2);
-        
+
         boutonRole2.setPreferredSize(new Dimension(150, 210));
         JLabel EmplacementRole2 = new JLabel("J2: " + joueurs.get(1).getNomJoueur());
         role2.add(EmplacementRole2);
@@ -157,7 +157,6 @@ public class FenetreJeu extends Observe {
         window.add(role2, c);
 
         //-----------Informations sur le Rôle du joueur------------//
-        
         boutonRole2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -167,16 +166,15 @@ public class FenetreJeu extends Observe {
                 notifierObservateur(m);
             }
         });
-        
+
         //=======================================//
         //Pioche et Defausse Cartes Orange
         //=======================================//
-        
         JPanel panelOrange = new JPanel(new BorderLayout());
         panelOrange.setOpaque(false);
         JPanel sousPanelOrange = new JPanel(new GridLayout(2, 1, 4, 4));
         sousPanelOrange.setOpaque(false);
-        labelNbCarteO = new JLabel("nb cartes : "+piocheOrange.size());             //Compteur des cartes dans la pioche Orange
+        labelNbCarteO = new JLabel("nb cartes : " + piocheOrange.size());             //Compteur des cartes dans la pioche Orange
         panelOrange.add(labelNbCarteO, BorderLayout.NORTH);
         panelOrange.add(sousPanelOrange);
         ImageIcon carteRouge = new ImageIcon("DossierImage/imgCarte/Fond rouge.png");
@@ -201,11 +199,10 @@ public class FenetreJeu extends Observe {
         window.add(panelOrange, c);
 
         //-----------Lors d'un clic sur la Pioche de Cartes Oranges------------//
-        
         btnPiocheOrange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (piocheOrange.size()>0){
+                if (piocheOrange.size() > 0) {
                     Message m = new Message();
                     m.type = TypesMessages.PIOCHER_CARTE_ORANGE;
                     notifierObservateur(m);
@@ -215,11 +212,10 @@ public class FenetreJeu extends Observe {
                 }
             }
         });
-        
+
         //=======================================//
         //Pioche et Defausse Cartes Inondation
         //=======================================//
-
         JPanel panelInondation = new JPanel(new BorderLayout());
         panelInondation.setOpaque(false);
         JPanel sousPanelInondation = new JPanel(new GridLayout(2, 1, 4, 4));
@@ -227,7 +223,7 @@ public class FenetreJeu extends Observe {
         JPanel panelnbCarteI = new JPanel(new BorderLayout());
         panelnbCarteI.setOpaque(false);
         panelInondation.add(panelnbCarteI, BorderLayout.NORTH);
-        labelNbCarteI = new JLabel("nb cartes : "+piocheInondation.size());         //Compteur des cartes dans la pioche Inondation
+        labelNbCarteI = new JLabel("nb cartes : " + piocheInondation.size());         //Compteur des cartes dans la pioche Inondation
         panelnbCarteI.add(labelNbCarteI, BorderLayout.EAST);
         panelInondation.add(sousPanelInondation);
         ImageIcon CarteBleu = new ImageIcon("DossierImage/imgCarte/Fond bleu.png");
@@ -252,15 +248,14 @@ public class FenetreJeu extends Observe {
         window.add(panelInondation, c);
 
         //-----------Lors d'un clic sur la Pioche de Cartes Inondations------------//
-        
         btnPiocheInondation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (piocheInondation.size() > 0){
+                if (piocheInondation.size() > 0) {
                     Message m = new Message();
                     m.type = TypesMessages.PIOCHER_CARTE_INONDATION;
                     notifierObservateur(m);
-                } else{
+                } else {
                     System.out.println("Pioche Inondation vide");
                     btnPiocheInondation.setEnabled(false);
                 }
@@ -270,7 +265,6 @@ public class FenetreJeu extends Observe {
         //=======================================//
         //Joueur3
         //=======================================//
-
         if (joueurs.size() > 2) {
 
             role3 = new JPanel();
@@ -280,7 +274,7 @@ public class FenetreJeu extends Observe {
             role3.add(EmplacementRole3);
             boutonRole3 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(2).getRole().getNom() + ".png"));
             role3.add(boutonRole3);
-            
+
             boutonRole3.setContentAreaFilled(false);
             boutonRole3.setPreferredSize(new Dimension(150, 210));
             boutonRole3.setOpaque(false);
@@ -291,21 +285,19 @@ public class FenetreJeu extends Observe {
             window.add(role3, c);
 
             //-----------Informations sur le Rôle du joueur------------//
-            
             boutonRole3.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message();
-                m.type = TypesMessages.CHOIX_JOUEUR;
-                m.joueurVise = joueurs.get(2);
-                notifierObservateur(m);
+                    m.type = TypesMessages.CHOIX_JOUEUR;
+                    m.joueurVise = joueurs.get(2);
+                    notifierObservateur(m);
                 }
             });
 
             //=======================================//
             //Joueur4
             //=======================================//
-            
             if (joueurs.size() > 3) {
 
                 role4 = new JPanel();
@@ -315,7 +307,7 @@ public class FenetreJeu extends Observe {
                 role4.add(EmplacementRole4);
                 boutonRole4 = new JButton(new ImageIcon("DossierImage/RoleAventurier/" + joueurs.get(3).getRole().getRoleAventurier() + ".png"));
                 role4.add(boutonRole4);
-                
+
                 boutonRole4.setPreferredSize(new Dimension(150, 210));
                 boutonRole4.setContentAreaFilled(false);
                 c.anchor = GridBagConstraints.LAST_LINE_END;
@@ -325,7 +317,6 @@ public class FenetreJeu extends Observe {
                 window.add(role4, c);
 
                 //-----------Informations sur le Rôle du joueur------------//
-                
                 boutonRole4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -340,18 +331,11 @@ public class FenetreJeu extends Observe {
 
             //======================================//
         }
-        
-        
-        
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-            //Mise en place de la grille comportant les tuiles et les cartes des joueurs*
-        
+        //Mise en place de la grille comportant les tuiles et les cartes des joueurs*
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         //==Création de la Grille====================//
-        
         grille = new JPanel(new GridBagLayout());
         grille.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
@@ -361,19 +345,16 @@ public class FenetreJeu extends Observe {
         c.gridx = 1;
         c.gridy = 1;
         window.add(grille, c);                                                      //ajout de la Grille a la fenetre principale
-        
+
         //===========================================//
-        
         //=======================================//
         //Placement des cartes du Joueur 1
         //=======================================//
-
         carteJ1 = new VueMain(joueurs.get(0).getMainJoueur(), joueurs.get(0).getRole().getCouleur().getCouleur());
         //carteJ1.setPreferredSize(new Dimension(256, 128));
         carteJ1.setOpaque(false);
-        
+
         //-----------Lors d'un clic sur les Cartes du Joueurs 1------------//
-        
         carteJ1.addMouseListener(new MouseListener() {                              //permet au joueur de séléctionner une carte
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -409,25 +390,22 @@ public class FenetreJeu extends Observe {
             public void mouseExited(MouseEvent e) {
             }
         });
-        
+
         //-----------Placement des cartes du Joueur 1 sur la grille------------//
-        
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
         grille.add(carteJ1, c);
-        
+
         //=======================================//
         //Placement des cartes du Joueur 2
         //=======================================//
-
         carteJ2 = new VueMain(joueurs.get(1).getMainJoueur(), joueurs.get(1).getRole().getCouleur().getCouleur());
         carteJ2.setOpaque(false);
-        
+
         //-----------Lors d'un clic sur les Cartes du Joueurs 2------------//
-        
         carteJ2.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -462,27 +440,24 @@ public class FenetreJeu extends Observe {
             public void mouseExited(MouseEvent e) {
             }
         });
-        
+
         //-----------Placement des cartes du Joueur 2 sur la grille------------//
-        
         c.weightx = 0;
         c.gridheight = 1;
         c.gridwidth = 2;
         c.gridx = 4;
         c.gridy = 0;
         grille.add(carteJ2, c);
-        
+
         //=======================================//
         //Placement des cartes du Joueur 3
         //=======================================//
-
         if (joueurs.size() > 2) {
 
             carteJ3 = new VueMain(joueurs.get(2).getMainJoueur(), joueurs.get(2).getRole().getCouleur().getCouleur());
             carteJ3.setOpaque(false);
-            
+
             //-----------Lors d'un clic sur les Cartes du Joueurs 3------------//
-            
             carteJ3.addMouseListener(new MouseListener() {                          //permet au joueur de séléctionner une carte
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -516,27 +491,24 @@ public class FenetreJeu extends Observe {
                 public void mouseExited(MouseEvent e) {
                 }
             });
-            
+
             //-----------Placement des cartes du Joueur 3 sur la grille------------//
-            
             c.weightx = 0;
             c.gridheight = 1;
             c.gridwidth = 2;
             c.gridx = 4;
             c.gridy = 5;
             grille.add(carteJ3, c);
-            
+
             //=======================================//
             //Placement des cartes du Joueur 4
             //=======================================//
-
             if (joueurs.size() > 3) {
 
                 carteJ4 = new VueMain(joueurs.get(3).getMainJoueur(), joueurs.get(3).getRole().getCouleur().getCouleur());
                 carteJ4.setOpaque(false);
-                
+
                 //-----------Lors d'un clic sur les Cartes du Joueurs 4------------//
-                
                 carteJ4.addMouseListener(new MouseListener() {                      //permet au joueur de séléctionner une carte
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -547,15 +519,15 @@ public class FenetreJeu extends Observe {
                         int x = getColonne(e.getX());
                         int y = getLigne(e.getY());
                         if (x < 4 && y < 2) {
-                        //System.out.println("x = " + x);
-                        //System.out.println("y = " + y);
-                        Message m = new Message();
-                        m.type = TypesMessages.CHOIX_CARTE;
-                        m.carteSelectionne = carteJ4.getCarte(x, y);
-                        if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
-                            notifierObservateur(m);
+                            //System.out.println("x = " + x);
+                            //System.out.println("y = " + y);
+                            Message m = new Message();
+                            m.type = TypesMessages.CHOIX_CARTE;
+                            m.carteSelectionne = carteJ4.getCarte(x, y);
+                            if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
+                                notifierObservateur(m);
+                            }
                         }
-                    }
                     }
 
                     @Override
@@ -570,9 +542,8 @@ public class FenetreJeu extends Observe {
                     public void mouseExited(MouseEvent e) {
                     }
                 });
-                
+
                 //-----------Placement des cartes du Joueur 4 sur la grille------------//
-                
                 c.weightx = 0;
                 c.gridheight = 1;
                 c.gridwidth = 2;
@@ -583,19 +554,15 @@ public class FenetreJeu extends Observe {
             }
 
         }
-        
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         //Affichage de la fenetre Principale==========//
-        
         window.pack();
         window.setSize(1080, 806);
         window.setResizable(false);
         window.setVisible(true);
-        
-        //============================================//
 
-        
+        //============================================//
     }
 
     public void piocheCliquable(Boolean boo) {
@@ -647,22 +614,22 @@ public class FenetreJeu extends Observe {
 
         }
     }
-    
-    public void setSurbrillance(HashMap<Coordonnee,Tuile> tuiles) {
+
+    public void setSurbrillance(HashMap<Coordonnee, Tuile> tuiles) {
         for (Tuile tuile : tuiles.values()) {
             if (tuile.getNom() != null) {
-                hmVueTuile.get(tuile.getCoordonnee()).setSurbrillance(true); 
+                hmVueTuile.get(tuile.getCoordonnee()).setSurbrillance(true);
             }
-           
+
         }
     }
-    
+
     public void setSurbrillanceDefault() {
         for (VueTuile vueTuile : hmVueTuile.values()) {
             vueTuile.setSurbrillance(false);
         }
-    } 
-    
+    }
+
     public void setTuile(Tuile tuile) {
         hmVueTuile.get(tuile.getCoordonnee()).setTuile(tuile);
     }
@@ -674,9 +641,9 @@ public class FenetreJeu extends Observe {
     private int getLigne(int y) {
         return (y * 2) / 133;
     }
-    
-    public void piocherCarteOrange(Joueur joueur, CarteOrange carte, int nbCarte){
-        labelNbCarteO.setText("nb cartes : "+nbCarte);
+
+    public void piocherCarteOrange(Joueur joueur, CarteOrange carte, int nbCarte) {
+        labelNbCarteO.setText("nb cartes : " + nbCarte);
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.ajouterCarte(carte);
@@ -694,12 +661,6 @@ public class FenetreJeu extends Observe {
     }
 
     public void retirerCarteMainJoueur(Joueur joueur, CarteOrange carte) {
-        if (carte.getTypeTresor() != null) {
-            DefausserCarte(carte.getTypeTresor().name());
-        } else {
-            DefausserCarte(carte.getTypeClasse());
-        }
-
         switch (joueur.getNumeroJoueur()) {
             case 0:
                 carteJ1.enleverCarte(carte);
@@ -724,16 +685,65 @@ public class FenetreJeu extends Observe {
     }
 
     public void piocherInondation(CarteInondation CarteTuile, int nbCarte) {
-        labelNbCarteI.setText("nb cartes : "+nbCarte);
+        labelNbCarteI.setText("nb cartes : " + nbCarte);
         ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + CarteTuile.getTuile().getNom().name() + ".png");
         Image im = CarteInondation.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
         btnDefausseInondation.setIcon(new ImageIcon(im));
-        if(CarteTuile.getTuile().getEtat()==ASSECHEE){
+        if (CarteTuile.getTuile().getEtat() == ASSECHEE) {
             //CarteTuile.getTuile().
         }
     }
-    
+
+    public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte) {
+        switch (joueurCourant.getNumeroJoueur()) {
+            case 0:
+                carteJ1.enleverCarte(carte);
+                break;
+            case 1:
+                carteJ2.enleverCarte(carte);
+                break;
+            case 2:
+                carteJ3.enleverCarte(carte);
+                break;
+            default:
+                carteJ4.enleverCarte(carte);
+                break;
+        }
+        switch (joueurVise.getNumeroJoueur()) {
+            case 0:
+                carteJ1.ajouterCarte(carte);
+                break;
+            case 1:
+                carteJ2.ajouterCarte(carte);
+                break;
+            case 2:
+                carteJ3.ajouterCarte(carte);
+                break;
+            default:
+                carteJ4.ajouterCarte(carte);
+                break;
+        }
+    }
+
+    public void recupererTresor(Joueur joueur) {
+        switch (joueur.getNumeroJoueur()) {
+            case 0:
+                carteJ1.recupererTresor(joueur.getEmplacementJoueur().getCaseTresor());
+                break;
+            case 1:
+                carteJ2.recupererTresor(joueur.getEmplacementJoueur().getCaseTresor());
+                break;
+            case 2:
+                carteJ3.recupererTresor(joueur.getEmplacementJoueur().getCaseTresor());
+                break;
+            default:
+                carteJ4.recupererTresor(joueur.getEmplacementJoueur().getCaseTresor());
+                ;
+                break;
+        }
+    }
+
     public void cliquableRole(int num, boolean bool) {
         switch (num) {
             case 0:
@@ -750,42 +760,31 @@ public class FenetreJeu extends Observe {
                 break;
         }
     }
-    
-    public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte){
-        retirerCarteMainJoueur(joueurCourant, carte);
-        switch (joueurVise.getNumeroJoueur()) {
-            case 0:
-                carteJ1.ajouterCarte(carte);
-                break;
-            case 1:
-                carteJ2.ajouterCarte(carte);
-                break;
-            case 2:
-                carteJ3.ajouterCarte(carte);
-                break;
-            default:
-                carteJ4.ajouterCarte(carte);
-                break;
-        }
-    }
-    
+
     public void cliquableRoleToutTrue() {
         boutonRole1.setEnabled(true);
         boutonRole2.setEnabled(true);
-        boutonRole3.setEnabled(true);
-        boutonRole4.setEnabled(true);
+        if (joueurs.size() > 2) {
+            boutonRole3.setEnabled(true);
+            if (joueurs.size() > 3) {
+                boutonRole4.setEnabled(true);
+            }
+        }
     }
-    
+
     public void cliquableRoleToutFalse() {
         boutonRole1.setEnabled(false);
         boutonRole2.setEnabled(false);
-        boutonRole3.setEnabled(false);
-        boutonRole4.setEnabled(false);
+        if (joueurs.size() > 2) {
+            boutonRole3.setEnabled(false);
+            if (joueurs.size() > 3) {
+                boutonRole4.setEnabled(false);
+            }
+        }
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //*La grille comporte des panels a ses 4 coins contenant chacun la liste de carte du joueur qui lui est associé ce qui permet
 //un gain de place sur la fenetre du jeu.
 

@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import util.TypeTresor;
 
 /**
  *
@@ -83,6 +84,17 @@ public class VueMain extends JPanel{
     public void enleverCarte(CarteOrange carte) {
         //cartes.remove(carte);
         repaint();
+    }
+    
+    public void recupererTresor(TypeTresor type) {
+        int compteur = 0;
+        
+        for (CarteOrange carte : cartes) {
+            if (carte.getTypeTresor().equals(type) && compteur < 4) {
+                cartes.remove(carte);
+                compteur++;
+            }
+        }
     }
     
     public CarteOrange getCarte(int x, int y) {
