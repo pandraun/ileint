@@ -383,7 +383,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
-                    m.joueurVise = joueurs.get(0);
+                    m.joueurActuel = joueurs.get(0);
                     m.carteSelectionne = carteJ1.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -434,7 +434,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
-                    m.joueurVise = joueurs.get(1);
+                    m.joueurActuel = joueurs.get(1);
                     m.carteSelectionne = carteJ2.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -486,7 +486,7 @@ public class FenetreJeu extends Observe {
                         //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
-                        m.joueurVise = joueurs.get(2);
+                        m.joueurActuel = joueurs.get(2);
                         m.carteSelectionne = carteJ3.getCarte(x, y);
                         if (m.carteSelectionne != null /*&& joueurs.get(2).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
@@ -538,7 +538,7 @@ public class FenetreJeu extends Observe {
                             //System.out.println("y = " + y);
                             Message m = new Message();
                             m.type = TypesMessages.CHOIX_CARTE;
-                            m.joueurVise = joueurs.get(3);
+                            m.joueurActuel = joueurs.get(3);
                             m.carteSelectionne = carteJ4.getCarte(x, y);
                             if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                                 notifierObservateur(m);
