@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import util.Utils.EtatTuile;
 
@@ -19,7 +17,7 @@ import util.Utils.EtatTuile;
  *
  * @author fodorg
  */
-public class VueTuile extends JPanel  {
+public class VueTuile extends JPanel {
 
     private Tuile tuile;
     private BufferedImage image;

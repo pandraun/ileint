@@ -77,7 +77,7 @@ public class FenetreFin extends Observe {
                 System.exit(0);
             }
         });
-        
+
         btnRejouer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,13 +85,14 @@ public class FenetreFin extends Observe {
                 m.type = TypesMessages.NOUVELLE_PARTIE;
                 notifierObservateur(m);            }
         });
-        
+
         btnRetenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message();
                 m.type = TypesMessages.NOUVELLE_PARTIE;
-                notifierObservateur(m);            }
+                notifierObservateur(m);
+            }
         });
 
         if (aGagne == true) {
@@ -114,12 +115,15 @@ public class FenetreFin extends Observe {
     public void setTextInfoJeu(String nouveauString) {
         textInfoJeu.setText(nouveauString);
     }
-    
-    public void visible(boolean bool){
+
+    public void visible(boolean bool) {
         window.setVisible(bool);
     }
+        
+
 public static void main(String[] args) {
        FenetreFin fenetreFin = new FenetreFin(true);
        fenetreFin.setTextInfoJeu("\n Felicitaion, vous vous  \n \n échappez de l'île");
-    }
+}
+
 }

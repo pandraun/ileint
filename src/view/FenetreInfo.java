@@ -13,7 +13,6 @@ import ileint.Joueur.Joueur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -39,7 +38,6 @@ import javax.swing.border.Border;
 import util.Message;
 import util.TypeTresor;
 import util.TypesMessages;
-import util.Utils;
 
 public class FenetreInfo extends Observe {
 
@@ -68,29 +66,29 @@ public class FenetreInfo extends Observe {
     private final JLabel statuePresent = new JLabel(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/pr%C3%A9sent/statue.png")));
 
     //Les labels pour l'apparence de la jauge
-    private JLabel niv1 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau1.png"));
-    private JLabel niv2 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau2.png"));
-    private JLabel niv3 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau3.png"));
-    private JLabel niv4 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau4.png"));
-    private JLabel niv5 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau5.png"));
-    private JLabel niv6 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau6.png"));
-    private JLabel niv7 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau7.png"));
-    private JLabel niv8 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau8.png"));
-    private JLabel niv9 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau9.png"));
-    private JLabel niv10 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau10.png"));
+    private final JLabel niv1 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau1.png"));
+    private final JLabel niv2 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau2.png"));
+    private final JLabel niv3 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau3.png"));
+    private final JLabel niv4 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau4.png"));
+    private final JLabel niv5 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau5.png"));
+    private final JLabel niv6 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau6.png"));
+    private final JLabel niv7 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau7.png"));
+    private final JLabel niv8 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau8.png"));
+    private final JLabel niv9 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau9.png"));
+    private final JLabel niv10 = new JLabel(new ImageIcon("DossierImage/jaugeEau/Niveau10.png"));
 
     //Les boutons pour les différentes actions possibles
-    private JButton btnDeplacer;
-    private JButton btnAssecher;
-    private JButton btnDonner;
-    private JButton btnTresor;
-    private JButton btnUtiliserCarte;
-    private JButton btnPasser;
-    private JButton btnAnnuler;
+    private final JButton btnDeplacer;
+    private final JButton btnAssecher;
+    private final JButton btnDonner;
+    private final JButton btnTresor;
+    private final JButton btnUtiliserCarte;
+    private final JButton btnPasser;
+    private final JButton btnAnnuler;
 
     //Les boutons pour les actions spéciales
-    private JButton btnHelico;
-    private JButton btnDepAutresJoueurs;
+    private final JButton btnHelico;
+    private final JButton btnDepAutresJoueurs;
 
     //Le bouton pour l'affichage des règles et aides
     private final JButton btnRegles;
@@ -98,49 +96,60 @@ public class FenetreInfo extends Observe {
 
     //Apparence du texte
     private JTextArea textInfoJeu;
-    private Font f;
-    private Font f2;
+    private final Font f;
+    private final Font f2;
 
     //Element changeant suivant informations du controleur
     private JLabel labelRole;
     private Joueur joueurCourant;
 
     //Elements pour le CardLayout
-    private CardLayout layButton;
-    private JPanel pBoutons;
+    private final CardLayout layButton;
+    private final JPanel pBoutons;
     private Dimension d;
-    private CardLayout layNbAc;
-    private JPanel pActions;
-    private GridBagConstraints gc3;
-    private CardLayout layTresor1;
-    private JPanel panelTresor1;
-    private CardLayout layTresor2;
-    private JPanel panelTresor2;
-    private CardLayout layTresor3;
-    private JPanel panelTresor3;
-    private CardLayout layTresor4;
-    private JPanel panelTresor4;
-    private CardLayout layJauge;
-    private JPanel panelJauge;
+    private final CardLayout layNbAc;
+    private final JPanel pActions;
+    private final GridBagConstraints gc3;
+    private final CardLayout layTresor1;
+    private final JPanel panelTresor1;
+    private final CardLayout layTresor2;
+    private final JPanel panelTresor2;
+    private final CardLayout layTresor3;
+    private final JPanel panelTresor3;
+    private final CardLayout layTresor4;
+    private final JPanel panelTresor4;
+    private final CardLayout layJauge;
+    private final JPanel panelJauge;
 
     public FenetreInfo() throws MalformedURLException, IOException {
 
         //Fenetre principale
         this.window = new JFrame("Fentre Info");
         window.addWindowListener(new java.awt.event.WindowListener() {
-            public void windowOpened(java.awt.event.WindowEvent e) {}
-            public void windowClosed(java.awt.event.WindowEvent e) {}
-            public void windowIconified(java.awt.event.WindowEvent e) {}
-            public void windowDeiconified(java.awt.event.WindowEvent e) {}
-            public void windowActivated(java.awt.event.WindowEvent e) {}
-            public void windowDeactivated(java.awt.event.WindowEvent e) {}
-            public void windowClosing(java.awt.event.WindowEvent e) { 
+            public void windowOpened(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowClosed(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowIconified(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowDeiconified(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowActivated(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowDeactivated(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowClosing(java.awt.event.WindowEvent e) {
                 Message message = new Message();
                 message.type = TypesMessages.CLIQUE_QUITTER;
                 notifierObservateur(message);
             }
         });
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = 805;
         int width = 520;
         window.setSize(new Dimension(width, height));
@@ -199,11 +208,11 @@ public class FenetreInfo extends Observe {
         panelInfoJeu.setOpaque(false);
         f = new Font("Ile int", Font.PLAIN, 20);
         textInfoJeu = new JTextArea();
-        
+
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textInfoJeu.setBorder(BorderFactory.createCompoundBorder(border,
-        BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
         textInfoJeu.setForeground(Color.GRAY);
         textInfoJeu.setFont(f);
         textInfoJeu.setEditable(false);
@@ -414,7 +423,7 @@ public class FenetreInfo extends Observe {
         pActions = new JPanel(layNbAc);
         pActions.setOpaque(false);
         f2 = new Font("NbAction", Font.BOLD, 35);
-        
+
         pan0 = new JPanel();
         pan0.setOpaque(false);
         JLabel action0 = new JLabel(" ");
@@ -666,7 +675,7 @@ public class FenetreInfo extends Observe {
     public void modifierLabelJoueur(Joueur joueur) {
 
         labelRole.setText(joueur.getRole().getNom() + " (" + joueur.getNomJoueur() + ")");
-        
+
     }
 
     public void boutonSpeciale(String nomRole) {
@@ -703,14 +712,21 @@ public class FenetreInfo extends Observe {
     }
 
     public void changerImageTresor(TypeTresor type) {
-        if (type.equals(TypeTresor.CALICE)) {
-            layTresor1.show(panelTresor1, "tresor1Present");
-        } else if (type.equals(TypeTresor.CRISTAL)) {
-            layTresor2.show(panelTresor2, "tresor2Present");
-        } else if (type.equals(TypeTresor.PIERRE)) {
-            layTresor3.show(panelTresor3, "tresor3Present");
-        } else if (type.equals(TypeTresor.STATUE)) {
-            layTresor4.show(panelTresor4, "tresor4Present");
+        switch (type) {
+            case CALICE:
+                layTresor1.show(panelTresor1, "tresor1Present");
+                break;
+            case CRISTAL:
+                layTresor2.show(panelTresor2, "tresor2Present");
+                break;
+            case PIERRE:
+                layTresor3.show(panelTresor3, "tresor3Present");
+                break;
+            case STATUE:
+                layTresor4.show(panelTresor4, "tresor4Present");
+                break;
+            default:
+                break;
         }
     }
 
@@ -773,7 +789,7 @@ public class FenetreInfo extends Observe {
         cliquableAnnuler(true);
         cliquableTresor(false);
     }
-    
+
     public void setVisible(boolean bool) {
         window.setVisible(bool);
     }

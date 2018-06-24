@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
-import javax.swing.JTextArea;
 import util.Message;
 import util.TypesMessages;
 
@@ -35,7 +34,7 @@ public class FenetreConfirmationQuitter extends Observe {
     private final JButton btnOui;
     private final JButton btnNon;
 
-    private JLabel textConfirm;
+    private final JLabel textConfirm;
     private final Font f;
 
     public FenetreConfirmationQuitter() {
@@ -67,8 +66,8 @@ public class FenetreConfirmationQuitter extends Observe {
         panelBas.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         btnOui = new JButton("Oui, je veux quitter");
-        btnOui.setPreferredSize(new Dimension(180,30));
-        
+        btnOui.setPreferredSize(new Dimension(180, 30));
+
         btnOui.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,8 +78,8 @@ public class FenetreConfirmationQuitter extends Observe {
         });
 
         btnNon = new JButton("Non, je reste");
-        btnNon.setPreferredSize(new Dimension(180,30));
-        
+        btnNon.setPreferredSize(new Dimension(180, 30));
+
         btnNon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +88,7 @@ public class FenetreConfirmationQuitter extends Observe {
                 notifierObservateur(m);
             }
         });
-        
+
         panelBas.add(btnNon);
         panelBas.add(btnOui);
 
@@ -103,8 +102,8 @@ public class FenetreConfirmationQuitter extends Observe {
     public void visible(boolean bool) {
         window.setVisible(bool);
     }
-    
-    public void quitterFenetre(){
+
+    public void quitterFenetre() {
         window.dispose();
     }
 

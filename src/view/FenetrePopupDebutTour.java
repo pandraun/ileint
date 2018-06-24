@@ -15,7 +15,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -28,28 +27,34 @@ public class FenetrePopupDebutTour extends Observe {
     private final JPanel mainPanel;
     private final JButton btnOk;
     private final String chemin;
-    private BufferedImage image;
 
     public FenetrePopupDebutTour(String role) throws IOException {
         window = new JFrame("Informations Rôle");
         window.setLayout(new BorderLayout());
 
-        if (role.equals("Pilote")) {
-            chemin = "DossierImage/imgCarteTourJoueur/pilote.png";
-        } else if (role.equals("Explorateur")) {
-            chemin = "DossierImage/imgCarteTourJoueur/explo.png";
-        } else if (role.equals("Ingenieur")) {
-            chemin = "DossierImage/imgCarteTourJoueur/inge.png";
-        } else if (role.equals("Messager")) {
-            chemin = "DossierImage/imgCarteTourJoueur/mess.png";
-        } else if (role.equals("Plongeur")) {
-            chemin = "DossierImage/imgCarteTourJoueur/plon.png";
-        } else {
-            chemin = "DossierImage/imgCarteTourJoueur/navigo.png";
+        switch (role) {
+            case "Pilote":
+                chemin = "DossierImage/imgCarteTourJoueur/pilote.png";
+                break;
+            case "Explorateur":
+                chemin = "DossierImage/imgCarteTourJoueur/explo.png";
+                break;
+            case "Ingenieur":
+                chemin = "DossierImage/imgCarteTourJoueur/inge.png";
+                break;
+            case "Messager":
+                chemin = "DossierImage/imgCarteTourJoueur/mess.png";
+                break;
+            case "Plongeur":
+                chemin = "DossierImage/imgCarteTourJoueur/plon.png";
+                break;
+            default:
+                chemin = "DossierImage/imgCarteTourJoueur/navigo.png";
+                break;
         }
 
         final BufferedImage image = ImageIO.read(new File(chemin));
-        
+
         JPanel pane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -62,13 +67,11 @@ public class FenetrePopupDebutTour extends Observe {
 
         mainPanel = new JPanel();
         mainPanel.setOpaque(false);
-        
-       
+
         btnOk = new JButton("Compris");
         window.setLayout(null);
         btnOk.setBounds(140, 422, 110, 22);
         window.add(btnOk);
-        
 
         btnOk.addActionListener(new ActionListener() {
             @Override
@@ -77,14 +80,10 @@ public class FenetrePopupDebutTour extends Observe {
             }
         });
 
-        
         window.setLocation(400, 150);
         window.setSize(404, 480);
         window.setResizable(false);
         window.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException {
-        FenetrePopupDebutTour fen = new FenetrePopupDebutTour("Pilote");
-    }
 }

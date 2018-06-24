@@ -16,21 +16,16 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import static java.awt.SystemColor.window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,7 +34,6 @@ import javax.swing.JPanel;
 import util.Message;
 import util.TypesMessages;
 import util.Utils;
-import static util.Utils.EtatTuile.ASSECHEE;
 
 /**
  *
@@ -52,33 +46,33 @@ public class FenetreJeu extends Observe {
 
     private VueTuile vuetuile;
     private HashMap<Coordonnee, VueTuile> hmVueTuile = new HashMap<>();
-    private JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
-    private JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
-    private JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
-    private JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
-    private JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
-    private JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
-    private JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
-    private JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
+    private final JButton caliceAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/calice.png")));
+    private final JButton calicePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/calice.png")));
+    private final JButton cristalAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/cristal.png")));
+    private final JButton cristalPresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/cristal.png")));
+    private final JButton pierreAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/pierre.png")));
+    private final JButton pierrePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/pierre.png")));
+    private final JButton statueAbsent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/absent/statue.png")));
+    private final JButton statuePresent = new JButton(new ImageIcon(new URL("https://raw.githubusercontent.com/Anne-Gaisne/IleInterdite/master/IleInterdite/images/Tr%C3%A9sors/present/statue.png")));
 
     private JButton piocheOrange;
-    private JButton btnDefausseOrange;
+    private final JButton btnDefausseOrange;
     private JButton btnPiocheOrange;
     private JButton btnPiocheInondation;
-    private JButton btnDefausseInondation;
-    private JLabel labelNbCarteI;
-    private JLabel labelNbCarteO;
+    private final JButton btnDefausseInondation;
+    private final JLabel labelNbCarteI;
+    private final JLabel labelNbCarteO;
     private VueMain carteJ1;
     private VueMain carteJ2;
     private VueMain carteJ3;
     private VueMain carteJ4;
 
-    private JPanel role1;
-    private JPanel role2;
+    private final JPanel role1;
+    private final JPanel role2;
     private JPanel role3;
     private JPanel role4;
-    private JButton boutonRole1;
-    private JButton boutonRole2;
+    private final JButton boutonRole1;
+    private final JButton boutonRole2;
     private JButton boutonRole3;
     private JButton boutonRole4;
 
@@ -90,13 +84,25 @@ public class FenetreJeu extends Observe {
 
         this.window = new JFrame("Fenetre Jeu");
         window.addWindowListener(new java.awt.event.WindowListener() {
-            public void windowOpened(java.awt.event.WindowEvent e) {}
-            public void windowClosed(java.awt.event.WindowEvent e) {}
-            public void windowIconified(java.awt.event.WindowEvent e) {}
-            public void windowDeiconified(java.awt.event.WindowEvent e) {}
-            public void windowActivated(java.awt.event.WindowEvent e) {}
-            public void windowDeactivated(java.awt.event.WindowEvent e) {}
-            public void windowClosing(java.awt.event.WindowEvent e) { 
+            public void windowOpened(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowClosed(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowIconified(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowDeiconified(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowActivated(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowDeactivated(java.awt.event.WindowEvent e) {
+            }
+
+            public void windowClosing(java.awt.event.WindowEvent e) {
                 Message message = new Message();
                 message.type = TypesMessages.CLIQUE_QUITTER;
                 notifierObservateur(message);
@@ -573,8 +579,6 @@ public class FenetreJeu extends Observe {
         //============================================//
     }
 
-    
-
     public void placerTuiles(HashMap<Coordonnee, Tuile> tuiles) {
         for (Tuile uneTuile : tuiles.values()) {
             if (uneTuile.getNom() != null) {
@@ -695,16 +699,16 @@ public class FenetreJeu extends Observe {
         ImageIcon CarteInondation = new ImageIcon("DossierImage/imgCartePiocheInondation/" + tuile.getNom().name() + ".png");
         Image im = CarteInondation.getImage();
         im = im.getScaledInstance(140, 70, Image.SCALE_DEFAULT);
-        if (tuile.getEtat()!=Utils.EtatTuile.COULEE) {
+        if (tuile.getEtat() != Utils.EtatTuile.COULEE) {
             btnDefausseInondation.setIcon(new ImageIcon(im));
         }
     }
-    
+
     public void viderDefausseInondation(int nbCarte) {
         labelNbCarteI.setText("nb cartes : " + nbCarte);
         btnDefausseInondation.setIcon(null);
     }
-    
+
     public void viderDefausseOrange(int nbCarte) {
         labelNbCarteO.setText("nb cartes : " + nbCarte);
         btnDefausseOrange.setIcon(null);
@@ -797,7 +801,7 @@ public class FenetreJeu extends Observe {
             }
         }
     }
-    
+
     public void setVisible(boolean bool) {
         window.setVisible(bool);
     }
