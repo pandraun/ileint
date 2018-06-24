@@ -33,5 +33,6 @@ public enum TypesMessages {
     LIRE_REGLES,
     LIRE_INTERFACE,
     FERMER_REGLES,
-    FERMER_INTERFACE;
+    FERMER_INTERFACE,
+    RIEN;
 }

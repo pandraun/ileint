@@ -125,11 +125,10 @@ public class FenetreJeu extends Observe {
         boutonRole1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(0).getRole().getNom());
-                } catch (IOException ex) {
-                    Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.joueurVise = joueurs.get(0);
+                notifierObservateur(m);
             }
         });
 
@@ -162,11 +161,10 @@ public class FenetreJeu extends Observe {
         boutonRole2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(1).getRole().getNom());
-                } catch (IOException ex) {
-                    Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.joueurVise = joueurs.get(1);
+                notifierObservateur(m);
             }
         });
         
@@ -297,11 +295,10 @@ public class FenetreJeu extends Observe {
             boutonRole3.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(2).getRole().getNom());
-                    } catch (IOException ex) {
-                        Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    Message m = new Message();
+                m.type = TypesMessages.CHOIX_JOUEUR;
+                m.joueurVise = joueurs.get(2);
+                notifierObservateur(m);
                 }
             });
 
@@ -332,11 +329,10 @@ public class FenetreJeu extends Observe {
                 boutonRole4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        try {
-                            FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurs.get(3).getRole().getNom());
-                        } catch (IOException ex) {
-                            Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        Message m = new Message();
+                        m.type = TypesMessages.CHOIX_JOUEUR;
+                        m.joueurVise = joueurs.get(3);
+                        notifierObservateur(m);
                     }
                 });
 
@@ -392,6 +388,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
+                    m.joueurVise = joueurs.get(0);
                     m.carteSelectionne = carteJ1.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -445,6 +442,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
+                    m.joueurVise = joueurs.get(2);
                     m.carteSelectionne = carteJ2.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -737,14 +735,37 @@ public class FenetreJeu extends Observe {
     }
     
     public void cliquableRole(int num, boolean bool) {
-        if (num == 1) {
-            boutonRole1.setEnabled(bool);
-        } else if (num == 2) {
-            boutonRole2.setEnabled(bool);
-        } else if (num == 3) {
-            boutonRole2.setEnabled(bool);
-        } else {
-            boutonRole4.setEnabled(bool);
+        switch (num) {
+            case 0:
+                boutonRole1.setEnabled(bool);
+                break;
+            case 1:
+                boutonRole2.setEnabled(bool);
+                break;
+            case 2:
+                boutonRole3.setEnabled(bool);
+                break;
+            default:
+                boutonRole4.setEnabled(bool);
+                break;
+        }
+    }
+    
+    public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte){
+        retirerCarteMainJoueur(joueurCourant, carte);
+        switch (joueurVise.getNumeroJoueur()) {
+            case 0:
+                carteJ1.ajouterCarte(carte);
+                break;
+            case 1:
+                carteJ2.ajouterCarte(carte);
+                break;
+            case 2:
+                carteJ3.ajouterCarte(carte);
+                break;
+            default:
+                carteJ4.ajouterCarte(carte);
+                break;
         }
     }
     
@@ -756,7 +777,6 @@ public class FenetreJeu extends Observe {
     }
     
     public void cliquableRoleToutFalse() {
-        System.out.println("debug");
         boutonRole1.setEnabled(false);
         boutonRole2.setEnabled(false);
         boutonRole3.setEnabled(false);

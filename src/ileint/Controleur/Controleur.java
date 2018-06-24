@@ -38,6 +38,7 @@ import view.FenetreInfo;
 import view.FenetreInterface;
 import view.FenetreJeu;
 import view.FenetreJoueur;
+import view.FenetrePopupDebutTour;
 import view.FenetreRegles;
 import view.Observateur;
 
@@ -64,7 +65,7 @@ public class Controleur implements Observateur {
     private int nombreAction;
     private boolean piloteSpe;
     private int nbCartePiocher;
-    private Message messageSauv = null; // sauvegarde du message précédent dans le traiterMessage
+    private Message messageSauv = new Message(); // sauvegarde du message précédent dans le traiterMessage
 
     private FenetreDebut fenetreDebut;
     private FenetreJeu fenetreJeu;
@@ -76,13 +77,13 @@ public class Controleur implements Observateur {
     private FenetreInterface fenetreInterface;
 
     public Controleur() {
+        messageSauv.type = TypesMessages.RIEN;
         try {
             fenetreDebut = new FenetreDebut();
             fenetreDebut.addObservateur(this);
         } catch (MalformedURLException ex) {
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void initGrille(int nbJoueur) {
@@ -255,7 +256,6 @@ public class Controleur implements Observateur {
                         defausseInondation.add(new CarteInondation(uneTuile, true));
                     }
                 }
-                
             }
         }
 
@@ -613,7 +613,7 @@ public class Controleur implements Observateur {
             case ANNULER:
                 fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Cliquez sur l'une des actions\n  ci-dessous :");
                 fenetreInfo.cliquableDefaut();
-                
+                fenetreJeu.cliquableRoleToutTrue();
                 fenetreJeu.setSurbrillanceDefault();
                 break;
 
@@ -638,12 +638,19 @@ public class Controleur implements Observateur {
                 break;
 
             case CHOIX_JOUEUR:
-                if (messageSauv.type.equals(TypesMessages.CHOIX_CARTE)) {
+                if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)) {
+                    fenetreJeu.cliquableRoleToutFalse();
                     effectuerDonCarte(joueurCourant, m.joueurVise, messageSauv.carteSelectionne);
                 } else if (m.type.equals(TypesMessages.DEPLACER_AUTRES_JOUEURS)) {
                     messageSauv = m;
                     fenetreInfo.setTextInfoJeu("\n  " + joueurCourant.getNomJoueur() + " choisissez maintenant \n  le joueur que vous voulez déplacer  :");
                     fenetreInfo.cliquableAttenteDaction();
+                } else {
+                    try {
+                        FenetrePopupDebutTour fen = new FenetrePopupDebutTour(m.joueurVise.getRole().getNom());
+                    } catch (IOException ex) {
+                        Logger.getLogger(FenetreJeu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 break;
 
@@ -687,18 +694,19 @@ public class Controleur implements Observateur {
                 fenetreJeu.cliquableRoleToutFalse();
                 if (joueurCourant.getRole().getRoleAventurier() == "Messager") {
                     for (Joueur joueur : joueurs) {
-                        if (joueur.getRole().getNom() != "Message") {
+                        if (joueur.getRole().getNom() != "Message" && joueur.nbCartesJoueur()<9) {
                             fenetreJeu.cliquableRole(joueur.getNumeroJoueur(), true);
                         }
                     }
                 } else {
                     for (Joueur joueur : joueurCourant.getEmplacementJoueur().getJoueursTuile()) {
                         if (!joueur.equals(joueurCourant) && joueur.nbCartesJoueur()<9) {
+                            System.out.println("nom joueur"+joueur.getRole().getNom());
                             fenetreJeu.cliquableRole(joueur.getNumeroJoueur(), true);
                         }
                     }
                 }
-                messageSauv = m;
+                //messageSauv = m;
                 break;
 
             case PASSER_TOUR:
@@ -714,15 +722,14 @@ public class Controleur implements Observateur {
                     commencerPiocheOrange(); //méthode qui fais apparaitre les widgets de piochage
                 }
                 break;
-
             case UTILISER_CARTE:
                 messageSauv = m;
                 //mise en surbrillance des cartes spé  
                 fenetreInfo.cliquableAttenteDaction();
                 break;
             case CHOIX_CARTE:
-                messageSauv = m;
-                defausserCarte(joueurCourant, m.carteSelectionne);
+                messageSauv.type = TypesMessages.DONNER_CARTE;
+                //defausserCarte(joueurCourant, m.carteSelectionne);
                 if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (m.carteSelectionne.getTypeClasse() == "Helicoptere") {
                         //ihm.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
@@ -749,11 +756,14 @@ public class Controleur implements Observateur {
                     fenetreInfo.cliquableAnnuler(true);
                     fenetreInfo.cliquableTresor(false);
                 } else if (messageSauv.type.equals(TypesMessages.DONNER_CARTE)) {
-                    //mettre en surbrillance les joueurs
-                    messageSauv = m;
-                    messageSauv.type = TypesMessages.DONNER_CARTE;
-                    fenetreInfo.cliquableAttenteDaction();
-
+                    System.out.println("Joueur Courant : "+ joueurCourant.getNomJoueur());
+                    System.out.println("Joueur Visé : "+ m.joueurVise.getNomJoueur());
+                    if (messageSauv.carteSelectionne.getTypeTresor() != null) {
+                        System.out.println("carte donné : "+messageSauv.carteSelectionne.getTypeTresor());
+                    } else {
+                        System.out.println("carte donné : "+messageSauv.carteSelectionne.getTypeClasse());
+                    }
+                    fenetreJeu.DonnerCarteJoueur(joueurCourant,m.joueurVise, messageSauv.carteSelectionne);
                 }
                 break;
 
