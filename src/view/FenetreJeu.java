@@ -434,7 +434,7 @@ public class FenetreJeu extends Observe {
                     //System.out.println("y = " + y);
                     Message m = new Message();
                     m.type = TypesMessages.CHOIX_CARTE;
-                    m.joueurVise = joueurs.get(2);
+                    m.joueurVise = joueurs.get(1);
                     m.carteSelectionne = carteJ2.getCarte(x, y);
                     if (m.carteSelectionne != null /*&& joueurs.get(1).getNumeroJoueur() == joueurCourant*/) {
                         notifierObservateur(m);
@@ -486,6 +486,7 @@ public class FenetreJeu extends Observe {
                         //System.out.println("y = " + y);
                         Message m = new Message();
                         m.type = TypesMessages.CHOIX_CARTE;
+                        m.joueurVise = joueurs.get(2);
                         m.carteSelectionne = carteJ3.getCarte(x, y);
                         if (m.carteSelectionne != null /*&& joueurs.get(2).getNumeroJoueur() == joueurCourant*/) {
                             notifierObservateur(m);
@@ -537,6 +538,7 @@ public class FenetreJeu extends Observe {
                             //System.out.println("y = " + y);
                             Message m = new Message();
                             m.type = TypesMessages.CHOIX_CARTE;
+                            m.joueurVise = joueurs.get(3);
                             m.carteSelectionne = carteJ4.getCarte(x, y);
                             if (m.carteSelectionne != null /*&& joueurs.get(0).getNumeroJoueur() == joueurCourant*/) {
                                 notifierObservateur(m);
@@ -706,9 +708,14 @@ public class FenetreJeu extends Observe {
         }
     }
     
-    public void viderInondation(int nbCarte) {
+    public void viderDefausseInondation(int nbCarte) {
         labelNbCarteI.setText("nb cartes : " + nbCarte);
         btnDefausseInondation.setIcon(null);
+    }
+    
+    public void viderDefausseOrange(int nbCarte) {
+        labelNbCarteO.setText("nb cartes : " + nbCarte);
+        btnDefausseOrange.setIcon(null);
     }
 
     public void DonnerCarteJoueur(Joueur joueurCourant, Joueur joueurVise, CarteOrange carte) {

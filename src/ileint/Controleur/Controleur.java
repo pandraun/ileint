@@ -77,6 +77,7 @@ public class Controleur implements Observateur {
     private FenetreFin fenetreFin;
     private FenetreRegles fenetreRegles;
     private FenetreInterface fenetreInterface;
+    private boolean IngeAssecherPossible;
     
 
     public Controleur() {
@@ -311,6 +312,12 @@ public class Controleur implements Observateur {
         } else {
             piloteSpe = false;
         }
+        
+        if(joueurCourant.getRole().getNom().equals("Ingenieur")) {
+            IngeAssecherPossible = true;
+        } else {
+            IngeAssecherPossible = false;
+        }
     }
 
     public boolean isDeplacementPossible() {
@@ -480,6 +487,7 @@ public class Controleur implements Observateur {
             Collections.shuffle(defausseOrange);
             piocheOrange.addAll(defausseOrange);
             defausseOrange.clear();
+            
         }
     }
 
@@ -515,16 +523,13 @@ public class Controleur implements Observateur {
     }
 
     public void piocherInondation() {
-        System.out.println("entrée pioche inondation : " + piocheInondation.size());
         CarteInondation CarteSauv = new CarteInondation();
         Tuile tuileSauv = new Tuile();
         CarteSauv.setTuile(tuileSauv);
         tuileSauv = piocheInondation.pop().getTuile();
         
-        System.out.println("taille grille : " + grille.getTuiles().values().size());
         for (Tuile tuile : grille.getTuilesPure().values()) {
             if (tuile.equals(tuileSauv)) {
-                System.out.println("tuile == tuileSauv");
                 tuile.arroserTuile();
                 fenetreJeu.setTuile(tuile);
                 fenetreJeu.piocherInondation(tuile, piocheInondation.size());
@@ -714,11 +719,17 @@ public class Controleur implements Observateur {
                     nombreAction--;
                     fenetreInfo.setTextInfoJeu("\n  A vous de jouer " + joueurCourant.getNomJoueur() + " !\n\n  Choisissez une action parmi celles-ci \n  dessous:");
                     fenetreInfo.affichageAction(nombreAction);
-                    f
-                    messageSauv = messageRien;
                     
-                    fenetreInfo.cliquableDefaut();
-                    fenetreJeu.setSurbrillanceDefault();
+                    if (joueurCourant.getRole().getNom().equals("Ingenieur") && !joueurCourant.getRole().getTuilesAssechables(grille).isEmpty() && IngeAssecherPossible) {
+                        fenetreJeu.setSurbrillanceDefault();
+                        fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuilesAssechables(grille));
+                    } else {
+                       messageSauv = messageRien;
+                    
+                       fenetreInfo.cliquableDefaut();
+                       fenetreJeu.setSurbrillanceDefault(); 
+                    }
+                    
                 } else if (messageSauv.type.equals(TypesMessages.UTILISER_CARTE)) {
                     if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                         effectuerDeplacement(joueurCourant, m.tuileSelectionne);
@@ -845,8 +856,12 @@ public class Controleur implements Observateur {
                     
                 } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
                     defausserCarte(joueurCourant, m.carteSelectionne);
+                    
+                    melangerPiocheOrange(defausseOrange); //effectue le test seul
+                    
                     if (!isTropDeCartes()) {
                         fenetreInfo.cliquableDefaut();
+                        messageSauv = messageRien;
                     } else {
                         fenetreInfo.cliquableBloque();
                         fenetreInfo.cliquableUtiliser(true);
@@ -892,12 +907,7 @@ public class Controleur implements Observateur {
                     }
                 }
                 break;
-
-            ///TEMPORAIRE////////////////////////////////////////////////////////////////
-            case PIOCHER_CARTE_INONDATION:
-                break;
-
-            /////////////////////////////////////////////////////////////////////////////
+                
             case DEPLACEMENT_HELICO: //Action Spéciale du pilote
                 fenetreJeu.setSurbrillance(joueurCourant.getRole().getTuileHelicoPossible(grille));
                 
@@ -1077,6 +1087,14 @@ public class Controleur implements Observateur {
         fenetreInfo.modifierLabelJoueur(joueurCourant);
         fenetreJeu.setSurbrillanceDefault();
         nbCartePiocher = 0;
+        
+        if (joueurCourant.getRole().getNom().equals("Pilote")) {
+            piloteSpe = true;
+        }
+        
+        if (joueurCourant.getRole().getNom().equals("Ingenieur")) {
+            IngeAssecherPossible = true;
+        }
         
         try {
             FenetrePopupDebutTour fen = new FenetrePopupDebutTour(joueurCourant.getRole().getNom());
