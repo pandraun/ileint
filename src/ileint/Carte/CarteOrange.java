@@ -10,6 +10,10 @@ import util.TypeTresor;
 public abstract class CarteOrange {
     private EmplacementCarte emplacement;
     
+    public CarteOrange() {
+        
+    }
+    
     public CarteOrange(EmplacementCarte emplacement){
         this.setEmplacementCarte(emplacement);
     }

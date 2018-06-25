@@ -119,7 +119,6 @@ public class FenetreFin extends Observe {
     public void visible(boolean bool) {
         window.setVisible(bool);
     }
-        
 
 public static void main(String[] args) {
        FenetreFin fenetreFin = new FenetreFin(true);

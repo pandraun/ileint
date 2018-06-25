@@ -50,9 +50,10 @@ import view.Observateur;
 public class Controleur implements Observateur {
 
     private final boolean hasard = false;
-    private final boolean avecFinJeu = false;
-    private final boolean avecInondation = false;
+    private final boolean avecFinJeu =true;
+    private final boolean avecInondation = true;
     private final boolean testRecup = false;
+    private final boolean piocheInitiale = false;
 
     private int niveauEau;
     private Stack<CarteInondation> piocheInondation; // 0..24
@@ -289,14 +290,14 @@ public class Controleur implements Observateur {
 
         Collections.shuffle(piocheOrange);
 
-        if (hasard) {
+        if (piocheInitiale) {
             for (int i = 0; i < 6; i++) {
                 piocherInondation();
             }
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 6; i++) {  //DEBUG
+            for (int i = 0; i < 2; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -486,11 +487,16 @@ public class Controleur implements Observateur {
 
     public void empilerDefausseInondation() { //qd y'a une carte montée des eaux
         Collections.shuffle(defausseInondation);
-        for (CarteInondation uneCarte : defausseInondation) {
-            piocheInondation.push(uneCarte);
+        
+        while (defausseInondation.size() > 0) {
+            piocheInondation.push(defausseInondation.pop());
         }
-        defausseInondation.clear();
+        /*for (CarteInondation uneCarte : defausseInondation) {
+            piocheInondation.push(uneCarte);
+        }*/
+        //defausseInondation.clear();
         fenetreJeu.viderDefausseInondation(piocheInondation.size());
+        System.out.println("taile apres empiler : " + piocheInondation.size());
     }
 
     public void melangerPiocheOrange(Stack<CarteOrange> defausseOrange) { //transforme et mélange la défausse orange en une nouvelle pioche
@@ -522,10 +528,13 @@ public class Controleur implements Observateur {
     }
 
     public void piocherInondation() {
-        CarteInondation CarteSauv = new CarteInondation();
+        CarteInondation carteSauv = new CarteInondation();
         Tuile tuileSauv = new Tuile();
-        CarteSauv.setTuile(tuileSauv);
-        tuileSauv = piocheInondation.pop().getTuile();
+        //CarteSauv.setTuile(tuileSauv);
+        //tuileSauv = piocheInondation.pop().getTuile();
+        carteSauv = piocheInondation.pop();
+        tuileSauv = carteSauv.getTuile();
+        System.out.println("nom tuile courante : " + tuileSauv.getNom().toString());
 
         for (Tuile tuile : grille.getTuilesPure().values()) {
             if (tuile.equals(tuileSauv)) {
@@ -533,17 +542,18 @@ public class Controleur implements Observateur {
                 fenetreJeu.setTuile(tuile);
                 fenetreJeu.piocherInondation(tuile, piocheInondation.size());
                 if (tuile.getEtat() != EtatTuile.COULEE) {
-                    defausseInondation.push(CarteSauv);
+                    defausseInondation.push(carteSauv);
                 }
 
             }
         }
-        if (piocheInondation.isEmpty()) {
-            empilerDefausseInondation();
-        }
+        
         if (avecFinJeu) {
             verifFinInondation(tuileSauv);
             verifDéfaiteNiveauEau();
+        }
+        if (piocheInondation.isEmpty()) {
+            empilerDefausseInondation();
         }
     }
 
@@ -987,6 +997,7 @@ public class Controleur implements Observateur {
                 break;
 
             case NOUVELLE_PARTIE:
+                fenetreFin.visible(false);
                 Controleur controleur = new Controleur();
                 break;
         }
@@ -1002,15 +1013,18 @@ public class Controleur implements Observateur {
                 fenetreInfo.setVisible(false);
             } else if (tuileCourante.isTuileTresor()) { //si c'est une tuile trésor
                 if (tresorsRecuperables.contains(tuileCourante.getCaseTresor())) { //si le trésor n'est pas encore recup
-                    for (Tuile tuile : tuiles.values()) {
-                        if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
-                            fenetreFin = new FenetreFin(false);
-                            fenetreFin.addObservateur(this);
-                            fenetreFin.setTextInfoJeu("\n Perdu ! Un des trésors est \n \n irrécupérable");
+                    for (Tuile tuile : grille.getTuiles().values()) {
+                        if (tuile.getNom() != null && tuile.isTuileTresor()) {
+                           if (tuile.getCaseTresor().equals(tuileCourante.getCaseTresor()) && tuile.getEtat().equals(Utils.EtatTuile.COULEE) && !tuile.equals(tuileCourante)) { //si c'est le meme type trésor et c'est coulée mais pas la meme tuile
+                                fenetreFin = new FenetreFin(false);
+                                fenetreFin.addObservateur(this);
+                                fenetreFin.setTextInfoJeu("\n Perdu ! Un des trésors est \n \n irrécupérable");
 
-                            fenetreJeu.setVisible(false);
-                            fenetreInfo.setVisible(false);
+                                fenetreJeu.setVisible(false);
+                                fenetreInfo.setVisible(false);
+                            } 
                         }
+                        
                     }
                 }
             } else if (tuileCourante.isCaseOccupee()) { //si il y a quelqu'un sur le tuile
@@ -1023,13 +1037,14 @@ public class Controleur implements Observateur {
                         Collections.shuffle(sauve);
                         effectuerDeplacement(joueur, sauve.get(0));
                     } else {                        // si c'est pas un pilote alors on tente un déplacement normale
-                        ArrayList<Tuile> sauve = null;
+                        ArrayList<Tuile> sauve = new ArrayList<>();
                         sauve.addAll(joueur.getRole().getTuilesDeplacementPossible(grille).values());
                         if (sauve.isEmpty()) {      //si il n'a nulle part où aller
                             boolean aCarteHelico = false;
                             for (CarteOrange carte : joueur.getMainJoueur()) { //on regarde toutes les cartes
                                 if (carte.getTypeClasse().equals("Helicopter")) { //verif si il a une carte helico
                                     aCarteHelico = true;
+                                    defausserCarte(joueur, carte);
                                 }
                             }
                             if (aCarteHelico) { //si il a une carte hélico
