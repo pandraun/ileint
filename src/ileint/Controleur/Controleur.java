@@ -49,7 +49,10 @@ import view.Observateur;
  */
 public class Controleur implements Observateur {
 
-    private boolean hasard = false;
+    private final boolean hasard = false;
+    private final boolean avecFinJeu = false;
+    private final boolean avecInondation = false;
+    private final boolean testRecup = false;
 
     private int niveauEau;
     private Stack<CarteInondation> piocheInondation; // 0..24
@@ -106,10 +109,10 @@ public class Controleur implements Observateur {
         tresorsRecuperables.add(TypeTresor.CRISTAL);
         tresorsRecuperables.add(TypeTresor.PIERRE);
 
-        toutNomAventurier.add("Pilote");
+        toutNomAventurier.add("Messager");
         toutNomAventurier.add("Ingenieur");
         toutNomAventurier.add("Explorateur");
-        toutNomAventurier.add("Messager");
+        toutNomAventurier.add("Pilote");
         toutNomAventurier.add("Navigateur");
         toutNomAventurier.add("Plongeur");
 
@@ -293,7 +296,7 @@ public class Controleur implements Observateur {
         }
 
         for (Joueur unJoueur : joueurs) {
-            for (int i = 0; i < 2; i++) {  //DEBUG
+            for (int i = 0; i < 6; i++) {  //DEBUG
                 if (piocheOrange.peek().getTypeClasse().equals("MontéeEau")) {
                     defausseOrange.push(piocheOrange.pop());
                     i--;
@@ -304,6 +307,15 @@ public class Controleur implements Observateur {
                 }
             }
         }
+        
+        if (testRecup) {
+            joueurs.get(0).addCarteMainJoueur(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
+            joueurs.get(0).addCarteMainJoueur(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
+            joueurs.get(0).addCarteMainJoueur(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
+            joueurs.get(0).addCarteMainJoueur(new Tresor(EmplacementCarte.PIOCHE, TypeTresor.CALICE));
+        }
+        
+        
         joueurCourant = joueurs.get(0);
         if (joueurCourant.getRole().getNom().equals("Pilote")) {
             piloteSpe = true;
@@ -457,6 +469,7 @@ public class Controleur implements Observateur {
             fenetreJeu.piocherCarteOrange(joueurCourant, piocheOrange.peek(), piocheOrange.size() - 1);
         }
         piocheOrange.pop();
+        melangerPiocheOrange(defausseOrange); //effectue le test seul
     }
 
     public void defausserCarte(Joueur joueur, CarteOrange carte) {
@@ -528,9 +541,10 @@ public class Controleur implements Observateur {
         if (piocheInondation.isEmpty()) {
             empilerDefausseInondation();
         }
-        
-        verifFinInondation(tuileSauv);
-        verifDéfaiteNiveauEau();
+        if (avecFinJeu) {
+            verifFinInondation(tuileSauv);
+            verifDéfaiteNiveauEau();
+        }
     }
 
     public void joueurSuivant() {
@@ -564,12 +578,18 @@ public class Controleur implements Observateur {
         TypeTresor tresorRecuperableCase = joueur.getEmplacementJoueur().getCaseTresor();
         int compteur = 0;
 
-        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes            
-            if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur < 4) {
-                joueur.getMainJoueur().remove(uneCarteOrange);
-                compteur++;
+        ArrayList<CarteOrange> mainSauv = new ArrayList<>();
+        for (CarteOrange uneCarteOrange : joueur.getMainJoueur()) { // récupère les 4 premières cartes trésor conrrespondantes      
+            if (uneCarteOrange.getTypeTresor() != null) {
+                if (uneCarteOrange.getTypeTresor().equals(tresorRecuperableCase) && compteur < 4) {
+                    //joueur.getMainJoueur().remove(uneCarteOrange);
+                    mainSauv.add(uneCarteOrange);
+                    compteur++;
+                }
             }
         }
+        joueur.getMainJoueur().removeAll(mainSauv);
+        
         tresorsRecuperables.remove(tresorRecuperableCase);
     }
 
@@ -847,7 +867,7 @@ public class Controleur implements Observateur {
                 } else if (messageSauv.type.equals(TypesMessages.TROP_CARTE)) {
                     defausserCarte(joueurCourant, m.carteSelectionne);
 
-                    melangerPiocheOrange(defausseOrange); //effectue le test seul
+                    
 
                     if (!isTropDeCartes()) {
                         fenetreInfo.cliquableDefaut();
@@ -1088,7 +1108,9 @@ public class Controleur implements Observateur {
 
     public void inondation() {
         for (int i = 0; i < eauAPiocher(); i++) {
-            piocherInondation();
+            if (avecInondation) {
+                piocherInondation();
+            }
         }
         transitionTour();
     }
@@ -1105,6 +1127,7 @@ public class Controleur implements Observateur {
 
         if (joueurCourant.getRole().getNom().equals("Pilote")) {
             piloteSpe = true;
+            fenetreInfo.boutonSpeciale(joueurCourant.getRole().getNom());
         }
 
         if (joueurCourant.getRole().getNom().equals("Ingenieur")) {

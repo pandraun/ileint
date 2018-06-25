@@ -83,11 +83,15 @@ public class VueMain extends JPanel {
         int compteur = 0;
 
         for (CarteOrange carte : cartes) {
-            if (carte.getTypeTresor().equals(type) && compteur < 4) {
-                cartes.remove(carte);
-                compteur++;
+            if (carte.getTypeTresor() != null) {
+                if (carte.getTypeTresor().equals(type) && compteur < 4) {
+                    cartes.remove(carte);
+                    compteur++;
+                }
             }
+            
         }
+        repaint();
     }
 
     public CarteOrange getCarte(int x, int y) {
