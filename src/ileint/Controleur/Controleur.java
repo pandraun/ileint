@@ -752,9 +752,12 @@ public class Controleur implements Observateur {
                     if (messageSauv.carteSelectionne != null) {
                         if (messageSauv.carteSelectionne.getTypeClasse().equals("Helicoptere")) {
                             effectuerDeplacement(joueurCourant, m.tuileSelectionne);
+                            defausserCarte(joueurCourant, messageSauv.carteSelectionne);
 
                         } else if (messageSauv.carteSelectionne.getTypeClasse().equals("SacDeSable")) {
                             effectuerAssechement(m.tuileSelectionne);
+                            
+                            defausserCarte(joueurCourant, messageSauv.carteSelectionne);
                         }
 
                         defausserCarte(joueurCourant, messageSauv.carteSelectionne);
