@@ -33,39 +33,50 @@ public class Plongeur extends Aventurier {
     
     @Override
     public HashMap<Coordonnee, Tuile> getTuilesDeplacementPossible(Grille g) { 
-        HashMap<Coordonnee, Tuile> tuilesAVisiter = new HashMap<>();
-        HashMap<Coordonnee, Tuile> tuilesAccessibles = new HashMap<>();
-        HashMap<Coordonnee, Tuile> tuilesEau = new HashMap<>();
-
-        tuilesAVisiter = g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
+        HashMap<Coordonnee, Tuile> tuilesPassage = new HashMap<>();
+        HashMap<Coordonnee, Tuile> tuilesAccessible = new HashMap<>();
+        HashMap<Coordonnee, Tuile> tuilesArret = new HashMap<>();
+        int nbTuileVerif = 100;
         
-        while (tuilesAVisiter.size() > 0) {
-            
-            for (Tuile uneTuile : tuilesAVisiter.values()) {
-                
-                switch (uneTuile.getEtat()) {
+        tuilesAccessible = g.getCasesLateralesDeplacement(joueur.getEmplacementJoueur());
+        
+        do {
+        
+        for (Tuile uneTuile : tuilesAccessible.values()) {
+            switch (uneTuile.getEtat()) {
                     case INONDEE:
                         // si tuile inondée trouvée -> on l'ajoute
-                        tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
-                        tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
-                        break;
-                    case ASSECHEE:
-                        tuilesAccessibles.put(uneTuile.getCoordonnee(), uneTuile);
+                        tuilesPassage.put(uneTuile.getCoordonnee(), uneTuile);
+                        tuilesArret.put(uneTuile.getCoordonnee(), uneTuile);
                         break;
                     case COULEE:
-                        tuilesEau.put(uneTuile.getCoordonnee(), uneTuile);
+                        tuilesPassage.put(uneTuile.getCoordonnee(), uneTuile);
                         break;
                     default:
+                        tuilesArret.put(uneTuile.getCoordonnee(), uneTuile);
+                        nbTuileVerif--;
                         break;
                 }
             }
-             tuilesAVisiter = tuilesEau;
-             
-            for (Tuile uneTuile : tuilesAVisiter.values()) {
-                tuilesAVisiter.putAll(g.getCasesLateralesDeplacement(uneTuile));
+        
+        for (Tuile uneTuile : tuilesPassage.values()) {
+            tuilesAccessible.putAll(g.getCasesLateralesDeplacement(uneTuile));
+        }
+            
+        }while (nbTuileVerif > 0);
+        
+        //tuilesArret.remove(joueur.getEmplacementJoueur());
+        HashMap<Coordonnee, Tuile> tuileSauv = new HashMap<>();
+        for (Tuile tuile : tuilesArret.values()) {
+            if (!tuile.equals(joueur.getEmplacementJoueur())) {
+                tuileSauv.put(tuile.getCoordonnee(), tuile);
             }
         }
-        return tuilesAccessibles;
+        return tuileSauv;
+        
+        
+        
+
     }
     
     @Override
